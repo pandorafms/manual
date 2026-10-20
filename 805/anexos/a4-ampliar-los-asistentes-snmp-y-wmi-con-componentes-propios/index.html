@@ -1,0 +1,4865 @@
+<!DOCTYPE html><html lang="es" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentación de producto de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/805/anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/">
+      
+      
+        <link rel="prev" href="../a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/">
+      
+      
+        <link rel="next" href="../../parte-12/12.1-que-es-este-faq/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../en/anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>4. Ampliar los asistentes SNMP y WMI con componentes propios - Pandora FMS — Documentación de producto</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  Estás viendo una versión que no es la vigente (una versión anterior o la
+  compilación diaria <code>develop</code>).
+  <a href="../../..">
+    <strong>Ir a la última versión publicada.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-header__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentación de producto
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4. Ampliar los asistentes SNMP y WMI con componentes propios
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentación de producto
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 01. Arranque rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 01. Arranque rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introducción y arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Política de versiones y soporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Actualizaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licenciamiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Monitorización con EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestor de credenciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización y descubrimiento automático con Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Descubrimiento de redes con Host y dispositivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tareas de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de redes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Monitorización de tráfico con netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Colecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Políticas de monitorización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Monitorización de aplicaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Monitorización de contenedores y orquestadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Monitorización de experiencia de usuario (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Monitorización entornos Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Monitorización entornos Virtualizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Monitorización IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Monitorización de APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Recolección y monitorización de logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Control remoto con RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribución automática de software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ejecución remota de scripts y comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Parcheado de sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestión de configuración de equipos de red (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestión de IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Paradas planificadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integración de activos con ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Reconciliación de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Grupos, perfiles y tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Autenticación externa y centralización de accesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Seguridad y visibilidad avanzada (Enterprise ACL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Buenas prácticas de etiquetado / naming / tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Dashboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Informes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización de negocio y servicios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola de eventos centralizada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertas y notificaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consolas Visuales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Mapas topológicos de red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestión de incidencias / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Análisis Predictivo / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Mapas GIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitecturas Distribuidas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidores satélite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribución e instalación automática de agentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de datos de histórico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mecanismos de autoprovisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportación de datos a servidores externos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimización de la Base de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Backup y restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Alta Disponibilidad (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 07. Seguridad y monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 07. Seguridad y monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitectura de seguridad de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Análisis de vulnerabilidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Hardening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de seguridad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Auditoría interna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integraciones dinámicas de IoC (MISP) y creación de reglas propias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Compliance: NIS2, ISO 27001 y ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción e instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatización de tareas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. A detallar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Referencia completa de configuración del EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia completa de configuración de la consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Referencia completa de configuración del servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Referencia completa de Tentacle (servidor y cliente)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Cifrado de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Creación de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Creación de plugins locales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Creación de plugins remotos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Creación de extensiones de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Integración y automatización. Webhooks y API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Descubrimiento automático avanzado (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Troubleshooting con Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Análisis de volumetría y diseños para alta capacidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Cheat Sheet de comandos rápidos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 10. Base de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 10. Base de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Esquema de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 11. Anexos técnicos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 11. Anexos técnicos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Actualización de versiones de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glosario de términos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilidad y migración a la nueva arquitectura de servidores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ampliar los asistentes SNMP y WMI con componentes propios
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ampliar los asistentes SNMP y WMI con componentes propios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#que-son-los-componentes-del-asistente-y-cuando-crearlos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué son los componentes del asistente y cuándo crearlos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registrar-un-fabricante-pen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registrar un fabricante (PEN)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-un-componente-del-asistente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear un componente del asistente
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes-snmp-con-oid-estatica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes SNMP con OID estática
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes-snmp-con-oid-dinamica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes SNMP con OID dinámica
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes-snmp-calculados-con-un-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes SNMP calculados con un plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes-wmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes WMI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia-de-campos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia de campos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia-de-macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia de macros
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qué es este FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor y base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agentes y sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola web y licencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Módulos y red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertas y eventos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Informes, logs y correo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Entornos grandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatización y plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#que-son-los-componentes-del-asistente-y-cuando-crearlos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué son los componentes del asistente y cuándo crearlos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registrar-un-fabricante-pen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registrar un fabricante (PEN)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-un-componente-del-asistente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear un componente del asistente
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes-snmp-con-oid-estatica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes SNMP con OID estática
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes-snmp-con-oid-dinamica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes SNMP con OID dinámica
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes-snmp-calculados-con-un-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes SNMP calculados con un plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes-wmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Componentes WMI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia-de-campos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia de campos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia-de-macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia de macros
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios">Ampliar los asistentes SNMP y WMI con componentes propios<a class="headerlink" href="#ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios" title="Permanent link">¶</a></h1>
+<p>Los asistentes SNMP y WMI de la ficha del agente (ver
+<a href="../../parte-2/2.6-monitorizacion-de-redes/#asistente-snmp">Asistente SNMP</a> y
+<a href="../../parte-2/2.6-monitorizacion-de-redes/#windows-sin-agente-wmi">Windows sin agente: WMI</a>)
+no traen una lista fija de módulos: proponen lo que encuentran en un catálogo
+de <strong>componentes del asistente</strong>. Este anexo explica cómo ampliar ese
+catálogo con fabricantes y componentes propios, para los dos asistentes.</p>
+<h2 id="que-son-los-componentes-del-asistente-y-cuando-crearlos">Qué son los componentes del asistente y cuándo crearlos<a class="headerlink" href="#que-son-los-componentes-del-asistente-y-cuando-crearlos" title="Permanent link">¶</a></h2>
+<p>Un componente del asistente es una plantilla que describe qué consultar en el
+equipo y cómo convertirlo en un módulo. Cuando el asistente explora un
+equipo, no improvisa: recorre este catálogo y ofrece los componentes que
+encajan con lo que ha encontrado (el fabricante, en SNMP) agrupados en
+bloques según lo que miden.</p>
+<p>Merece la pena crear uno propio en tres casos: un fabricante que el
+asistente no reconoce todavía (el error «PEN no está registrado» de
+<a href="../../parte-2/2.6-monitorizacion-de-redes/#asistente-snmp">Asistente SNMP</a>),
+un OID propietario que se quiere tener siempre a mano sin buscarlo cada vez,
+o un dato que no sale de un solo OID sino de combinar varios. La diferencia
+con un <a href="../../parte-2/2.6-monitorizacion-de-redes/#componentes-de-red-no-empezar-de-cero">componente de red
+normal</a>
+es el origen: aquel se aplica a mano, eligiéndolo en el editor de un módulo;
+un componente del asistente lo propone el asistente después de explorar el
+equipo, y uno solo puede acabar generando muchos módulos a la vez, uno por
+cada fila que encuentre.</p>
+<div class="admonition example">
+<p class="admonition-title">Cuándo crear uno y cuándo no</p>
+<p>Un switch que el asistente SNMP ya reconoce, pero al que le falta un
+sensor de temperatura propietario del fabricante: no hace falta ningún
+componente nuevo, con <a href="../../parte-2/2.6-monitorizacion-de-redes/#modulos-snmp">Módulos
+SNMP</a> y el OID a
+mano es suficiente para ese caso puntual. Si en cambio la misma sonda de
+temperatura va a repetirse en decenas de equipos del mismo fabricante,
+un componente del asistente evita crearla a mano en cada uno.</p>
+</div>
+<h2 id="registrar-un-fabricante-pen">Registrar un fabricante (PEN)<a class="headerlink" href="#registrar-un-fabricante-pen" title="Permanent link">¶</a></h2>
+<p>El asistente SNMP identifica el fabricante del equipo por su <strong>PEN</strong>
+(<em>Private Enterprise Number</em>): un número que cada fabricante registra ante
+IANA y que ocupa una posición fija dentro del <code>sysObjectID</code> que declara el
+equipo. Si Pandora FMS no tiene ese PEN dado de alta, el asistente se detiene
+con el aviso «PEN no está registrado» y no propone ningún componente, aunque
+el equipo responda perfectamente por SNMP.</p>
+<p>Registrar el PEN es el primer paso, en <strong>Gestión → Configuración →
+Plantillas → Números privados de empresa</strong> (<em>Private Enterprise Numbers</em>),
+con tres campos: <strong>PEN</strong> (el número que declara el equipo), <strong>Fabricante</strong>
+(el nombre corto que después identifica sus componentes) y <strong>Descripción</strong>.
+Registrar el PEN solo pone nombre al fabricante; no crea ni un solo módulo
+por sí solo, eso lo hacen los componentes del siguiente apartado. Requiere
+permiso de gestión de la consola.</p>
+<p>La instalación trae 27 fabricantes ya registrados, pero solo algunos traen
+además componentes del asistente: Cisco, HP, Juniper, F5, Fortinet y dos
+números genéricos para los equipos que exponen su información con
+Net-SNMP/UCD, a los que se suman los componentes genéricos (<strong>All</strong>) que se
+ofrecen a cualquier equipo. El resto de fabricantes registrados de fábrica
+(D-Link, MikroTik, Alcatel-Lucent, Ubiquiti, Allied Telesis, IBM, Dell,
+Apple, Oracle, Hitachi, Synology, Fujitsu, entre otros) ya no hacen que el
+asistente se detenga, pero solo reciben esos componentes genéricos hasta que
+se les creen componentes propios. Un fabricante que no esté en la lista hay
+que darlo de alta a mano, como en el ejemplo siguiente.</p>
+<div class="admonition example">
+<p class="admonition-title">Dar de alta un SAI que el asistente no reconoce</p>
+<p>Un SAI declara un PEN que no está en el catálogo de fábrica. Se registra
+con <strong>PEN</strong> su número IANA, <strong>Fabricante</strong> <code>mi-sai</code> y una descripción
+breve. A partir de ahí el asistente ya no se detiene por PEN no
+registrado, aunque de momento no proponga ningún módulo: eso llega con el
+primer componente del apartado siguiente.</p>
+</div>
+<h2 id="crear-un-componente-del-asistente">Crear un componente del asistente<a class="headerlink" href="#crear-un-componente-del-asistente" title="Permanent link">¶</a></h2>
+<p>Los componentes del asistente se crean en <strong>Gestión → Configuración →
+Plantillas → Componentes remotos</strong>, eligiendo el tipo de componente
+asistente. Comparten con un componente de red normal los campos habituales
+—habilitado, <strong>Añadir por defecto</strong> (si aparece ya marcado al abrir el
+asistente), nombre, tipo de dato, grupo del componente (el bloque en el que
+aparece agrupado), unidad y umbrales, descripción— más el <strong>Protocolo de
+módulo</strong> (SNMP o WMI) y el <strong>ID del fabricante</strong>: un fabricante concreto ya
+registrado, o <strong>All</strong>, que ofrece el componente para cualquier equipo sin
+importar su PEN.</p>
+<p>Dos campos deciden el resto del formulario y qué clase de módulo va a
+proponer el componente:</p>
+<ul>
+<li><strong>Scan type</strong> (tipo de escaneo): <strong>Fixed</strong> (fijo) crea un único módulo;
+  <strong>Dynamic</strong> (dinámico) recorre una tabla del equipo y crea un módulo por
+  cada fila que encuentre, sin saber de antemano cuántas van a ser.</li>
+<li><strong>Execution type</strong> (tipo de ejecución): <strong>Network</strong> (red) hace que el
+  propio servidor lea el valor directamente, como un módulo SNMP o WMI
+  normal; <strong>Plugin</strong> delega el cálculo en un plugin de servidor o, si el
+  asistente se lanza desde un servidor satélite, en un comando <code>module_exec</code>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Escaneo</th>
+<th>Ejecución</th>
+<th>Qué crea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fixed</td>
+<td>Network</td>
+<td>Un único módulo que lee un OID (o una consulta WMI) directamente</td>
+</tr>
+<tr>
+<td>Fixed</td>
+<td>Plugin</td>
+<td>Un único módulo cuyo valor calcula un plugin, a partir de uno o varios OID o campos</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Network</td>
+<td>Un módulo por cada fila de una tabla, leído directamente</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Plugin</td>
+<td>Un módulo por cada fila de una tabla, calculado por un plugin</td>
+</tr>
+</tbody>
+</table>
+<p>Duplicar un componente existente con la acción <strong>Duplicate</strong> de su listado es
+el punto de partida más rápido para uno nuevo parecido; no hay importación
+ni exportación de componentes entre instalaciones.</p>
+<h2 id="componentes-snmp-con-oid-estatica">Componentes SNMP con OID estática<a class="headerlink" href="#componentes-snmp-con-oid-estatica" title="Permanent link">¶</a></h2>
+<p>Combinación escaneo fijo + ejecución de red, la más simple: <strong>OID del
+valor</strong> es el OID final que se va a leer, igual que en un módulo SNMP
+creado a mano. <strong>Nombre del OID</strong> es opcional y, si se rellena, su valor
+sustituye a la macro <code>_nameOID_</code> en el nombre del módulo.</p>
+<div class="admonition example">
+<p class="admonition-title">Carga de batería de un SAI</p>
+<p>Con el fabricante <code>mi-sai</code> ya registrado, un componente fijo llamado
+«Carga de batería» con el OID propietario de carga en <strong>OID del valor</strong>,
+umbrales de advertencia y crítico ya rellenos y grupo del componente
+«Energía». En cuanto se lanza el asistente SNMP sobre un agente de ese
+fabricante, el componente aparece en su bloque correspondiente, listo
+para marcar.</p>
+</div>
+<h2 id="componentes-snmp-con-oid-dinamica">Componentes SNMP con OID dinámica<a class="headerlink" href="#componentes-snmp-con-oid-dinamica" title="Permanent link">¶</a></h2>
+<p>Combinación escaneo dinámico + ejecución de red: <strong>OID del valor</strong> y
+<strong>Nombre del OID</strong> dejan de ser OID finales para pasar a ser dos ramas
+(<em>subárboles</em>) del equipo. El asistente recorre las dos por completo,
+cruza los resultados por índice —el mismo índice en ambas ramas corresponde
+a la misma fila— y propone un módulo por cada índice encontrado, con el
+nombre de esa fila sustituyendo a <code>_nameOID_</code> y el propio índice añadido al
+final del <strong>OID del valor</strong>.</p>
+<div class="admonition example">
+<p class="admonition-title">Un módulo por sensor de temperatura</p>
+<p>Una tabla propietaria expone, para cada sensor de temperatura del
+equipo, su nombre en una rama y su valor en otra. Un componente dinámico
+con <strong>Nombre del OID</strong> apuntando a la rama de nombres y <strong>OID del
+valor</strong> a la rama de valores crea, tras la exploración, un módulo por
+cada sensor encontrado, cada uno con el nombre real de su sensor.</p>
+</div>
+<h2 id="componentes-snmp-calculados-con-un-plugin">Componentes SNMP calculados con un plugin<a class="headerlink" href="#componentes-snmp-calculados-con-un-plugin" title="Permanent link">¶</a></h2>
+<p>Para un dato que no sale de leer un solo OID, la ejecución pasa a <strong>Plugin</strong>.
+El formulario añade entonces cuatro cosas:</p>
+<ul>
+<li><strong>OID de macros</strong>: una entrada por cada OID que participa en el cálculo,
+  que se referencia en el resto del formulario como <code>_oid_1_</code>, <code>_oid_2_</code>…</li>
+<li><strong>Operación de valores</strong>: la fórmula que combina esos valores, escrita
+  con las mismas macros <code>_oid_N_</code>. Solo sirve para enseñar el valor en la
+  vista previa del asistente; el módulo creado no la usa.</li>
+<li><strong>Plugin de servidor</strong>: el plugin que hace el cálculo de verdad cada vez
+  que se ejecuta el módulo. Los dos de fábrica comparten los mismos campos
+  de conexión (<code>_address_</code>, <code>_port_</code>, <code>_version_</code>, <code>_community_</code> y las
+  credenciales SNMPv3), pero difieren en lo que preguntan a continuación:<ul>
+<li><strong>Wizard SNMP module</strong>, para valores numéricos: además de la conexión,
+  pide la <strong>lista de OID</strong> (<code>_oid_1_,_oid_2_</code>…) y la <strong>Operation</strong>, la
+  fórmula que combina esos valores escrita como <code>_o1_</code>, <code>_o2_</code>… según
+  la posición de cada OID en la lista.</li>
+<li><strong>Wizard SNMP process</strong>, para saber si un proceso está en ejecución:
+  en vez de una lista de OID, pide un único campo <strong>Process</strong> con el
+  nombre del proceso (sensible a mayúsculas); el plugin comprueba por
+  sí mismo, contra el árbol SNMP de procesos del sistema, si aparece
+  en ejecución.</li>
+</ul>
+</li>
+<li><strong>Ejecución de satélite</strong>: el comando equivalente para cuando el asistente
+  se lanza desde un <a href="../../parte-6/6.2-servidores-satelite/">servidor
+  satélite</a>, que usa los plugins
+  <code>wizard_snmp_module</code> y <code>wizard_snmp_process</code> instalados en el satélite.</li>
+</ul>
+<p>Como la vista previa y la ejecución real usan campos distintos, la fórmula
+de <strong>Operación de valores</strong> y la de <strong>Operation</strong> deben decir lo mismo; si
+no, el asistente propone un valor y el módulo acaba midiendo otro.</p>
+<p>En escaneo dinámico, cada <code>_oid_N_</code> deja de ser un OID final para ser una
+rama que también se recorre por índice, igual que en el apartado anterior;
+el asistente calcula un valor —y por tanto un módulo— por cada fila
+encontrada.</p>
+<div class="admonition example">
+<p class="admonition-title">Porcentaje de uso de una partición</p>
+<p>Dos OID de una tabla de almacenamiento, espacio usado y espacio total,
+se registran en <strong>OID de macros</strong> como <code>_oid_1_</code> y <code>_oid_2_</code>.
+<strong>Operación de valores</strong> se rellena con <code>(_oid_1_ * 100) / _oid_2_</code>,
+para que la vista previa ya enseñe el porcentaje. En <strong>Plugin de
+servidor</strong> se elige «Wizard SNMP module», con <code>_oid_1_,_oid_2_</code> en la
+lista de OID y <code>(_o1_ * 100) / _o2_</code> en <strong>Operation</strong>; los campos de
+conexión se dejan con sus macros. Cada módulo creado calcula el
+porcentaje de uso en cada ejecución, sin posprocesado.</p>
+</div>
+<h2 id="componentes-wmi">Componentes WMI<a class="headerlink" href="#componentes-wmi" title="Permanent link">¶</a></h2>
+<p>El asistente WMI usa el mismo mecanismo de componentes, con su propio juego
+de campos: <strong>Clase WMI</strong> (la clase que se va a consultar), <strong>Campo de clave
+de consulta</strong> (qué columna de la respuesta identifica cada fila) y <strong>Campos
+extra de consulta</strong> (el resto de columnas que se necesitan). Cada columna
+queda disponible como una macro <code>_NOMBRECAMPO_</code> con el valor de esa fila.
+Igual que en SNMP, dinámico significa un módulo por cada fila que devuelva
+la consulta de escaneo.</p>
+<p>Los <strong>Filtros de consulta</strong> acotan, por un lado, qué filas trae la
+exploración y, por otro, cómo se calcula el valor del módulo en ejecución
+de red:</p>
+<ul>
+<li><strong>Field value</strong>: el número de la columna de la respuesta cuyo valor pasa
+  a ser el valor del módulo (<code>0</code> es el propio campo clave; <code>1</code> en adelante,
+  cada campo extra de consulta por su orden).</li>
+<li><strong>Key string</strong>: opcional. Si se rellena, el valor del módulo deja de ser
+  el dato en crudo y pasa a ser <code>1</code> o <code>0</code> según si coincide con esta
+  cadena. Este filtro no se aplica cuando el asistente se lanza desde un
+  <a href="../../parte-6/6.2-servidores-satelite/">servidor satélite</a>: el módulo
+  generado en el satélite siempre devuelve el dato en crudo de <strong>Field
+  value</strong>, aunque se haya rellenado <strong>Key string</strong>.</li>
+</ul>
+<p>En ejecución de plugin, en vez de estos dos filtros aparecen:</p>
+<ul>
+<li><strong>Value operation</strong>: la fórmula que combina los campos de la fila con las
+  macros <code>_f1_</code>, <code>_f2_</code>… (una por cada campo extra de consulta, por orden).</li>
+<li><strong>Server plugin</strong>: el plugin que hace el cálculo; el de fábrica es
+  «Wizard WMI module», con la macro <code>_class_wmi_</code> para la clase consultada
+  y la misma familia <code>_f1_</code>, <code>_f2_</code>… en su campo <strong>Operation</strong>.</li>
+<li><strong>Satellite execution</strong>: el comando equivalente para cuando el asistente
+  se lanza desde un servidor satélite, con el plugin <code>wizard_wmi_module</code>
+  instalado allí.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Espacio libre de cada disco local</p>
+<p>Componente WMI dinámico sobre la clase <code>Win32_LogicalDisk</code>, con filtro
+de consulta <code>DriveType = 3</code> (solo discos locales) y <code>_DeviceID_</code> en el
+nombre del módulo: el asistente crea, en cada equipo Windows, un módulo
+de espacio libre por cada disco local que encuentre, con la letra de
+unidad en el propio nombre.</p>
+</div>
+<h2 id="referencia-de-campos">Referencia de campos<a class="headerlink" href="#referencia-de-campos" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Protocolo</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Añadir por defecto</td>
+<td>Común</td>
+<td>El componente aparece ya marcado al abrir el asistente</td>
+</tr>
+<tr>
+<td>Grupo del componente</td>
+<td>Común</td>
+<td>Bloque en el que se agrupa el componente dentro del asistente</td>
+</tr>
+<tr>
+<td>Protocolo de módulo</td>
+<td>Común</td>
+<td>SNMP o WMI</td>
+</tr>
+<tr>
+<td>ID del fabricante</td>
+<td>SNMP</td>
+<td>Fabricante (PEN registrado) al que se ofrece el componente, o <code>All</code> para cualquiera</td>
+</tr>
+<tr>
+<td>Scan type</td>
+<td>Común</td>
+<td><code>Fixed</code> (un módulo) o <code>Dynamic</code> (un módulo por fila)</td>
+</tr>
+<tr>
+<td>Execution type</td>
+<td>Común</td>
+<td><code>Network</code> (lectura directa) o <code>Plugin</code> (cálculo delegado)</td>
+</tr>
+<tr>
+<td>Nombre del OID</td>
+<td>SNMP</td>
+<td>OID (o rama, en dinámico) cuyo valor sustituye a <code>_nameOID_</code> en el nombre</td>
+</tr>
+<tr>
+<td>OID del valor</td>
+<td>SNMP, red</td>
+<td>OID final (o rama, en dinámico) que se lee</td>
+</tr>
+<tr>
+<td>OID de macros</td>
+<td>SNMP, plugin</td>
+<td>Lista de OID (o ramas) que participan en la operación, como <code>_oid_N_</code></td>
+</tr>
+<tr>
+<td>Operación de valores</td>
+<td>SNMP, plugin</td>
+<td>Fórmula con <code>_oid_N_</code> que calcula el valor mostrado en la vista previa; no se usa en el módulo creado</td>
+</tr>
+<tr>
+<td>Plugin de servidor</td>
+<td>SNMP, plugin</td>
+<td>Plugin que calcula el valor en cada ejecución del módulo; sus campos admiten las macros de la tabla siguiente</td>
+</tr>
+<tr>
+<td>Ejecución de satélite</td>
+<td>SNMP, plugin</td>
+<td>Comando equivalente para cuando el asistente se lanza desde un servidor satélite</td>
+</tr>
+<tr>
+<td>Clase WMI</td>
+<td>WMI</td>
+<td>Clase que se consulta</td>
+</tr>
+<tr>
+<td>Campo de clave de consulta</td>
+<td>WMI</td>
+<td>Columna de la respuesta que identifica cada fila</td>
+</tr>
+<tr>
+<td>Campos extra de consulta</td>
+<td>WMI</td>
+<td>Resto de columnas necesarias de la respuesta</td>
+</tr>
+<tr>
+<td>Filtros de consulta (Scan / Execution)</td>
+<td>WMI</td>
+<td>Condición que acota la exploración y, por separado, la ejecución del módulo</td>
+</tr>
+<tr>
+<td>Field value</td>
+<td>WMI, red</td>
+<td>Número de columna cuyo valor pasa a ser el valor del módulo (<code>0</code> = campo clave)</td>
+</tr>
+<tr>
+<td>Key string</td>
+<td>WMI, red</td>
+<td>Cadena opcional que convierte el valor en <code>1</code>/<code>0</code> según coincidencia; se ignora al ejecutarse desde un servidor satélite</td>
+</tr>
+<tr>
+<td>Value operation</td>
+<td>WMI, plugin</td>
+<td>Fórmula con <code>_f1_</code>, <code>_f2_</code>… que calcula el valor mostrado en la vista previa</td>
+</tr>
+<tr>
+<td>Ejecución de satélite</td>
+<td>WMI, plugin</td>
+<td>Comando equivalente para cuando el asistente se lanza desde un servidor satélite, con el plugin <code>wizard_wmi_module</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="referencia-de-macros">Referencia de macros<a class="headerlink" href="#referencia-de-macros" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Macro</th>
+<th>Se sustituye por</th>
+<th>Dónde vale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_nameOID_</code></td>
+<td>Nombre obtenido de <code>Nombre del OID</code></td>
+<td>Nombre del módulo, componentes SNMP</td>
+</tr>
+<tr>
+<td><code>_oid_N_</code></td>
+<td>En la vista previa, el valor leído; en los campos del plugin y en la ejecución de satélite, el OID de la posición N de <code>OID de macros</code> (con su índice, en dinámico)</td>
+<td><code>Operación de valores</code>, campos del <code>Plugin de servidor</code>, <code>Ejecución de satélite</code></td>
+</tr>
+<tr>
+<td><code>_o1_</code>, <code>_o2_</code>…</td>
+<td>Valor del OID en esa posición de la lista de OID del plugin</td>
+<td>Campo <strong>Operation</strong> del plugin «Wizard SNMP module»</td>
+</tr>
+<tr>
+<td><code>_FIELDNAME_</code></td>
+<td>Valor de la columna <code>FIELDNAME</code> de la fila WMI actual</td>
+<td>Componentes WMI</td>
+</tr>
+<tr>
+<td><code>_class_wmi_</code></td>
+<td>Clase WMI del componente</td>
+<td>Campos del <code>Server plugin</code> y <code>Ejecución de satélite</code>, componentes WMI de plugin</td>
+</tr>
+<tr>
+<td><code>_field_wmi_N_</code></td>
+<td>Valor del campo extra de consulta número N</td>
+<td>Componentes WMI de plugin</td>
+</tr>
+<tr>
+<td><code>_f1_</code>, <code>_f2_</code>…</td>
+<td>Valor del campo extra de consulta en esa posición</td>
+<td><code>Value operation</code> y campo <strong>Operation</strong> del plugin «Wizard WMI module»</td>
+</tr>
+<tr>
+<td><code>_address_</code>, <code>_port_</code></td>
+<td>Dirección y puerto con los que se lanzó el asistente</td>
+<td>Campos del <code>Plugin de servidor</code> y <code>Ejecución de satélite</code> (SNMP y WMI)</td>
+</tr>
+<tr>
+<td><code>_version_</code>, <code>_community_</code></td>
+<td>Versión SNMP y comunidad (v1/v2c)</td>
+<td>Campos del <code>Plugin de servidor</code> y <code>Ejecución de satélite</code> (SNMP)</td>
+</tr>
+<tr>
+<td><code>_sec_level_</code>, <code>_auth_user_</code>, <code>_auth_method_</code>, <code>_auth_pass_</code>, <code>_priv_method_</code>, <code>_priv_pass_</code></td>
+<td>Credenciales SNMPv3 con las que se lanzó el asistente</td>
+<td>Campos del <code>Plugin de servidor</code> y <code>Ejecución de satélite</code> (SNMP)</td>
+</tr>
+<tr>
+<td><code>_namespace_wmi_</code>, <code>_user_wmi_</code>, <code>_pass_wmi_</code></td>
+<td>Espacio de nombres y credenciales WMI con las que se lanzó el asistente</td>
+<td>Campos del <code>Plugin de servidor</code> y <code>Ejecución de satélite</code> (WMI)</td>
+</tr>
+</tbody>
+</table>
+<p>Los dos asistentes también se pueden lanzar sobre una <a href="../../parte-2/2.10-politicas-de-monitorizacion/">política de
+monitorización</a> en vez de
+sobre un agente concreto, con una diferencia importante en cómo se rellenan
+estas macros: <code>_address_</code> se deja tal cual, como macro literal, para que cada
+agente que reciba la política la sustituya por su propia dirección, igual que
+en cualquier otro <a href="../../parte-2/2.6-monitorizacion-de-redes/#macros-en-los-campos-del-modulo">módulo de
+red</a>;
+el resto de macros de conexión —versión, comunidad, credenciales SNMPv3,
+espacio de nombres y credenciales WMI— se sustituyen igualmente por lo que se
+escribió al lanzar el asistente, y quedan fijas en el módulo de política
+resultante. Con una política que se aplica a agentes con comunidades o
+credenciales distintas, conviene revisar esos valores en cada módulo después
+de crearlo.</p>
+<p>Crear el plugin que ejecuta un cálculo propio, en vez de reutilizar los de
+fábrica, se explica en <a href="../../parte-9/9.9-creacion-de-plugins-remotos/">9.9 · Creación de plugins
+remotos</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

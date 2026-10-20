@@ -1,0 +1,6882 @@
+<!DOCTYPE html><html lang="es" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentación de producto de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/805/parte-6/6.2-servidores-satelite/">
+      
+      
+        <link rel="prev" href="../6.1-arquitecturas-distribuidas/">
+      
+      
+        <link rel="next" href="../6.3-command-center/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../en/parte-6/6.2-servidores-satelite/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2. Servidores satélite - Pandora FMS — Documentación de producto</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#servidores-satelite" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  Estás viendo una versión que no es la vigente (una versión anterior o la
+  compilación diaria <code>develop</code>).
+  <a href="../../..">
+    <strong>Ir a la última versión publicada.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-header__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentación de producto
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Servidores satélite
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/parte-6/6.2-servidores-satelite/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentación de producto
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 01. Arranque rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 01. Arranque rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introducción y arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Política de versiones y soporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Actualizaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licenciamiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Monitorización con EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestor de credenciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización y descubrimiento automático con Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Descubrimiento de redes con Host y dispositivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tareas de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de redes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Monitorización de tráfico con netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Colecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Políticas de monitorización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Monitorización de aplicaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Monitorización de contenedores y orquestadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Monitorización de experiencia de usuario (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Monitorización entornos Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Monitorización entornos Virtualizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Monitorización IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Monitorización de APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Recolección y monitorización de logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Control remoto con RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribución automática de software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ejecución remota de scripts y comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Parcheado de sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestión de configuración de equipos de red (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestión de IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Paradas planificadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integración de activos con ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Reconciliación de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Grupos, perfiles y tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Autenticación externa y centralización de accesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Seguridad y visibilidad avanzada (Enterprise ACL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Buenas prácticas de etiquetado / naming / tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Dashboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Informes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización de negocio y servicios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola de eventos centralizada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertas y notificaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consolas Visuales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Mapas topológicos de red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestión de incidencias / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Análisis Predictivo / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Mapas GIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitecturas Distribuidas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidores satélite
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidores satélite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduccion-que-es-y-cuando-usarlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción: qué es y cuándo usarlo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-funciona-por-dentro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona por dentro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-y-puesta-en-marcha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalación y puesta en marcha
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-del-servidor-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración del Servidor satélite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración del Servidor satélite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-fichero-de-configuracion-y-la-configuracion-remota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El fichero de configuración y la configuración remota
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referencia-de-parametros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia de parámetros
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-agentes-en-el-servidor-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creación de agentes en el Servidor satélite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de agentes en el Servidor satélite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desde-la-consola-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desde la consola web
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desde la consola web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gestion-de-agentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestión de agentes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-de-satelites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestión de satélites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desde-un-agente-existente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desde un agente existente
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recon-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recon Task
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichero-de-hosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichero de hosts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alta-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alta manual
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminacion-de-agentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eliminación de agentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Eliminación de agentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desde-la-consola-web_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desde la consola web
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichero-de-hosts_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichero de hosts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recon-task_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recon Task
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modulos-del-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Módulos del satélite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Módulos del satélite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creacion-de-modulos-de-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creación de módulos de satélite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de módulos de satélite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulos-de-tipo-satellite-desde-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Módulos de tipo Satellite desde la consola
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desde-el-fichero-de-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desde el fichero de configuración
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icmp-y-tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ICMP y TCP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WMI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmpv1-y-snmpv2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMPv1 y SNMPv2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmpv3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMPv3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejecucion-remota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejecución remota
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cajas-de-credenciales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cajas de credenciales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#los-modulos-dinamicos-en-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Los módulos dinámicos en la consola
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exec-server-y-tunel-ssh-inverso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exec Server y túnel SSH inverso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exec Server y túnel SSH inverso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-el-exec-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es el Exec Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#habilitarlo-y-usarlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Habilitarlo y usarlo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wizards-de-agente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wizards de Agente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-tunel-ssh-inverso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El túnel SSH inverso
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendimiento-limites-y-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rendimiento, límites y diagnóstico
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rendimiento, límites y diagnóstico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lista-de-exclusion-de-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista de exclusión de SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribución e instalación automática de agentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de datos de histórico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mecanismos de autoprovisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportación de datos a servidores externos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimización de la Base de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Backup y restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Alta Disponibilidad (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 07. Seguridad y monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 07. Seguridad y monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitectura de seguridad de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Análisis de vulnerabilidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Hardening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de seguridad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Auditoría interna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integraciones dinámicas de IoC (MISP) y creación de reglas propias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Compliance: NIS2, ISO 27001 y ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción e instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatización de tareas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. A detallar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Referencia completa de configuración del EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia completa de configuración de la consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Referencia completa de configuración del servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Referencia completa de Tentacle (servidor y cliente)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Cifrado de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Creación de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Creación de plugins locales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Creación de plugins remotos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Creación de extensiones de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Integración y automatización. Webhooks y API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Descubrimiento automático avanzado (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Troubleshooting con Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Análisis de volumetría y diseños para alta capacidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Cheat Sheet de comandos rápidos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 10. Base de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 10. Base de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Esquema de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 11. Anexos técnicos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 11. Anexos técnicos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Actualización de versiones de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glosario de términos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilidad y migración a la nueva arquitectura de servidores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ampliar los asistentes SNMP y WMI con componentes propios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qué es este FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor y base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agentes y sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola web y licencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Módulos y red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertas y eventos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Informes, logs y correo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Entornos grandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatización y plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduccion-que-es-y-cuando-usarlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción: qué es y cuándo usarlo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-funciona-por-dentro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona por dentro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-y-puesta-en-marcha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalación y puesta en marcha
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-del-servidor-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración del Servidor satélite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración del Servidor satélite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-fichero-de-configuracion-y-la-configuracion-remota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El fichero de configuración y la configuración remota
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referencia-de-parametros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia de parámetros
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-agentes-en-el-servidor-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creación de agentes en el Servidor satélite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de agentes en el Servidor satélite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desde-la-consola-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desde la consola web
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desde la consola web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gestion-de-agentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestión de agentes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-de-satelites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestión de satélites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desde-un-agente-existente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desde un agente existente
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recon-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recon Task
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichero-de-hosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichero de hosts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alta-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alta manual
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminacion-de-agentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eliminación de agentes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Eliminación de agentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desde-la-consola-web_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desde la consola web
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichero-de-hosts_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichero de hosts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recon-task_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recon Task
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modulos-del-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Módulos del satélite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Módulos del satélite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creacion-de-modulos-de-satelite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creación de módulos de satélite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de módulos de satélite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulos-de-tipo-satellite-desde-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Módulos de tipo Satellite desde la consola
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desde-el-fichero-de-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desde el fichero de configuración
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icmp-y-tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ICMP y TCP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WMI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmpv1-y-snmpv2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMPv1 y SNMPv2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmpv3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMPv3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejecucion-remota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejecución remota
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cajas-de-credenciales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cajas de credenciales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#los-modulos-dinamicos-en-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Los módulos dinámicos en la consola
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exec-server-y-tunel-ssh-inverso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exec Server y túnel SSH inverso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exec Server y túnel SSH inverso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-el-exec-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es el Exec Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#habilitarlo-y-usarlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Habilitarlo y usarlo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wizards-de-agente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wizards de Agente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-tunel-ssh-inverso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El túnel SSH inverso
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendimiento-limites-y-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rendimiento, límites y diagnóstico
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rendimiento, límites y diagnóstico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lista-de-exclusion-de-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista de exclusión de SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="servidores-satelite">Servidores satélite<a class="headerlink" href="#servidores-satelite" title="Permanent link">¶</a></h1>
+<p>Hay redes que el servidor de Pandora FMS no ve y en las que tampoco se puede
+instalar nada. Un edificio remoto, una planta industrial, la red de un cliente
+al otro lado del enlace: sitios donde no hay ruta desde el servidor y donde
+meter un EndPoint es imposible porque el equipo es un switch, un router, un
+controlador o un Windows cerrado a cal y canto. Un <strong>servidor satélite</strong> es la
+pieza que Pandora FMS pone en ese borde para descubrir qué hay, comprobarlo y
+enviar los datos de vuelta. No necesita base de datos, no tiene interfaz web y
+habla con el servidor con el mismo XML que cualquier otro origen de datos.</p>
+<h2 id="introduccion-que-es-y-cuando-usarlo">Introducción: qué es y cuándo usarlo<a class="headerlink" href="#introduccion-que-es-y-cuando-usarlo" title="Permanent link">¶</a></h2>
+<p>El servidor satélite sirve para descubrir y monitorizar redes y equipos
+remotos. Tres perfiles de equipo, tres protocolos: elementos de red (routers,
+switches, cortafuegos) por SNMP o ICMP; servidores Windows por WMI; servidores
+Linux por SNMP. La elección de qué protocolo usas para cada cosa no es capricho,
+es lo que cada equipo expone.</p>
+<p>Se usa cuando se cumplen dos condiciones a la vez: no hay conectividad directa
+desde el servidor de Pandora FMS hasta la red destino, y no se puede desplegar
+un EndPoint en los equipos que quieres vigilar. Si tienes ruta pero no quieres
+instalar software, la monitorización remota genérica del servidor ya resuelve
+buena parte del trabajo (ver <a href="../../parte-2/2.6-monitorizacion-de-redes/">Monitorización remota</a>).
+El satélite entra cuando esa ruta no existe.</p>
+<div class="admonition example">
+<p class="admonition-title">Un caso de uso concreto</p>
+<p>Una empresa tiene una red de sucursal, <code>192.168.10.0/24</code>, accesible
+únicamente a través de un enlace que el servidor central no puede cruzar.
+En esa red hay dos switches, cada uno con su dirección (<code>192.168.10.1</code> y
+<code>192.168.10.2</code>), y un servidor Windows (<code>192.168.10.30</code>). El servidor
+satélite se instala en la sucursal, descubre los switches por SNMP, el
+Windows por WMI, y manda los datos al servidor central por Tentacle. Sin
+satélite, esos tres equipos serían invisibles.</p>
+</div>
+<p></p>
+<p>El satélite tiene un puñado de rasgos que lo hacen distinto de un EndPoint y de
+un servidor de Pandora FMS al uso:</p>
+<ul>
+<li><strong>Sondeo de alta tasa.</strong> Puede ejecutar pruebas de red (ICMP, latencia y SNMP
+  v1 y v2c) hasta 500 comprobaciones por segundo. SNMPv3 va más despacio porque
+  cifra el tráfico; el coste de la seguridad se paga en velocidad.</li>
+<li><strong>Envío por intervalos, sondeo por ciclos cortos.</strong> Los chequeos pueden correr
+  cada pocos segundos, pero el satélite solo manda datos al servidor cada
+  <code>agent_interval</code> segundos (300 por defecto). Cuando el valor cambia respecto
+  al anterior, lo envía en ese momento; si no cambia, espera al intervalo.</li>
+<li><strong>Servidor autónomo.</strong> No toca la base de datos de Pandora FMS. Genera XML y
+  lo entrega igual que un EndPoint en modo <em>broker</em> o un Export Server, así que
+  basta con que el puerto Tentacle esté abierto.</li>
+<li><strong>Autodescubrimiento.</strong> Con una tarea de reconocimiento crea los agentes de
+  los dispositivos que encuentra (identificados por dirección IP), detecta los
+  elementos dinámicos (interfaces de red, almacenamiento) y los monitoriza
+  solo. En Windows, además, detecta discos, CPU y memoria.</li>
+<li><strong>Los módulos generados son módulos normales.</strong> Se editan desde la consola
+  web como los de cualquier agente.</li>
+<li><strong>IPv6.</strong> Tanto el servidor satélite como el servidor de red lo soportan en
+  todas sus funciones avanzadas.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Versión 785: no hay compatibilidad hacia atrás</p>
+<p>El servidor satélite 785 no es compatible con versiones anteriores de
+Pandora FMS. Instálalo junto a un entorno 785 o superior. Si conectas un
+satélite más antiguo a un entorno 785, las funciones nuevas (el túnel SSH,
+la configuración remota de doble fichero, los módulos de tipo Satellite)
+aparecerán en la consola pero no funcionarán.</p>
+</div>
+<p>El capítulo <a href="../../parte-1/1.2-introduccion-y-arquitectura/">1.2 (Introducción y arquitectura)</a>
+sitúa el satélite dentro del conjunto y recorre las topologías que se montan
+con él: redes con dificultad de acceso, redes inaccesibles y grandes entornos.
+El capítulo <a href="../../parte-2/2.6-monitorizacion-de-redes/">2.6 (Monitorización de redes)</a>
+explica cuándo la monitorización remota sustituye al EndPoint y qué servidor
+ejecuta cada tipo de comprobación. Aquí se documenta el satélite en sí: cómo se
+configura, cómo crea agentes, qué módulos admite y cómo se conecta con la
+consola.</p>
+<h2 id="como-funciona-por-dentro">Cómo funciona por dentro<a class="headerlink" href="#como-funciona-por-dentro" title="Permanent link">¶</a></h2>
+<p>Entender el ciclo del satélite es lo que permite operarlo con criterio en lugar
+de a base de reinicios. El ciclo tiene cuatro fases.</p>
+<p><strong>1. Descubrir.</strong> El satélite averigua qué hay en la red por tres vías que
+pueden convivir: una tarea de reconocimiento (Recon Task) que explora uno o
+varios rangos por ICMP, SNMP o WMI; un fichero de hosts con direcciones
+conocidas; y el alta manual, creando a mano el fichero de configuración de un
+agente. De cualquier descubrimiento sale un fichero de configuración por
+agente, guardado en el directorio <code>agent_conf_dir</code> (por defecto
+<code>/etc/pandora/conf</code>).</p>
+<p><strong>2. Sondear.</strong> Cada protocolo tiene su propia familia de hilos, intervalos,
+reintentos y tiempos de espera. El satélite lanza hilos de ping, de latencia,
+de TCP, de SNMP v1, v2c y v3, de WMI, de SSH, de ejecución y de plugins. Cada
+familia hace su trabajo a su ritmo: los chequeos booleanos cambian de estado
+solos, y los numéricos (latencia, tráfico, CPU, disco) cambian cuando cruzan el
+umbral que hayas definido en el módulo.</p>
+<p><strong>3. Decidir cuándo avisar.</strong> El satélite mantiene los chequeos a intervalo
+corto, pero solo empaqueta y envía cuando hay algo que contar. Si un valor
+cambia respecto al anterior, sale un XML en ese momento; si todo sigue igual,
+el XML espera al <code>agent_interval</code> del agente. Es la diferencia entre la
+frecuencia del sondeo y la frecuencia del envío, y conviene tenerla clara: bajar
+el intervalo de ping a un minuto no significa mandar datos cada minuto.</p>
+<p><strong>4. Enviar.</strong> El satélite empaqueta un XML por agente y lo entrega por Tentacle
+al puerto 41121 del servidor, o lo copia a un directorio local si el modo de
+transferencia es <code>local</code>. Existe un buffer opcional (<code>xml_buffer</code>) para
+reintentar los envíos fallidos, con un control de espacio temporal
+(<code>temporal_min_size</code>) que evita llenar el disco si el servidor desaparece
+durante horas.</p>
+<p>A todo esto se añade la <strong>configuración remota</strong>. El propio satélite y sus
+agentes se pueden reconfigurar desde la consola web: la consola publica los
+ficheros y su MD5 en la ruta de configuración remota, y el satélite los recoge
+en su ciclo de revisión de la configuración remota cuando detecta que el MD5 ha
+cambiado. La gestión se
+hace desde las pestañas de la ficha del servidor: <strong>Editar</strong>, <strong>Configuración
+remota</strong>, <strong>Editor avanzado</strong>, <strong>Gestionar agentes</strong>, <strong>Colecciones</strong> y <strong>túnel
+SSH</strong>.</p>
+<p>En cuanto al formato de datos, el satélite escribe XML con la misma estructura
+que un agente, así que el servidor lo recibe igual que cualquier otro origen. En
+la consola web, en cambio, estos agentes sí se distinguen del resto: cada uno
+lleva apuntado el satélite del que depende y se le asigna el sistema operativo
+<strong>Satellite</strong>, con su propio icono. De ahí que la consola pueda listarlos y
+filtrarlos aparte (solo los de un satélite, o al contrario) y que sus módulos
+sean los tipos propios del satélite (ICMP, TCP, SNMP, WMI, SSH y ejecución), que
+la consola ofrece únicamente a estos agentes. Tampoco comparten la configuración
+de un EndPoint: su fichero se publica y se recoge por la gestión del satélite. No
+es un agente corriente con módulos de red: tiene marcador propio, icono propio y
+su propio juego de módulos.</p>
+<div class="admonition example">
+<p class="admonition-title">El ciclo, con números</p>
+<p>Un switch en <code>192.168.10.1</code> se sondea por SNMP cada 60 segundos
+(<code>snmp_interval 60</code>, <code>snmp_threads 10</code>) y su latencia cada 60 segundos
+(<code>latency_interval 60</code>). Si el estado operativo de una interfaz cambia,
+sale un XML en ese momento; si todo sigue igual, el XML con los valores
+acumulados se manda cada 300 segundos (<code>agent_interval 300</code>).</p>
+</div>
+<h2 id="instalacion-y-puesta-en-marcha">Instalación y puesta en marcha<a class="headerlink" href="#instalacion-y-puesta-en-marcha" title="Permanent link">¶</a></h2>
+<p>La instalación del satélite (requisitos, instalación en línea en Linux,
+instalación offline y el instalador de Windows, con todos sus parámetros) vive
+en <a href="../../parte-1/1.1-instalacion/#instalacion-del-satelite">Instalación del satélite</a>.
+Aquí solo se recoge lo operativo que aquella sección no trata: cómo se arranca,
+dónde queda el log y qué detalle de Windows conviene tener presente.</p>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instalación</td>
+<td>Ver <a href="../../parte-1/1.1-instalacion/#instalacion-del-satelite">Instalación del satélite</a></td>
+</tr>
+<tr>
+<td>Servicio (Linux)</td>
+<td><code>satellite_serverd</code>, gestionado con <code>systemctl</code></td>
+</tr>
+<tr>
+<td>Fichero de configuración</td>
+<td><code>/etc/pandora/satellite_server.conf</code></td>
+</tr>
+<tr>
+<td>Log</td>
+<td><code>/var/log/satellite_server.log</code></td>
+</tr>
+<tr>
+<td>Usuario del servicio (Linux)</td>
+<td><code>root</code></td>
+</tr>
+</tbody>
+</table>
+<p>Arranque y parada en Linux:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>satellite_serverd
+systemctl<span class="w"> </span>stop<span class="w"> </span>satellite_serverd
+</code></pre></div>
+<p>En Windows el servicio se arranca y se detiene desde el menú <strong>Inicio</strong>, con la
+entrada del servidor satélite que deja el instalador.</p>
+<p>La configuración inicial mínima es una línea: el token <code>server_ip</code> en
+<code>/etc/pandora/satellite_server.conf</code> debe apuntar a la dirección IP o al nombre
+DNS del servidor de Pandora FMS al que se conectará el satélite. Después de
+guardar el cambio, arranca el servicio. Los datos viajan por Tentacle, así que
+la comunicación hacia el servidor por <code>41121/tcp</code> tiene que estar permitida.</p>
+<p>Si algo no funciona, el primer sitio donde mirar es
+<code>/var/log/satellite_server.log</code>. El detalle de lo que escribe lo controla el
+token <code>verbosity</code>, con nivel 3 por defecto y 10 como máximo.</p>
+<div class="admonition warning">
+<p class="admonition-title">WMI en Windows: el servicio, como Administrador</p>
+<p>Por la política de seguridad de Windows, algunas versiones limitan la
+cuenta con la que se pueden hacer consultas WMI remotas. Cuando las
+consultas WMI no salen, la solución es ejecutar el servicio del servidor
+satélite con la cuenta <strong>Administrador</strong>: abre <strong>Servicios</strong>, entra en las
+propiedades del servicio y, en la pestaña <strong>Iniciar sesión</strong>, selecciona una
+cuenta con permisos de administrador. Reinicia el servicio para aplicar el
+cambio.</p>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<p>En cuanto a ARM, el instalador en línea soporta <code>aarch64</code> (ARM64) además de
+<code>x86_64</code>: EL 8, 9 y 10, Ubuntu 22.04 y Raspberry Pi OS / Debian 12 y 13 de 64
+bits. El paquete ARM es autocontenido y trae su propio intérprete de Perl
+compilado para <code>aarch64</code>. No hay soporte para <code>armv7l</code> (ARM de 32 bits): si el
+sistema es de 32 bits, el instalador se detiene. En placas con poca memoria se
+puede omitir la comprobación de recursos con <code>SKIP_RESOURCE_CHECKS=1</code>. Los
+detalles completos, con las variables del instalador, están en
+<a href="../../parte-1/1.1-instalacion/#instalacion-del-satelite">Instalación del satélite</a>.</p>
+<h2 id="configuracion-del-servidor-satelite">Configuración del Servidor satélite<a class="headerlink" href="#configuracion-del-servidor-satelite" title="Permanent link">¶</a></h2>
+<h3 id="el-fichero-de-configuracion-y-la-configuracion-remota">El fichero de configuración y la configuración remota<a class="headerlink" href="#el-fichero-de-configuracion-y-la-configuracion-remota" title="Permanent link">¶</a></h3>
+<p>La configuración del satélite vive en <code>/etc/pandora/satellite_server.conf</code>, en
+formato <code>token valor</code>, una línea por token. Salvo las directivas que admiten
+varias líneas (las listas de hosts y las cajas de credenciales, como se verá más
+adelante), cada token aparece una sola vez. Todos los parámetros que sean
+tiempos o vencimientos se expresan en segundos: el valor por defecto genérico,
+cuando no se indica otra cosa, son 300 segundos.</p>
+<p>La edición del fichero se puede hacer a mano en la máquina del satélite, pero lo
+habitual es hacerlo desde la consola web. En <strong>Gestión → Servidores →
+Gestionar servidores</strong>, el icono de <strong>Configuración remota</strong> abre la
+configuración del satélite:</p>
+<p></p>
+<p>La configuración remota ofrece dos editores. El <strong>Editor avanzado</strong> muestra el
+texto completo del fichero, listo para editar tokens a mano y guardar con el
+botón <strong>Actualizar</strong>:</p>
+<p></p>
+<p>El <strong>Editor estándar</strong>, en la pestaña de la izquierda, presenta los tokens de
+forma guiada y con búsqueda dinámica: escribes una o más letras y filtra los
+tokens que las contienen.</p>
+<p></p>
+<p>Algunos tokens solo admiten dos valores, ON u OFF. En el editor estándar, el
+primer botón cambia ese valor; el segundo botón habilita o deshabilita el token,
+y al deshabilitarlo el satélite toma el valor por defecto que tenga asignado
+(1 o 0), sin importar lo que marque el primer botón.</p>
+<p></p>
+<div class="admonition note">
+<p class="admonition-title">Los cambios no son instantáneos</p>
+<p>La sincronización y la carga de los tokens nuevos tardan un poco. Hay que
+esperar unos instantes a que se propaguen; el satélite recoge la
+configuración en su ciclo habitual.</p>
+</div>
+<p>Son <strong>dos</strong> los tokens que deciden cuándo se relee la configuración remota, y
+conviene distinguirlos bien:</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Valor por defecto</th>
+<th>Qué controla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>server_threshold</code></td>
+<td>5</td>
+<td>Cadencia de las tareas comunes del satélite: comprueba <strong>su propia</strong> configuración remota (si ha cambiado, se reinicia para aplicarla) y revisa si hay colecciones nuevas. Es el que marca cuánto tarda en tomar un cambio de sus tokens</td>
+</tr>
+<tr>
+<td><code>conf_interval</code></td>
+<td>300</td>
+<td>Cada cuántos segundos revisa la configuración remota de <strong>cada agente</strong> que ha descubierto</td>
+</tr>
+</tbody>
+</table>
+<p><code>keepalive</code>, en cambio, no tiene nada que ver con recargar configuración: es el
+latido con el que el satélite informa de su estado al servidor (versión, grupo,
+si está deshabilitado). Se explica en la referencia de parámetros, más abajo.</p>
+<p>Un ejemplo típico: quieres que el satélite envíe datos cada minuto y que revise
+la configuración remota de sus agentes cada quince segundos. En el Editor
+avanzado cambias <code>agent_interval</code> a <code>60</code> y <code>conf_interval</code> a <code>15</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="na">agent_interval 60</span>
+<span class="na">conf_interval 15</span>
+</code></pre></div>
+<p>Guardas con <strong>Actualizar</strong> y esperas a que el ciclo recoja los valores. El envío
+del XML de datos pasa a ocurrir cada minuto y la comprobación de las
+configuraciones de los agentes, cada quince segundos. Para que el satélite
+aplique antes un cambio de <strong>sus propios</strong> tokens está <code>server_threshold</code>, no
+<code>keepalive</code>.</p>
+<h3 id="referencia-de-parametros">Referencia de parámetros<a class="headerlink" href="#referencia-de-parametros" title="Permanent link">¶</a></h3>
+<p>Este es el inventario completo de <code>satellite_server.conf</code>. El capítulo 9.3
+(Referencia de configuración del servidor) excluye los tokens exclusivos del
+satélite y remite aquí, así que esta es la referencia de la que cuelgan todos
+los demás capítulos.</p>
+<p><strong>Los valores por defecto que se publican son los del programa</strong>, no los de la
+plantilla de ejemplo que se instala. Cuando la plantilla trae otro valor, se
+indica entre paréntesis para que no sorprenda al comparar con el fichero
+recién instalado: instalar deja la plantilla en su sitio y sus valores son los
+que quedan activos hasta que se cambien.</p>
+<p><strong>General y servidor principal</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>server_ip</code></td>
+<td><code>127.0.0.1</code></td>
+<td>Dirección IP o nombre DNS del servidor de Pandora FMS al que enviar los datos. La comunicación va por Tentacle, puerto <code>41121/tcp</code></td>
+</tr>
+<tr>
+<td><code>server_port</code></td>
+<td><code>41121</code></td>
+<td>Puerto del servidor Tentacle</td>
+</tr>
+<tr>
+<td><code>server_name</code></td>
+<td>nombre del equipo (vacío: se usa el <em>hostname</em>)</td>
+<td>Nombre del servidor satélite</td>
+</tr>
+<tr>
+<td><code>server_path</code></td>
+<td><code>/var/spool/pandora/data_in</code></td>
+<td>Directorio donde se copian los XML cuando <code>transfer_mode</code> es <code>local</code></td>
+</tr>
+<tr>
+<td><code>server_opts</code></td>
+<td>vacío</td>
+<td>Parámetros que se pasan al cliente de Tentacle, por ejemplo <code>-x password</code></td>
+</tr>
+<tr>
+<td><code>transfer_mode</code></td>
+<td><code>tentacle</code></td>
+<td>Modo de transferencia: <code>tentacle</code> o <code>local</code></td>
+</tr>
+<tr>
+<td><code>daemon</code></td>
+<td><code>1</code></td>
+<td>Con valor <code>1</code>, ejecuta el servicio en segundo plano</td>
+</tr>
+<tr>
+<td><code>keepalive</code></td>
+<td><code>30</code></td>
+<td>Cada cuántos segundos el satélite informa de su estado al servidor (el XML del propio satélite). No comprueba la configuración remota</td>
+</tr>
+<tr>
+<td><code>verbosity</code></td>
+<td><code>3</code></td>
+<td>Nivel de detalle del log, de 0 (menos) a 10 (más)</td>
+</tr>
+<tr>
+<td><code>server_threshold</code></td>
+<td><code>5</code></td>
+<td>Cadencia de las tareas comunes: comprueba su propia configuración remota (si cambia, se reinicia) y revisa las colecciones nuevas</td>
+</tr>
+<tr>
+<td><code>conf_interval</code></td>
+<td><code>300</code></td>
+<td>Cada cuántos segundos comprueba la configuración remota de cada agente descubierto</td>
+</tr>
+<tr>
+<td><code>log_file</code></td>
+<td><code>/var/log/satellite_server.log</code></td>
+<td>Fichero de log del satélite</td>
+</tr>
+<tr>
+<td><code>agent_disabled</code></td>
+<td><code>0</code></td>
+<td>Desactiva (<code>1</code>) o reactiva (<code>0</code>) el satélite</td>
+</tr>
+<tr>
+<td><code>remote_config</code></td>
+<td><code>0</code> (la plantilla trae <code>1</code>)</td>
+<td>Habilita la configuración remota del propio satélite y de sus agentes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Servidor secundario</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>secondary_mode</code></td>
+<td><code>never</code></td>
+<td>Modo del servidor secundario: <code>on_error</code> envía al secundario solo si falla el primario; <code>always</code> envía siempre; <code>never</code> lo desactiva</td>
+</tr>
+<tr>
+<td><code>secondary_server_ip</code></td>
+<td><code>localhost</code></td>
+<td>Dirección del servidor secundario</td>
+</tr>
+<tr>
+<td><code>secondary_server_path</code></td>
+<td><code>/var/spool/pandora/data_in</code></td>
+<td>Directorio local del servidor secundario, si el modo de transferencia es <code>local</code></td>
+</tr>
+<tr>
+<td><code>secondary_server_port</code></td>
+<td><code>41121</code></td>
+<td>Puerto Tentacle del servidor secundario</td>
+</tr>
+<tr>
+<td><code>secondary_transfer_mode</code></td>
+<td><code>tentacle</code></td>
+<td>Modo de transferencia hacia el servidor secundario</td>
+</tr>
+<tr>
+<td><code>secondary_server_opts</code></td>
+<td>vacío</td>
+<td>Parámetros adicionales del cliente de Tentacle para el secundario</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Descubrimiento</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>recon_enabled</code></td>
+<td><code>0</code> (la plantilla trae <code>1</code>)</td>
+<td>Habilita (<code>1</code>) o deshabilita (<code>0</code>) el autodescubrimiento de equipos</td>
+</tr>
+<tr>
+<td><code>recon_mode</code></td>
+<td><code>icmp,snmp</code> (la plantilla trae <code>icmp</code>)</td>
+<td>Protocolos del descubrimiento, separados por comas: <code>icmp</code>, <code>snmp</code>, <code>wmi</code></td>
+</tr>
+<tr>
+<td><code>recon_task</code></td>
+<td>vacío</td>
+<td>Redes o direcciones a explorar, separadas por comas y en notación barra, por ejemplo <code>192.168.10.0/24,10.0.1.0/22</code></td>
+</tr>
+<tr>
+<td><code>recon_community</code></td>
+<td><code>public</code></td>
+<td>Comunidades SNMP que se probarán en el descubrimiento, separadas por comas</td>
+</tr>
+<tr>
+<td><code>recon_interval</code></td>
+<td><code>604800</code></td>
+<td>Tiempo entre exploraciones de red, en segundos (siete días)</td>
+</tr>
+<tr>
+<td><code>recon_timing_template</code></td>
+<td><code>2</code> (la plantilla trae <code>3</code>)</td>
+<td>Agresividad de la exploración de red y de <code>nmap</code>: de 1 (más lento y fiable) a 5 (más rápido y menos fiable)</td>
+</tr>
+<tr>
+<td><code>ipam_task</code></td>
+<td>vacío</td>
+<td>Redes a explorar por IPAM, precedidas del identificador de la tarea IPAM, por ejemplo <code>1,192.168.0.0/24</code></td>
+</tr>
+<tr>
+<td><code>ipam_interval</code></td>
+<td><code>300</code> (la plantilla trae <code>604800</code>)</td>
+<td>Tiempo entre exploraciones IPAM, en segundos</td>
+</tr>
+<tr>
+<td><code>host_file</code></td>
+<td>vacío</td>
+<td>Fichero alternativo con hosts a monitorizar, una dirección por línea</td>
+</tr>
+<tr>
+<td><code>forced_add</code></td>
+<td><code>0</code> (la plantilla trae <code>1</code>)</td>
+<td>Con <code>1</code>, los hosts añadidos a mano (por <code>add_host</code> o por <code>host_file</code>) se crean siempre, aunque no respondan a ping, con un fichero sin módulos</td>
+</tr>
+<tr>
+<td><code>dynamic_inc</code></td>
+<td><code>0</code></td>
+<td>Con <code>1</code>, mueve los módulos dinámicos descubiertos (SNMP, WMI…) a ficheros separados para que no interfieran con la configuración remota</td>
+</tr>
+<tr>
+<td><code>vlan_cache_enabled</code></td>
+<td><code>1</code></td>
+<td>Habilita o deshabilita la caché VLAN de los hosts autodescubiertos</td>
+</tr>
+<tr>
+<td><code>general_gis_exec</code></td>
+<td>vacío</td>
+<td>Script que provee posicionamiento GIS a todos los agentes detectados; debe ser ejecutable y mostrar <code>&lt;longitud&gt;,&lt;latitud&gt;[,&lt;altitud&gt;]</code></td>
+</tr>
+<tr>
+<td><code>agents_blacklist_icmp</code></td>
+<td>vacío</td>
+<td>Subredes excluidas de los chequeos ICMP, en notación CIDR y separadas por comas</td>
+</tr>
+<tr>
+<td><code>agents_blacklist_snmp</code></td>
+<td>vacío</td>
+<td>Subredes excluidas de los chequeos SNMP</td>
+</tr>
+<tr>
+<td><code>agents_blacklist_wmi</code></td>
+<td>vacío</td>
+<td>Subredes excluidas de los chequeos WMI</td>
+</tr>
+<tr>
+<td><code>fping</code></td>
+<td><code>/usr/sbin/fping</code></td>
+<td>Ruta al binario de Fping</td>
+</tr>
+<tr>
+<td><code>fsnmp</code></td>
+<td><code>/usr/bin/pandorafsnmp</code></td>
+<td>Ruta al binario de Pandora Fast SNMP</td>
+</tr>
+<tr>
+<td><code>nmap</code></td>
+<td><code>/usr/bin/nmap</code></td>
+<td>Ruta al binario de Nmap</td>
+</tr>
+</tbody>
+</table>
+<p>Las directivas <code>add_host</code>, <code>ignore_host</code> y <code>delete_host</code> no son tokens de valor
+único: son listas que pueden ocupar varias líneas. <code>add_host &lt;IP&gt; [nombre]</code> da
+de alta un host monitorizado; <code>ignore_host &lt;agente&gt;</code> lo saca de la lista aunque
+lo encuentre una tarea de reconocimiento; y <code>delete_host &lt;agente&gt;</code> lo elimina de
+forma permanente, borrando su fichero de configuración.</p>
+<p><strong>Sondeo: ping y latencia</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ping_block</code></td>
+<td><code>400</code></td>
+<td>Número de hosts procesados en una sola llamada a <code>nmap</code> para ping; máximo 500</td>
+</tr>
+<tr>
+<td><code>ping_interval</code></td>
+<td><code>60</code> (la plantilla trae <code>120</code>)</td>
+<td>Tiempo entre comprobaciones de ping, en segundos</td>
+</tr>
+<tr>
+<td><code>ping_packets</code></td>
+<td><code>1</code></td>
+<td>Número de paquetes ICMP enviados por ping</td>
+</tr>
+<tr>
+<td><code>ping_retries</code></td>
+<td><code>2</code></td>
+<td>Reintentos de los módulos de ping</td>
+</tr>
+<tr>
+<td><code>ping_threads</code></td>
+<td><code>10</code> (la plantilla trae <code>4</code>)</td>
+<td>Hilos dedicados a las comprobaciones de ping</td>
+</tr>
+<tr>
+<td><code>ping_timeout</code></td>
+<td><code>1</code></td>
+<td>Tiempo de espera de las comprobaciones de ping, en segundos</td>
+</tr>
+<tr>
+<td><code>latency_block</code></td>
+<td><code>400</code></td>
+<td>Número de hosts procesados en una sola llamada a <code>nmap</code> para latencia; máximo 500</td>
+</tr>
+<tr>
+<td><code>latency_interval</code></td>
+<td><code>60</code> (la plantilla trae <code>180</code>)</td>
+<td>Tiempo entre comprobaciones de latencia, en segundos</td>
+</tr>
+<tr>
+<td><code>latency_packets</code></td>
+<td><code>1</code></td>
+<td>Número de paquetes ICMP por petición de latencia</td>
+</tr>
+<tr>
+<td><code>latency_retries</code></td>
+<td><code>2</code></td>
+<td>Reintentos de los módulos de latencia</td>
+</tr>
+<tr>
+<td><code>latency_threads</code></td>
+<td><code>10</code> (la plantilla trae <code>4</code>)</td>
+<td>Hilos dedicados a las comprobaciones de latencia</td>
+</tr>
+<tr>
+<td><code>latency_timeout</code></td>
+<td><code>1</code></td>
+<td>Tiempo de espera de las comprobaciones de latencia, en segundos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sondeo: TCP, SSH, WMI, ejecución y plugins</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tcp_interval</code></td>
+<td><code>300</code></td>
+<td>Tiempo entre comprobaciones TCP, en segundos</td>
+</tr>
+<tr>
+<td><code>tcp_threads</code></td>
+<td><code>4</code> (la plantilla trae <code>5</code>)</td>
+<td>Hilos dedicados a las comprobaciones TCP</td>
+</tr>
+<tr>
+<td><code>tcp_timeout</code></td>
+<td><code>1</code></td>
+<td>Tiempo de espera de las comprobaciones TCP, en segundos</td>
+</tr>
+<tr>
+<td><code>ssh_interval</code></td>
+<td><code>300</code></td>
+<td>Tiempo entre comprobaciones SSH, en segundos</td>
+</tr>
+<tr>
+<td><code>ssh_threads</code></td>
+<td><code>1</code> (la plantilla trae <code>5</code>)</td>
+<td>Hilos dedicados a los módulos SSH</td>
+</tr>
+<tr>
+<td><code>ssh_timeout</code></td>
+<td><code>2</code></td>
+<td>Tiempo de espera de las comprobaciones SSH, en segundos</td>
+</tr>
+<tr>
+<td><code>wmi_interval</code></td>
+<td><code>300</code></td>
+<td>Tiempo entre comprobaciones WMI, en segundos</td>
+</tr>
+<tr>
+<td><code>wmi_threads</code></td>
+<td><code>5</code></td>
+<td>Hilos dedicados al sondeo WMI</td>
+</tr>
+<tr>
+<td><code>wmi_client</code></td>
+<td><code>/usr/bin/wmic</code> (la plantilla trae <code>/usr/bin/pandorawmic</code>)</td>
+<td>Ruta completa al cliente WMI; en producción se usa PandoraWMIC</td>
+</tr>
+<tr>
+<td><code>wmi_auth</code></td>
+<td><code>Administrator%password</code></td>
+<td>Parejas <code>usuario%contraseña</code> para autenticación WMI, separadas por comas</td>
+</tr>
+<tr>
+<td><code>wmi_ntlmv2</code></td>
+<td><code>0</code></td>
+<td>Habilita (<code>1</code>) o deshabilita (<code>0</code>) la autenticación NTLMv2 para WMI</td>
+</tr>
+<tr>
+<td><code>exec_interval</code></td>
+<td><code>300</code></td>
+<td>Tiempo entre comprobaciones de ejecución, en segundos</td>
+</tr>
+<tr>
+<td><code>exec_threads</code></td>
+<td><code>5</code></td>
+<td>Hilos dedicados a los módulos de ejecución; por encima de 20 puede empeorar el rendimiento</td>
+</tr>
+<tr>
+<td><code>plugin_interval</code></td>
+<td><code>300</code></td>
+<td>Tiempo entre comprobaciones de los plugins, en segundos</td>
+</tr>
+<tr>
+<td><code>plugin_threads</code></td>
+<td><code>4</code> (la plantilla trae <code>2</code>)</td>
+<td>Hilos dedicados a los plugins</td>
+</tr>
+<tr>
+<td><code>plugin_timeout</code></td>
+<td><code>30</code> (la plantilla trae <code>10</code>)</td>
+<td>Tiempo de espera de los plugins, en segundos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sondeo: SNMP</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>snmp_version</code></td>
+<td><code>1</code></td>
+<td>Versión SNMP por defecto (<code>1</code> o <code>2c</code>); los módulos SNMPv3 declaran la suya. Cambiarlo puede romper módulos existentes</td>
+</tr>
+<tr>
+<td><code>snmp_block</code></td>
+<td><code>70</code> (la plantilla trae <code>50</code>)</td>
+<td>Hosts procesados en una sola llamada a <code>pandorafsnmp</code> (SNMPv1)</td>
+</tr>
+<tr>
+<td><code>snmp_interval</code></td>
+<td><code>60</code> (la plantilla trae <code>180</code>)</td>
+<td>Tiempo entre comprobaciones SNMPv1, en segundos</td>
+</tr>
+<tr>
+<td><code>snmp_retries</code></td>
+<td><code>2</code></td>
+<td>Reintentos de los módulos SNMPv1</td>
+</tr>
+<tr>
+<td><code>snmp_threads</code></td>
+<td><code>10</code> (la plantilla trae <code>8</code>)</td>
+<td>Hilos dedicados a SNMPv1</td>
+</tr>
+<tr>
+<td><code>snmp_timeout</code></td>
+<td><code>4</code> (la plantilla trae <code>5</code>)</td>
+<td>Tiempo de espera SNMPv1, en segundos</td>
+</tr>
+<tr>
+<td><code>snmp_verify</code></td>
+<td><code>0</code></td>
+<td>Verifica los módulos SNMPv1 que hacen fallar a <code>pandorafsnmp</code></td>
+</tr>
+<tr>
+<td><code>snmp2_block</code></td>
+<td><code>70</code> (la plantilla trae <code>50</code>)</td>
+<td>Hosts procesados en una llamada a <code>pandorafsnmp</code> (SNMPv2c)</td>
+</tr>
+<tr>
+<td><code>snmp2_interval</code></td>
+<td><code>60</code> (la plantilla trae <code>180</code>)</td>
+<td>Tiempo entre comprobaciones SNMPv2c, en segundos</td>
+</tr>
+<tr>
+<td><code>snmp2_retries</code></td>
+<td><code>2</code></td>
+<td>Reintentos de los módulos SNMPv2c</td>
+</tr>
+<tr>
+<td><code>snmp2_threads</code></td>
+<td><code>10</code> (la plantilla trae <code>8</code>)</td>
+<td>Hilos dedicados a SNMPv2c</td>
+</tr>
+<tr>
+<td><code>snmp2_timeout</code></td>
+<td><code>4</code> (la plantilla trae <code>5</code>)</td>
+<td>Tiempo de espera SNMPv2c, en segundos</td>
+</tr>
+<tr>
+<td><code>snmp2_verify</code></td>
+<td><code>0</code></td>
+<td>Verifica los módulos SNMPv2c problemáticos</td>
+</tr>
+<tr>
+<td><code>snmp3_block</code></td>
+<td><code>70</code> (la plantilla trae <code>50</code>)</td>
+<td>Hosts procesados en una llamada a <code>pandorafsnmp</code> (SNMPv3)</td>
+</tr>
+<tr>
+<td><code>snmp3_interval</code></td>
+<td><code>60</code> (la plantilla trae <code>180</code>)</td>
+<td>Tiempo entre comprobaciones SNMPv3, en segundos</td>
+</tr>
+<tr>
+<td><code>snmp3_retries</code></td>
+<td><code>2</code></td>
+<td>Reintentos de los módulos SNMPv3</td>
+</tr>
+<tr>
+<td><code>snmp3_threads</code></td>
+<td><code>10</code> (la plantilla trae <code>4</code>)</td>
+<td>Hilos dedicados a SNMPv3</td>
+</tr>
+<tr>
+<td><code>snmp3_timeout</code></td>
+<td><code>4</code> (la plantilla trae <code>5</code>)</td>
+<td>Tiempo de espera SNMPv3, en segundos</td>
+</tr>
+<tr>
+<td><code>snmp3_verify</code></td>
+<td><code>0</code></td>
+<td>Verifica los módulos SNMPv3 problemáticos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Credenciales y cifrado</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>credential_pass</code></td>
+<td>nombre del equipo</td>
+<td>Contraseña con la que se cifran las contraseñas de las cajas de credenciales; debe coincidir con la definida en la consola web</td>
+</tr>
+<tr>
+<td><code>snmp3_seclevel</code></td>
+<td><code>authpriv</code></td>
+<td>Nivel de seguridad SNMPv3: <code>noauth</code>, <code>authnopriv</code> o <code>authpriv</code></td>
+</tr>
+<tr>
+<td><code>snmp3_secname</code></td>
+<td>vacío</td>
+<td>Nombre de seguridad SNMPv3</td>
+</tr>
+<tr>
+<td><code>snmp3_authproto</code></td>
+<td><code>sha</code></td>
+<td>Protocolo de autenticación SNMPv3: <code>md5</code> o <code>sha</code></td>
+</tr>
+<tr>
+<td><code>snmp3_authpass</code></td>
+<td>vacío</td>
+<td>Contraseña de autenticación SNMPv3</td>
+</tr>
+<tr>
+<td><code>snmp3_privproto</code></td>
+<td><code>des</code></td>
+<td>Protocolo de privacidad SNMPv3: <code>des</code> o <code>aes</code></td>
+</tr>
+<tr>
+<td><code>snmp3_privpass</code></td>
+<td>vacío</td>
+<td>Contraseña de privacidad SNMPv3</td>
+</tr>
+<tr>
+<td><code>wmi_credential_encrypt</code></td>
+<td><code>0</code></td>
+<td>Cifra las contraseñas de los módulos WMI y del token <code>wmi_auth</code>; sin <code>credential_pass</code> se usa el nombre del satélite</td>
+</tr>
+<tr>
+<td><code>snmp3_credential_encrypt</code></td>
+<td><code>0</code></td>
+<td>Cifra las contraseñas de los módulos SNMPv3 y de los tokens <code>snmp3_authpass</code> y <code>snmp3_privpass</code></td>
+</tr>
+</tbody>
+</table>
+<p>Las cajas de credenciales (<code>credential_box</code>, <code>ssh_credential_box</code>,
+<code>wmi_credential_box</code> y <code>snmp3_credential_box</code>) también son directivas de lista y
+admiten varias líneas; se detallan en
+<a href="#cajas-de-credenciales">Cajas de credenciales</a>.</p>
+<p><strong>Transferencia y almacenamiento</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>agent_interval</code></td>
+<td><code>300</code></td>
+<td>Cada cuántos segundos se envían datos al servidor, con independencia de la frecuencia de sondeo</td>
+</tr>
+<tr>
+<td><code>agent_threads</code></td>
+<td><code>1</code> (la plantilla trae <code>4</code>)</td>
+<td>Hilos usados para enviar los XML de datos</td>
+</tr>
+<tr>
+<td><code>agent_block</code></td>
+<td><code>50</code></td>
+<td>Número de XML enviados en una sola llamada al cliente de Tentacle</td>
+</tr>
+<tr>
+<td><code>connection_interval</code></td>
+<td><code>300</code></td>
+<td>Cada cuántos segundos se envía al servidor el XML de conexiones (el mapa de enlaces entre agentes), si hay cambios</td>
+</tr>
+<tr>
+<td><code>agent_conf_dir</code></td>
+<td><code>/etc/pandora/conf</code> (<code>./conf</code> en el valor interno)</td>
+<td>Directorio donde se crean y guardan los ficheros de configuración de cada agente</td>
+</tr>
+<tr>
+<td><code>group</code></td>
+<td><code>Servers</code> (vacío en el valor interno)</td>
+<td>Grupo por defecto de los agentes creados por el satélite; debe existir en la consola web</td>
+</tr>
+<tr>
+<td><code>xml_buffer</code></td>
+<td><code>0</code></td>
+<td>Con <code>1</code>, guarda los XML que no se hayan podido enviar para reintentarlos más tarde</td>
+</tr>
+<tr>
+<td><code>temporal</code></td>
+<td><code>/tmp</code></td>
+<td>Directorio temporal donde se crean los XML</td>
+</tr>
+<tr>
+<td><code>temporal_min_size</code></td>
+<td><code>1</code> (la plantilla trae <code>1024</code>)</td>
+<td>Espacio libre mínimo, en megabytes, de la partición temporal; por debajo de ese valor deja de generar paquetes</td>
+</tr>
+<tr>
+<td><code>startup_delay</code></td>
+<td><code>30</code> (la plantilla trae <code>60</code>)</td>
+<td>Espera en segundos antes del primer envío de datos</td>
+</tr>
+<tr>
+<td><code>tentacle_client</code></td>
+<td><code>/usr/bin/tentacle_client</code></td>
+<td>Ruta completa al cliente de Tentacle</td>
+</tr>
+<tr>
+<td><code>timeout_bin</code></td>
+<td>vacío</td>
+<td>Si se define, antepone el programa <code>timeout</code> (normalmente <code>/usr/bin/timeout</code>) a las llamadas al cliente de Tentacle</td>
+</tr>
+<tr>
+<td><code>timeout_seconds</code></td>
+<td><code>10</code></td>
+<td>Tiempo de expiración, en segundos, del programa <code>timeout</code>; requiere <code>timeout_bin</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Proxy</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>proxy_traps_to</code></td>
+<td>vacío</td>
+<td>Redirige los traps SNMP recibidos a <code>IP[:puerto]</code>; por defecto, puerto <code>162</code></td>
+</tr>
+<tr>
+<td><code>proxy_traps_from</code></td>
+<td><code>0.0.0.0:162</code></td>
+<td>Dirección y puerto locales en los que se reciben los traps SNMP</td>
+</tr>
+<tr>
+<td><code>proxy_tentacle_from</code></td>
+<td><code>0.0.0.0:41121</code></td>
+<td>Redirige los datos recibidos por el servidor Tentacle local desde <code>IP[:puerto]</code></td>
+</tr>
+<tr>
+<td><code>proxy_tentacle_to</code></td>
+<td>vacío</td>
+<td>Redirige las peticiones de clientes Tentacle recibidas a <code>IP[:puerto]</code>; por defecto, puerto <code>41121</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Túnel SSH inverso y colecciones</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor por defecto</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reverse_ssh_config</code></td>
+<td><code>/etc/pandora/reverse_ssh_config</code></td>
+<td>Directorio donde el satélite guarda la configuración y las claves del túnel SSH inverso</td>
+</tr>
+<tr>
+<td><code>reverse_ssh_interval</code></td>
+<td><code>15</code></td>
+<td>Cada cuántos segundos el satélite revisa el estado del túnel inverso</td>
+</tr>
+<tr>
+<td><code>collection_dir</code></td>
+<td>derivado de <code>agent_conf_dir</code></td>
+<td>Directorio donde el satélite descomprime las colecciones que le asigna la consola web</td>
+</tr>
+</tbody>
+</table>
+<p>Además de estos tokens, el programa maneja un puñado de valores internos que no
+se editan a mano en la práctica: el nombre automático de los agentes
+descubiertos, los retardos internos de envío, el modo con que se descomprimen
+las colecciones, la ruta del binario <code>unzip</code> y la licencia del producto. Se
+gestionan desde la instalación y desde la consola web; no forman parte de la
+configuración que convenga tocar en el fichero.</p>
+<div class="admonition note">
+<p class="admonition-title">El proxy no toca la configuración de los agentes</p>
+<p><code>proxy_tentacle_to</code> es un reenvío: el satélite escucha las conexiones
+Tentacle que le llegan y las pasa a la dirección de destino. No lee ni
+escribe la configuración de ningún agente, así que no entra en conflicto con
+la configuración remota: la del agente del satélite vive en el satélite y la
+del EndPoint, en el EndPoint.</p>
+<p>Cuidado con el nombre, en cambio. El servidor identifica al agente por su
+nombre al procesar el XML que recibe, así que si el equipo ya tiene un agente
+del satélite y le creas encima un EndPoint con el mismo nombre, no aparecen
+dos agentes: es <strong>uno solo</strong>, que recibe datos de los dos lados y mezcla sus
+módulos. En su ficha verás las dos configuraciones por separado —la
+configuración remota del EndPoint y la configuración remota de satélites—,
+pero el agente es el mismo.</p>
+</div>
+<h2 id="creacion-de-agentes-en-el-servidor-satelite">Creación de agentes en el Servidor satélite<a class="headerlink" href="#creacion-de-agentes-en-el-servidor-satelite" title="Permanent link">¶</a></h2>
+<p>Un agente del satélite es un fichero de configuración en el directorio
+<code>agent_conf_dir</code>. Hay cuatro caminos para llegar hasta ahí, y elegir bien el
+camino ahorra disgustos después, sobre todo a la hora de borrar:</p>
+<ul>
+<li><strong>Desde la consola web.</strong> El satélite crea el agente por ti. Es el más cómodo
+  cuando el satélite ya está en marcha.</li>
+<li><strong>Recon Task.</strong> El satélite explora una red y da de alta lo que encuentra.</li>
+<li><strong>Fichero de hosts.</strong> Una lista de direcciones que le pasas tú.</li>
+<li><strong>Alta manual.</strong> Escribir el fichero <code>.conf</code> a mano.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Un agente sin módulos se ignora</p>
+<p>Si el fichero de configuración de un agente no contiene ningún módulo, el
+satélite lo ignora (salvo con <code>forced_add</code> a <code>1</code>, como se explica abajo): un
+agente sin nada que comprobar no genera XML ni aparece monitorizado.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Adición forzada (<code>forced_add</code>)</p>
+<p>El token <code>forced_add</code> decide cómo se dan de alta los hosts. Con <code>1</code>, los que
+llegan por la consola (<code>add_host</code>) o por el fichero de hosts se crean
+siempre, aunque no respondan a ping, y los agentes sin módulos se conservan.
+Con <code>0</code>, hay que responder a ping para que se creen y un agente sin módulos
+se ignora. En instalaciones nuevas suele venir activado; en una
+actualización, puede venir desactivado, así que conviene repasarlo. No
+interviene en el descubrimiento por Recon Task: ahí manda lo que encuentre el
+escaneo. Está en la <a href="#referencia-de-parametros">referencia de parámetros</a>.</p>
+</div>
+<h3 id="desde-la-consola-web">Desde la consola web<a class="headerlink" href="#desde-la-consola-web" title="Permanent link">¶</a></h3>
+<p>Con la configuración remota habilitada, la consola web crea el agente por ti: no
+hay que tocar ningún fichero. Se puede hacer desde la vista de gestión de agentes
+o desde la vista del propio satélite.</p>
+<p>Sea cual sea de las tres vías, el mecanismo por debajo es el mismo: la consola no
+crea el fichero del agente directamente. Añade a la configuración del satélite
+una línea <code>add_host &lt;ip&gt; &lt;nombre&gt;</code>, y es el satélite quien, en su siguiente ciclo,
+crea el fichero <code>.conf</code> del agente en <code>/etc/pandora/conf</code> del satélite.</p>
+<h4 id="gestion-de-agentes">Gestión de agentes<a class="headerlink" href="#gestion-de-agentes" title="Permanent link">¶</a></h4>
+<p>El camino directo es <strong>Gestión → Recursos → Gestionar agentes</strong>. En esa vista, el
+botón <strong>Crear agente satélite</strong> abre el formulario <strong>Agregar agente al Satélite</strong>,
+que pide cuatro datos: la <strong>dirección del agente</strong>, su <strong>nombre</strong>, el <strong>grupo</strong> y
+el <strong>servidor satélite</strong> al que se asigna.</p>
+<p></p>
+<p>Al guardar, el satélite crea el agente en su siguiente ciclo y empieza a enviar
+datos.</p>
+<h4 id="gestion-de-satelites">Gestión de satélites<a class="headerlink" href="#gestion-de-satelites" title="Permanent link">¶</a></h4>
+<p>El menú <strong>Gestión → Servidores → Administrar servidores satélite</strong> lista los
+satélites y da acceso, para cada uno, a sus colecciones, su configuración
+remota y la gestión de agentes:</p>
+<p></p>
+<p></p>
+<p>La pantalla de gestión de agentes permite crear agentes, consultar su
+información, borrarlos y deshabilitarlos:</p>
+<p></p>
+<div class="admonition tip">
+<p class="admonition-title">Se muestran los nombres, no los alias</p>
+<p>El listado de agentes del satélite usa el nombre del agente, no su alias.</p>
+</div>
+<p>Si un agente pertenece a un satélite y tiene la configuración remota habilitada,
+en la gestión del agente aparece una sección nueva para editar o borrar su
+fichero de configuración:</p>
+<p></p>
+<h4 id="desde-un-agente-existente">Desde un agente existente<a class="headerlink" href="#desde-un-agente-existente" title="Permanent link">¶</a></h4>
+<p>También se puede generar un agente de satélite a partir de un agente de Pandora
+FMS ya existente, remoto o local, para bifurcar la monitorización y ejecutar
+módulos desde dos puntos distintos. En la edición de ese agente, si no tiene ya
+un agente satélite asignado, aparece el botón para crear su configuración:</p>
+<p></p>
+<p>La consola rellena los datos del agente y permite elegir el servidor satélite al
+que añadirlo y la dirección IP que usará ese satélite. El proceso crea el
+fichero de configuración del satélite y añade un host a su configuración; los
+datos se reportan al agente desde el que se creó.</p>
+<h3 id="recon-task">Recon Task<a class="headerlink" href="#recon-task" title="Permanent link">¶</a></h3>
+<p>Es el método más usado: se le dice al satélite qué rangos explorar y con qué
+protocolos, y él descubre los dispositivos y crea los agentes. Los parámetros
+implicados son:</p>
+<ul>
+<li><code>recon_enabled</code>: a <code>1</code> para habilitar el descubrimiento.</li>
+<li><code>recon_mode</code>: protocolos separados por comas (<code>icmp</code>, <code>snmp</code>, <code>wmi</code>).</li>
+<li><code>recon_task</code>: redes a explorar, separadas por comas y en notación barra.</li>
+<li><code>recon_community</code>: comunidades SNMP a probar, separadas por comas.</li>
+<li><code>recon_interval</code>: cada cuánto se repite la exploración, en segundos.</li>
+<li><code>recon_timing_template</code>: agresividad de <code>nmap</code>, de 1 a 5.</li>
+</ul>
+<p>En el modo <code>icmp</code> el satélite comprueba si el host responde y mide la latencia.
+En <code>snmp</code> (solo v1 y v2c) busca las interfaces de red, saca su tráfico y su
+estado operativo, y obtiene el nombre y la ubicación del dispositivo, probando
+la lista de comunidades. En <code>wmi</code> hace lo propio con la carga de CPU, la memoria
+y todos los discos disponibles. Para SNMPv3 no se usa el reconocimiento, porque
+no aporta nada: las credenciales se configuran aparte, como se explica en
+<a href="#snmpv3">SNMPv3</a>.</p>
+<p>Ejemplo de tarea de reconocimiento sobre la red de ejemplo:</p>
+<div class="highlight"><pre><span></span><code><span class="na">recon_community public</span>
+<span class="na">recon_enabled 1</span>
+<span class="na">recon_interval 604800</span>
+<span class="na">recon_mode icmp,snmp,wmi</span>
+<span class="na">recon_task 192.168.10.0/24</span>
+<span class="na">recon_timing_template 3</span>
+</code></pre></div>
+<p>Tras guardar, se arranca o reinicia el satélite y la exploración empieza. Los
+agentes que encuentre aparecerán en la vista de agentes en cuanto manden su
+primer XML.</p>
+<h3 id="fichero-de-hosts">Fichero de hosts<a class="headerlink" href="#fichero-de-hosts" title="Permanent link">¶</a></h3>
+<p>Es el complemento del descubrimiento o su alternativa cuando ya sabes
+exactamente qué direcciones quieres. Se descomenta la línea <code>host_file</code> y se
+apunta al fichero:</p>
+<div class="highlight"><pre><span></span><code><span class="na">host_file /etc/pandora/satellite_hosts.txt</span>
+</code></pre></div>
+<p>El fichero lleva una dirección por línea; opcionalmente, detrás de la dirección
+y separado por un espacio, el nombre con el que crear el agente. Si se pone
+nombre, el agente se crea con ese nombre y usa la dirección para sus módulos:</p>
+<div class="highlight"><pre><span></span><code>192.168.10.5 Server5
+192.168.10.6 Server6
+192.168.10.7 Server7
+</code></pre></div>
+<p>Salvo que <code>forced_add</code> esté a <code>1</code>, las direcciones tienen que responder a
+<code>fping</code> para que el agente se cree. La lectura del fichero se hace cada
+<code>recon_interval</code> segundos.</p>
+<div class="admonition note">
+<p class="admonition-title">Rutas en Windows</p>
+<p>En Windows, la ruta del fichero de hosts se escribe <strong>sin</strong> comillas.</p>
+</div>
+<h3 id="alta-manual">Alta manual<a class="headerlink" href="#alta-manual" title="Permanent link">¶</a></h3>
+<p>Es el camino directo: crear a mano el fichero <code>.conf</code> del agente en el
+directorio de configuraciones, por defecto <code>/etc/pandora/conf</code>. Los campos
+básicos son:</p>
+<ul>
+<li><code>agent_name</code>: nombre del agente.</li>
+<li><code>agent_alias</code>: alias del agente.</li>
+<li><code>address</code>: dirección IP del elemento a monitorizar.</li>
+<li><code>group</code>: grupo al que asignar el agente.</li>
+<li><code>gis_exec</code>: script de posicionamiento, opcional; si se usa, sobreescribe la
+  ubicación que provee <code>general_gis_exec</code> en el satélite.</li>
+</ul>
+<p>A continuación se añaden los módulos. Un ejemplo de fichero:</p>
+<div class="highlight"><pre><span></span><code><span class="na">agent_name Example</span>
+<span class="na">agent_alias This is an example</span>
+<span class="na">address 192.168.10.20</span>
+<span class="na">group Servers</span>
+
+<span class="na">module_begin</span>
+<span class="na">module_name Ping</span>
+<span class="na">module_ping 192.168.10.20</span>
+<span class="na">module_end</span>
+
+<span class="na">module_begin</span>
+<span class="na">module_name Latency</span>
+<span class="na">module_latency 192.168.10.20</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<h2 id="eliminacion-de-agentes">Eliminación de agentes<a class="headerlink" href="#eliminacion-de-agentes" title="Permanent link">¶</a></h2>
+<p>Un agente del satélite existe en dos sitios a la vez: como fichero de
+configuración en el servidor satélite y como agente en la base de datos de
+Pandora FMS. Para borrarlo del todo hay que quitarlo de los dos. Si dejas uno,
+el agente sigue vivo por el otro lado: con el fichero, el satélite continúa
+sondeando el equipo y enviando datos; sin el fichero pero con el agente en la
+base de datos, queda un agente huérfano en la consola, sin datos nuevos. El
+orden es siempre el mismo: primero el satélite, después la consola.</p>
+<div class="admonition warning">
+<p class="admonition-title">Copia de seguridad antes de borrar</p>
+<p>Antes de tocar nada, haz copia de las carpetas y sus ficheros. El borrado de
+un agente no se deshace desde la consola web.</p>
+</div>
+<h3 id="desde-la-consola-web_1">Desde la consola web<a class="headerlink" href="#desde-la-consola-web_1" title="Permanent link">¶</a></h3>
+<p>Es el camino recomendado. En <strong>Gestión → Servidores → Administrar servidores
+satélite</strong>, entra en la gestión de agentes de ese satélite y pulsa el botón de la
+papelera del agente:</p>
+<p></p>
+<p>La consola añade a la configuración del satélite la directiva <code>delete_host
+&lt;agente&gt;</code>, y en el siguiente intervalo el satélite borra el fichero de
+configuración de ese agente y deja de enviarlo. Una vez hecho eso, el agente ya
+se puede borrar desde <strong>Gestión → Recursos → Gestionar agentes</strong>.</p>
+<p>Desde la propia consola web, el borrado masivo de agentes de un satélite tiene
+su procedimiento en
+<a href="../../parte-12/12.10-operaciones-masivas/">Operaciones masivas</a>.</p>
+<h3 id="manual">Manual<a class="headerlink" href="#manual" title="Permanent link">¶</a></h3>
+<p>Borra el fichero <code>.conf</code> del agente en <code>/etc/pandora/conf</code> del satélite y
+después elimina el agente en la consola web.</p>
+<h3 id="fichero-de-hosts_1">Fichero de hosts<a class="headerlink" href="#fichero-de-hosts_1" title="Permanent link">¶</a></h3>
+<p>Quita del fichero <code>satellite_hosts.txt</code> las líneas de las direcciones que vas a
+eliminar, borra sus <code>.conf</code> en <code>/etc/pandora/conf</code> del satélite y elimina el
+agente en la consola web.</p>
+<h3 id="recon-task_1">Recon Task<a class="headerlink" href="#recon-task_1" title="Permanent link">¶</a></h3>
+<p>Desconfigura la tarea de reconocimiento en el fichero del satélite, borra los
+<code>.conf</code> creados en <code>/etc/pandora/conf</code> del satélite y elimina el agente en la
+consola web. Si lo que quieres es seguir usando la Recon Task pero que ese
+equipo no vuelva a darse de alta, añade su dirección a <code>agents_blacklist_icmp</code>
+(admite notación CIDR y varias entradas separadas por comas): el reconocimiento
+deja de añadirle los módulos ICMP y, si no le queda ningún otro módulo, el
+satélite lo ignora.</p>
+<div class="admonition example">
+<p class="admonition-title">Borrar un agente descubierto en 192.168.10.0/24</p>
+<p>El switch <code>192.168.10.2</code> lo descubrió una tarea de reconocimiento sobre
+<code>192.168.10.0/24</code>. Desde <strong>Gestión → Servidores → Administrar servidores
+satélite</strong>, en la gestión de agentes del satélite, pulsas la papelera de
+<code>192.168.10.2</code>: la consola añade <code>delete_host 192.168.10.2</code> a la
+configuración, y en el siguiente intervalo el satélite borra su <code>.conf</code> y
+deja de enviarlo. Después lo borras en <strong>Gestión → Recursos → Gestionar
+agentes</strong>. Si además no quieres que vuelva a aparecer, añade su dirección a
+<code>agents_blacklist_icmp</code>.</p>
+</div>
+<h2 id="modulos-del-satelite">Módulos del satélite<a class="headerlink" href="#modulos-del-satelite" title="Permanent link">¶</a></h2>
+<p>Además de los módulos que el satélite genera solo al descubrir un dispositivo,
+se le pueden añadir a mano cualquier chequeo ICMP, TCP, SNMP, WMI, SSH, de
+ejecución o de plugin. La sintaxis del fichero de configuración del agente es
+prácticamente la misma que la de los módulos locales de un EndPoint, así que
+quien haya escrito un <code>module_*</code> alguna vez se siente en casa enseguida.</p>
+<p>La consola web ofrece tipos de módulo específicos cuando el agente pertenece a
+un satélite con configuración remota: <strong>Satellite ICMP module</strong>, <strong>Satellite
+SNMP module</strong>, <strong>Satellite WMI module</strong>, <strong>Satellite SSH module</strong>, <strong>Satellite
+Exec module</strong> y <strong>Satellite TCP module</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Credenciales</p>
+<p>Salvo que la autenticación se haga con clave pública y privada, los módulos
+SSH, WMI y SNMPv3 necesitan usuario y contraseña. Se registran en cajas de
+credenciales, cifradas. Están explicadas más abajo, en
+<a href="#cajas-de-credenciales">Cajas de credenciales</a>.</p>
+</div>
+<h3 id="creacion-de-modulos-de-satelite">Creación de módulos de satélite<a class="headerlink" href="#creacion-de-modulos-de-satelite" title="Permanent link">¶</a></h3>
+<p>Hay dos formas de añadir un módulo a un agente del satélite: desde la consola
+web, que lo escribe por ti, o directamente en el fichero de configuración del
+agente, escribiendo el bloque a mano.</p>
+<h4 id="modulos-de-tipo-satellite-desde-la-consola">Módulos de tipo Satellite desde la consola<a class="headerlink" href="#modulos-de-tipo-satellite-desde-la-consola" title="Permanent link">¶</a></h4>
+<p>Desde la consola no hace falta saberse la sintaxis: se elige el tipo de módulo y
+se rellena el formulario. Cada tipo pide unos datos distintos; el de SNMP, por
+ejemplo, pide la dirección de destino, el puerto, el OID, la versión y la
+comunidad (o las credenciales de SNMPv3), mientras que el de TCP se conforma con
+la dirección y el puerto.</p>
+<p></p>
+<p>Lo que hace la consola por debajo es escribir en la configuración del agente del
+satélite el bloque correspondiente. Puedes verlo antes de guardar con el botón
+<strong>Mostrar datos de configuración</strong> del propio formulario, que despliega el bloque
+tal y como se va a escribir.</p>
+<p>Un ejemplo: un módulo SNMP que compruebe el estado de una interfaz en
+<code>192.168.10.1</code>, con OID <code>.1.3.6.1.2.1.2.2.1.8.3</code> y comunidad <code>public</code>. Al
+guardarlo, la consola lo escribe en la configuración del agente y el satélite lo
+ejecuta en su siguiente ciclo.</p>
+<h4 id="desde-el-fichero-de-configuracion">Desde el fichero de configuración<a class="headerlink" href="#desde-el-fichero-de-configuracion" title="Permanent link">¶</a></h4>
+<p>La otra vía es escribir el bloque del módulo directamente en el fichero de
+configuración del agente, en el satélite, igual que un módulo local. Es el camino
+cuando prefieres tenerlo todo en el fichero o cuando el módulo no encaja en el
+formulario de la consola. En los apartados que siguen se ve cómo se escribe cada
+tipo: ICMP y TCP, WMI, SNMPv1 y SNMPv2, SNMPv3, SSH, ejecución y plugins, con las
+cajas de credenciales al final.</p>
+<h3 id="icmp-y-tcp">ICMP y TCP<a class="headerlink" href="#icmp-y-tcp" title="Permanent link">¶</a></h3>
+<p>La conectividad se comprueba con <code>module_ping</code> y la latencia con
+<code>module_latency</code>. El puerto TCP se comprueba con <code>module_tcp</code> y <code>module_port</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="na">module_begin</span>
+<span class="na">module_name Ping</span>
+<span class="na">module_type generic_data</span>
+<span class="na">module_ping 192.168.10.20</span>
+<span class="na">module_end</span>
+
+<span class="na">module_begin</span>
+<span class="na">module_name Port 80</span>
+<span class="na">module_type generic_proc</span>
+<span class="na">module_tcp 192.168.10.20</span>
+<span class="na">module_port 80</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<h3 id="wmi">WMI<a class="headerlink" href="#wmi" title="Permanent link">¶</a></h3>
+<p>Para Windows hay tres módulos de uso directo: <code>module_wmicpu</code> para el porcentaje
+de CPU, <code>module_wmimem</code> para la memoria libre y <code>module_wmi</code> con
+<code>module_wmiquery</code> para una consulta genérica:</p>
+<div class="highlight"><pre><span></span><code><span class="na">module_begin</span>
+<span class="na">module_name CPU</span>
+<span class="na">module_type generic_data</span>
+<span class="na">module_wmicpu 192.168.10.30</span>
+<span class="na">module_wmiauth &lt;usuario&gt;%&lt;contraseña&gt;</span>
+<span class="na">module_end</span>
+
+<span class="na">module_begin</span>
+<span class="na">module_name FreeMemory</span>
+<span class="na">module_type generic_data</span>
+<span class="na">module_wmimem 192.168.10.30</span>
+<span class="na">module_wmiauth &lt;usuario&gt;%&lt;contraseña&gt;</span>
+<span class="na">module_end</span>
+
+<span class="na">module_begin</span>
+<span class="na">module_name GenericWMI</span>
+<span class="na">module_type generic_data_string</span>
+<span class="na">module_wmi 192.168.10.30</span>
+<span class="na">module_wmiquery SELECT Name FROM Win32_ComputerSystem</span>
+<span class="na">module_wmiauth &lt;usuario&gt;%&lt;contraseña&gt;</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<p>Las credenciales del módulo se pueden sustituir por una caja de credenciales WMI
+(<code>wmi_credential_box</code>). Y para que las consultas WMI remotas funcionen en
+Windows, recuerda lo dicho en
+<a href="#instalacion-y-puesta-en-marcha">Instalación y puesta en marcha</a>: el servicio
+del satélite debe ejecutarse con una cuenta de administrador.</p>
+<h3 id="snmpv1-y-snmpv2">SNMPv1 y SNMPv2<a class="headerlink" href="#snmpv1-y-snmpv2" title="Permanent link">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Los OID empiezan por punto</p>
+<p>Asegúrate de que el OID empieza por un punto (<code>.1.3.6.1...</code>). Si no, el
+módulo SNMP no funcionará.</p>
+</div>
+<p>Un módulo SNMP usa <code>module_snmp</code> para la dirección, <code>module_oid</code> para el
+identificador y <code>module_community</code> para la comunidad. El satélite detecta solo
+cada interfaz de red, y el nombre real descriptivo aparece en el nombre del
+módulo:</p>
+<div class="highlight"><pre><span></span><code><span class="na">module_begin</span>
+<span class="na">module_name if eth1 OperStatus</span>
+<span class="na">module_type generic_data_string</span>
+<span class="na">module_snmp 192.168.10.1</span>
+<span class="na">module_oid .1.3.6.1.2.1.2.2.1.8.3</span>
+<span class="na">module_community public</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<p>Para forzar SNMPv2c o SNMPv1 se añade la línea correspondiente:</p>
+<div class="highlight"><pre><span></span><code><span class="na">module_version 2c</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="na">module_version 1</span>
+</code></pre></div>
+<p>Por ejemplo, el tráfico de salida de una interfaz, que el satélite extrae de
+forma automática con el nombre real de la interfaz:</p>
+<div class="highlight"><pre><span></span><code><span class="na">module_begin</span>
+<span class="na">module_name if eth0 OutOctets</span>
+<span class="na">module_type generic_data_inc</span>
+<span class="na">module_snmp 192.168.10.1</span>
+<span class="na">module_oid .1.3.6.1.2.1.2.2.1.16.2</span>
+<span class="na">module_community public</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<h3 id="snmpv3">SNMPv3<a class="headerlink" href="#snmpv3" title="Permanent link">¶</a></h3>
+<p>Para un módulo SNMPv3 se pone <code>module_version 3</code> y se especifican los datos de
+seguridad propios del módulo:</p>
+<ul>
+<li><code>module_seclevel</code>: nivel de seguridad (<code>noauth</code>, <code>authnopriv</code> o <code>authpriv</code>).</li>
+<li><code>module_secname</code>: nombre de seguridad.</li>
+<li><code>module_authproto</code>: protocolo de autenticación (<code>md5</code> o <code>sha</code>).</li>
+<li><code>module_authpass</code>: clave de autenticación.</li>
+<li><code>module_privproto</code>: protocolo de privacidad (<code>des</code> o <code>aes</code>).</li>
+<li><code>module_privpass</code>: clave de privacidad, cuando el nivel la requiera.</li>
+</ul>
+<p>Los tres niveles, de menos a más:</p>
+<div class="highlight"><pre><span></span><code><span class="na">module_begin</span>
+<span class="na">module_name snmp_noauth</span>
+<span class="na">module_type generic_data_string</span>
+<span class="na">module_snmp 192.168.10.1</span>
+<span class="na">module_version 3</span>
+<span class="na">module_oid .1.3.6.1.2.1.1.1.0</span>
+<span class="na">module_seclevel noauth</span>
+<span class="na">module_secname snmpuser</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="na">module_begin</span>
+<span class="na">module_name snmp_authnopriv</span>
+<span class="na">module_type generic_data_string</span>
+<span class="na">module_snmp 192.168.10.1</span>
+<span class="na">module_version 3</span>
+<span class="na">module_oid .1.3.6.1.2.1.1.2.0</span>
+<span class="na">module_seclevel authnopriv</span>
+<span class="na">module_secname snmpuser</span>
+<span class="na">module_authproto md5</span>
+<span class="na">module_authpass &lt;contraseña&gt;</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="na">module_begin</span>
+<span class="na">module_name snmp_authpriv</span>
+<span class="na">module_type generic_data_string</span>
+<span class="na">module_snmp 192.168.10.1</span>
+<span class="na">module_version 3</span>
+<span class="na">module_oid .1.3.6.1.2.1.1.2.0</span>
+<span class="na">module_seclevel authpriv</span>
+<span class="na">module_secname snmpuser</span>
+<span class="na">module_authproto sha</span>
+<span class="na">module_authpass &lt;contraseña&gt;</span>
+<span class="na">module_privproto aes</span>
+<span class="na">module_privpass &lt;contraseña&gt;</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<p>Si varios módulos comparten la misma configuración SNMPv3, se puede sacar fuera
+de la declaración del módulo, al propio agente o incluso al fichero del
+satélite si la comparten varios agentes:</p>
+<div class="highlight"><pre><span></span><code><span class="na">agent_name snmp</span>
+<span class="na">address 192.168.10.1</span>
+
+<span class="na">seclevel authpriv</span>
+<span class="na">secname snmpuser</span>
+<span class="na">authproto md5</span>
+<span class="na">authpass &lt;contraseña&gt;</span>
+<span class="na">privproto des</span>
+<span class="na">privpass &lt;contraseña&gt;</span>
+
+<span class="na">module_begin</span>
+<span class="na">module_name snmp_authpriv_1</span>
+<span class="na">module_type generic_data_string</span>
+<span class="na">module_snmp</span>
+<span class="na">module_version 3</span>
+<span class="na">module_oid .1.3.6.1.2.1.1.1.0</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<p>A escala global, los tokens <code>snmp3_seclevel</code>, <code>snmp3_secname</code>, <code>snmp3_authproto</code>,
+<code>snmp3_authpass</code>, <code>snmp3_privproto</code> y <code>snmp3_privpass</code> del fichero del satélite
+cumplen la misma función para todos los agentes. Cuando un módulo SNMPv3 no
+lleva credenciales propias y su dirección IP coincide con una red de una caja
+<code>snmp3_credential_box</code>, se usa la caja; si no, se usan los tokens globales.</p>
+<h3 id="ssh">SSH<a class="headerlink" href="#ssh" title="Permanent link">¶</a></h3>
+<p>El satélite se conecta por SSH al equipo remoto y ejecuta allí el comando. La
+dirección de destino va en <code>module_ssh</code> y el comando en <code>module_command</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="na">module_begin</span>
+<span class="na">module_name GenericSSH</span>
+<span class="na">module_type generic_data</span>
+<span class="na">module_ssh 192.168.10.40</span>
+<span class="na">module_command ls /tmp | wc -l</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">SSH en satélites Windows</p>
+<p>Las consultas SSH en servidores satélite instalados en Windows todavía
+están en implementación.</p>
+</div>
+<h3 id="ejecucion-remota">Ejecución remota<a class="headerlink" href="#ejecucion-remota" title="Permanent link">¶</a></h3>
+<p>Aquí el comando o script se ejecuta <strong>en la propia máquina del satélite</strong>, no en
+el equipo remoto. Se declara con <code>module_exec</code>; el script tiene que estar
+desplegado y accesible en el satélite, y si necesita llegar al equipo remoto se
+conecta él por su cuenta. Abusar de <code>module_exec</code> hace caer el rendimiento del
+satélite.</p>
+<div class="highlight"><pre><span></span><code><span class="na">module_begin</span>
+<span class="na">module_name Sample_Remote_Exec</span>
+<span class="na">module_type generic_data</span>
+<span class="na">module_exec /usr/share/test/test.sh 192.168.10.50</span>
+<span class="na">module_min_warning 90</span>
+<span class="na">module_min_critical 95</span>
+<span class="na">module_end</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">El script puede llegar en una colección</p>
+<p>No hace falta copiarlo a mano en cada satélite: se puede distribuir desde el
+servidor de Pandora FMS con las <strong>colecciones de servidor satélite</strong>. El
+satélite las descarga, las descomprime y añade su carpeta al <code>PATH</code>, así que
+el script queda disponible por su nombre. Ver
+<a href="../../parte-2/2.9-colecciones/#colecciones-en-el-servidor-satelite">Colecciones en el servidor Satélite</a>.</p>
+</div>
+<h3 id="plugins">Plugins<a class="headerlink" href="#plugins" title="Permanent link">¶</a></h3>
+<p>Un plugin se declara con <code>module_plugin</code> y, como el módulo de ejecución, corre
+<strong>en la máquina del satélite</strong>: es el plugin el que tiene que conectarse al
+equipo remoto. A cambio es mucho más flexible que un comando suelto.</p>
+<div class="highlight"><pre><span></span><code><span class="na">module_plugin /usr/share/pandora/remote_advanced_checks.sh 192.168.10.1</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">El plugin puede llegar en una colección</p>
+<p>Igual que el script de ejecución, el plugin se puede repartir desde el
+servidor de Pandora FMS con las <strong>colecciones de servidor satélite</strong>: el
+satélite las descomprime y añade su carpeta al <code>PATH</code>, así que queda
+disponible por su nombre. Ver
+<a href="../../parte-2/2.9-colecciones/#colecciones-en-el-servidor-satelite">Colecciones en el servidor Satélite</a>.</p>
+</div>
+<h3 id="cajas-de-credenciales">Cajas de credenciales<a class="headerlink" href="#cajas-de-credenciales" title="Permanent link">¶</a></h3>
+<p>Los módulos SSH, WMI y SNMPv3 necesitan usuario y contraseña (salvo que se use
+autenticación con clave pública y privada). Se registran en el fichero del
+satélite mediante cajas de credenciales, con estos formatos:</p>
+<div class="highlight"><pre><span></span><code>red/máscara,usuario,contraseña
+red/máscara,usuario,[[contraseña cifrada]]
+</code></pre></div>
+<p>Por ejemplo:</p>
+<div class="highlight"><pre><span></span><code><span class="na">credential_box 192.168.10.10/32,&lt;usuario&gt;,&lt;contraseña1&gt;</span>
+<span class="na">credential_box 192.168.10.0/24,&lt;usuario&gt;,&lt;contraseña2&gt;</span>
+</code></pre></div>
+<p>La búsqueda en las cajas va de la máscara más restrictiva a la menos
+restrictiva, así que la primera que encaje gana. Las contraseñas se pueden
+cifrar con Blowfish en modo ECB; para ello tiene que estar definido
+<code>credential_pass</code>, porque si no se usa el nombre del equipo como contraseña de
+cifrado. La representación hexadecimal del texto cifrado se rodea de dobles
+corchetes:</p>
+<div class="highlight"><pre><span></span><code><span class="na">credential_box 192.168.10.0/24,&lt;usuario&gt;,[[80b51b60786b3de2]]</span>
+</code></pre></div>
+<p>Hay una caja por tipo de módulo: <code>credential_box</code> (o <code>ssh_credential_box</code>, que
+es su equivalente con nombre propio), <code>wmi_credential_box</code> y
+<code>snmp3_credential_box</code>. La consola web las gestiona en la pantalla de
+<strong>Casillas de credenciales</strong> del satélite, y el cifrado lo hace la propia
+consola; por eso <code>credential_pass</code> debe coincidir en los dos lados.</p>
+<div class="admonition warning">
+<p class="admonition-title">La caja del satélite es suya</p>
+<p>No confundas el gestor de credenciales general de Pandora FMS con las cajas
+del servidor satélite. Las del satélite son propias y viven en su fichero de
+configuración. El gestor general está en
+<a href="../../parte-2/2.2-gestor-de-credenciales/">Credenciales</a>.</p>
+</div>
+<h3 id="los-modulos-dinamicos-en-la-consola">Los módulos dinámicos en la consola<a class="headerlink" href="#los-modulos-dinamicos-en-la-consola" title="Permanent link">¶</a></h3>
+<p>Si la configuración del satélite es correcta, la consola web muestra una vista de
+agentes con los que el satélite ha descubierto o creado. Los módulos dinámicos
+(los que el satélite genera al detectar interfaces, discos o CPU) aparecen en el
+agente como cualquier otro módulo, y se pueden filtrar y editar igual que los de
+un agente normal.</p>
+<p></p>
+<div class="admonition example">
+<p class="admonition-title">Un módulo dinámico en la vista</p>
+<p>El satélite descubre el switch <code>192.168.10.1</code>, crea su agente y le añade un
+módulo por cada interfaz detectada, con el nombre real de la interfaz. En la
+vista de agentes, ese agente aparece con sus módulos dinámicos, editables
+como cualquier otro.</p>
+</div>
+<h2 id="exec-server-y-tunel-ssh-inverso">Exec Server y túnel SSH inverso<a class="headerlink" href="#exec-server-y-tunel-ssh-inverso" title="Permanent link">¶</a></h2>
+<h3 id="que-es-el-exec-server">Qué es el Exec Server<a class="headerlink" href="#que-es-el-exec-server" title="Permanent link">¶</a></h3>
+<p>El <strong>Exec Server</strong> sirve para ejecutar procesos de la consola web desde un
+servidor remoto, en lugar de desde la propia consola. El caso típico: quieres
+lanzar un escaneo con el Wizard SNMP sobre una red aislada a la que solo llega
+el servidor satélite. La consola no tiene ruta hasta esa red, pero el satélite
+sí; con el Exec Server, el asistente se ejecuta en el punto que ve la red. Lo
+aprovechan los asistentes de agente (SNMP y WMI) y el <strong>navegador SNMP</strong>: sus
+consultas se lanzan desde el servidor que elijas, no desde la consola.</p>
+<p>Se puede configurar sobre un servidor de red de Pandora FMS y sobre un servidor
+satélite. La funcionalidad usa el túnel SSH que monta Pandora FMS de forma
+automática; una vez configurado el túnel, el servidor queda disponible como
+Exec Server desde la consola web.</p>
+<h3 id="habilitarlo-y-usarlo">Habilitarlo y usarlo<a class="headerlink" href="#habilitarlo-y-usarlo" title="Permanent link">¶</a></h3>
+<p><strong>Habilitación en un servidor de red.</strong> En la ficha del servidor
+(<strong>Gestión → Servidores → Gestionar servidores</strong>) aparece el conmutador <strong>Exec
+Server</strong> y un campo <strong>Puerto</strong>. Si se deja el puerto en blanco, se usa el puerto
+SSH por defecto (22). Con el Exec Server activado, aparece además un indicador
+<strong>Comprobar ejecución del servidor</strong> para verificar que responde.</p>
+<p><strong>Habilitación en un satélite.</strong> Los satélites no marcan <code>exec_proxy</code>: aparecen
+como Exec Server en cuanto su túnel SSH inverso está listo, es decir, cuando la
+columna <code>reverse_ssh_ready</code> está activa. Por eso ambas cosas van de la mano.</p>
+<p>La consola conecta al Exec Server con el usuario <strong><code>pandora_exec_proxy</code></strong>, que
+es el que espera encontrar al otro lado; si la cuenta no coincide, la
+comprobación falla con un aviso de que el usuario debe ser <code>pandora_exec_proxy</code>.</p>
+<p>Donde se usa el Exec Server, el formulario incluye un selector para elegirlo: en
+los asistentes se llama <strong>Servidor para ejecutar el comando</strong> y en el navegador
+SNMP, <strong>Servidor a ejecutar</strong>. En los dos casos las opciones son las mismas:</p>
+<ul>
+<li><strong>Consola local</strong>: el proceso se ejecuta en el propio servidor de la consola.</li>
+<li><strong>Servidores estándar y satélite</strong>: cada uno con su etiqueta, <code>(Standard)</code> o
+  <code>(Satellite)</code>, para enviar la ejecución a ese servidor.</li>
+</ul>
+<p>Ejemplo: sobre la red aislada <code>192.168.10.0/24</code>, accesible únicamente a través
+del satélite, lanzas el Wizard SNMP desde la consola web eligiendo ese satélite
+como servidor de ejecución. La consola viaja por el túnel SSH, ejecuta el
+escaneo desde la máquina del satélite, que sí alcanza la red, y devuelve los
+resultados al asistente. Sin Exec Server ni túnel, ese escaneo no tendría por
+dónde salir. El navegador SNMP funciona igual: eliges el satélite en <strong>Servidor a
+ejecutar</strong> y sus consultas se lanzan desde allí.</p>
+<h3 id="wizards-de-agente">Wizards de Agente<a class="headerlink" href="#wizards-de-agente" title="Permanent link">¶</a></h3>
+<p>Los asistentes de agente (el Wizard SNMP, el Wizard SNMP de interfaces y el
+Wizard WMI) se pueden lanzar desde el servidor satélite con sus propios agentes,
+para desplegar monitorización desde el punto donde hay ruta. Para ello es
+necesario tener habilitado el Exec Server en la configuración del satélite.</p>
+<h3 id="el-tunel-ssh-inverso">El túnel SSH inverso<a class="headerlink" href="#el-tunel-ssh-inverso" title="Permanent link">¶</a></h3>
+<p>El problema es de dirección: el servidor satélite vive en una red a la que la
+consola no puede conectarse, así que no hay forma de que la consola «entre» en
+él. La solución es darle la vuelta. El satélite abre él mismo una conexión SSH
+hacia la consola y crea un túnel inverso; a partir de ahí, la consola puede usar
+el Exec Server como si el satélite estuviera a su lado.</p>
+<div class="admonition info">
+<p class="admonition-title">Solo en Linux</p>
+<p>El túnel SSH inverso solo es compatible con servidores satélite en Linux.</p>
+</div>
+<p>Esta función existe a partir de la versión 785. Si el satélite está configurado
+con configuración remota habilitada, aparece un icono nuevo en la consola web
+para configurarlo:</p>
+<p></p>
+<p>Al abrirlo, se habilita y se configuran los campos del túnel:</p>
+<p></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué indica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Server host</strong></td>
+<td>Servidor al que se conecta el satélite para crear el túnel remoto; es la consola web del servidor de Pandora FMS</td>
+</tr>
+<tr>
+<td><strong>Local tunnel port</strong></td>
+<td>Puerto que se usará para construir el túnel; el tráfico de ese puerto se redirige al puerto SSH del satélite</td>
+</tr>
+<tr>
+<td><strong>Local tunnel user</strong></td>
+<td>Usuario que construye el túnel y el que usa la consola web para conectarse al satélite con el Exec Server</td>
+</tr>
+<tr>
+<td><strong>SSH port on remote server</strong></td>
+<td>Puerto SSH del satélite con el que se construye el túnel</td>
+</tr>
+</tbody>
+</table>
+<p>Además, hay un ajuste general en la consola web para el puerto de conexión SSH
+que usan los satélites al construir el túnel: <strong>Puerto de servidor SSH para
+túneles SSH inversos</strong>. Está documentado en
+<a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/">Configuración de la consola</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Un túnel sobre 192.168.10.0/24</p>
+<p>La consola web está en <code>192.168.10.10</code>. Se configura <strong>Server host</strong> con esa
+dirección, <strong>Local tunnel port</strong> <code>2222</code> y <strong>SSH port on remote server</strong> <code>22</code>.
+La consola genera la clave, el satélite la intercambia por Tentacle y abre
+el túnel. A partir de ahí, la consola se conecta por <code>localhost:2222</code> y
+alcanza el SSH del satélite, que es quien sí ve la red <code>192.168.10.0/24</code>.</p>
+</div>
+<p><strong>Proceso de creación del túnel.</strong> El reparto de claves y la apertura del túnel siguen estos pasos:</p>
+<ol>
+<li>La configuración se hace desde la sección de servidores, en el satélite
+   correspondiente.</li>
+<li>La consola web genera una clave SSH para el usuario con el que se ejecuta,
+   por defecto <code>apache</code>.</li>
+<li>El satélite obtiene la clave pública junto con la configuración definida del
+   servidor de Pandora FMS, por Tentacle.</li>
+<li>El satélite lee esa configuración y crea localmente las claves SSH para el
+   usuario definido.</li>
+<li>El satélite envía su clave pública por Tentacle al servidor de Pandora FMS.</li>
+<li>El satélite se conecta por SSH al servidor haciendo una redirección de puerto
+   remota: abre el puerto definido en la configuración en el servidor de Pandora
+   FMS y lo redirige al puerto SSH del satélite.</li>
+<li>La consola web usa ese túnel y la clave pública que envió el satélite para
+   ejecutar acciones como el Wizard SNMP o el navegador SNMP, haciendo las
+   conexiones desde el satélite.</li>
+<li>El <em>cron</em> de la consola web comprueba el estado del túnel configurado.</li>
+</ol>
+<p>Durante estas fases, la pantalla de estado del túnel muestra los indicadores
+<strong>Túnel habilitado</strong>, <strong>Clave pública remota</strong>, <strong>Clave pública local</strong> y
+<strong>Túnel listo</strong>; el último pasa a «Listo para su uso» cuando el túnel está
+operativo. En la tabla del servidor, <code>reverse_ssh_ready</code> refleja si el túnel
+está disponible: es la señal que convierte al satélite en candidato a Exec
+Server.</p>
+<div class="admonition note">
+<p class="admonition-title">Si la comprobación de puerto avisa</p>
+<p>Si el puerto configurado en «Puerto de servidor SSH para túneles SSH
+inversos» no está en uso, la consola avisa de que puede que no haya un
+servicio SSH escuchando y enlaza a la configuración general. Revísalo antes
+de dar por bueno el túnel.</p>
+</div>
+<h2 id="rendimiento-limites-y-diagnostico">Rendimiento, límites y diagnóstico<a class="headerlink" href="#rendimiento-limites-y-diagnostico" title="Permanent link">¶</a></h2>
+<p>El rendimiento del satélite depende de tres palancas: cuántas comprobaciones
+haces, con cuántos hilos las haces y con qué frecuencia las mandas. La tasa de
+sondeo de ICMP, latencia y SNMP v1/v2 llega hasta 500 comprobaciones por
+segundo; SNMPv3 va más lento porque cifra. El coste no es gratuito: subir hilos
+acelera el proceso y carga más la máquina, y por encima de cierto punto empeora
+el resultado.</p>
+<table>
+<thead>
+<tr>
+<th>Palanca</th>
+<th>Parámetros</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hilos por protocolo</td>
+<td><code>ping_threads</code>, <code>latency_threads</code>, <code>tcp_threads</code>, <code>snmp_threads</code>, <code>snmp2_threads</code>, <code>snmp3_threads</code>, <code>wmi_threads</code>, <code>ssh_threads</code>, <code>exec_threads</code>, <code>plugin_threads</code></td>
+<td>Más hilos, más carga. <code>exec_threads</code> por encima de 20 puede empeorar el rendimiento según el sistema</td>
+</tr>
+<tr>
+<td>Bloques de sondeo</td>
+<td><code>ping_block</code>, <code>latency_block</code>, <code>snmp_block</code>, <code>snmp2_block</code>, <code>snmp3_block</code></td>
+<td>Más hosts por llamada, más capacidad, pero más latencia; el máximo práctico es 500</td>
+</tr>
+<tr>
+<td>Envío</td>
+<td><code>agent_threads</code>, <code>agent_block</code>, <code>agent_interval</code></td>
+<td>Cuántos XML se mandan y cada cuánto</td>
+</tr>
+<tr>
+<td>Módulos de ejecución</td>
+<td><code>exec_threads</code>, <code>exec_interval</code></td>
+<td>Un <code>module_exec</code> corre en la máquina del satélite y consume sus recursos</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Dimensionar para 192.168.10.0/24</p>
+<p>En una red pequeña como <code>192.168.10.0/24</code> (unas 254 direcciones, de las
+que solo unas pocas responden) los valores por defecto van sobrados. El
+ajuste se vuelve necesario cuando el mismo satélite cubre varios rangos
+grandes: ahí toca subir bloques (<code>ping_block</code>, <code>snmp_block</code>) y revisar
+hilos, vigilando el consumo de CPU del propio satélite.</p>
+</div>
+<h3 id="lista-de-exclusion-de-snmp">Lista de exclusión de SNMP<a class="headerlink" href="#lista-de-exclusion-de-snmp" title="Permanent link">¶</a></h3>
+<p>En redes grandes, un módulo SNMP que devuelve datos inválidos puede degradar el
+rendimiento del satélite y arrastrar a otros módulos al estado Desconocido. Para
+evitarlo, el satélite puede leer una lista de exclusión de módulos SNMP que se
+descartan en el arranque, antes de ejecutarse.</p>
+<p>El token <code>snmp_blacklist</code> apunta al fichero de la lista, por defecto
+<code>/etc/pandora/satellite_server.blacklist</code>. El formato es una línea por pareja
+agente u OID:</p>
+<div class="highlight"><pre><span></span><code>192.168.10.1:.1.3.6.1.4.1.9.9.27
+192.168.10.2:.1.3.6.1.4.1.9.9.27
+</code></pre></div>
+<p>Para que el satélite lea esa lista hace falta ejecutarlo en modo de generación
+con <code>-v</code> y el fichero de configuración:</p>
+<div class="highlight"><pre><span></span><code>satellite_server<span class="w"> </span>-v<span class="w"> </span>/etc/pandora/satellite_server.conf
+</code></pre></div>
+<p>Después, reinicia el servidor satélite. La lista se puede regenerar tantas veces
+como sea necesario.</p>
+<p>Para el día a día, las comprobaciones básicas son pocas y baratas: mirar el log
+(<code>/var/log/satellite_server.log</code>), subir <code>verbosity</code> cuando haga falta más
+detalle y revisar <code>snmp_verify</code> si sospechas que algún módulo SNMP está tumbando
+el sondeo. El diagnóstico de problemas, la volumetría y la configuración
+completa del servidor de Pandora FMS están en sus capítulos respectivos:
+<a href="../../parte-9/9.13-troubleshooting-con-pandora/">Troubleshooting</a>,
+<a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/">Volumetría</a> y
+<a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/">Configuración del servidor</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

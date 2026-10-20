@@ -1,0 +1,4655 @@
+<!DOCTYPE html><html lang="es" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentación de producto de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/805/parte-6/6.5-base-de-datos-de-historico/">
+      
+      
+        <link rel="prev" href="../6.4-distribucion-e-instalacion-automatica-de-agentes/">
+      
+      
+        <link rel="next" href="../6.6-mecanismos-de-autoprovision/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../en/parte-6/6.5-base-de-datos-de-historico/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>5. Base de datos de histórico - Pandora FMS — Documentación de producto</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#base-de-datos-de-historico" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  Estás viendo una versión que no es la vigente (una versión anterior o la
+  compilación diaria <code>develop</code>).
+  <a href="../../..">
+    <strong>Ir a la última versión publicada.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-header__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentación de producto
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. Base de datos de histórico
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/parte-6/6.5-base-de-datos-de-historico/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentación de producto
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 01. Arranque rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 01. Arranque rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introducción y arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Política de versiones y soporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Actualizaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licenciamiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Monitorización con EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestor de credenciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización y descubrimiento automático con Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Descubrimiento de redes con Host y dispositivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tareas de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de redes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Monitorización de tráfico con netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Colecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Políticas de monitorización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Monitorización de aplicaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Monitorización de contenedores y orquestadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Monitorización de experiencia de usuario (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Monitorización entornos Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Monitorización entornos Virtualizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Monitorización IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Monitorización de APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Recolección y monitorización de logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Control remoto con RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribución automática de software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ejecución remota de scripts y comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Parcheado de sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestión de configuración de equipos de red (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestión de IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Paradas planificadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integración de activos con ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Reconciliación de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Grupos, perfiles y tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Autenticación externa y centralización de accesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Seguridad y visibilidad avanzada (Enterprise ACL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Buenas prácticas de etiquetado / naming / tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Dashboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Informes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización de negocio y servicios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola de eventos centralizada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertas y notificaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consolas Visuales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Mapas topológicos de red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestión de incidencias / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Análisis Predictivo / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Mapas GIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitecturas Distribuidas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidores satélite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribución e instalación automática de agentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de datos de histórico
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de datos de histórico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduccion-que-es-y-cuando-usarlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción: qué es y cuándo usarlo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-encaja-en-la-arquitectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo encaja en la arquitectura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-y-preparacion-del-servidor-de-historico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos y preparación del servidor de histórico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activacion-y-conexion-desde-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activación y conexión desde la consola
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-se-mueve-y-cuando" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué se mueve y cuándo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retencion-y-purgado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retención y purgado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particionado-automatico-de-tablas-grandes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particionado automático de tablas grandes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estado-mantenimiento-y-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estado, mantenimiento y diagnóstico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consulta-desde-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consulta desde la consola
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operacion-en-entornos-complejos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operación en entornos complejos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia-de-opciones-y-dimensionado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia de opciones y dimensionado
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mecanismos de autoprovisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportación de datos a servidores externos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimización de la Base de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Backup y restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Alta Disponibilidad (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 07. Seguridad y monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 07. Seguridad y monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitectura de seguridad de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Análisis de vulnerabilidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Hardening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de seguridad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Auditoría interna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integraciones dinámicas de IoC (MISP) y creación de reglas propias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Compliance: NIS2, ISO 27001 y ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción e instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatización de tareas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. A detallar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Referencia completa de configuración del EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia completa de configuración de la consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Referencia completa de configuración del servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Referencia completa de Tentacle (servidor y cliente)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Cifrado de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Creación de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Creación de plugins locales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Creación de plugins remotos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Creación de extensiones de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Integración y automatización. Webhooks y API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Descubrimiento automático avanzado (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Troubleshooting con Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Análisis de volumetría y diseños para alta capacidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Cheat Sheet de comandos rápidos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 10. Base de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 10. Base de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Esquema de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 11. Anexos técnicos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 11. Anexos técnicos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Actualización de versiones de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glosario de términos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilidad y migración a la nueva arquitectura de servidores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ampliar los asistentes SNMP y WMI con componentes propios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qué es este FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor y base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agentes y sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola web y licencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Módulos y red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertas y eventos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Informes, logs y correo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Entornos grandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatización y plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduccion-que-es-y-cuando-usarlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción: qué es y cuándo usarlo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-encaja-en-la-arquitectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo encaja en la arquitectura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-y-preparacion-del-servidor-de-historico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos y preparación del servidor de histórico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activacion-y-conexion-desde-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activación y conexión desde la consola
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-se-mueve-y-cuando" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué se mueve y cuándo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retencion-y-purgado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retención y purgado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particionado-automatico-de-tablas-grandes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particionado automático de tablas grandes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estado-mantenimiento-y-diagnostico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estado, mantenimiento y diagnóstico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consulta-desde-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consulta desde la consola
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operacion-en-entornos-complejos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operación en entornos complejos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia-de-opciones-y-dimensionado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencia de opciones y dimensionado
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="base-de-datos-de-historico">Base de datos de histórico<a class="headerlink" href="#base-de-datos-de-historico" title="Permanent link">¶</a></h1>
+<p>Una instalación de Pandora FMS lo apunta todo: el valor de cada módulo, cada evento, cada trap. Con el tiempo esa base de datos se convierte en un archivo enorme, y la parte que se consulta a diario es una franja mínima, los últimos días. La <strong>base de datos de histórico</strong> existe justo para eso: los datos antiguos se van a otra base de datos y la principal respira. La información no se tira ni se encierra en un cajón: sigue disponible, y la consola la consulta de forma transparente cuando pides una gráfica o un informe que se remonta más atrás de lo que la base de datos activa conserva.</p>
+<h2 id="introduccion-que-es-y-cuando-usarlo">Introducción: qué es y cuándo usarlo<a class="headerlink" href="#introduccion-que-es-y-cuando-usarlo" title="Permanent link">¶</a></h2>
+<p>La base de datos de histórico es una segunda base de datos, con el mismo motor y el mismo esquema que la principal, a la que el servidor transfiere los datos antiguos de los módulos. El objetivo es doble: aligerar la base de datos activa, que es la que soporta la escritura constante y las consultas del día a día, y conservar series temporales largas sin que ocupen el mismo sitio que los datos recientes. Lo que se gana es margen: una instalación con mucho volumen puede seguir guardando meses de datos sin que la base de datos activa se degrade. Lo que se paga es una pieza más que administrar, con su propio servidor de base de datos, su copia de seguridad y su mantenimiento.</p>
+<p>Conviene cuando hay un volumen alto de series temporales y se quiere un histórico largo sin sacrificar la respuesta de la base de datos principal. La base de datos de histórico conserva el dato tal cual, solo que en otro sitio: no resume ni pierde resolución, y por eso sirve también para volver a mirar el minuto exacto en que algo pasó.</p>
+<p>Tampoco es una copia de seguridad, y conviene no confundirlas. La base de datos de histórico no protege contra un borrado accidental ni contra la caída del servidor: es una base de datos de producción más, viva, con su ciclo de purgado. Para eso está el respaldo, que se trata en <a href="../6.9-backup-y-restore/">6.9 (Backup y restore)</a>.</p>
+<p>La base de datos de histórico es <strong>opcional</strong> y viene desactivada de fábrica. No es un requisito de instalación ni una palanca de rendimiento que se active sin pensar: es una pieza que se monta cuando el volumen la justifica. Activarla en una instalación pequeña añade trabajo a cambio de poco. La decisión razonable es activarla cuando la base de datos activa empieza a quedarse corta y la retención que se necesita supera con creces lo que conviene tener en la base de datos principal.</p>
+<p>Si quieres situar el histórico dentro del conjunto de la plataforma antes de bajar al detalle, <a href="../../parte-1/1.2-introduccion-y-arquitectura/">1.2 (Introducción y arquitectura)</a> describe los componentes y las topologías, y <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/">10.1 (Esquema de la base de datos)</a> enseña el esquema real, con los nombres de tabla que aquí no se usan.</p>
+<h2 id="como-encaja-en-la-arquitectura">Cómo encaja en la arquitectura<a class="headerlink" href="#como-encaja-en-la-arquitectura" title="Permanent link">¶</a></h2>
+<p>La base de datos de histórico es del mismo motor que la principal, MySQL 8 o Percona Server for MySQL 8. No es un almacén distinto con otro formato: es la misma estructura, con las mismas tablas de datos, en otro servidor. Por eso el servidor puede mover filas de un sitio a otro sin conversiones raras, y por eso la consola puede cambiar de origen sin que la consulta se entere.</p>
+<p>El movimiento lo ejecuta el <strong>mantenimiento periódico del servidor</strong>, no la consola web. La consola se limita a configurar la conexión y los umbrales; quien transfiere los datos es la herramienta de mantenimiento de la base de datos, que corre cada hora por cron. Esto tiene una consecuencia práctica que a veces se pasa por alto: configurar el histórico no mueve nada al instante. Los datos empiezan a viajar en la siguiente pasada del mantenimiento.</p>
+<p>La consola, por su parte, mantiene su propia conexión a la base de datos de histórico y decide en cada consulta de qué base de datos tirar. Cuando pides una gráfica o un informe, la consola mira la antigüedad del periodo solicitado y, si cruza el umbral configurado, cambia de base de datos. Es la <strong>consulta transparente</strong>: tú no eliges la base de datos, la elige la consola por ti. El detalle de ese mecanismo está en <a href="#consulta-desde-la-consola">Consulta desde la consola</a>.</p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph ACTIVA["Base de datos principal"]
+        RECIENTES["Datos recientes de los módulos"]
+    end
+    subgraph HISTORICO["Base de datos de histórico"]
+        ANTIGUOS["Datos antiguos ya movidos"]
+    end
+    SERVIDOR["Servidor de Pandora FMS&lt;br/&gt;mantenimiento horario"]
+    CONSOLA["Consola web"]
+
+    SERVIDOR --&gt;|"mueve los datos con más antigüedad que el umbral"| HISTORICO
+    ACTIVA --&gt;|"el mantenimiento toma los datos que ya no se consultan a diario"| SERVIDOR
+    CONSOLA --&gt;|"1. busca primero los datos recientes"| ACTIVA
+    CONSOLA --&gt;|"2. si el periodo cruza el umbral, consulta aquí"| HISTORICO</code></pre>
+<p>El histórico convive con el resto de la arquitectura sin pedir permiso. En un <strong>Command Center</strong> tiene su propia pantalla en el Metasetup, como se explica en <a href="#operacion-en-entornos-complejos">Operación en entornos complejos</a>; en una topología de <strong>alta disponibilidad</strong> forma parte del entramado que coordina el mantenimiento, como se ve en <a href="../6.10-alta-disponibilidad-ha/">6.10 (Alta disponibilidad)</a>. Y aunque la costumbre y la documentación antigua lo presenten como obligatorio, lo cierto es que el código no exige que el histórico viva en un servidor distinto al de la base de datos principal: es una <strong>recomendación</strong>, y una buena, porque separar el disco y la CPU de las dos bases evita que el mantenimiento de una ahogue a la otra.</p>
+<h2 id="requisitos-y-preparacion-del-servidor-de-historico">Requisitos y preparación del servidor de histórico<a class="headerlink" href="#requisitos-y-preparacion-del-servidor-de-historico" title="Permanent link">¶</a></h2>
+<p>Antes de tocar la consola hay que tener a punto el servidor que va a alojar la segunda base de datos. Los requisitos son los mismos que los de cualquier base de datos de Pandora FMS, con la salvedad de que aquí no hace falta instalar el producto: basta con el motor y una base de datos dedicada.</p>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Motor de base de datos</td>
+<td>MySQL 8 o Percona Server for MySQL 8, el mismo que la base de datos principal. La tabla de requisitos completa está en <a href="../../parte-1/1.1-instalacion/">1.1 (Instalación)</a></td>
+</tr>
+<tr>
+<td>Base de datos dedicada</td>
+<td>Una base de datos propia para el histórico, distinta de la principal, con su usuario y su contraseña</td>
+</tr>
+<tr>
+<td>Privilegios</td>
+<td>El usuario necesita privilegios sobre esa base de datos, incluidos los de crear y modificar estructura, porque en la primera conexión se instala el esquema</td>
+</tr>
+<tr>
+<td>Conectividad</td>
+<td>Acceso desde el servidor de Pandora FMS y desde la consola web hasta el host y el puerto del motor. El puerto por defecto es <code>3306</code></td>
+</tr>
+<tr>
+<td>Servidor distinto</td>
+<td>Alojar el histórico en un servidor separado del de la base de datos principal es <strong>recomendado</strong>, no exigido. Separa disco y CPU, y evita que el mantenimiento de una base de datos penalice a la otra</td>
+</tr>
+<tr>
+<td>Conexión segura (SSL)</td>
+<td>Opcional desde la versión 782. Se configura con el interruptor <strong>Habilitar SSL</strong> y los campos de clave, certificado, CA, ruta de la CA y verificación del certificado del servidor</td>
+</tr>
+</tbody>
+</table>
+<p>El administrador del motor prepara la base de datos y el usuario. En la línea de comandos del servidor MySQL que va a alojar el histórico, un juego de sentencias como este deja el terreno listo:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'&lt;pfms_user_name&gt;'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;pfms_user_password&gt;'</span><span class="p">;</span>
+
+<span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'&lt;pfms_user_name&gt;'</span>
+<span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;pfms_user_password&gt;'</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">historical_database_name</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="o">`&lt;</span><span class="n">historical_database_name</span><span class="o">&gt;`</span><span class="p">.</span><span class="o">*</span>
+<span class="w">  </span><span class="k">TO</span><span class="w"> </span><span class="s1">'&lt;pfms_user_name&gt;'</span><span class="o">@</span><span class="s1">'&lt;pfms_server_ip_address&gt;'</span><span class="p">;</span>
+
+<span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+</code></pre></div>
+<p>El nombre de la base de datos, el usuario y la contraseña son los que después se escriben en la pantalla de la consola. El esquema no se crea a mano: lo instala la propia consola en la primera conexión, como se cuenta en el apartado siguiente.</p>
+<p>Sobre el <strong>SSL</strong>, conviene tener claro qué es cada campo. <strong>Clave SSL del servidor</strong> es la ruta al fichero PEM con la clave del servidor MySQL; <strong>Certificado SSL del servidor</strong>, la del certificado de esa clave; <strong>Certificado SSL de la CA</strong>, la lista de certificados emitidos por una autoridad de certificación; <strong>Ruta del certificado SSL de la CA</strong>, el directorio que aloja esos certificados, también en formato PEM. Con <strong>Verificar certificado SSL del servidor</strong> activado, la conexión comprueba el CN del certificado y, si no coincide, no conecta. Es la opción recomendada cuando el motor expone una conexión TLS, y la explicación de la configuración segura de la base de datos principal, que comparte criterios, está en <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/">9.5 (Cifrado de la base de datos)</a>.</p>
+<p></p>
+<h2 id="activacion-y-conexion-desde-la-consola">Activación y conexión desde la consola<a class="headerlink" href="#activacion-y-conexion-desde-la-consola" title="Permanent link">¶</a></h2>
+<p>La pantalla vive en <strong>Ajustes → Configuración del sistema → Base de datos histórica</strong>. Todo empieza con un interruptor general, <strong>Habilitar base de datos histórica</strong>, y un formulario de conexión que aparece al activarlo.</p>
+<p>Los campos de conexión son los de cualquier cliente MySQL: <strong>Host</strong>, <strong>Puerto</strong>, <strong>Nombre de la base de datos</strong>, <strong>Usuario de la base de datos</strong> y <strong>Contraseña de la base de datos</strong>. El puerto viene con <code>3306</code>, el estándar. La contraseña se guarda cifrada, como el resto de credenciales del producto. Debajo está el bloque SSL descrito en el apartado anterior.</p>
+<p></p>
+<p>Al guardar, la consola hace dos comprobaciones que conviene conocer porque explican la mitad de los sustos:</p>
+<ul>
+<li>Si la base de datos de histórico que has escrito es <strong>la misma</strong> que la activa (mismo host, mismo puerto, mismo nombre), la consola rechaza el guardado con un aviso claro: la base de datos activa y la histórica no pueden ser la misma. Es un error de configuración, no un fallo.</li>
+<li>Si la base de datos de destino no existe, no responde o el usuario no tiene permisos, la creación de la estructura falla y el interruptor <strong>Habilitar base de datos histórica</strong> queda desactivado. La consola no deja activado un histórico al que no puede escribir.</li>
+</ul>
+<p>Cuando la conexión va bien, la primera vez se <strong>instala el esquema</strong> en la base de datos de destino. A partir de ahí, la consola compara la versión del esquema del histórico con la de la base de datos activa y ofrece dos acciones según el estado: <strong>Instalar esquema de base de datos</strong>, si aún no existe, y <strong>Actualizar el esquema de la base de datos</strong>, que programa la puesta al día cuando el histórico se ha quedado atrás respecto a la base de datos principal. Las dos acciones son la misma maquinaria que mantiene al día el esquema de la base de datos principal, aplicada sobre la conexión de histórico.</p>
+<p>Los indicadores de estado de la pestaña <strong>Conexión</strong> no son decorativos: se pueden pulsar para forzar una comprobación. Si dudas de si la base de datos responde, pulsar el indicador de conexión lanza una comprobación en el momento, sin esperar al siguiente ciclo. El indicador de esquema instalado es el que dispara la instalación cuando falta, y el de esquema actualizado el que programa la actualización cuando hay desfase.</p>
+<p>La pantalla se organiza en cinco pestañas, cada una con su cometido:</p>
+<table>
+<thead>
+<tr>
+<th>Pestaña</th>
+<th>Qué configura</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Conexión</strong></td>
+<td>El interruptor general, los datos de conexión, el bloque SSL y el estado del mantenimiento y del esquema</td>
+</tr>
+<tr>
+<td><strong>De activo a histórico</strong></td>
+<td>Qué datos salen de la base de datos activa y con qué antigüedad, el tamaño de bloque, la pausa y las opciones avanzadas</td>
+</tr>
+<tr>
+<td><strong>Histórico de datos</strong></td>
+<td>La retención de los datos ya movidos y el particionado automático de las tablas grandes</td>
+</tr>
+<tr>
+<td><strong>Acontecimientos históricos</strong></td>
+<td>El traslado de eventos y su retención en el histórico</td>
+</tr>
+<tr>
+<td><strong>Trampas históricas</strong></td>
+<td>El traslado de traps y su retención en el histórico. No aparece en el Command Center</td>
+</tr>
+</tbody>
+</table>
+<p>El inventario completo de opciones, con su valor por defecto y su efecto, vive en <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/#31-historico-de-base-de-datos">9.2 (Referencia completa de configuración de la consola)</a>. Aquí se cuenta qué hace cada cosa y cómo se opera.</p>
+<h2 id="que-se-mueve-y-cuando">Qué se mueve y cuándo<a class="headerlink" href="#que-se-mueve-y-cuando" title="Permanent link">¶</a></h2>
+<p>Lo primero que mueve el histórico son las <strong>series numéricas</strong> de los módulos. A partir de un umbral de antigüedad, por defecto <strong>15 días</strong>, el dato deja de estar en la base de datos activa y pasa a la histórica. El umbral se ajusta en <strong>Antigüedad de los datos a mantener en la base de datos activa</strong> y no puede alcanzar el límite de purgado de la base de datos principal: si la base de datos activa borra a los 45 días, el histórico no tiene sentido configurado a 45, porque llegaría tarde a recoger lo que ya se ha purgado.</p>
+<p>Las <strong>series de texto</strong> son otra historia. Por defecto <strong>no se transfieren</strong>: se quedan en la base de datos activa y se purgan con ella. Solo salen hacia el histórico si se activan las <strong>opciones avanzadas</strong>, que habilitan el campo <strong>Antigüedad de los datos en cadena a mantener en la base de datos activa</strong>, con <strong>0 días</strong> por defecto: las cadenas no esperan en la base de datos activa y empiezan a viajar al histórico en cuanto se activan. Es una decisión con consecuencias, porque las cadenas de texto ocupan mucho más que un número y, si se activan, hay que configurar su purgado en el histórico o crecerá sin freno. Ese punto se trata en <a href="#retencion-y-purgado">Retención y purgado</a>.</p>
+<p>Los <strong>eventos</strong> y los <strong>traps</strong> son opcionales y viajan por interruptores propios: <strong>Habilitar eventos de histórico</strong> y <strong>Habilitar traps de histórico</strong>. Cada uno tiene su umbral de antigüedad en la base de datos activa. El de eventos, <strong>Antigüedad de eventos para permanecer en la base de datos activa</strong>, tiene por defecto <strong>6 días</strong>, un día por debajo del purgado de eventos de la base de datos principal (<strong>7</strong>). El de traps, en su pestaña, es de <strong>6 días</strong> por defecto. Los eventos, además, se consultan solo al generar informes, nunca en la vista de eventos en vivo, así que llevarlos al histórico engorda la segunda base de datos sin acelerar la pantalla que más se mira: incluir eventos <strong>aumenta de forma notable</strong> el ritmo de crecimiento del histórico, y es una decisión de espacio, no de rendimiento.</p>
+<p>Hay un caso aparte que explica más de una sorpresa: los <strong>módulos de intervalo corto</strong>. Los que se ejecutan con un intervalo inferior a 300 segundos viven en la base de datos activa un máximo de <strong>una semana</strong>, y ese plazo es fijo, está grabado en el código y no se configura desde la consola. Pasada la semana, sus datos se mueven al histórico. La razón es de sentido común: un módulo que mide cada pocos segundos genera muchísimo volumen, y dejarlo en la base de datos activa durante meses es la forma más rápida de tumbarla. Este comportamiento convive con el umbral general de 15 días, que se aplica a los módulos de intervalo normal.</p>
+<p>La transferencia no se hace de golpe. El mantenimiento envía los datos en <strong>bloques</strong> cuyo tamaño fija <strong>Tamaño del bloque de transferencia (Step)</strong>, <strong>1500</strong> filas por defecto, y espera <strong>Retraso entre transferencias (segundos)</strong>, <strong>1</strong> segundo por defecto, entre un bloque y el siguiente. La idea es no comerse la base de datos activa mientras se vacía: bloques pequeños y pausas generosas molestan menos, a cambio de tardar más en completar el traslado. Si el mantenimiento da problemas, la propia ayuda del campo recomienda bajar el tamaño del bloque. Sobre los valores recomendados se vuelve en <a href="#referencia-de-opciones-y-dimensionado">Referencia de opciones y dimensionado</a>.</p>
+<p></p>
+<p>Todo este trasiego lo hace el mantenimiento periódico. Si quieres entender qué módulos generan qué volumen antes de decidir los umbrales, <a href="../../parte-2/2.1-monitorizacion-con-endpoints/">2.1 (Monitorización con EndPoints)</a> cubre los intervalos de módulo, y <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/">10.1 (Esquema de la base de datos)</a> muestra el detalle de qué se mueve a nivel de tabla.</p>
+<h2 id="retencion-y-purgado">Retención y purgado<a class="headerlink" href="#retencion-y-purgado" title="Permanent link">¶</a></h2>
+<p>La base de datos de histórico tiene su <strong>propio ciclo de purgado</strong>, con sus propios límites. No hereda los de la base de datos principal: que la base de datos activa guarde 45 días de datos numéricos no significa nada para el histórico, que decide por su cuenta cuánto conserva. Los límites por defecto son <strong>180 días</strong> para los datos numéricos, <strong>180</strong> para las cadenas de texto, <strong>180</strong> para los eventos y <strong>180</strong> para los traps. Se ajustan en las pestañas de datos, eventos y traps del histórico.</p>
+<p></p>
+<p>Mientras tanto, la base de datos principal purga a la vez y por su cuenta, con límites mucho más cortos: <strong>45 días</strong> de datos numéricos, <strong>7</strong> de cadenas, <strong>7</strong> de eventos y <strong>7</strong> de traps. El orden importa. En cada pasada, el mantenimiento <strong>primero purga</strong> de la base de datos activa lo que supera su límite de retención y <strong>después mueve</strong> al histórico lo que supera el umbral de traslado. Por eso conviene que el umbral de traslado quede siempre por debajo del límite de purgado: si la base de datos activa borra antes de que el histórico recoja, el dato se pierde. Y si el histórico no está disponible, la base de datos activa sigue purgando igual: no hay cola de espera. Por eso el estado del histórico, que se ve en la pestaña <strong>Conexión</strong>, merece un vistazo de vez en cuando.</p>
+<p>El aviso serio es el de las <strong>series de texto</strong>. Si se activan las opciones avanzadas para transferirlas, hay que configurar también su retención en el histórico. Si no se hace, las cadenas se acumulan en la segunda base de datos indefinidamente y terminan ocupando un espacio que nadie había previsto. La documentación antigua proponía resolverlo con una consulta SQL directa sobre la base de datos; aquí la recomendación es hacerlo desde la propia pantalla, que es para lo que está, y dejar el detalle de tablas y columnas para <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/">10.1 (Esquema de la base de datos)</a>.</p>
+<h2 id="particionado-automatico-de-tablas-grandes">Particionado automático de tablas grandes<a class="headerlink" href="#particionado-automatico-de-tablas-grandes" title="Permanent link">¶</a></h2>
+<p>Con el histórico lleno de series, las tablas más grandes se vuelven lentas de consultar y pesadas de purgar. El <strong>particionado automático de tablas grandes</strong> reparte esas tablas en <strong>particiones mensuales</strong>, de forma que una consulta de una gráfica o un informe toca solo los trozos del periodo que le interesa y el purgado trabaja sobre conjuntos de filas más pequeños en lugar de sobre la tabla entera.</p>
+<p>El interruptor está en la pestaña <strong>Histórico de datos</strong>, bajo el nombre <strong>Partición automática de grandes tablas.</strong>, y viene desactivado por defecto. Cuando se activa, el mantenimiento crea las particiones que falten y añade una nueva al empezar cada mes. Cubre <strong>tres familias de datos</strong>: las series numéricas, las series de texto y los traps. El resto de la base de datos no se particiona. El detalle del esquema y de los nombres de tabla implicados está en <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/">10.1 (Esquema de la base de datos)</a> y en <a href="../../parte-10/10.2-referencia-de-tablas/">10.2 (Referencia de tablas)</a>.</p>
+<p>Existe además el <strong>particionado manual</strong>, para quien prefiere controlar el proceso o no quiere depender del automatismo. La operación se hace con un <code>ALTER TABLE</code> sobre la tabla de series, declarando particiones por rango sobre la marca temporal, con una partición final que recoge todo lo que supere el último límite:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tabla_de_series</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">RANGE</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;</span><span class="n">marca_temporal</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">PARTITION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">mes_1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">LESS</span><span class="w"> </span><span class="k">THAN</span><span class="w"> </span><span class="p">(</span><span class="n">UNIX_TIMESTAMP</span><span class="p">(</span><span class="s1">'&lt;inicio_del_mes_2&gt;'</span><span class="p">)),</span>
+<span class="w">    </span><span class="n">PARTITION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">mes_2</span><span class="o">&gt;</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">LESS</span><span class="w"> </span><span class="k">THAN</span><span class="w"> </span><span class="p">(</span><span class="n">UNIX_TIMESTAMP</span><span class="p">(</span><span class="s1">'&lt;inicio_del_mes_3&gt;'</span><span class="p">)),</span>
+<span class="w">    </span><span class="cm">/* ... un tramo por mes ... */</span>
+<span class="w">    </span><span class="n">PARTITION</span><span class="w"> </span><span class="n">pActual</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">LESS</span><span class="w"> </span><span class="k">THAN</span><span class="w"> </span><span class="p">(</span><span class="k">MAXVALUE</span><span class="p">)</span>
+<span class="w">  </span><span class="p">);</span>
+</code></pre></div>
+<p>Cada mes hay que reorganizar la partición abierta para cerrar el mes que acaba y abrir el siguiente, con un <code>REORGANIZE PARTITION</code> equivalente. Dos avisos de la experiencia: la operación necesita <strong>espacio libre de sobra</strong> en el disco, porque MySQL reescribe la tabla mientras la parte, y puede tardar <strong>horas</strong> en tablas grandes; en un caso real, partir una tabla con decenas de millones de filas llevó alrededor de hora y media. La forma de seguir el avance es mirar los ficheros de partición que va creando el motor en el directorio de datos. El particionado manual se apoya en las mismas ideas de optimización que se cuentan en <a href="../6.8-optimizacion-de-la-base-de-datos/">6.8 (Optimización de la base de datos)</a>.</p>
+<h2 id="estado-mantenimiento-y-diagnostico">Estado, mantenimiento y diagnóstico<a class="headerlink" href="#estado-mantenimiento-y-diagnostico" title="Permanent link">¶</a></h2>
+<p>La pestaña <strong>Conexión</strong> es el cuadro de mandos del histórico, y merece la pena leerla en orden. Primero, la <strong>disponibilidad de la conexión</strong>: un indicador verde con «La conexión con la base de datos histórica está disponible» o un rojo con el error concreto. Segundo, el <strong>esquema instalado</strong>: si existe, o si falta y hay que instalar. Tercero, el <strong>esquema al día</strong>: si la versión del histórico coincide con la de la base de datos activa o se ha quedado atrás. Y por último, la <strong>versión de esquema actual</strong> del histórico, para compararla de un vistazo con la de la base de datos principal.</p>
+<p></p>
+<p>El estado del mantenimiento de cada base de datos, la activa y la histórica, se sigue desde la página de <strong>Rendimiento</strong> de la consola, en su bloque de mantenimiento. Cada fila dice cuándo se ejecutó el mantenimiento por última vez y muestra un aviso si ha pasado demasiado tiempo. En la práctica, la referencia es de <strong>12 horas</strong>: si el mantenimiento no ha corrido en ese plazo, el indicador se pone en estado problemático. Como el mantenimiento está programado cada hora, doce horas sin ejecutarse significan que algo va mal.</p>
+<p>A eso se suman los <strong>avisos del supervisor de la consola</strong>, que aparecen en el sistema de notificaciones y cubren tres casos:</p>
+<ul>
+<li><strong>Base de datos histórica no disponible.</strong> El histórico está activado pero la consola no consigue conectar con la configuración actual.</li>
+<li><strong>Problema de mantenimiento de la base de datos histórica.</strong> El mantenimiento no pasa por la base de datos en <strong>48 horas</strong>. Es el umbral del supervisor, más laxo que el indicador de la pantalla, y avisa de un abandono sostenido.</li>
+<li><strong>Error de coincidencia de la base de datos histórica MR.</strong> El histórico no usa el mismo esquema que la base de datos principal, algo que puede producir anomalías al guardar datos.</li>
+</ul>
+<p>Cuando hay que comprobar a mano que el mantenimiento funciona, se lanza la herramienta desde la línea de comandos:</p>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_db<span class="w"> </span>/etc/pandora/pandora_server.conf
+</code></pre></div>
+<p>Una ejecución correcta no debería reportar errores. El proceso deja su rastro en el fichero de errores del servidor, que por defecto es <code>/var/log/pandora/pandora_server.error</code> y se configura en el propio fichero del servidor.</p>
+<p>Si aun así algo no cuadra, el diagnóstico general del producto está en <a href="../../parte-9/9.13-troubleshooting-con-pandora/">9.13 (Troubleshooting)</a> y las preguntas frecuentes de servidor y base de datos, en <a href="../../parte-12/12.2-servidor-y-base-de-datos/">12.2 (Servidor y base de datos)</a> y <a href="../../parte-12/12.8-entornos-grandes/">12.8 (Entornos grandes)</a>.</p>
+<h2 id="consulta-desde-la-consola">Consulta desde la consola<a class="headerlink" href="#consulta-desde-la-consola" title="Permanent link">¶</a></h2>
+<p>La gracia del histórico es que no hay que acordarse de él. Cuando pides una gráfica o un informe con datos antiguos, la consola <strong>busca primero en la base de datos principal</strong> y, en cuanto el periodo solicitado cruza el umbral de antigüedad configurado, <strong>cambia a la base de datos de histórico</strong> y sigue tirando de allí. La consulta se reparte entre las dos bases sin que el usuario lo note, y el resultado aparece como una serie continua. Ese umbral es el mismo de 15 días por defecto que decide qué se mueve, de modo que lo que ya no está en la base de datos activa se busca donde sí está.</p>
+<p>Los informes se benefician igual de la transparencia, como se describe en <a href="../../parte-5/5.2-informes/">5.2 (Informes)</a>, y las vistas de negocio y servicios, en <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/">5.3 (Monitorización de negocio y servicios)</a>.</p>
+<p>Conviene saber también <strong>qué no cubre</strong> el histórico. La <strong>vista de eventos en vivo no consulta la base de datos de histórico</strong>: los eventos movidos solo alimentan la generación de informes. Si trasladas eventos, ganas histórico para informes, pero no verás los eventos antiguos en la pantalla de eventos. Algo parecido ocurre con los traps, cuyo tratamiento se documenta en <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/">2.7 (Monitorización de traps SNMP)</a>. Y hay datos que nunca viajan al histórico: la configuración, los agentes, las alertas y todo lo que no sea una serie temporal se quedan en la base de datos principal.</p>
+<h2 id="operacion-en-entornos-complejos">Operación en entornos complejos<a class="headerlink" href="#operacion-en-entornos-complejos" title="Permanent link">¶</a></h2>
+<p>En un <strong>Command Center</strong>, el histórico tiene su propia pantalla en <strong>Setup → Metasetup → Historical database</strong>: es la misma configuración que la de una consola, aplicada a la base de datos del propio Command Center, y cada instancia conserva además la suya en su consola. Un detalle práctico: los datos de conexión se pueden dejar escritos aunque el servidor todavía no esté levantado, y el <strong>movimiento de datos solo empieza cuando la conexión tiene éxito</strong>. Ahora bien, si al guardar la conexión no responde, la consola <strong>desactiva el interruptor</strong> del histórico: hay que volver a activarlo cuando el destino esté disponible. La pestaña de traps no aparece en el Command Center.</p>
+<p></p>
+<p>El Command Center en conjunto, con sus nodos y su modelo de gestión, se desarrolla en <a href="../6.3-command-center/">6.3 (Command Center)</a>. Aquí basta con retener que el histórico del Command Center se configura en su propio Metasetup.</p>
+<p>En <strong>alta disponibilidad</strong>, el histórico forma parte de la topología y el mantenimiento se coordina entre nodos para no pisarse. El escenario completo, con sus precauciones, está en <a href="../6.10-alta-disponibilidad-ha/">6.10 (Alta disponibilidad)</a>.</p>
+<p>En una <strong>migración de nodos</strong> hay un paso que se olvida con facilidad: repuntar la conexión del histórico al nuevo servidor. La base de datos principal se mueve con su procedimiento, pero la de histórico tiene su propia configuración de conexión y hay que actualizarla para que el nodo siga encontrándola.</p>
+<p>Y en la <strong>copia de seguridad</strong> conviene tenerlo claro: la copia de la base de datos principal <strong>no incluye</strong> la base de datos de histórico. Son dos bases distintas en dos servidores distintos, y cada una necesita su propio respaldo. El procedimiento de copia y restauración de Pandora FMS se documenta en <a href="../6.9-backup-y-restore/">6.9 (Backup y restore)</a>.</p>
+<h2 id="referencia-de-opciones-y-dimensionado">Referencia de opciones y dimensionado<a class="headerlink" href="#referencia-de-opciones-y-dimensionado" title="Permanent link">¶</a></h2>
+<p>Este capítulo no repite el inventario de opciones ni la tabla de dimensionado, y lo hace a propósito. El listado completo de cada campo de la pantalla, con su valor por defecto y su efecto, está en <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/#31-historico-de-base-de-datos">9.2 (Referencia completa de configuración de la consola)</a>. El cálculo de cuánto va a crecer la base de datos según agentes y módulos, y cómo repartir el almacenamiento, está en <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/">9.14 (Análisis de volumetría y diseños para alta capacidad)</a>. Aquí queda solo el criterio de operación.</p>
+<p>Sobre <strong>cuántos días mantener en la base de datos activa</strong>, la respuesta corta es los menos que permitan trabajar cómodo con los datos del día a día. El valor por defecto, 15 días, es un buen punto de partida: da margen para mirar el mes en curso sin arrastrar un volumen innecesario. Bajarlo demasiado obliga a la consola a saltar al histórico antes de tiempo; subirlo demasiado engorda la base de datos que más se escribe.</p>
+<p>Sobre el <strong>tamaño de bloque y la pausa</strong>, el código trae <strong>1500</strong> filas y <strong>1</strong> segundo por defecto, pero la recomendación de operación es más conservadora: <strong>1000</strong> filas de bloque y <strong>2</strong> segundos de pausa. Bloques más pequeños y pausas más largas reparten mejor la carga y evitan que el traslado compita con el trabajo normal de la base de datos activa. En instalaciones con disco rápido se puede subir el bloque; en instalaciones justas, bajarlo es la primera palanca cuando el mantenimiento va apurado.</p>
+<p>Y sobre la <strong>retención del histórico</strong>, la decisión la marca cuánto atrás necesitas consultar de verdad. Los 180 días por defecto cubren medio año, que es más de lo que exige la mayoría de los informes. Alargarlo tiene un coste directo en espacio y en tiempo de purgado; acortarlo libera sitio. Si activas las series de texto, recuerda que su retención hay que configurarla explícitamente o crecerán sin control, como se advierte en <a href="#retencion-y-purgado">Retención y purgado</a>. Para afinar el número con el crecimiento real de la base de datos, la referencia es <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/">9.14 (Análisis de volumetría y diseños para alta capacidad)</a>, y para el resto de técnicas de optimización, <a href="../6.8-optimizacion-de-la-base-de-datos/">6.8 (Optimización de la base de datos)</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

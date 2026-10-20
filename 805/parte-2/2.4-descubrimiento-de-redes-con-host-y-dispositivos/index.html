@@ -1,0 +1,5059 @@
+<!DOCTYPE html><html lang="es" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentación de producto de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/805/parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/">
+      
+      
+        <link rel="prev" href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/">
+      
+      
+        <link rel="next" href="../2.5-tareas-de-consola/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../en/parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>4. Descubrimiento de redes con Host y dispositivos - Pandora FMS — Documentación de producto</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#descubrimiento-de-redes-con-host-y-dispositivos" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  Estás viendo una versión que no es la vigente (una versión anterior o la
+  compilación diaria <code>develop</code>).
+  <a href="../../..">
+    <strong>Ir a la última versión publicada.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-header__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentación de producto
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4. Descubrimiento de redes con Host y dispositivos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentación de producto
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 01. Arranque rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 01. Arranque rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introducción y arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Política de versiones y soporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Actualizaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licenciamiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Monitorización con EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestor de credenciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización y descubrimiento automático con Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Descubrimiento de redes con Host y dispositivos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Descubrimiento de redes con Host y dispositivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#que-ofrece-host-y-dispositivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué ofrece Host y dispositivos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escaneo-de-red-network-scan-primeros-pasos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escaneo de red (Network scan): primeros pasos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revisar-los-resultados-antes-de-crear-agentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Revisar los resultados antes de crear agentes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-detecta-el-escaneo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué detecta el escaneo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#topologia-y-mapa-de-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topología y mapa de red
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importar-agentes-desde-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importar agentes desde CSV
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desplegar-endpoints-desde-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desplegar EndPoints desde Discovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escaneos-personalizados-custom-network-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escaneos personalizados (Custom network scan)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-descubre-la-red-la-heuristica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo descubre la red: la heurística
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo descubre la red: la heurística">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rutas-hacia-los-destinos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rutas hacia los destinos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descubrimiento-de-dispositivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descubrimiento de dispositivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descubrimiento-de-puertas-de-enlace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descubrimiento de puertas de enlace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#direcciones-ip-adicionales-mac-y-switches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direcciones IP adicionales, MAC y switches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolucion-de-nombres-y-deteccion-de-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolución de nombres y detección de sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#informacion-adicional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Información adicional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construir-el-mapa-de-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construir el mapa de red
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opciones-avanzadas-del-escaneo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opciones avanzadas del escaneo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tareas de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de redes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Monitorización de tráfico con netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Colecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Políticas de monitorización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Monitorización de aplicaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Monitorización de contenedores y orquestadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Monitorización de experiencia de usuario (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Monitorización entornos Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Monitorización entornos Virtualizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Monitorización IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Monitorización de APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Recolección y monitorización de logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Control remoto con RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribución automática de software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ejecución remota de scripts y comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Parcheado de sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestión de configuración de equipos de red (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestión de IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Paradas planificadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integración de activos con ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Reconciliación de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Grupos, perfiles y tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Autenticación externa y centralización de accesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Seguridad y visibilidad avanzada (Enterprise ACL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Buenas prácticas de etiquetado / naming / tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Dashboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Informes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización de negocio y servicios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola de eventos centralizada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertas y notificaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consolas Visuales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Mapas topológicos de red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestión de incidencias / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Análisis Predictivo / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Mapas GIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitecturas Distribuidas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidores satélite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribución e instalación automática de agentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de datos de histórico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mecanismos de autoprovisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportación de datos a servidores externos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimización de la Base de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Backup y restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Alta Disponibilidad (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 07. Seguridad y monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 07. Seguridad y monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitectura de seguridad de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Análisis de vulnerabilidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Hardening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de seguridad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Auditoría interna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integraciones dinámicas de IoC (MISP) y creación de reglas propias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Compliance: NIS2, ISO 27001 y ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción e instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatización de tareas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. A detallar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Referencia completa de configuración del EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia completa de configuración de la consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Referencia completa de configuración del servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Referencia completa de Tentacle (servidor y cliente)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Cifrado de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Creación de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Creación de plugins locales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Creación de plugins remotos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Creación de extensiones de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Integración y automatización. Webhooks y API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Descubrimiento automático avanzado (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Troubleshooting con Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Análisis de volumetría y diseños para alta capacidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Cheat Sheet de comandos rápidos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 10. Base de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 10. Base de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Esquema de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 11. Anexos técnicos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 11. Anexos técnicos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Actualización de versiones de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glosario de términos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilidad y migración a la nueva arquitectura de servidores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ampliar los asistentes SNMP y WMI con componentes propios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qué es este FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor y base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agentes y sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola web y licencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Módulos y red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertas y eventos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Informes, logs y correo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Entornos grandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatización y plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#que-ofrece-host-y-dispositivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué ofrece Host y dispositivos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escaneo-de-red-network-scan-primeros-pasos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escaneo de red (Network scan): primeros pasos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revisar-los-resultados-antes-de-crear-agentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Revisar los resultados antes de crear agentes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-detecta-el-escaneo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué detecta el escaneo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#topologia-y-mapa-de-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Topología y mapa de red
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importar-agentes-desde-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importar agentes desde CSV
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desplegar-endpoints-desde-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desplegar EndPoints desde Discovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escaneos-personalizados-custom-network-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escaneos personalizados (Custom network scan)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-descubre-la-red-la-heuristica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo descubre la red: la heurística
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo descubre la red: la heurística">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rutas-hacia-los-destinos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rutas hacia los destinos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descubrimiento-de-dispositivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descubrimiento de dispositivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descubrimiento-de-puertas-de-enlace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descubrimiento de puertas de enlace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#direcciones-ip-adicionales-mac-y-switches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direcciones IP adicionales, MAC y switches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolucion-de-nombres-y-deteccion-de-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolución de nombres y detección de sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#informacion-adicional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Información adicional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construir-el-mapa-de-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construir el mapa de red
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opciones-avanzadas-del-escaneo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opciones avanzadas del escaneo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="descubrimiento-de-redes-con-host-y-dispositivos">Descubrimiento de redes con Host y dispositivos<a class="headerlink" href="#descubrimiento-de-redes-con-host-y-dispositivos" title="Permanent link">¶</a></h1>
+<p><strong>Host y dispositivos</strong> es la sección de Discovery que explora redes: recorre
+un rango de direcciones, pregunta a cada equipo que responde qué es y cómo se
+llama, y lo da de alta como agente, con sus módulos, sus relaciones con el
+resto de la red y, si se quiere, un mapa. Es el camino más corto entre
+«tengo una red» y «tengo una red monitorizada», y la única parte de
+Discovery que viene de fábrica, sin paquetes que instalar.</p>
+<p>Una vez creados los agentes, Host y dispositivos se aparta: la vigilancia del
+día a día queda en manos de los servidores de red, WMI o plugins. Qué es
+Discovery en general, qué es una tarea, dónde está la lista de tareas o qué
+hace el servidor Discovery se cuenta en <a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/">Monitorización y descubrimiento
+automático con
+Discovery</a>;
+aquí se da por leído.</p>
+<h2 id="que-ofrece-host-y-dispositivos">Qué ofrece Host y dispositivos<a class="headerlink" href="#que-ofrece-host-y-dispositivos" title="Permanent link">¶</a></h2>
+<p>Está en <strong>Gestión → Discovery → Host y dispositivos</strong>, y crear tareas en ella
+exige permiso de escritura (AW) sobre el grupo. Reúne cinco opciones:</p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Escaneado de red</strong></td>
+<td>La opción principal: explorar una o varias redes y dar de alta lo que responda.</td>
+</tr>
+<tr>
+<td><strong>Importar CSV</strong></td>
+<td>Dar de alta agentes a partir de un inventario que ya existe en una hoja de cálculo.</td>
+</tr>
+<tr>
+<td><strong>Implementación de EndPoint</strong></td>
+<td>Instalar EndPoints en equipos ya localizados.</td>
+</tr>
+<tr>
+<td><strong>Escaneo de red personalizado</strong></td>
+<td>Lanzar un script de descubrimiento propio en vez del escaneo estándar.</td>
+</tr>
+<tr>
+<td><strong>Gestionar scripts de escaneo</strong></td>
+<td>Registrar esos scripts propios (requiere PM).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="escaneo-de-red-network-scan-primeros-pasos">Escaneo de red (Network scan): primeros pasos<a class="headerlink" href="#escaneo-de-red-network-scan-primeros-pasos" title="Permanent link">¶</a></h2>
+<p>El caso habitual. Al crear la tarea:</p>
+<ul>
+<li><strong>Nombre de la tarea</strong> y una descripción opcional.</li>
+<li><strong>Servidor Discovery</strong> que la ejecutará y <strong>grupo</strong> al que pertenecerá.</li>
+<li><strong>Redes</strong>: una o varias, en formato CIDR (<code>192.168.10.0/24</code>) o por nombre
+  de dominio completo, separadas por comas, o cargadas desde un fichero con
+  una red por línea.</li>
+<li><strong>Intervalo</strong>: definido (con un selector de tiempo; 300 segundos por
+  defecto) o manual, para tareas que solo se lanzan a mano.</li>
+<li><strong>Credenciales SNMP</strong> a probar, del gestor de credenciales (ver <a href="../2.2-gestor-de-credenciales/">Gestor de
+  credenciales</a>): sin ninguna configurada, el
+  escaneo prueba por defecto con SNMP v1 y la comunidad <code>public</code>; con
+  credenciales propias, prueba con ellas (ver <a href="#descubrimiento-de-dispositivos">Descubrimiento de
+  dispositivos</a>).</li>
+</ul>
+<p>Guardada la tarea, aparece en la lista de tareas y se ejecuta según su
+intervalo: creará los agentes que corresponda y sus módulos iniciales, salvo
+que la revisión de resultados esté activa.</p>
+<div class="admonition example">
+<p class="admonition-title">Una red /24 completa</p>
+<p>Red: <code>192.168.10.0/24</code>. Con las opciones de detección por defecto (ver
+más abajo), la tarea escanea las 254 direcciones posibles, prueba SNMP
+con la comunidad <code>public</code> y con las credenciales adicionales indicadas,
+y da de alta un agente por cada equipo que responda.</p>
+</div>
+<p>Los agentes que crea un escaneo de red son agentes remotos, sin fichero de
+configuración detrás: sirven para monitorización SNMP o WMI desde el
+servidor, pero no admiten políticas de monitorización local ni cambios de
+configuración masivos hasta que se les instala un EndPoint encima (ver
+<a href="#desplegar-endpoints-desde-discovery">Desplegar EndPoints desde Discovery</a>).</p>
+<p>Repetir el escaneo de una red ya conocida no duplica lo que ya existe.
+Discovery busca cada equipo por su nombre de agente y, si lo encuentra,
+actualiza sus datos —intervalo, versión de sistema operativo y último
+contacto, entre otros— en lugar de crear un agente nuevo; si su dirección IP
+ha cambiado, la añade como dirección adicional sin tocar la que ya tenía. Los
+módulos siguen la misma lógica: solo se crean los que todavía le faltan al
+agente (por ejemplo, una interfaz de red nueva), nunca los que ya tiene.</p>
+<h2 id="revisar-los-resultados-antes-de-crear-agentes">Revisar los resultados antes de crear agentes<a class="headerlink" href="#revisar-los-resultados-antes-de-crear-agentes" title="Permanent link">¶</a></h2>
+<p>Con <strong>Revisar resultados</strong> (Review results) activa, los equipos que
+encuentra el escaneo no se convierten en agentes de inmediato: quedan
+pendientes en una lista y el usuario elige cuáles dar de alta. Conviene
+activarla en el primer escaneo de una red desconocida, o en redes grandes
+donde no interesa que aparezcan doscientos agentes nuevos sin supervisión.</p>
+<p>La opción se activa sola —y deja de poder desactivarse— cuando el número de
+agentes que crearía la tarea, calculado a partir del tamaño de las redes
+configuradas, supera lo que cubre la licencia: en ese caso, revisar los
+resultados deja de ser una opción y pasa a ser la única manera de no chocar
+con el límite.</p>
+<p>Los equipos que encuentra un escaneo pasan por un estado intermedio de
+resultado antes de convertirse en agente: sin revisión de resultados
+activa, el propio servidor los da de alta en cuanto termina la tarea; con
+ella activa, quedan pendientes hasta que alguien los acepta desde la
+consola web.</p>
+<p>La pantalla de revisión presenta un árbol con un nodo por cada agente
+descubierto y, colgando de él, sus módulos detectados; cada uno se marca por
+separado, con botones para «seleccionar todo», «deseleccionar todo»,
+«expandir todo» y «plegar todo». Los agentes y módulos que ya existían antes
+del escaneo aparecen desactivados en el árbol —ya están marcados, pero no se
+pueden desmarcar— para dejar claro que no se van a duplicar. Ahí mismo se
+decide también si la tarea debe generar el mapa de red («Crear mapa de red»).</p>
+<p>Aceptar la revisión no crea nada al instante: la tarea vuelve a la cola con
+la selección guardada y es el servidor Discovery quien, en su siguiente
+ejecución, da de alta los agentes y módulos marcados.</p>
+<h2 id="que-detecta-el-escaneo">Qué detecta el escaneo<a class="headerlink" href="#que-detecta-el-escaneo" title="Permanent link">¶</a></h2>
+<p>Todas estas opciones son extras: haya lo que haya marcado, todo equipo que
+responda al escaneo recibe siempre un módulo <strong>Host Alive</strong> —un ping ICMP—,
+el mínimo que garantiza que el nuevo agente diga si está vivo o no. SNMP, WMI
+y el resto de opciones de esta tabla añaden módulos por encima de ese
+mínimo; no lo sustituyen.</p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Qué aporta</th>
+<th>Por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scan SNMP network interfaces</td>
+<td>Módulos de interfaces de red y datos para el escaneo topológico de los mapas de red</td>
+<td>Activado</td>
+</tr>
+<tr>
+<td>Scan SNMP known hardware</td>
+<td>Módulos SNMP según el fabricante del dispositivo, identificado por su <em>Private Enterprise Number</em></td>
+<td>Activado</td>
+</tr>
+<tr>
+<td>Scan WMI devices</td>
+<td>Módulos WMI en equipos MS Windows</td>
+<td>Desactivado</td>
+</tr>
+<tr>
+<td>Resolve hosts names</td>
+<td>Resolución de nombre de los equipos encontrados</td>
+<td>Activado</td>
+</tr>
+<tr>
+<td>Guess hosts OS</td>
+<td>Detección del sistema operativo (puede alargar bastante el escaneo)</td>
+<td>Desactivado</td>
+</tr>
+<tr>
+<td>Scan additional information</td>
+<td>Información adicional, visible después en la descripción del agente (también puede alargar el escaneo)</td>
+<td>Desactivado</td>
+</tr>
+</tbody>
+</table>
+<p>Las credenciales SNMP (v1, v2c o v3) y WMI se escriben en el propio
+formulario o se eligen del <a href="../2.2-gestor-de-credenciales/">gestor de credenciales</a>.</p>
+<h2 id="topologia-y-mapa-de-red">Topología y mapa de red<a class="headerlink" href="#topologia-y-mapa-de-red" title="Permanent link">¶</a></h2>
+<p>Con <strong>Create network map</strong> —activada por defecto—, Discovery averigua qué
+equipo cuelga de cuál, les asigna un agente padre y genera un mapa de red con
+el resultado (ver <a href="../../parte-5/5.7-mapas-topologicos-de-red/">Mapas topológicos de red</a>).
+La detección de padres, activa por defecto, sigue las rutas de red hasta
+cinco saltos antes de rendirse.</p>
+<h2 id="importar-agentes-desde-csv">Importar agentes desde CSV<a class="headerlink" href="#importar-agentes-desde-csv" title="Permanent link">¶</a></h2>
+<p>Para cuando el inventario ya existe en una hoja de cálculo, <strong>Importar CSV</strong>
+da de alta agentes a partir de un fichero, sin pasar por un escaneo. El
+formulario deja elegir el <strong>servidor</strong> que se asignará a los agentes
+creados, el separador de campos (coma por defecto), si el
+alias del agente debe usarse también como su nombre y si se le añade la
+monitorización básica por defecto (activada por defecto).</p>
+<p>El fichero lleva una fila por agente con estas columnas, en este orden:</p>
+<table>
+<thead>
+<tr>
+<th>Columna</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Nombre o alias del agente</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Dirección IP</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Identificador del sistema operativo</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Intervalo, en segundos</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Identificador del grupo</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Comentarios (opcional)</td>
+</tr>
+<tr>
+<td>7ª en adelante</td>
+<td>Identificadores de componentes de red a aplicar</td>
+</tr>
+</tbody>
+</table>
+<p>Los identificadores de sistema operativo y de grupo son los que ya usa la
+consola web en sus propios listados de gestión; los de componentes de red,
+los de la biblioteca de componentes. La importación rechaza una fila si el
+nombre de agente ya existe, si el grupo indicado no existe o si a la fila le
+faltan columnas obligatorias.</p>
+<p>Un ejemplo con cuatro equipos: un servidor web y una base de datos Linux, un
+controlador de dominio Windows y un switch. Separador coma, sin fila de
+cabecera:</p>
+<div class="highlight"><pre><span></span><code>web01,192.168.10.21,1,300,13,Servidor web principal,37,39
+db01,192.168.10.30,1,300,8,MySQL de producción,39
+dc01,192.168.10.5,9,300,2,Controlador de dominio
+sw-core,192.168.10.1,18,300,9,,3,53
+</code></pre></div>
+<p>Leído columna a columna, la primera línea crea el agente <code>web01</code>, con IP
+<code>192.168.10.21</code>, sistema operativo Linux (<code>1</code>), intervalo de 300 segundos, en
+el grupo Web (<code>13</code>), con el comentario «Servidor web principal» y dos módulos
+creados a partir de los componentes de red <em>Check HTTP (80)</em> (<code>37</code>) y <em>Check
+SSH (22)</em> (<code>39</code>). El switch deja vacío el comentario —la coma se mantiene
+para no correr las columnas— y recibe los componentes SNMP <em>Sysname</em> (<code>3</code>) y
+<em>System Uptime</em> (<code>53</code>). Los identificadores del ejemplo son los que trae una
+instalación nueva (sistemas operativos Linux <code>1</code>, Windows <code>9</code>, Switch <code>18</code>;
+grupos Servers <code>2</code>, Databases <code>8</code>, Network <code>9</code>, Web <code>13</code>); en una instalación
+con historia pueden haber cambiado, así que conviene comprobarlos en la
+consola antes de preparar el fichero.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tres detalles que ahorran disgustos</p>
+<ul>
+<li><strong>Sin cabecera.</strong> Todas las líneas se procesan como agentes; una fila
+  de títulos acabaría en el informe como línea fallida (su «grupo» no
+  existe).</li>
+<li><strong>La monitorización por defecto ya añade disponibilidad y latencia.</strong>
+  Con <strong>Add default monitoring</strong> activado, no hace falta listar los
+  componentes <em>Host Alive</em> y <em>Host Latency</em>: se duplicarían.</li>
+<li><strong>Las líneas del informe se cuentan desde cero.</strong> Si el resultado dice
+  «Line 2», es la tercera línea del fichero.</li>
+</ul>
+</div>
+<h2 id="desplegar-endpoints-desde-discovery">Desplegar EndPoints desde Discovery<a class="headerlink" href="#desplegar-endpoints-desde-discovery" title="Permanent link">¶</a></h2>
+<p>Tras descubrir equipos, <strong>Implementación de EndPoint</strong> (EndPoint deployment)
+permite instalarles directamente un EndPoint: por SSH en sistemas Unix
+(Linux, BSD, Solaris, AIX, HP-UX) y por WinRM —o su variante cifrada, Secure
+WinRM— en MS Windows. El detalle completo, incluidos el registro de
+instaladores y de credenciales, está en <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/">Distribución e instalación
+automática de agentes</a>.</p>
+<h2 id="escaneos-personalizados-custom-network-scan">Escaneos personalizados (Custom network scan)<a class="headerlink" href="#escaneos-personalizados-custom-network-scan" title="Permanent link">¶</a></h2>
+<p>Cuando el escaneo estándar no basta, <strong>Escaneo de red personalizado</strong>
+lanza un script propio en su lugar. El script se registra antes en
+<strong>Gestionar scripts de escaneo</strong> (exclusivo de PM), indicando su nombre, la
+ruta completa del ejecutable en el servidor, una descripción y los campos
+que necesita —cada uno con su propio texto de ayuda, un valor por defecto y
+la opción de ocultarlo si es una credencial—.</p>
+<p>Al crear la tarea se piden los datos comunes a cualquier tarea de Host y
+dispositivos —nombre, comentario, servidor Discovery, grupo, intervalo
+(600 segundos por defecto), evento y acción de alerta si falla— y, en un
+segundo paso, el script ya registrado que se quiere ejecutar, con sus campos
+rellenados.</p>
+<p>Una instalación recién hecha ya trae dos scripts registrados, sin que nadie
+tenga que darlos de alta a mano:</p>
+<ul>
+<li><strong>IPMI Recon</strong> explora una red buscando controladores de gestión IPMI con
+  las credenciales indicadas, para las tarjetas que se administran por ese
+  canal en lugar de por red normal (ver <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/">Descubrimiento automático avanzado:
+  IPMI, etc.</a>).</li>
+<li><strong>IPAM Recon</strong> comprueba qué direcciones de una red gestionada por IPAM
+  están disponibles y les pone nombre, y asocia el resultado a esa red de
+  IPAM (ver <a href="../../parte-3/3.7-gestion-de-ip-ipam/">Gestión de IP (IPAM)</a>).</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Lo que el script tiene que hacer él mismo</p>
+<p>El servidor Discovery ejecuta el script pasándole el identificador de la
+tarea, el del grupo y el valor de cada campo configurado, pero no
+interpreta lo que el script escribe en su salida: ni crea agentes ni
+módulos a partir de ella. Esa salida solo se conserva, para
+diagnóstico, cuando el servidor trabaja con <code>verbosity 10</code>: va al log
+del servidor y a una copia por tarea en el directorio <code>discovery/</code>,
+junto a los logs. Un escaneo personalizado tiene, por tanto, que dar de
+alta sus propios hallazgos —por API o enviando su propio XML de datos—
+dentro del propio script; Discovery se limita a lanzarlo y a marcar la
+tarea como fallida o terminada según el código de salida con el que
+acabe.</p>
+</div>
+<h2 id="como-descubre-la-red-la-heuristica">Cómo descubre la red: la heurística<a class="headerlink" href="#como-descubre-la-red-la-heuristica" title="Permanent link">¶</a></h2>
+<p>Encontrar los equipos que responden en una red es solo el primer paso;
+Discovery además intenta averiguar cómo se conectan entre sí, para levantar
+el mapa de red completo. Lo hace con una heurística de varios pasos, cada
+uno construido sobre el anterior.</p>
+<h3 id="rutas-hacia-los-destinos">Rutas hacia los destinos<a class="headerlink" href="#rutas-hacia-los-destinos" title="Permanent link">¶</a></h3>
+<p>Para cada red objetivo, Discovery lanza un traceroute y añade como redes
+adicionales a explorar las de los saltos intermedios que va encontrando por
+el camino. En el escaneo simple, ese traceroute apunta a la dirección
+8.8.8.8 —para tratar de «salir» a Internet—, y se suman también todas las
+redes a las que el propio servidor Discovery está conectado directamente. La
+máscara de una red descubierta así se fija en <code>/24</code> salvo que se pueda
+determinar con más precisión, en cuyo caso puede quedar tan ancha como
+indique el dato real.</p>
+<h3 id="descubrimiento-de-dispositivos">Descubrimiento de dispositivos<a class="headerlink" href="#descubrimiento-de-dispositivos" title="Permanent link">¶</a></h3>
+<p>Con las redes ya reunidas —más las que se hayan indicado a mano en una
+configuración avanzada—, Discovery usa nmap para localizar los equipos que
+responden en cada una y para probar si tienen el puerto SNMP abierto. A los
+que lo tienen se les prueban las credenciales elegidas para la tarea (ver
+<a href="#que-detecta-el-escaneo">Qué detecta el escaneo</a>): sin ninguna credencial
+propia configurada, el escaneo prueba por defecto con SNMP v1 y la
+comunidad <code>public</code>; con credenciales propias, prueba con ellas. Las que
+funcionan quedan en caché, para no repetir la prueba en cada vuelta. WMI, en
+cambio, no lo detecta nmap: si <strong>Scan WMI devices</strong> está activo, se consulta
+directamente con las credenciales WMI de la tarea.</p>
+<h3 id="descubrimiento-de-puertas-de-enlace">Descubrimiento de puertas de enlace<a class="headerlink" href="#descubrimiento-de-puertas-de-enlace" title="Permanent link">¶</a></h3>
+<p>Por cada red, Discovery intenta averiguar su puerta de enlace consultando
+por SNMP la tabla de rutas de los dispositivos que respondieron: la
+dirección IP que más veces aparece como salto en esa tabla, entre todos los
+dispositivos SNMP de la red, se toma como su puerta de enlace. Si ningún
+dispositivo la revela por SNMP, Discovery recurre a un orden de direcciones
+probables dentro de la red: primero <code>.1</code>, luego <code>.254</code>, <code>.100</code> y por último
+<code>.10</code>. Esa puerta de enlace de la red no impide que, en los dispositivos
+concretos donde sí se puede determinar su puerta de enlace real, se les
+asigne la suya propia.</p>
+<h3 id="direcciones-ip-adicionales-mac-y-switches">Direcciones IP adicionales, MAC y switches<a class="headerlink" href="#direcciones-ip-adicionales-mac-y-switches" title="Permanent link">¶</a></h3>
+<p>En cada dispositivo con SNMP, Discovery consulta sus direcciones IP
+adicionales y las cruza con las tablas de interfaces y de resolución
+IP-MAC para saber qué dirección MAC corresponde a qué IP y a qué interfaz.
+Con la tabla de direcciones MAC aprendidas por los switches reúne más
+direcciones y, de paso, marca como switch a cualquier dispositivo que tenga
+datos en esa tabla. Esas mismas tablas —la de resolución IP-MAC y la de los
+switches— sirven también para averiguar por qué interfaz se ha llegado a
+cada dispositivo vecino, dato que hace falta más adelante para trazar las
+conexiones del mapa. Cuando el dispositivo lo soporta, Discovery añade
+además lo que encuentre por CDP y por LLDP, dos protocolos pensados
+justamente para que un equipo anuncie a sus vecinos quién es.</p>
+<h3 id="resolucion-de-nombres-y-deteccion-de-sistema-operativo">Resolución de nombres y detección de sistema operativo<a class="headerlink" href="#resolucion-de-nombres-y-deteccion-de-sistema-operativo" title="Permanent link">¶</a></h3>
+<p>Con <strong>Resolve hosts names</strong> activo —lo está por defecto—, Discovery intenta
+ponerle nombre a cada equipo por DNS inverso; si no lo consigue, prueba por
+SNMP y, en último caso, por lo que hayan contado CDP o LLDP. Ese orden no es
+del todo estricto: al terminar de escanear toda la red, Discovery revisa de
+nuevo los nombres vistos por CDP y LLDP y, si alguno coincide con un
+dispositivo ya nombrado por DNS o SNMP, se lo pisa sin preguntar —una
+simplificación consciente del propio mecanismo: más vale un nombre de más
+confianza aunque llegue tarde—. Con <strong>Guess hosts OS</strong> activo —desactivado
+por defecto, porque alarga bastante el escaneo—, la detección de sistema
+operativo corre por cuenta de nmap.</p>
+<h3 id="informacion-adicional">Información adicional<a class="headerlink" href="#informacion-adicional" title="Permanent link">¶</a></h3>
+<p>Con <strong>Scan additional information</strong> activo —desactivado por defecto, por la
+misma razón que la detección de sistema operativo—, Discovery busca una
+descripción del dispositivo: primero por SNMP; si no la hay, recurre a nmap
+sondeando algunos puertos habituales en busca de un título o una
+identificación de servicio; y también aquí se suma lo que aporten CDP y
+LLDP, con la misma salvedad de antes: pueden sobrescribir un dato ya
+obtenido de otra fuente.</p>
+<h3 id="construir-el-mapa-de-red">Construir el mapa de red<a class="headerlink" href="#construir-el-mapa-de-red" title="Permanent link">¶</a></h3>
+<p>Con toda esa información reunida, Discovery reconstruye las conexiones entre
+dispositivos en varios pasos:</p>
+<ol>
+<li>Si un dispositivo tiene varias interfaces de red y en alguna aparecen
+   direcciones IP que no son de su propia red, busca esa dirección en la
+   red que le corresponde para replicar ahí la información de esa interfaz.</li>
+<li>Marca como troncales las interfaces de los routers y switches por las
+   que se ha llegado a más de un dispositivo.</li>
+<li>Cuenta, para cada interfaz no troncal de cada dispositivo, cuántos
+   dispositivos se han descubierto a través de ella.</li>
+<li>Si el conteo da exactamente uno, y ese otro dispositivo ve a su vez una
+   única conexión que coincide con el origen, traza una conexión directa
+   entre ambos.</li>
+<li>Si el conteo da más de uno y alguno de los candidatos del otro lado
+   resulta ser una interfaz troncal, crea un nodo de agregación —un
+   «puente»— que reúne esa interfaz y todas las del otro lado, salvo las
+   troncales.</li>
+<li>Las interfaces que se quedan sin ninguna conexión en el conteo se
+   revisan por si alguno de sus candidatos ya quedó conectado a un puente:
+   si es así, se enlazan al mismo punto.</li>
+<li>Las interfaces troncales que todavía faltan por conectar se enlazan a un
+   puente ya existente o a uno nuevo, según haya o no algún dispositivo de
+   ese lado ya conectado a uno.</li>
+<li>Un dispositivo que, tras todo esto, sigue sin ninguna conexión no se
+   deja huérfano: se crea un puente conectado a su puerta de enlace y el
+   dispositivo se une directamente a él, sin pasar por ninguna interfaz de
+   red concreta.</li>
+</ol>
+<p>El resultado es el mapa de red que muestra Host y dispositivos (ver
+<a href="#topologia-y-mapa-de-red">Topología y mapa de red</a>): puede no coincidir con
+otros mapas ya guardados en la consola web si estos se han editado a mano o
+llevan tiempo sin actualizarse.</p>
+<p><strong>Deep-scan intermediate transit networks</strong> y <strong>Scan secondary networks
+attached to hosts</strong>, las dos en las opciones avanzadas del escaneo (ver
+justo debajo), amplían qué redes entran en los dos primeros pasos de esta
+heurística —descubrimiento de dispositivos y de puertas de enlace— y si los
+vecinos que aparecen fuera de la red actual se añaden como redes nuevas a
+explorar.</p>
+<h2 id="opciones-avanzadas-del-escaneo">Opciones avanzadas del escaneo<a class="headerlink" href="#opciones-avanzadas-del-escaneo" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Qué hace</th>
+<th>Por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modo Advanced</td>
+<td>Sustituye el escaneo automático de redes por las que indique el usuario; requiere <code>traceroute</code> y <code>route</code> instalados en el servidor Discovery</td>
+<td>Modo simple</td>
+</tr>
+<tr>
+<td>Lista negra de IP y redes</td>
+<td>Direcciones o redes que se excluyen del escaneo, en el mismo formato que las redes a escanear (o un fichero)</td>
+<td>Vacía</td>
+</tr>
+<tr>
+<td>Deep-scan intermediate transit networks</td>
+<td>Amplía el descubrimiento a las redes intermedias por las que pasa el camino hacia los objetivos</td>
+<td>Desactivado</td>
+</tr>
+<tr>
+<td>Scan secondary networks attached to hosts</td>
+<td>Amplía el descubrimiento a otras redes conectadas a los equipos ya encontrados</td>
+<td>Desactivado</td>
+</tr>
+<tr>
+<td>Apply autoconfiguration rules</td>
+<td>Aplica las reglas de autoprovisión a los agentes creados (ver <a href="../../parte-6/6.6-mecanismos-de-autoprovision/">Mecanismos de autoprovisión</a>)</td>
+<td>Desactivado</td>
+</tr>
+<tr>
+<td>Evento y acción de alerta al fallar</td>
+<td>Genera un evento crítico o lanza acciones de alerta si la tarea termina con error (ver <a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/#alertas-de-las-tareas-de-discovery">Alertas de las tareas de Discovery</a>)</td>
+<td>Desactivado</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
