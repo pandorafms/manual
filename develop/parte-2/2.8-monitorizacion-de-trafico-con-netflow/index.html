@@ -1,0 +1,5111 @@
+<!DOCTYPE html><html lang="es" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentación de producto de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/parte-2/2.8-monitorizacion-de-trafico-con-netflow/">
+      
+      
+        <link rel="prev" href="../2.7-monitorizacion-de-traps-snmp/">
+      
+      
+        <link rel="next" href="../2.9-colecciones/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../en/parte-2/2.8-monitorizacion-de-trafico-con-netflow/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>8. Monitorización de tráfico con netflow - Pandora FMS — Documentación de producto</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#monitorizacion-de-trafico-con-netflow" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  Estás viendo una versión que no es la vigente (una versión anterior o la
+  compilación diaria <code>develop</code>).
+  <a href="../../..">
+    <strong>Ir a la última versión publicada.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-header__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentación de producto
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              8. Monitorización de tráfico con netflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/parte-2/2.8-monitorizacion-de-trafico-con-netflow/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentación de producto
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 01. Arranque rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 01. Arranque rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introducción y arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Política de versiones y soporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Actualizaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licenciamiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Monitorización con EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestor de credenciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización y descubrimiento automático con Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Descubrimiento de redes con Host y dispositivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tareas de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de redes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Monitorización de tráfico con netflow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Monitorización de tráfico con netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-flujo-exportador-sonda-y-colector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos: flujo, exportador, sonda y colector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-funciona-en-pandora-fms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona en Pandora FMS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-e-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos e instalación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enviar-flujos-a-pandora-fms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enviar flujos a Pandora FMS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activar-y-configurar-netflow-y-sflow-en-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activar y configurar Netflow y sFlow en la consola
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtros-de-netflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtros de Netflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explorador-de-netflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explorador de Netflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vista-en-vivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vista en vivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vista-superior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vista superior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-de-uso-de-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa de uso de red
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitorizar-y-alertar-sobre-un-filtro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitorizar y alertar sobre un filtro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#informes-y-dashboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Informes y dashboards
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-de-netflow-en-otro-equipo-nfdump-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datos de Netflow en otro equipo: nfdump remoto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#netflow-en-el-command-center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Netflow en el Command Center
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permisos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Colecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Políticas de monitorización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Monitorización de aplicaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Monitorización de contenedores y orquestadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Monitorización de experiencia de usuario (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Monitorización entornos Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Monitorización entornos Virtualizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Monitorización IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Monitorización de APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Recolección y monitorización de logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Control remoto con RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribución automática de software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ejecución remota de scripts y comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Parcheado de sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestión de configuración de equipos de red (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestión de IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Paradas planificadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integración de activos con ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Reconciliación de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Grupos, perfiles y tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Autenticación externa y centralización de accesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Seguridad y visibilidad avanzada (Enterprise ACL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Buenas prácticas de etiquetado / naming / tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Dashboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Informes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización de negocio y servicios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola de eventos centralizada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertas y notificaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consolas Visuales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Mapas topológicos de red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestión de incidencias / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Análisis Predictivo / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Mapas GIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitecturas Distribuidas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidores satélite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribución e instalación automática de agentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de datos de histórico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mecanismos de autoprovisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportación de datos a servidores externos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimización de la Base de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Backup y restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Alta Disponibilidad (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 07. Seguridad y monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 07. Seguridad y monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitectura de seguridad de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Análisis de vulnerabilidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Hardening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de seguridad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Auditoría interna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integraciones dinámicas de IoC (MISP) y creación de reglas propias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Compliance: NIS2, ISO 27001 y ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción e instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatización de tareas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. A detallar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Referencia completa de configuración del EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia completa de configuración de la consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Referencia completa de configuración del servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Referencia completa de Tentacle (servidor y cliente)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Cifrado de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Creación de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Creación de plugins locales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Creación de plugins remotos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Creación de extensiones de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Integración y automatización. Webhooks y API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Descubrimiento automático avanzado (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Troubleshooting con Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Análisis de volumetría y diseños para alta capacidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Cheat Sheet de comandos rápidos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 10. Base de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 10. Base de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Esquema de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 11. Anexos técnicos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 11. Anexos técnicos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Actualización de versiones de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glosario de términos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilidad y migración a la nueva arquitectura de servidores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ampliar los asistentes SNMP y WMI con componentes propios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qué es este FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor y base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agentes y sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola web y licencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Módulos y red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertas y eventos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Informes, logs y correo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Entornos grandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatización y plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-flujo-exportador-sonda-y-colector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos: flujo, exportador, sonda y colector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-funciona-en-pandora-fms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona en Pandora FMS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-e-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos e instalación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enviar-flujos-a-pandora-fms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enviar flujos a Pandora FMS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activar-y-configurar-netflow-y-sflow-en-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activar y configurar Netflow y sFlow en la consola
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtros-de-netflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtros de Netflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explorador-de-netflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explorador de Netflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vista-en-vivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vista en vivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vista-superior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vista superior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapa-de-uso-de-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa de uso de red
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitorizar-y-alertar-sobre-un-filtro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitorizar y alertar sobre un filtro
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#informes-y-dashboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Informes y dashboards
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-de-netflow-en-otro-equipo-nfdump-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datos de Netflow en otro equipo: nfdump remoto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#netflow-en-el-command-center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Netflow en el Command Center
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permisos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="monitorizacion-de-trafico-con-netflow">Monitorización de tráfico con Netflow<a class="headerlink" href="#monitorizacion-de-trafico-con-netflow" title="Permanent link">¶</a></h1>
+<p>Todo lo visto en <a href="../2.6-monitorizacion-de-redes/">Monitorización de redes</a> responde
+a una pregunta: ¿cuánto tráfico pasa por una interfaz? Netflow responde a la
+siguiente, la que de verdad importa cuando el enlace se satura: ¿de quién es
+ese tráfico? El sondeo SNMP de una interfaz da un número que sube y baja; el
+análisis de flujos dice qué IP, qué puerto y qué protocolo lo están generando,
+sin necesidad de instalar nada en el equipo que habla. Este capítulo cubre
+cómo llega el tráfico a Pandora FMS, cómo se activa y configura, cómo se
+explora y se visualiza, cómo convertirlo en módulos con alertas, y cómo se ve
+en informes, dashboards y en el Command Center. Netflow y sFlow —dos formatos
+de exportación distintos, uno de Cisco y otro nacido para redes de alta
+velocidad— se activan por separado pero se consultan y se ven juntos en todas
+las pantallas.</p>
+<h2 id="conceptos-flujo-exportador-sonda-y-colector">Conceptos: flujo, exportador, sonda y colector<a class="headerlink" href="#conceptos-flujo-exportador-sonda-y-colector" title="Permanent link">¶</a></h2>
+<p>Un <strong>flujo</strong> es un conjunto de paquetes que comparten los mismos siete datos:
+IP y puerto de origen, IP y puerto de destino, protocolo, interfaz de entrada
+y tipo de servicio (ToS). Mientras esos siete datos no cambien, todos los
+paquetes que pasan por el router cuentan como el mismo flujo, y lo que se
+registra no es cada paquete sino el flujo agregado: cuántos bytes y cuántos
+paquetes ha movido, entre qué instantes.</p>
+<p>Quién genera esa información es el <strong>exportador</strong>: normalmente el propio
+router o switch, si ya habla NetFlow (versiones 5, 9 o el más reciente IPFIX),
+sFlow, o alguno de los formatos compatibles como jFlow o NetStream de otros
+fabricantes. Cuando el equipo de red no sabe exportar flujos —un switch de
+gama baja, por ejemplo— la alternativa es una <strong>sonda</strong>: un equipo que
+escucha el tráfico por un puerto espejo (<em>port mirroring</em>) y genera los flujos
+por software, con una herramienta como <code>fprobe</code> o <code>pmacct</code>.</p>
+<p>En el otro extremo está el <strong>colector</strong>: el proceso que recibe esos flujos
+por UDP y los escribe a disco. En Pandora FMS son <code>nfcapd</code>, para NetFlow, y
+<code>sfcapd</code>, para sFlow, y viven en el propio servidor de Pandora FMS.</p>
+<div class="admonition example">
+<p class="admonition-title">Un switch sin NetFlow propio</p>
+<p>Un switch de acceso que no exporta flujos se conecta a un puerto espejo de
+una sonda <code>fprobe</code>, y es esa sonda —no el switch— la que manda los flujos
+NetFlow al servidor de Pandora FMS.</p>
+</div>
+<h2 id="como-funciona-en-pandora-fms">Cómo funciona en Pandora FMS<a class="headerlink" href="#como-funciona-en-pandora-fms" title="Permanent link">¶</a></h2>
+<p>La cadena, en la versión 805, tiene cinco pasos. El exportador manda los
+flujos por UDP al colector correspondiente: <code>nfcapd</code> para NetFlow, escuchando
+por defecto en el puerto <code>9995</code>, o <code>sfcapd</code> para sFlow, en el <code>6343</code>. Los
+colectores los escribe cada uno en su ruta, dentro del directorio general de
+red configurado en la consola, en ficheros que se rotan según el intervalo
+configurado (<code>netflow_interval</code>/<code>sflow_interval</code>). Pasado el número de días de
+vida máxima configurado, <code>nfexpire</code> purga los ficheros más antiguos.</p>
+<p>Hasta aquí, nada muy distinto de versiones anteriores. Lo que cambia en 805 es
+cómo se consultan esos datos: ya no lo hace la propia consola ejecutando
+<code>nfdump</code> a mano, sino un <strong>servicio de consultas de Netflow</strong>
+(<code>pandora_netflow_server</code>, un binario propio escrito en Go) que escucha por
+HTTP en <code>127.0.0.1:8088</code> y es quien lanza <code>nfdump</code> de verdad —local o, si se
+configura, por SSH contra otra máquina— y devuelve el resultado ya digerido a
+la consola. Los datos de flujo no se guardan en la base de datos de Pandora
+FMS: las vistas consultan los ficheros de captura bajo demanda, aunque no
+todas admiten los mismos filtros. La monitorización de filtros sigue otra vía:
+el servidor de Netflow ejecuta <code>nfdump</code> directamente para calcular sus
+módulos, sin pasar por el servicio de consultas.</p>
+<p>El servidor de Pandora FMS es quien gestiona todo ese ciclo de vida, pero no
+de la misma forma para las dos piezas. Los colectores <code>nfcapd</code> y <code>sfcapd</code> se
+arrancan una sola vez, al arrancar el propio servidor —si Netflow o sFlow
+están activados en ese momento— y se paran al detenerlo; activar o desactivar
+cualquiera de los dos protocolos, o cambiar su intervalo de rotación, no
+tiene efecto real hasta el siguiente reinicio del servidor. El servicio de
+consultas, en cambio, se revisa cada cinco segundos: es el servidor quien lo
+arranca, lo reconfigura o lo para sobre la marcha, sin reiniciarse él mismo
+—lo veremos en detalle en la sección siguiente—. Aparte de consultar, existe
+una segunda vía de aprovechar estos datos: la monitorización de filtros, que
+convierte el tráfico de un filtro concreto en módulos normales, con sus
+alertas de toda la vida (ver <a href="#monitorizar-y-alertar-sobre-un-filtro">Monitorizar y alertar sobre un
+filtro</a>).</p>
+<table>
+<thead>
+<tr>
+<th>Pieza</th>
+<th>Qué hace</th>
+<th>Quién la arranca</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nfcapd</code> / <code>sfcapd</code></td>
+<td>Reciben los flujos por UDP y los escriben a disco</td>
+<td>El servidor de Pandora FMS</td>
+</tr>
+<tr>
+<td><code>pandora_netflow_server</code></td>
+<td>Consulta esos ficheros con <code>nfdump</code> y sirve los datos por HTTP a la consola</td>
+<td>El servidor de Pandora FMS (como servicio del sistema)</td>
+</tr>
+<tr>
+<td><code>nfexpire</code></td>
+<td>Purga ficheros de captura más antiguos que la vida máxima configurada</td>
+<td>El servidor de Pandora FMS, en sus tareas de mantenimiento</td>
+</tr>
+</tbody>
+</table>
+<h2 id="requisitos-e-instalacion">Requisitos e instalación<a class="headerlink" href="#requisitos-e-instalacion" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nfdump</code> 1.6.8 o superior</td>
+<td>Incluye los binarios <code>nfcapd</code>, <code>sfcapd</code> y <code>nfexpire</code>; se instala aparte del paquete de Pandora FMS</td>
+</tr>
+<tr>
+<td>Servicio <code>pandora_netflow_server</code></td>
+<td>Se entrega junto al servidor de Pandora FMS, con su propia unidad de systemd; lo arranca y controla el propio servidor</td>
+</tr>
+<tr>
+<td>Puertos UDP de los colectores abiertos</td>
+<td><code>9995/udp</code> para NetFlow, <code>6343/udp</code> para sFlow (o los que se configuren), alcanzables desde los exportadores</td>
+</tr>
+<tr>
+<td>Disco con buen ancho de banda de escritura</td>
+<td>Los ficheros de captura crecen rápido en redes con tráfico alto</td>
+</tr>
+<tr>
+<td>Base de datos GeoIP (opcional)</td>
+<td>Fichero <code>.mmdb</code> para las funciones que consultan el país de una IP; el mapa de uso de red no representa países</td>
+</tr>
+<tr>
+<td>Sistema Linux</td>
+<td>El servidor de Pandora FMS que ejecuta Netflow no está soportado en Windows</td>
+</tr>
+</tbody>
+</table>
+<p>Con los colectores en marcha, lo más rápido para comprobar que todo funciona
+es mirar si están llegando ficheros de captura a la ruta configurada; si no
+llega nada, el problema está antes de Pandora FMS, en el exportador o en el
+cortafuegos.</p>
+<div class="admonition example">
+<p class="admonition-title">Comprobación rápida tras instalar</p>
+<p>Con <code>9995/udp</code> abierto en el cortafuegos del servidor y un exportador ya
+apuntando a él, comprobar en la ruta de datos de Netflow que van
+apareciendo ficheros <code>nfcapd.*</code> nuevos cada intervalo configurado es la
+señal de que la recepción funciona, antes incluso de tocar nada en la
+consola.</p>
+</div>
+<h2 id="enviar-flujos-a-pandora-fms">Enviar flujos a Pandora FMS<a class="headerlink" href="#enviar-flujos-a-pandora-fms" title="Permanent link">¶</a></h2>
+<p>Un router o switch que ya hable NetFlow solo necesita que se le indique la IP
+del servidor de Pandora FMS y el puerto del colector: NetFlow v9 hacia el
+puerto <code>9995</code>, sFlow hacia el <code>6343</code>. Esa configuración vive en el propio
+equipo de red y queda fuera de Pandora FMS; cada fabricante tiene su propia
+sintaxis para activar la exportación.</p>
+<p>Cuando el equipo no sabe exportar flujos, la sonda hace ese trabajo por él.
+<code>fprobe</code> es la opción habitual en Linux para generar NetFlow a partir de una
+interfaz en modo promiscuo o de un puerto espejo; <code>pmacct</code> cubre el mismo
+caso, aunque en un despliegue con Pandora FMS se considera experimental.
+Una vez en marcha, <code>nfdump -R &lt;ruta&gt;</code> sobre los ficheros de captura confirma
+que los flujos van llegando, sin pasar por la consola.</p>
+<div class="admonition example">
+<p class="admonition-title">Sonda fprobe en Ubuntu</p>
+<p>En una máquina Ubuntu con visibilidad del tráfico de la red
+<code>192.168.10.0/24</code> (por ejemplo, colgada de un puerto espejo del switch de
+esa red), <code>fprobe</code> exporta hacia el servidor de Pandora FMS:
+</p><div class="highlight"><pre><span></span><code>fprobe -i eth0 192.168.10.5:9995
+</code></pre></div>
+A partir de ahí, el colector <code>nfcapd</code> del servidor recibe los flujos de
+esa red igual que si vinieran de un router con NetFlow nativo.<p></p>
+</div>
+<h2 id="activar-y-configurar-netflow-y-sflow-en-la-consola">Activar y configurar Netflow y sFlow en la consola<a class="headerlink" href="#activar-y-configurar-netflow-y-sflow-en-la-consola" title="Permanent link">¶</a></h2>
+<p>Netflow y sFlow se activan por separado, cada uno con su interruptor, en
+<strong>Ajustes → Configuración del sistema → Configuración general</strong>, pestaña
+<strong>Características</strong>: «Activar Netflow» y «Habilitar Sflow» —la consola no usa
+el mismo verbo para los dos, pero son el mismo tipo de interruptor—. En la
+misma página, pestaña <strong>Directorios</strong>, «Ruta de red general» fija el
+directorio base donde viven los subdirectorios de datos de ambos protocolos.</p>
+<p>Con Netflow o sFlow activados aparece una página propia de configuración,
+<strong>Ajustes → Configuración del sistema → Flujo neto y flujo ascendente</strong>
+(«Netflow &amp; Sflow» en el menú), organizada en pestañas:</p>
+<ul>
+<li><strong>Básica.</strong> Host y puerto del servicio de consultas, rutas de los binarios
+  <code>nfdump</code> y <code>nfexpire</code>, ruta de la base GeoIP, resolución máxima de gráfica,
+  un interruptor para desactivar los filtros personalizados de la vista en
+  vivo y otro para activar la resolución de nombres por IP —con un aviso
+  explícito de que puede ser lenta, porque implica una consulta DNS por cada
+  IP que aparece en el resultado—. Debajo de estos campos, un indicador con
+  un punto de color dice si el servicio de consultas responde o no.</li>
+<li><strong>Netflow</strong> (solo visible con Netflow activado). Subdirectorio de datos,
+  ruta del demonio <code>nfcapd</code>, puerto de escucha, intervalo de rotación —<code>10</code>,
+  <code>30</code> o <code>60</code> minutos, con el aviso de que cambiarlo exige reiniciar el
+  servidor— y vida máxima de los ficheros.</li>
+<li><strong>Sflow</strong> (solo visible con sFlow activado). Los mismos campos que Netflow,
+  con el demonio <code>sfcapd</code> y su propio puerto, pero sin el aviso de reinicio en
+  el intervalo.</li>
+<li><strong>Remoto.</strong> Activar consulta remota por SSH, host, puerto y usuario remoto;
+  se explica en detalle en <a href="#datos-de-netflow-en-otro-equipo-nfdump-remoto">Datos de Netflow en otro equipo: nfdump
+  remoto</a>. Con la consulta
+  remota activada, el mismo indicador de estado de la pestaña Básica añade una
+  segunda línea con si esa conexión remota es alcanzable.</li>
+</ul>
+<p>Al guardar cualquier cambio en la página de configuración de Netflow, es el
+propio servidor de Pandora FMS quien nota que la configuración cambió —lo
+revisa cada cinco segundos— y regenera el fichero de configuración del
+servicio de consultas, reiniciándolo para que tome los valores nuevos. Si ni
+Netflow ni sFlow están activados, el servidor directamente para ese servicio
+de consultas —los colectores, en cambio, solo se paran al detener el propio
+servidor, como se explica en <a href="#como-funciona-en-pandora-fms">Cómo funciona en Pandora
+FMS</a>—.</p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Valor por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host del servicio de consultas</td>
+<td><code>http://127.0.0.1</code></td>
+</tr>
+<tr>
+<td>Puerto del servicio de consultas</td>
+<td><code>8088</code></td>
+</tr>
+<tr>
+<td>Binario <code>nfdump</code></td>
+<td><code>/usr/bin/nfdump</code></td>
+</tr>
+<tr>
+<td>Binario <code>nfexpire</code></td>
+<td><code>/usr/bin/nfexpire</code></td>
+</tr>
+<tr>
+<td>Binario colector Netflow (<code>nfcapd</code>)</td>
+<td><code>/usr/bin/nfcapd</code></td>
+</tr>
+<tr>
+<td>Binario colector sFlow (<code>sfcapd</code>)</td>
+<td><code>/usr/bin/sfcapd</code></td>
+</tr>
+<tr>
+<td>Subdirectorio de datos de Netflow</td>
+<td><code>netflow</code> (bajo la ruta de red general)</td>
+</tr>
+<tr>
+<td>Subdirectorio de datos de sFlow</td>
+<td><code>sflow</code> (bajo la ruta de red general)</td>
+</tr>
+<tr>
+<td>Puerto del colector Netflow (<code>nfcapd</code>)</td>
+<td><code>9995</code></td>
+</tr>
+<tr>
+<td>Puerto del colector sFlow (<code>sfcapd</code>)</td>
+<td><code>6343</code></td>
+</tr>
+<tr>
+<td>Intervalo de Netflow</td>
+<td><code>30</code> minutos</td>
+</tr>
+<tr>
+<td>Intervalo de sFlow</td>
+<td><code>60</code> minutos</td>
+</tr>
+<tr>
+<td>Vida máxima de Netflow</td>
+<td><code>5</code> días</td>
+</tr>
+<tr>
+<td>Vida máxima de sFlow</td>
+<td><code>5</code> días</td>
+</tr>
+<tr>
+<td>Resolución máxima de gráfica</td>
+<td><code>50</code></td>
+</tr>
+<tr>
+<td>Base GeoIP</td>
+<td><code>/usr/share/pandora_server/util/dbip-country-lite.mmdb</code></td>
+</tr>
+</tbody>
+</table>
+<p>La ruta de datos que de verdad usan los colectores y el servicio de consultas
+sale de juntar la «Ruta de red general» (por ejemplo,
+<code>/var/spool/pandora/data_in/</code>) con el subdirectorio de cada protocolo: con los
+valores de fábrica, <code>/var/spool/pandora/data_in/netflow</code> para Netflow y
+<code>/var/spool/pandora/data_in/sflow</code> para sFlow.</p>
+<p>El detalle completo de cada token, tanto los de la consola como los que lee
+el servidor, está en <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/">9.2 · Referencia completa de configuración de la
+consola</a>
+y en <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/">9.3 · Referencia completa de configuración del
+servidor</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Activar sFlow junto a Netflow con una semana de retención</p>
+<p>Con «Activar Netflow» y «Activar Sflow» marcados y «Ruta de red general»
+en <code>/var/spool/pandora/data_in</code>, en la pestaña Sflow se deja el intervalo
+de fábrica y se fija la vida máxima en <code>7</code> días: pasada una semana, los
+ficheros de captura de sFlow se purgan solos y siguen entrando los
+nuevos.</p>
+</div>
+<h2 id="filtros-de-netflow">Filtros de Netflow<a class="headerlink" href="#filtros-de-netflow" title="Permanent link">¶</a></h2>
+<p>Un <strong>filtro de Netflow</strong> delimita el tráfico consultado o monitorizado. El
+Explorador y la Vista en vivo admiten filtros propios y filtros guardados;
+la Vista superior no ofrece filtro de tráfico. El Mapa de uso de red emplea
+sus propios filtros, independientes de los filtros de Netflow guardados.
+Estos últimos se gestionan en <strong>Gestión → Recursos → Filtros Netflow</strong>, con
+permiso de escritura de agentes.</p>
+<p>Cada filtro tiene un modo <strong>normal</strong>, con IP y puerto de destino, IP y puerto
+de origen (listas separadas por comas, vacío significa «todos») y una
+<strong>agregación</strong> —por IP o puerto de origen o de destino—, o un modo
+<strong>avanzado</strong>, con la sintaxis de filtro propia de <code>nfdump</code> (parecida a la de
+<code>tcpdump</code>), para lo que el modo normal no cubre. El filtro se asigna a un
+grupo, como cualquier otro recurso de Pandora FMS. Desde las vistas de
+operación que los admiten (Explorador y Vista en vivo), los filtros guardados
+se pueden cargar sin volver a escribirlos.</p>
+<div class="admonition example">
+<p class="admonition-title">Filtro básico de un servidor</p>
+<p>Modo normal, «Dst Ip» <code>192.168.10.20</code>, sin más criterio: muestra todo el
+tráfico que tiene ese servidor como destino, venga de donde venga.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Filtro avanzado de una subred sin DNS</p>
+<p>Modo avanzado, con la expresión:
+</p><div class="highlight"><pre><span></span><code>src net 192.168.10.0/24 and not port 53
+</code></pre></div>
+Todo el tráfico que sale de la red <code>192.168.10.0/24</code>, excluyendo el
+tráfico DNS.<p></p>
+</div>
+<p>El mismo filtro tiene, además, los campos de <strong>monitorización</strong> que se
+explican en <a href="#monitorizar-y-alertar-sobre-un-filtro">Monitorizar y alertar sobre un
+filtro</a>: activarla no es una pantalla
+aparte, sino un interruptor más dentro del propio filtro.</p>
+<p>Un filtro también se puede dar de alta sin pasar por la consola, con la
+opción <code>--create_netflow_filter</code> del script de gestión por línea de comandos
+o con la operación <code>create_netflow_filter</code> de la API, para automatizar el
+alta de filtros repetitivos desde fuera de la interfaz.</p>
+<h2 id="explorador-de-netflow">Explorador de Netflow<a class="headerlink" href="#explorador-de-netflow" title="Permanent link">¶</a></h2>
+<p><strong>Operación → Monitorización → Red → Explorador Netflow.</strong> Es la vista para
+investigar un periodo concreto: «Datos a mostrar» solo tiene dos opciones,
+<strong>Top listeners</strong> (quién más tráfico recibe) y <strong>Top talkers</strong> (quién más
+tráfico envía), y «Resultados a mostrar» se elige entre <code>5</code>, <code>10</code>, <code>15</code>, <code>20</code>,
+<code>25</code>, <code>50</code>, <code>100</code> o <code>250</code> (<code>10</code> de fábrica). El resto es el rango de fechas y
+las mismas pestañas de filtro básico y avanzado que el resto de vistas, con la
+posibilidad de guardar el filtro usado o cargar uno ya guardado. El resultado
+se puede exportar a CSV, y cada IP de la tabla lleva un enlace directo a una
+consulta whois, sin salir del explorador.</p>
+<div class="admonition example">
+<p class="admonition-title">Los mayores emisores del último día</p>
+<p>«Datos a mostrar» en <strong>Top talkers</strong>, «Resultados a mostrar» en <code>10</code>,
+rango de fecha las últimas 24 horas, filtro avanzado
+<code>src net 192.168.10.0/24</code>: la tabla resultante son los 10 equipos de esa
+red que más tráfico han generado en el día.</p>
+</div>
+<h2 id="vista-en-vivo">Vista en vivo<a class="headerlink" href="#vista-en-vivo" title="Permanent link">¶</a></h2>
+<p><strong>Operación → Monitorización → Red → Netflow en tiempo real.</strong> Es la vista
+pensada para seguir el tráfico casi en tiempo real más que para investigar un
+histórico: periodo (predefinido, personalizado o relativo, como «esta
+semana» o «este mes»), filtro básico o avanzado, agregación, número máximo de
+agregados a mostrar y resolución de la gráfica. Los tipos de gráfica
+disponibles aquí son solo cuatro —<strong>resumen</strong>, <strong>gráfico de área</strong>, <strong>malla
+circular</strong> y <strong>tráfico detallado por host</strong>—; el resto de tipos de gráfica que
+existían en versiones anteriores de esta vista (tabla de datos, Top-N de
+conexiones, fuentes, aplicaciones y protocolos) se han movido a la <a href="#vista-superior">Vista
+superior</a>. El filtro usado se puede guardar o actualizar sin
+salir de la vista.</p>
+<p>La pestaña avanzada de esta vista incluye además «Dirección IP de origen de
+Netflow», campo que no está disponible al editar un filtro guardado desde
+Gestión. Permite limitar los flujos por la IP del exportador (router o
+switch, no la IP de origen del tráfico), pero solo se aplica si se deja vacía
+la expresión del filtro avanzado y se usan los criterios normales. Con una
+expresión avanzada, el campo del exportador no restringe la consulta.</p>
+<div class="admonition example">
+<p class="admonition-title">Tráfico por puerto de destino en la última hora</p>
+<p>Filtro avanzado <code>src net 192.168.10.0/24</code>, agregación por puerto de
+destino, periodo la última hora, tipo de gráfica gráfico de área: se ve
+de un vistazo qué puertos concentran el tráfico saliente de esa red en
+tiempo casi real.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Solo los flujos de un router concreto</p>
+<p>Con varios exportadores enviando flujos al mismo servidor, «Dirección IP
+de origen de Netflow» en <code>192.168.10.1</code> limita la vista a los flujos que
+exportó ese router, aunque el filtro no toque ni el origen ni el destino
+del tráfico. Dejar vacía la expresión del filtro avanzado para que se
+aplique el campo del exportador.</p>
+</div>
+<h2 id="vista-superior">Vista superior<a class="headerlink" href="#vista-superior" title="Permanent link">¶</a></h2>
+<p><strong>Operación → Monitorización → Red → Vista superior de Netflow.</strong> Cuatro
+desgloses sobre el mismo periodo: <strong>Aplicaciones</strong>, <strong>Protocolos de
+red</strong>, <strong>Fuentes de flujo neto</strong> (qué router y qué interfaz han exportado más
+flujos, con la última vez que se vio cada IP) y <strong>Conexiones</strong> (el Top-N de
+conexiones que en versiones anteriores estaba en la vista en vivo). Los
+porcentajes de un Top-N no tienen por qué sumar 100. Se puede elegir el
+periodo, pero esta pantalla no permite aplicar un filtro de IP, puerto o
+expresión avanzada.</p>
+<div class="admonition example">
+<p class="admonition-title">Qué aplicación consume más ancho de banda esta semana</p>
+<p>Desglose «Aplicaciones» y periodo la última semana: la tabla ordena las
+aplicaciones detectadas por volumen de tráfico, de mayor a menor, sin
+restringir el resultado a una red como <code>192.168.10.0/24</code>.</p>
+</div>
+<h2 id="mapa-de-uso-de-red">Mapa de uso de red<a class="headerlink" href="#mapa-de-uso-de-red" title="Permanent link">¶</a></h2>
+<p><strong>Operación → Monitorización → Red → Mapa de uso de red.</strong> Representa el
+tráfico como un mapa de conexiones entre nodos, en vez de una tabla o una
+gráfica: cada línea entre dos puntos representa tráfico observado según el
+periodo y el filtro avanzado aplicado. Aquí se pueden elegir emisores o
+receptores, el número de resultados y guardar filtros propios del mapa.
+No muestra países ni geolocaliza los nodos, aunque haya una base GeoIP
+configurada.</p>
+<div class="admonition example">
+<p class="admonition-title">Ver de un vistazo las conexiones salientes de una red</p>
+<p>Con «Datos a mostrar» en <strong>Top talkers</strong>, <code>10</code> resultados y filtro
+avanzado <code>src net 192.168.10.0/24</code>, el mapa muestra las conexiones entre
+los nodos de ese tráfico; no sitúa los destinos en un mapa geográfico.</p>
+</div>
+<h2 id="monitorizar-y-alertar-sobre-un-filtro">Monitorizar y alertar sobre un filtro<a class="headerlink" href="#monitorizar-y-alertar-sobre-un-filtro" title="Permanent link">¶</a></h2>
+<p>La monitorización de un filtro convierte su tráfico en módulos de agente.
+Se activa desde el propio editor del filtro, con «Activar monitorización de
+Netflow». Con el servidor de Netflow habilitado (<code>netflowserver 1</code>) y la
+creación automática de agentes habilitada, se crea el agente
+<code>Netflow_&lt;nombre del filtro&gt;</code> y se incorporan tres módulos; si el agente ya
+existe, se reutiliza:</p>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Qué mide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Caudal (<code>&lt;filtro&gt;_throughput</code>)</td>
+<td>Tráfico total del filtro (módulo con etiqueta <code>bps</code>)</td>
+</tr>
+<tr>
+<td>Estado del caudal (<code>&lt;filtro&gt;_throughput_status</code>)</td>
+<td>Normal, advertencia o crítico, según los umbrales configurados</td>
+</tr>
+<tr>
+<td>Top 10 (<code>&lt;filtro&gt;_throughput_data</code>)</td>
+<td>Las 10 IP con más tráfico dentro del filtro, con su caudal y una relación respecto al máximo configurado, en texto</td>
+</tr>
+</tbody>
+</table>
+<p>El intervalo de esta monitorización se fija por filtro —cinco minutos de
+partida—. El módulo de estado distingue normal (<code>0</code>), advertencia (<code>1</code>) y
+crítico (<code>2</code>) al comparar el tráfico de las IP con los umbrales configurados.
+El formulario rotula el tráfico máximo en bytes por segundo y presenta los
+umbrales como porcentajes, pero el cálculo del estado no aplica una conversión
+coherente entre las unidades del caudal y las de ese máximo. No se puede
+deducir de esos rótulos un valor de umbral que garantice el resultado esperado;
+conviene comprobar el estado con tráfico conocido antes de asociar una alerta.
+Estos módulos admiten alertas como cualquier otro módulo; su configuración
+se explica en <a href="../../parte-5/5.5-alertas-y-notificaciones/">Alertas y notificaciones</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Comprobar la monitorización antes de asociar una alerta</p>
+<p>En un filtro sobre la red <code>192.168.10.0/24</code>, fijar el intervalo en <code>300</code>
+segundos y comprobar que el agente <code>Netflow_&lt;nombre del filtro&gt;</code> recibe
+el módulo de caudal, el estado y el Top 10. Contrastar el valor del estado
+con tráfico medido antes de utilizarlo como condición de alerta; el
+formulario por sí solo no asegura la equivalencia entre bytes/s y bits/s.</p>
+</div>
+<h2 id="informes-y-dashboards">Informes y dashboards<a class="headerlink" href="#informes-y-dashboards" title="Permanent link">¶</a></h2>
+<p>Cuatro tipos de gráfica —<strong>gráfico de área</strong>, <strong>resumen</strong>, <strong>tabla de datos</strong>
+y <strong>Top-N de conexiones</strong>— están disponibles como elementos de informe, cada
+uno con su propio filtro, periodo, resolución y número máximo de valores; ver
+<a href="../../parte-5/5.2-informes/">5.2 · Informes</a> para el resto de elementos de
+informe y cómo combinarlos. El widget de Netflow de dashboards va más allá:
+ofrece los nueve tipos de gráfica de Netflow —los cuatro anteriores más malla
+circular, tráfico detallado por host, fuentes, aplicaciones y protocolos— y
+además un mapa de uso de red, con su propio periodo, agregación, «Datos a
+mostrar» (Top listeners/Top talkers) y número máximo de valores; ver
+<a href="../../parte-5/5.1-dashboards/">5.1 · Dashboards</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Informe semanal del Top-N de conexiones</p>
+<p>Elemento de informe Top-N de conexiones, filtro sobre la red
+<code>192.168.10.0/24</code>, periodo semanal, máximo <code>10</code> valores: cada semana el
+informe deja constancia de qué conexiones concentraron más tráfico.</p>
+</div>
+<h2 id="datos-de-netflow-en-otro-equipo-nfdump-remoto">Datos de Netflow en otro equipo: nfdump remoto<a class="headerlink" href="#datos-de-netflow-en-otro-equipo-nfdump-remoto" title="Permanent link">¶</a></h2>
+<p>Cuando el volumen de tráfico es alto y conviene guardar los ficheros de
+captura en un disco dedicado, en otra máquina, el servicio de consultas puede
+ejecutar <code>nfdump</code> por SSH contra ese equipo remoto en vez de hacerlo en local.
+Se activa en la pestaña <strong>Remoto</strong> de la configuración de Netflow, con host,
+puerto y usuario de conexión. El servicio de consultas corre como un servicio
+del sistema bajo el usuario <code>root</code>, así que la clave SSH que hay que autorizar
+de antemano en el <code>authorized_keys</code> del usuario remoto es la de <code>root</code> de la
+máquina donde corre ese servicio, sin contraseña: el servicio no tiene forma
+de introducirla de forma interactiva. La comprobación de conectividad que
+alimenta el indicador de estado usa además modo por lotes (sin preguntar nada
+por pantalla) y un tiempo de espera corto, de unos segundos, antes de darla
+por caída. Con la consulta remota activada, el indicador de estado de la
+pestaña Básica añade una segunda línea que dice si esa conexión SSH es
+alcanzable en ese momento.</p>
+<p>En este montaje, los colectores y <code>nfexpire</code> siguen corriendo donde
+corresponda: si los ficheros de captura viven en el equipo remoto, la purga
+por antigüedad también tiene que programarse allí, por ejemplo con una tarea
+<code>cron</code> que llame a <code>nfexpire</code> con la misma vida máxima configurada en la
+consola.</p>
+<div class="admonition example">
+<p class="admonition-title">Guardar la captura en un servidor de almacenamiento dedicado</p>
+<p>Con la clave pública de <code>root</code> del servidor de Pandora FMS ya añadida al
+<code>authorized_keys</code> de un usuario en <code>192.168.10.50</code>, se activa «Enable
+Remote Nfdump» con host <code>192.168.10.50</code>, puerto <code>22</code> y ese mismo usuario:
+las vistas de operación siguen funcionando igual, pero cada consulta la
+resuelve <code>nfdump</code> en esa máquina remota, no en el propio servidor de
+Pandora FMS.</p>
+</div>
+<h2 id="netflow-en-el-command-center">Netflow en el Command Center<a class="headerlink" href="#netflow-en-el-command-center" title="Permanent link">¶</a></h2>
+<p>En una arquitectura con <a href="../../parte-6/6.3-command-center/">Command Center</a>,
+cada nodo sigue teniendo su propio servicio de consultas de Netflow, con sus
+propios colectores y su propia configuración. El Command Center no centraliza
+los datos de flujo —tampoco lo hacen los nodos, que los consultan bajo
+demanda—: cuando se piden datos de Netflow desde la consola del Command
+Center, esta llama a la API remota de cada nodo implicado y junta las
+respuestas, sin que el tráfico en sí pase por el Command Center.</p>
+<h2 id="permisos">Permisos<a class="headerlink" href="#permisos" title="Permanent link">¶</a></h2>
+<p>Los permisos no son idénticos en todas las pantallas. El Explorador y el Mapa
+de uso de red comprueban lectura de agentes (AR); la Vista en vivo y la Vista
+superior admiten lectura (AR) <strong>o</strong> escritura (AW). Gestionar la lista de
+filtros de Netflow exige AW, mientras que el formulario de creación y edición
+comprueba escritura sobre recursos (RW) y, para un filtro existente, su grupo.
+Guardar o modificar filtros propios del mapa exige AW. Un filtro del mapa no
+equivale a un filtro de Netflow asignado a un grupo.</p>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Explorador y Mapa de uso de red</td>
+<td>Lectura de agentes (AR)</td>
+</tr>
+<tr>
+<td>Vista en vivo y Vista superior</td>
+<td>Lectura de agentes (AR) o escritura de agentes (AW)</td>
+</tr>
+<tr>
+<td>Gestionar lista de filtros de Netflow</td>
+<td>Escritura de agentes (AW), con lista limitada a los grupos accesibles</td>
+</tr>
+<tr>
+<td>Crear o editar un filtro de Netflow</td>
+<td>Escritura sobre recursos (RW); para editar uno existente, también acceso a su grupo</td>
+</tr>
+<tr>
+<td>Guardar o modificar filtros del mapa</td>
+<td>Escritura de agentes (AW)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
