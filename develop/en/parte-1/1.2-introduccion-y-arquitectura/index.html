@@ -4772,7 +4772,7 @@ machines remote checks are done through WMI, with credentials. And for everythin
 else there are the classic network checks: ICMP (ping, latency, jitter), TCP with
 challenge and response to confirm a port is answering, and static web checks,
 which verify availability and content, not a full user transaction.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/monitorizacion-remota.png" data-desc-position="bottom"><img alt="Remote monitoring: the server sends the check to the machine (ICMP, TCP, WMI or SNMP) without installing anything on it" class="diagrama" src="../../../assets/img/parte-01/monitorizacion-remota.png"></a></p>
 <p>One difference worth being clear about from the start: a remote check lives or
 dies by the network. If there is no path to the device, there is no data, and no
 amount of retries from the console will fix it. The topologies further down exist
@@ -4788,7 +4788,7 @@ it to the server with Tentacle, on port <code>41121/TCP</code>. The default inte
 seconds. Since version 784 some checks accept much shorter intervals, down to <code>15</code>
 seconds: ICMP (latency and ping) and numeric SNMP ones. Asynchronous modules
 never go below five minutes, and the console warns you if you try to force it.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/monitorizacion-local.png" data-desc-position="bottom"><img alt="Local monitoring: the EndPoint runs the checks on the machine, packs the result into an XML and sends it to the server on port 41121" class="diagrama" src="../../../assets/img/parte-01/monitorizacion-local.png"></a></p>
 <p>With EndPoints there are three working modes for the modules that arrive in the
 XML. In <strong>learning</strong> they are created on their own. In <strong>normal</strong> they are only
 created if they are declared in the console. In <strong>self-disabled</strong> it works like
@@ -4839,7 +4839,7 @@ you notice it exactly when you are in a hurry.</p>
 timestamp at which they were processed, keeping the original timestamp from the
 file as well. The text is stored as it is, with no structure, in OpenSearch, which
 is what supports the volume.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/logs-opensearch.png" data-desc-position="bottom"><img alt="Log collection: the EndPoint reads and parses the file, sends the XML to the server and the console queries OpenSearch, where the server writes and the console reads" class="diagrama" src="../../../assets/img/parte-01/logs-opensearch.png"></a></p>
 <p>The syslog server analyses the system log of the machine where it is installed and
 the log server lets you correlate logs and fire alerts on them. It is the raw
 material for SIEM and the troubleshooting tool for when the problem is not in the
@@ -4870,7 +4870,7 @@ What Pandora FMS adds to the concept is that collection is already done. The log
 that feed the SIEM are the same ones the platform already gathers. The security
 event engine builds on that previous work, in place of setting up a second system
 alongside it.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/siem.png" data-desc-position="bottom"><img alt="The SIEM feeds on the metrics, logs and events Pandora FMS already collects, from infrastructure and from EndPoints, and adds correlation, incidents and the forensic console on top" class="diagrama" src="../../../assets/img/parte-01/siem.png"></a></p>
 <p>For the installation it is recommended that EndPoints are at least on version 783
 to make the most of all the features. The SIEM is activated from the console and
 enables its own servers. With it come the normalisation templates, the security
@@ -4901,7 +4901,7 @@ to serve different groups of users.</p>
 <p>The Pandora FMS server is a single application with several specialised servers
 inside, running as concurrent processes and with their own number of threads.
 Their configuration lives in <code>pandora_server.conf</code>, in <code>/etc/pandora</code>.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/esquema-servidor.png" data-desc-position="bottom"><img alt="Server diagram: the specialised servers (Data, Network, Network High Performance, Heavy and Discovery) feed the central database and the historical one, and the console queries both" class="diagrama" src="../../../assets/img/parte-01/esquema-servidor.png"></a></p>
 <p>These come <strong>enabled by default</strong>:</p>
 <ul>
 <li><strong>Data Server</strong>: processes the XML packages sent by EndPoints and turns them
@@ -4983,7 +4983,7 @@ per second, and although it only sends data to the server every so often, if it
 detects a state change it reports it immediately. The second is that it discovers
 itself: it finds devices over SNMP or WMI, creates the corresponding agents and
 generates interface, traffic, CPU, memory and disk modules with no intervention.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/esquema-servidor-satelite.png" data-desc-position="bottom"><img alt="The satellite server polls the devices on its network over ICMP, SNMP or WMI, also collects the XML from EndPoints and sends everything to the Pandora FMS server over Tentacle" class="diagrama" src="../../../assets/img/parte-01/esquema-servidor-satelite.png"></a></p>
 <p>And it is managed remotely. The satellite asks the server every few seconds
 (every 30 by default) whether there are changes in its configuration or in that
 of the agents it has discovered. It applies what arrives from the console. It is
@@ -5007,11 +5007,11 @@ operating on all of them. Every node keeps its own database and its own server.
 The Command Center does not replace them: it coordinates them. That is how you reach
 hundreds of thousands of devices without looking at them node by node. And how you
 can provide multi-company service from a single access point.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/command-center.png" data-desc-position="bottom"><img alt="A Command Center in front of several nodes: every node keeps its own server and its own database, and the Command Center presents them as one installation" class="diagrama" src="../../../assets/img/parte-01/command-center.png"></a></p>
 <p>Synchronisation goes in two directions. The Command Center queries the database or
 the API of each node for what it administers: agents, modules, alerts, policies.
 And it receives by replication what is continuously generated, such as events.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/command-center-acceso-activo.png" data-desc-position="bottom"><img alt="Active access: the Command Center reaches the API of every node to administer its agents, modules, alerts and policies" class="diagrama" src="../../../assets/img/parte-01/command-center-acceso-activo.png"></a></p>
 <p>Users, groups, templates and tags live on both sides, because they have to be
 where they are used. That said, it is an advanced environment with its own
 requirements: it is installed on RHEL 8 or Rocky Linux 8.</p>
@@ -5046,8 +5046,8 @@ solved with an intermediate piece. Which one depends on where the break is:</p>
   server and redirects it to its own SSH. That way the console can reach it to
   launch the SNMP wizard or the SNMP console.</li>
 </ul>
-<p></p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/endpoint-modo-broker.png" data-desc-position="bottom"><img alt="An EndPoint in broker mode polls several devices on a network the server cannot reach, and sends the server one XML per device" class="diagrama diagrama-ancho" src="../../../assets/img/parte-01/endpoint-modo-broker.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/endpoint-modo-proxy.png" data-desc-position="bottom"><img alt="Several EndPoints send their XML to an EndPoint in proxy mode, which forwards them all together to the Pandora FMS server" class="diagrama diagrama-ancho" src="../../../assets/img/parte-01/endpoint-modo-proxy.png"></a></p>
 <h3 id="unreachable-networks">Unreachable networks<a class="headerlink" href="#unreachable-networks" title="Permanent link">¶</a></h3>
 <p>When the remote network cannot start communication towards the server, the
 approach is turned around with the <strong>Sync Server</strong>. The main server takes the

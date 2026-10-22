@@ -4699,14 +4699,14 @@ flavour, the syslog of any machine. It leaves them in a single console, ordered
 by the moment they arrived. This chapter explains how that collection is
 enabled, how logs are requested from each EndPoint and what can be done with
 them afterwards.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-welcome_page.png" data-desc-position="bottom"><img alt="Log collection welcome page in Pandora FMS" src="../../media-wiki/wiki/pfms-log_monitoring-welcome_page.png"></a></p>
 <p>Pandora FMS does not store logs in its monitoring database. It keeps them in
 <strong>OpenSearch</strong>, a search engine built for text, and that is why the first
 requirement, before touching anything in the console, is to have that engine
 available and reachable. The rest of the chapter assumes it already is; the
 installation and configuration of the engine have a technical appendix of their
 own.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-opensearch.png" data-desc-position="bottom"><img alt="OpenSearch, the engine where Pandora FMS stores logs" src="../../media-wiki/wiki/pfms-log_monitoring-opensearch.png"></a></p>
 <div class="admonition note">
 <p class="admonition-title">What this is not</p>
 <p>Unstructured log monitoring is not a SIEM. Pandora FMS keeps the text as it
@@ -4841,7 +4841,7 @@ index on</strong>: they do not rewrite what is already indexed.</p>
   rules prevent placing all the replicas, the cluster can be left in <code>YELLOW</code>
   state.</li>
 </ul>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/logs-log-collector.png" data-desc-position="bottom"><img alt="Log collector enabled and connected to OpenSearch, with the indicator &quot;OpenSearch is running.&quot; and the connection data to the engine" src="../../../assets/img/parte-02/logs-log-collector.png"></a></p>
 <h2 id="collecting-logs-with-endpoints">Collecting logs with EndPoints<a class="headerlink" href="#collecting-logs-with-endpoints" title="Permanent link">¶</a></h2>
 <p>The real collection is done by the <strong>EndPoints</strong>, both on Windows and on Unix
 (Linux, macOS, Solaris, HPUX, AIX, BSD…). To register the modules from the
@@ -4851,7 +4851,7 @@ EndPoint has to be a Windows one. The rest of the modules and their general
 tokens are in <a href="../2.1-monitorizacion-con-endpoints/">Monitoring with EndPoints</a>
 and in the <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/">full EndPoint configuration
 reference</a>.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png" data-desc-position="bottom"><img alt="Module log collection wizard for registering log modules" src="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png"></a></p>
 <h3 id="plain-text-logs">Plain text logs<a class="headerlink" href="#plain-text-logs" title="Permanent link">¶</a></h3>
 <p>To watch a text file, a module of type <code>log</code> is used with the <code>module_regexp</code>
 token, which points to the path of the file. An example module on Linux:</p>
@@ -4938,13 +4938,13 @@ case-sensitive, so copy them exactly as they are.</p>
 (System, Application, Security…). Do not confuse it with
 <code>module_application</code>, which identifies the application. You can use one or the
 other, but one of the two is needed.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_source.png" data-desc-position="bottom"><img alt="Selection of the event source in the log collection module" src="../../media-wiki/wiki/pfms-log_monitoring-module_source.png"></a></p>
 <p>Even if the event viewer shows it to you in your language, here <strong>they are
 written in English</strong>: <code>System</code>, <code>Application</code>, <code>Security</code>. Long names are
 copied exactly as they are, without translating:</p>
 <div class="highlight"><pre><span></span><code>Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider/Administration
 </code></pre></div>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_source_long_name.png" data-desc-position="bottom"><img alt="Example of an event origin with a long name" src="../../media-wiki/wiki/pfms-log_monitoring-module_source_long_name.png"></a></p>
 <h4 id="module_source_type"><code>module_source_type</code><a class="headerlink" href="#module_source_type" title="Permanent link">¶</a></h4>
 <p>It is the type of log that the SIEM decoders and rules consume. If you omit it,
 <code>syslog</code> is used by default. The types the tool usually handles are <code>syslog</code>,
@@ -5010,8 +5010,8 @@ module_eventtype 3
 module_source_type ossec
 module_end
 </code></pre></div>
-<p>
-</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_eventtype_01.png" data-desc-position="bottom"><img alt="Event type in the Windows event viewer" src="../../media-wiki/wiki/pfms-log_monitoring-module_eventtype_01.png"></a>
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_eventtype_02.png" data-desc-position="bottom"><img alt="Event level selected in the properties" src="../../media-wiki/wiki/pfms-log_monitoring-module_eventtype_02.png"></a></p>
 <h4 id="module_eventcode"><code>module_eventcode</code><a class="headerlink" href="#module_eventcode" title="Permanent link">¶</a></h4>
 <p>Optional filter by <strong>event identifier</strong>, the <code>eventID</code> you see in the viewer. It
 is the most precise filter of all. This example takes only the events with
@@ -5025,7 +5025,7 @@ module_eventcode 4798
 module_source_type ossec
 module_end
 </code></pre></div>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_eventcode.png" data-desc-position="bottom"><img alt="Event identifier (eventID) in the Windows event viewer" src="../../media-wiki/wiki/pfms-log_monitoring-module_eventcode.png"></a></p>
 <h4 id="module_application"><code>module_application</code><a class="headerlink" href="#module_application" title="Permanent link">¶</a></h4>
 <p>Origin of the event, optional. To get the exact name of the provider, select an
 event in the Windows viewer, open <strong>Properties</strong> and copy the <strong>Full name</strong>
@@ -5038,7 +5038,7 @@ module_application Pandora FMS
 module_source Application
 module_end
 </code></pre></div>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_application.png" data-desc-position="bottom"><img alt="Full name of the event provider in Properties" src="../../media-wiki/wiki/pfms-log_monitoring-module_application.png"></a></p>
 <p>As a reference, the providers that appear most are the operating system's own
 (<code>Microsoft-Windows-Winlogon</code>, <code>Microsoft-Windows-Security-Auditing</code>,
 <code>Microsoft-Windows-WindowsUpdateClient</code>, <code>Microsoft-Windows-TaskScheduler</code>…),
@@ -5174,7 +5174,7 @@ itself.</p>
 lists every entry in the period, with the date, agent and origin filters you
 have set. Write a term (the name of the agent, a word from the message) only to
 narrow the results.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/logs-log-viewer.png" data-desc-position="bottom"><img alt="Log Viewer view with entries from one agent and its origin" src="../../../assets/img/parte-02/logs-log-viewer.png"></a></p>
 <h3 id="advanced-display-and-search">Advanced display and search<a class="headerlink" href="#advanced-display-and-search" title="Permanent link">¶</a></h3>
 <p>In the <strong>Advanced options</strong> tab the view can be changed and the logs turned
 into charts. The <strong>Display mode</strong> decides whether text entries or a chart are
@@ -5185,7 +5185,7 @@ each line.</p>
 of Apache in standard format and draws response times grouped by page and
 response code. A few more models come from the factory and you can create your
 own with the edit and create buttons.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/logs-advanced-options.png" data-desc-position="bottom"><img alt="Advanced options tab of the log viewer, with the display mode, the order and the capture model" src="../../../assets/img/parte-02/logs-advanced-options.png"></a></p>
 <h3 id="frequent-filters">Frequent filters<a class="headerlink" href="#frequent-filters" title="Permanent link">¶</a></h3>
 <p>If you repeat the same combination of filters, save it: <strong>Save filter</strong>, you
 give it a name and <strong>Save</strong>. Later you bring it back with <strong>Load filter</strong>,
@@ -5193,7 +5193,7 @@ choosing it from the list. A saved filter can be overwritten with the current
 changes.</p>
 <p>In <strong>Operation → Logs → Filters</strong> those filters are managed: edit them, delete
 them one by one or in bulk, and create new ones.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-monitoring-log_viewer-frequently_filters_2.png" data-desc-position="bottom"><img alt="Saving a frequent filter of the Log Viewer" src="../../media-wiki/wiki/pfms-monitoring-log_viewer-frequently_filters_2.png"></a></p>
 <h3 id="saved-filters-as-pinned-elements">Saved filters as pinned elements<a class="headerlink" href="#saved-filters-as-pinned-elements" title="Permanent link">¶</a></h3>
 <p>The pinning system of Pandora FMS allows leaving the <strong>Log viewer</strong> at hand in
 the menu, with the filters already set. It is done with the drawing pin icon
@@ -5209,7 +5209,7 @@ convenient way to jump from "this agent stopped sending logs" to "here are its
 last messages".</p>
 <p>By default, both the box and the viewer work with the <strong>last 24 hours</strong>; it is
 changed when needed.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/logs-log-sources-agent.png" data-desc-position="bottom"><img alt="Logs box in the agent view, with the Syslog origin, the last update and the Review button" src="../../../assets/img/parte-02/logs-log-sources-agent.png"></a></p>
 <h2 id="monitoring-the-log-engine-itself">Monitoring the log engine itself<a class="headerlink" href="#monitoring-the-log-engine-itself" title="Permanent link">¶</a></h2>
 <p>And what if the one that goes quiet is the engine itself? When the collector is
 enabled, the Pandora FMS server watches itself: it generates a battery of

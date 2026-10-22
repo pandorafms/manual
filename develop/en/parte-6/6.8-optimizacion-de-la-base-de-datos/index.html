@@ -4867,12 +4867,13 @@ the system is using swap, which is a performance killer, plain and simple. The
 solution, then, is not in the database: memory has to be increased or what
 consumes it has to be reduced, starting with the server threads and the engine
 buffers.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-vmstat.png" data-desc-position="bottom"><img alt="vmstat output on a running server" src="../../../assets/img/parte-06/optimizacion-vmstat.png"></a></p>
 <h2 id="diagnosing-the-health-of-the-database">Diagnosing the health of the database<a class="headerlink" href="#diagnosing-the-health-of-the-database" title="Permanent link">¶</a></h2>
 <p>Before optimizing anything, measure. The Web console offers no optimize action,
 but it does offer a complete diagnosis of the database, and it is worth knowing
 because it is the gateway to everything else.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-diagnostico-general.png" data-desc-position="bottom"><img alt="Size and health status statistics of the database in the diagnostic tool
+(interface in English)" src="../../../assets/img/parte-06/optimizacion-diagnostico-general.png"></a></p>
 <p>The main tool is in <strong>Admin tools → Diagnostic info</strong>. It gathers, on a single
 screen, the size of the database, its health status, engine information and two
 blocks that are the ones of interest here:</p>
@@ -4944,7 +4945,8 @@ blocks that are the ones of interest here:</p>
 </tr>
 </tbody>
 </table>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-diagnostico-variables.png" data-desc-position="bottom"><img alt="MySQL performance metrics in the diagnosis, with one variable marked in red
+(interface in English)" src="../../../assets/img/parte-06/optimizacion-diagnostico-variables.png"></a></p>
 <p>Besides those minimums, the diagnosis compares each variable with the value it
 expects to find, including the write policy of InnoDB. If a variable appears in
 red, review the <code>my.cnf</code>: the usual thing is that the parameter has not been
@@ -4964,7 +4966,8 @@ comes out green, as told in
   <a href="#fragmentation-measure-it-before-touching-anything">Fragmentation: measure it before touching
   anything</a>.</li>
 </ul>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-diagnostico-fragmentacion.png" data-desc-position="bottom"><img alt="Table fragmentation block of the diagnosis (interface in
+English)" src="../../../assets/img/parte-06/optimizacion-diagnostico-fragmentacion.png"></a></p>
 <p>The other two tools in the menu have a different role. <strong>Admin tools → DB Schema
 Check</strong> verifies that the database is correct: it detects tables or fields that
 are missing after a migration or an update. To run it, the database user needs
@@ -4996,7 +4999,8 @@ the indicator and of its threshold is in
 <a href="../6.5-base-de-datos-de-historico/">6.5 (Historical database)</a>, and the complete
 inventory of options of that screen, with their default value, in
 <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/">9.2 (Full console configuration reference)</a>.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-mantenimiento-estado.png" data-desc-position="bottom"><img alt="Database maintenance status, with the traffic light in
+green (interface in English)" src="../../../assets/img/parte-06/optimizacion-mantenimiento-estado.png"></a></p>
 <h2 id="fragmentation-measure-it-before-touching-anything">Fragmentation: measure it before touching anything<a class="headerlink" href="#fragmentation-measure-it-before-touching-anything" title="Permanent link">¶</a></h2>
 <p>A database fragments the way a disk fragments: between one insert and the next
 there are deletes, and the space left free is spread out in holes. In Pandora FMS
@@ -5067,7 +5071,8 @@ and it explains both its usefulness and its cost. The engine usually answers
 with a message that confirms the translation: <strong>"Table does not support optimize,
 doing recreate + analyze instead"</strong>. It is not an error; it is the way InnoDB has
 of saying that it is going to rebuild.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-optimize-table.png" data-desc-position="bottom"><img alt="OPTIMIZE TABLE output in the MySQL client, with the message that confirms the
+rebuild (the table name is hidden)" src="../../../assets/img/parte-06/optimizacion-optimize-table.png"></a></p>
 <p>And there is the problem. Rebuilding a table means <strong>rewriting it entirely</strong>, so
 the operation locks the table and needs, besides, enough free space on disk to
 host the copy while it is done. If the disk is full, the command fails and does
@@ -5095,7 +5100,8 @@ the schema is incomplete, and they have to be added.</p>
 <p>To check that they are there, there are two paths. The first, the schema check of
 the Web console, <strong>Admin tools → DB Schema Check</strong>, which warns of what is
 missing.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-comprobacion-esquema.png" data-desc-position="bottom"><img alt="Database schema check from the console (interface in
+English)" src="../../../assets/img/parte-06/optimizacion-comprobacion-esquema.png"></a></p>
 <p>The second, ask the engine for the indexes of a specific table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>

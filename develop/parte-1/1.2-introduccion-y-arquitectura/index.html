@@ -4774,7 +4774,7 @@ están las pruebas de red clásicas: ICMP (ping, latencia, jitter), TCP con
 desafío y respuesta para comprobar que un puerto atiende, y chequeos web
 estáticos, que comprueban disponibilidad y contenido, no una transacción
 completa de usuario.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/monitorizacion-remota.png" data-desc-position="bottom"><img alt="Monitorización remota: el servidor lanza el chequeo contra el equipo (ICMP, TCP, WMI o SNMP) sin instalar nada en él" class="diagrama" src="../../assets/img/parte-01/monitorizacion-remota.png"></a></p>
 <p>Una diferencia que conviene tener clara desde el principio: un chequeo remoto
 vive o muere en la red. Si no hay camino hasta el dispositivo, no hay dato, y por
 mucho que insistas con los reintentos no vas a arreglarlo desde la consola. Para
@@ -4790,7 +4790,7 @@ servidor con Tentacle, en el puerto <code>41121/TCP</code>. El intervalo por def
 <code>300</code> segundos. Desde la versión 784 algunos chequeos admiten intervalos de hasta
 <code>15</code> segundos: ICMP (latencia y ping) y SNMP numéricos. Los módulos asíncronos
 nunca bajan de cinco minutos, y la consola avisa si intentas forzarlo.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/monitorizacion-local.png" data-desc-position="bottom"><img alt="Monitorización local: el EndPoint ejecuta los chequeos en el equipo, empaqueta el resultado en un XML y lo envía al servidor por el puerto 41121" class="diagrama" src="../../assets/img/parte-01/monitorizacion-local.png"></a></p>
 <p>Con EndPoint hay tres modos de trabajo para los módulos que llegan en el XML. En
 <strong>aprendizaje</strong> se crean solos. En <strong>normal</strong> solo se crean si están declarados
 en la consola. En <strong>autodeshabilitado</strong> pasa como en aprendizaje, pero el agente
@@ -4841,7 +4841,7 @@ de eventos como esta y se nota justo cuando hay prisa.</p>
 ordenados por la marca de tiempo en que se procesaron, conservando además la
 marca original del fichero. El texto se guarda tal cual, sin estructura, en
 OpenSearch, que es quien soporta el volumen.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/logs-opensearch.png" data-desc-position="bottom"><img alt="Recolección de logs: el EndPoint lee y analiza el fichero, envía el XML al servidor y la consola consulta OpenSearch, donde el servidor escribe y la consola lee" class="diagrama" src="../../assets/img/parte-01/logs-opensearch.png"></a></p>
 <p>El servidor de syslog analiza el registro del sistema donde esté instalado y el
 servidor de logs permite correlacionarlos y disparar alertas sobre ellos. Es la
 materia prima del SIEM y la herramienta de <em>troubleshooting</em> cuando el problema
@@ -4874,7 +4874,7 @@ Lo que Pandora FMS añade al concepto es que la recolección ya está hecha. Los
 logs que alimentan el SIEM son los mismos que ya recoge la plataforma. El motor
 de eventos de seguridad se apoya en ese trabajo previo, en lugar de montar un
 segundo sistema aparte.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/siem.png" data-desc-position="bottom"><img alt="El SIEM se alimenta de las métricas, logs y eventos que ya recoge Pandora FMS (de la infraestructura y de los EndPoint) y añade sobre ellos la correlación, los incidentes y la consola forense" class="diagrama diagrama-ancho" src="../../assets/img/parte-01/siem.png"></a></p>
 <p>En la instalación se recomienda que los EndPoint estén al menos en la versión
 783 para aprovechar todas las funciones. El SIEM se activa desde la consola y
 habilita sus propios servidores; con él llegan las plantillas de normalización,
@@ -4906,7 +4906,7 @@ repartir carga o para dar servicio a grupos de usuarios distintos.</p>
 especializados, que se ejecutan como procesos concurrentes y con su propio
 número de hilos. La configuración de todos ellos vive en <code>pandora_server.conf</code>,
 en <code>/etc/pandora</code>.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/esquema-servidor.png" data-desc-position="bottom"><img alt="Esquema del servidor: los servidores especializados (Data, Network, Network High Performance, Heavy y Discovery) alimentan la base de datos central y el histórico, y la consola consulta ambos" class="diagrama" src="../../assets/img/parte-01/esquema-servidor.png"></a></p>
 <p>Estos vienen <strong>activos por defecto</strong>:</p>
 <ul>
 <li><strong>Data Server</strong>: procesa los paquetes XML que envían los EndPoint y los
@@ -4985,7 +4985,7 @@ remota. No necesita conectarse a la base de datos: ejecuta los chequeos y envía
 los resultados en XML por Tentacle, igual que haría un EndPoint. Es la respuesta
 cuando no puedes llegar por red a unos dispositivos y tampoco puedes instalar
 nada en ellos.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/esquema-servidor-satelite.png" data-desc-position="bottom"><img alt="El servidor satélite sondea por ICMP, SNMP o WMI los dispositivos de su red, recoge también los XML de los EndPoint y envía todo al servidor de Pandora FMS por Tentacle" class="diagrama" src="../../assets/img/parte-01/esquema-servidor-satelite.png"></a></p>
 <p>Tiene dos virtudes que conviene conocer. La primera es la velocidad: puede
 ejecutar hasta 500 chequeos por segundo, y aunque solo envía los datos al
 servidor cada cierto tiempo, si detecta un cambio de estado lo notifica al
@@ -5015,12 +5015,12 @@ todas. Cada nodo conserva su propia base de datos y su servidor. El Command Cent
 los sustituye: los coordina. Así se llega a cientos de miles de dispositivos sin
 mirar nodo por nodo. Y se puede dar servicio multiempresa desde un único punto de
 acceso.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/command-center.png" data-desc-position="bottom"><img alt="Un Command Center delante de varios nodos: cada nodo mantiene su servidor y su base de datos, y el Command Center los presenta como una sola instalación" class="diagrama" src="../../assets/img/parte-01/command-center.png"></a></p>
 <p>La sincronización va en dos direcciones. El Command Center consulta la base de datos
 o la API de cada nodo para lo que administra: agentes, módulos, alertas,
 políticas. Y recibe por replicación lo que se genera continuamente, como los
 eventos.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/command-center-acceso-activo.png" data-desc-position="bottom"><img alt="Acceso activo: el Command Center llega a la API de cada nodo para administrar sus agentes, módulos, alertas y políticas" class="diagrama" src="../../assets/img/parte-01/command-center-acceso-activo.png"></a></p>
 <p>Los usuarios, grupos, plantillas y etiquetas viven en los dos lados,
 porque tienen que estar donde se usan. Eso sí, es un entorno avanzado y con
 requisitos propios: se instala sobre RHEL 8 o Rocky Linux 8.</p>
@@ -5055,8 +5055,8 @@ resuelve con una pieza intermedia. Cuál toca depende de dónde esté el corte:<
   y lo redirige a su propio SSH. Así la consola puede llegar hasta él para lanzar
   el asistente SNMP o la consola SNMP.</li>
 </ul>
-<p></p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/endpoint-modo-broker.png" data-desc-position="bottom"><img alt="Un EndPoint en modo broker sondea de forma remota varios dispositivos de una red que el servidor no alcanza y envía al servidor un XML por cada uno" class="diagrama diagrama-ancho" src="../../assets/img/parte-01/endpoint-modo-broker.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-01/endpoint-modo-proxy.png" data-desc-position="bottom"><img alt="Varios EndPoint envían sus XML a un EndPoint en modo proxy, que los reenvía todos juntos al servidor de Pandora FMS" class="diagrama diagrama-ancho" src="../../assets/img/parte-01/endpoint-modo-proxy.png"></a></p>
 <h3 id="redes-inaccesibles">Redes inaccesibles<a class="headerlink" href="#redes-inaccesibles" title="Permanent link">¶</a></h3>
 <p>Cuando la red remota no puede iniciar comunicación hacia el servidor, se da la
 vuelta al planteamiento con el <strong>Sync Server</strong>. El servidor principal toma la
