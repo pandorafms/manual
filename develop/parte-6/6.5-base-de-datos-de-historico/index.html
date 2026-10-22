@@ -7,8 +7,6 @@
       
       
       
-        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/parte-6/6.5-base-de-datos-de-historico/">
-      
       
         <link rel="prev" href="../6.4-distribucion-e-instalacion-automatica-de-agentes/">
       
@@ -98,22 +96,6 @@
     </div>
     <div data-md-component="announce">
       
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-  
-    
-      <strong>En construcción.</strong> Esta documentación aún se está
-      escribiendo: el contenido puede estar incompleto o cambiar sin previo
-      aviso.
-    
-  
-
-          </div>
-          
-        </aside>
-      
     </div>
     
       <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
@@ -121,8 +103,8 @@
           <aside class="md-banner md-banner--warning">
             <div class="md-banner__inner md-grid md-typeset">
               
-  Estás viendo una versión que no es la vigente (una versión anterior o la
-  compilación diaria <code>develop</code>).
+  Estás viendo una versión que no es la vigente (una versión anterior a la
+  última publicada).
   <a href="../../..">
     <strong>Ir a la última versión publicada.</strong>
   </a>
@@ -4503,11 +4485,11 @@
 </code></pre></div>
 <p>El nombre de la base de datos, el usuario y la contraseña son los que después se escriben en la pantalla de la consola. El esquema no se crea a mano: lo instala la propia consola en la primera conexión, como se cuenta en el apartado siguiente.</p>
 <p>Sobre el <strong>SSL</strong>, conviene tener claro qué es cada campo. <strong>Clave SSL del servidor</strong> es la ruta al fichero PEM con la clave del servidor MySQL; <strong>Certificado SSL del servidor</strong>, la del certificado de esa clave; <strong>Certificado SSL de la CA</strong>, la lista de certificados emitidos por una autoridad de certificación; <strong>Ruta del certificado SSL de la CA</strong>, el directorio que aloja esos certificados, también en formato PEM. Con <strong>Verificar certificado SSL del servidor</strong> activado, la conexión comprueba el CN del certificado y, si no coincide, no conecta. Es la opción recomendada cuando el motor expone una conexión TLS, y la explicación de la configuración segura de la base de datos principal, que comparte criterios, está en <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/">9.5 (Cifrado de la base de datos)</a>.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-06/historico-ssl.png" data-desc-position="bottom"><img alt="Conexión SSL" src="../../assets/img/parte-06/historico-ssl.png"></a></p>
 <h2 id="activacion-y-conexion-desde-la-consola">Activación y conexión desde la consola<a class="headerlink" href="#activacion-y-conexion-desde-la-consola" title="Permanent link">¶</a></h2>
 <p>La pantalla vive en <strong>Ajustes → Configuración del sistema → Base de datos histórica</strong>. Todo empieza con un interruptor general, <strong>Habilitar base de datos histórica</strong>, y un formulario de conexión que aparece al activarlo.</p>
 <p>Los campos de conexión son los de cualquier cliente MySQL: <strong>Host</strong>, <strong>Puerto</strong>, <strong>Nombre de la base de datos</strong>, <strong>Usuario de la base de datos</strong> y <strong>Contraseña de la base de datos</strong>. El puerto viene con <code>3306</code>, el estándar. La contraseña se guarda cifrada, como el resto de credenciales del producto. Debajo está el bloque SSL descrito en el apartado anterior.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-06/historico-conexion.png" data-desc-position="bottom"><img alt="Vista de conexión con la base de datos histórica" src="../../assets/img/parte-06/historico-conexion.png"></a></p>
 <p>Al guardar, la consola hace dos comprobaciones que conviene conocer porque explican la mitad de los sustos:</p>
 <ul>
 <li>Si la base de datos de histórico que has escrito es <strong>la misma</strong> que la activa (mismo host, mismo puerto, mismo nombre), la consola rechaza el guardado con un aviso claro: la base de datos activa y la histórica no pueden ser la misma. Es un error de configuración, no un fallo.</li>
@@ -4553,11 +4535,11 @@
 <p>Los <strong>eventos</strong> y los <strong>traps</strong> son opcionales y viajan por interruptores propios: <strong>Habilitar eventos de histórico</strong> y <strong>Habilitar traps de histórico</strong>. Cada uno tiene su umbral de antigüedad en la base de datos activa. El de eventos, <strong>Antigüedad de eventos para permanecer en la base de datos activa</strong>, tiene por defecto <strong>6 días</strong>, un día por debajo del purgado de eventos de la base de datos principal (<strong>7</strong>). El de traps, en su pestaña, es de <strong>6 días</strong> por defecto. Los eventos, además, se consultan solo al generar informes, nunca en la vista de eventos en vivo, así que llevarlos al histórico engorda la segunda base de datos sin acelerar la pantalla que más se mira: incluir eventos <strong>aumenta de forma notable</strong> el ritmo de crecimiento del histórico, y es una decisión de espacio, no de rendimiento.</p>
 <p>Hay un caso aparte que explica más de una sorpresa: los <strong>módulos de intervalo corto</strong>. Los que se ejecutan con un intervalo inferior a 300 segundos viven en la base de datos activa un máximo de <strong>una semana</strong>, y ese plazo es fijo, está grabado en el código y no se configura desde la consola. Pasada la semana, sus datos se mueven al histórico. La razón es de sentido común: un módulo que mide cada pocos segundos genera muchísimo volumen, y dejarlo en la base de datos activa durante meses es la forma más rápida de tumbarla. Este comportamiento convive con el umbral general de 15 días, que se aplica a los módulos de intervalo normal.</p>
 <p>La transferencia no se hace de golpe. El mantenimiento envía los datos en <strong>bloques</strong> cuyo tamaño fija <strong>Tamaño del bloque de transferencia (Step)</strong>, <strong>1500</strong> filas por defecto, y espera <strong>Retraso entre transferencias (segundos)</strong>, <strong>1</strong> segundo por defecto, entre un bloque y el siguiente. La idea es no comerse la base de datos activa mientras se vacía: bloques pequeños y pausas generosas molestan menos, a cambio de tardar más en completar el traslado. Si el mantenimiento da problemas, la propia ayuda del campo recomienda bajar el tamaño del bloque. Sobre los valores recomendados se vuelve en <a href="#referencia-de-opciones-y-dimensionado">Referencia de opciones y dimensionado</a>.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-06/historico-activo-a-historico.png" data-desc-position="bottom"><img alt="Pestaña De activo a histórico" src="../../assets/img/parte-06/historico-activo-a-historico.png"></a></p>
 <p>Todo este trasiego lo hace el mantenimiento periódico. Si quieres entender qué módulos generan qué volumen antes de decidir los umbrales, <a href="../../parte-2/2.1-monitorizacion-con-endpoints/">2.1 (Monitorización con EndPoints)</a> cubre los intervalos de módulo, y <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/">10.1 (Esquema de la base de datos)</a> muestra el detalle de qué se mueve a nivel de tabla.</p>
 <h2 id="retencion-y-purgado">Retención y purgado<a class="headerlink" href="#retencion-y-purgado" title="Permanent link">¶</a></h2>
 <p>La base de datos de histórico tiene su <strong>propio ciclo de purgado</strong>, con sus propios límites. No hereda los de la base de datos principal: que la base de datos activa guarde 45 días de datos numéricos no significa nada para el histórico, que decide por su cuenta cuánto conserva. Los límites por defecto son <strong>180 días</strong> para los datos numéricos, <strong>180</strong> para las cadenas de texto, <strong>180</strong> para los eventos y <strong>180</strong> para los traps. Se ajustan en las pestañas de datos, eventos y traps del histórico.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-06/historico-datos.png" data-desc-position="bottom"><img alt="Pestaña Histórico de datos" src="../../assets/img/parte-06/historico-datos.png"></a></p>
 <p>Mientras tanto, la base de datos principal purga a la vez y por su cuenta, con límites mucho más cortos: <strong>45 días</strong> de datos numéricos, <strong>7</strong> de cadenas, <strong>7</strong> de eventos y <strong>7</strong> de traps. El orden importa. En cada pasada, el mantenimiento <strong>primero purga</strong> de la base de datos activa lo que supera su límite de retención y <strong>después mueve</strong> al histórico lo que supera el umbral de traslado. Por eso conviene que el umbral de traslado quede siempre por debajo del límite de purgado: si la base de datos activa borra antes de que el histórico recoja, el dato se pierde. Y si el histórico no está disponible, la base de datos activa sigue purgando igual: no hay cola de espera. Por eso el estado del histórico, que se ve en la pestaña <strong>Conexión</strong>, merece un vistazo de vez en cuando.</p>
 <p>El aviso serio es el de las <strong>series de texto</strong>. Si se activan las opciones avanzadas para transferirlas, hay que configurar también su retención en el histórico. Si no se hace, las cadenas se acumulan en la segunda base de datos indefinidamente y terminan ocupando un espacio que nadie había previsto. La documentación antigua proponía resolverlo con una consulta SQL directa sobre la base de datos; aquí la recomendación es hacerlo desde la propia pantalla, que es para lo que está, y dejar el detalle de tablas y columnas para <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/">10.1 (Esquema de la base de datos)</a>.</p>
 <h2 id="particionado-automatico-de-tablas-grandes">Particionado automático de tablas grandes<a class="headerlink" href="#particionado-automatico-de-tablas-grandes" title="Permanent link">¶</a></h2>
@@ -4575,7 +4557,7 @@
 <p>Cada mes hay que reorganizar la partición abierta para cerrar el mes que acaba y abrir el siguiente, con un <code>REORGANIZE PARTITION</code> equivalente. Dos avisos de la experiencia: la operación necesita <strong>espacio libre de sobra</strong> en el disco, porque MySQL reescribe la tabla mientras la parte, y puede tardar <strong>horas</strong> en tablas grandes; en un caso real, partir una tabla con decenas de millones de filas llevó alrededor de hora y media. La forma de seguir el avance es mirar los ficheros de partición que va creando el motor en el directorio de datos. El particionado manual se apoya en las mismas ideas de optimización que se cuentan en <a href="../6.8-optimizacion-de-la-base-de-datos/">6.8 (Optimización de la base de datos)</a>.</p>
 <h2 id="estado-mantenimiento-y-diagnostico">Estado, mantenimiento y diagnóstico<a class="headerlink" href="#estado-mantenimiento-y-diagnostico" title="Permanent link">¶</a></h2>
 <p>La pestaña <strong>Conexión</strong> es el cuadro de mandos del histórico, y merece la pena leerla en orden. Primero, la <strong>disponibilidad de la conexión</strong>: un indicador verde con «La conexión con la base de datos histórica está disponible» o un rojo con el error concreto. Segundo, el <strong>esquema instalado</strong>: si existe, o si falta y hay que instalar. Tercero, el <strong>esquema al día</strong>: si la versión del histórico coincide con la de la base de datos activa o se ha quedado atrás. Y por último, la <strong>versión de esquema actual</strong> del histórico, para compararla de un vistazo con la de la base de datos principal.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-06/historico-estado-conexion.png" data-desc-position="bottom"><img alt="Estado de disponibilidad de la conexión" src="../../assets/img/parte-06/historico-estado-conexion.png"></a></p>
 <p>El estado del mantenimiento de cada base de datos, la activa y la histórica, se sigue desde la página de <strong>Rendimiento</strong> de la consola, en su bloque de mantenimiento. Cada fila dice cuándo se ejecutó el mantenimiento por última vez y muestra un aviso si ha pasado demasiado tiempo. En la práctica, la referencia es de <strong>12 horas</strong>: si el mantenimiento no ha corrido en ese plazo, el indicador se pone en estado problemático. Como el mantenimiento está programado cada hora, doce horas sin ejecutarse significan que algo va mal.</p>
 <p>A eso se suman los <strong>avisos del supervisor de la consola</strong>, que aparecen en el sistema de notificaciones y cubren tres casos:</p>
 <ul>
@@ -4594,7 +4576,7 @@
 <p>Conviene saber también <strong>qué no cubre</strong> el histórico. La <strong>vista de eventos en vivo no consulta la base de datos de histórico</strong>: los eventos movidos solo alimentan la generación de informes. Si trasladas eventos, ganas histórico para informes, pero no verás los eventos antiguos en la pantalla de eventos. Algo parecido ocurre con los traps, cuyo tratamiento se documenta en <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/">2.7 (Monitorización de traps SNMP)</a>. Y hay datos que nunca viajan al histórico: la configuración, los agentes, las alertas y todo lo que no sea una serie temporal se quedan en la base de datos principal.</p>
 <h2 id="operacion-en-entornos-complejos">Operación en entornos complejos<a class="headerlink" href="#operacion-en-entornos-complejos" title="Permanent link">¶</a></h2>
 <p>En un <strong>Command Center</strong>, el histórico tiene su propia pantalla en <strong>Setup → Metasetup → Historical database</strong>: es la misma configuración que la de una consola, aplicada a la base de datos del propio Command Center, y cada instancia conserva además la suya en su consola. Un detalle práctico: los datos de conexión se pueden dejar escritos aunque el servidor todavía no esté levantado, y el <strong>movimiento de datos solo empieza cuando la conexión tiene éxito</strong>. Ahora bien, si al guardar la conexión no responde, la consola <strong>desactiva el interruptor</strong> del histórico: hay que volver a activarlo cuando el destino esté disponible. La pestaña de traps no aparece en el Command Center.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-06/historico-command-center-conexion.png" data-desc-position="bottom"><img alt="Conexión correcta con la base de datos histórica desde el Command Center" src="../../assets/img/parte-06/historico-command-center-conexion.png"></a></p>
 <p>El Command Center en conjunto, con sus nodos y su modelo de gestión, se desarrolla en <a href="../6.3-command-center/">6.3 (Command Center)</a>. Aquí basta con retener que el histórico del Command Center se configura en su propio Metasetup.</p>
 <p>En <strong>alta disponibilidad</strong>, el histórico forma parte de la topología y el mantenimiento se coordina entre nodos para no pisarse. El escenario completo, con sus precauciones, está en <a href="../6.10-alta-disponibilidad-ha/">6.10 (Alta disponibilidad)</a>.</p>
 <p>En una <strong>migración de nodos</strong> hay un paso que se olvida con facilidad: repuntar la conexión del histórico al nuevo servidor. La base de datos principal se mueve con su procedimiento, pero la de histórico tiene su propia configuración de conexión y hay que actualizarla para que el nodo siga encontrándola.</p>
@@ -4659,7 +4641,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>

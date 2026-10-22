@@ -7,8 +7,6 @@
       
       
       
-        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/parte-2/2.19-recoleccion-y-monitorizacion-de-logs/">
-      
       
         <link rel="prev" href="../2.18-monitorizacion-de-apis/">
       
@@ -98,22 +96,6 @@
     </div>
     <div data-md-component="announce">
       
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-  
-    
-      <strong>En construcción.</strong> Esta documentación aún se está
-      escribiendo: el contenido puede estar incompleto o cambiar sin previo
-      aviso.
-    
-  
-
-          </div>
-          
-        </aside>
-      
     </div>
     
       <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
@@ -121,8 +103,8 @@
           <aside class="md-banner md-banner--warning">
             <div class="md-banner__inner md-grid md-typeset">
               
-  Estás viendo una versión que no es la vigente (una versión anterior o la
-  compilación diaria <code>develop</code>).
+  Estás viendo una versión que no es la vigente (una versión anterior a la
+  última publicada).
   <a href="../../..">
     <strong>Ir a la última versión publicada.</strong>
   </a>
@@ -4700,13 +4682,13 @@ de medio Unix, el <em>syslog</em> de cualquier equipo— y los deja en una sola 
 ordenados por el momento en que llegaron. Este capítulo cuenta cómo se activa
 esa recogida, cómo se le piden los <em>logs</em> a cada EndPoint y qué se puede hacer
 después con ellos.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-welcome_page.png" data-desc-position="bottom"><img alt="Página de entrada de la recolección de logs en Pandora FMS" src="../../media-wiki/wiki/pfms-log_monitoring-welcome_page.png"></a></p>
 <p>Pandora FMS no guarda los <em>logs</em> en su base de datos de monitorización. Los
 almacena en <strong>OpenSearch</strong>, un motor de búsqueda pensado para texto, y por eso
 el primer requisito —antes de tocar nada en la consola— es tener ese motor
 disponible y accesible. El resto del capítulo asume que ya lo está; la
 instalación y configuración del motor tiene su propio anexo técnico.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-opensearch.png" data-desc-position="bottom"><img alt="OpenSearch, el motor donde Pandora FMS almacena los logs" src="../../media-wiki/wiki/pfms-log_monitoring-opensearch.png"></a></p>
 <div class="admonition note">
 <p class="admonition-title">Qué no es esto</p>
 <p>La monitorización de <em>logs</em> no estructurada no es un SIEM. Pandora FMS
@@ -4839,7 +4821,7 @@ partir del índice siguiente</strong>: no reescriben lo ya indexado.</p>
   con un rango tipo <code>0-1</code> o <code>all</code> como tope. Si las reglas de asignación impiden
   colocar todas las réplicas, el clúster puede quedarse en estado <code>YELLOW</code>.</li>
 </ul>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/logs-log-collector.png" data-desc-position="bottom"><img alt="Log collector activado y conectado a OpenSearch, con el indicador «OpenSearch is running.» y los datos de conexión al motor" src="../../assets/img/parte-02/logs-log-collector.png"></a></p>
 <h2 id="recoger-logs-con-los-endpoints">Recoger logs con los EndPoints<a class="headerlink" href="#recoger-logs-con-los-endpoints" title="Permanent link">¶</a></h2>
 <p>La recolección real la hacen los <strong>EndPoints</strong>, tanto en Windows como en Unix
 (Linux, macOS, Solaris, HPUX, AIX, BSD…). Para dar de alta los módulos desde el
@@ -4848,7 +4830,7 @@ si vas a añadir módulos de tipo <strong>Windows event channel</strong>, el End
 que ser de Windows. El resto de módulos y sus tokens generales están en
 <a href="../2.1-monitorizacion-con-endpoints/">Monitorización con EndPoints</a> y en la
 <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/">referencia completa de configuración del EndPoint</a>.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png" data-desc-position="bottom"><img alt="Asistente Module log collection para dar de alta los módulos de logs" src="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png"></a></p>
 <h3 id="logs-en-texto-plano">Logs en texto plano<a class="headerlink" href="#logs-en-texto-plano" title="Permanent link">¶</a></h3>
 <p>Para vigilar un fichero de texto se usa un módulo de tipo <code>log</code> con el token
 <code>module_regexp</code>, que apunta a la ruta del fichero. Un módulo de ejemplo en
@@ -4934,13 +4916,13 @@ parámetros distinguen mayúsculas y minúsculas, así que cópialos tal cual.</
 (Sistema, Aplicación, Seguridad…). No confundirla con <code>module_application</code>, que
 identifica la aplicación. Puedes usar una u otra, pero una de las dos hace
 falta.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_source.png" data-desc-position="bottom"><img alt="Selección de la fuente del evento en el módulo de recolección de logs" src="../../media-wiki/wiki/pfms-log_monitoring-module_source.png"></a></p>
 <p>Aunque el visor de eventos te lo muestre traducido —«Sistema», «Aplicación»,
 «Seguridad»—, aquí <strong>se escriben en inglés</strong>: <code>System</code>, <code>Application</code>,
 <code>Security</code>. Los nombres largos se copian tal cual, sin traducir:</p>
 <div class="highlight"><pre><span></span><code>Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider/Administración
 </code></pre></div>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_source_long_name.png" data-desc-position="bottom"><img alt="Ejemplo de origen de evento con nombre largo" src="../../media-wiki/wiki/pfms-log_monitoring-module_source_long_name.png"></a></p>
 <h4 id="module_source_type"><code>module_source_type</code><a class="headerlink" href="#module_source_type" title="Permanent link">¶</a></h4>
 <p>Es el tipo de <em>log</em> que consumen los <em>decoders</em> y las <em>rules</em> del SIEM. Si lo
 omites, se usa <code>syslog</code> por defecto. Los tipos que suele manejar la herramienta
@@ -5006,8 +4988,8 @@ module_eventtype 3
 module_source_type ossec
 module_end
 </code></pre></div>
-<p>
-</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_eventtype_01.png" data-desc-position="bottom"><img alt="Tipo de evento en el visor de eventos de Windows" src="../../media-wiki/wiki/pfms-log_monitoring-module_eventtype_01.png"></a>
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_eventtype_02.png" data-desc-position="bottom"><img alt="Nivel del evento seleccionado en las propiedades" src="../../media-wiki/wiki/pfms-log_monitoring-module_eventtype_02.png"></a></p>
 <h4 id="module_eventcode"><code>module_eventcode</code><a class="headerlink" href="#module_eventcode" title="Permanent link">¶</a></h4>
 <p>Filtro opcional por <strong>identificador de evento</strong>, el <code>eventID</code> que ves en el
 visor. Es el filtro más preciso de todos. Este ejemplo toma únicamente los
@@ -5021,7 +5003,7 @@ module_eventcode 4798
 module_source_type ossec
 module_end
 </code></pre></div>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_eventcode.png" data-desc-position="bottom"><img alt="Identificador de evento (eventID) en el visor de eventos de Windows" src="../../media-wiki/wiki/pfms-log_monitoring-module_eventcode.png"></a></p>
 <h4 id="module_application"><code>module_application</code><a class="headerlink" href="#module_application" title="Permanent link">¶</a></h4>
 <p>Origen del evento, opcional. Para obtener el nombre exacto del proveedor,
 selecciona un evento en el visor de Windows, abre <strong>Propiedades</strong> y copia el
@@ -5035,7 +5017,7 @@ module_application Pandora FMS
 module_source Application
 module_end
 </code></pre></div>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-log_monitoring-module_application.png" data-desc-position="bottom"><img alt="Nombre completo del proveedor del evento en Propiedades" src="../../media-wiki/wiki/pfms-log_monitoring-module_application.png"></a></p>
 <p>Como referencia, los proveedores que más aparecen son los propios del sistema
 operativo (<code>Microsoft-Windows-Winlogon</code>,
 <code>Microsoft-Windows-Security-Auditing</code>, <code>Microsoft-Windows-WindowsUpdateClient</code>,
@@ -5168,7 +5150,7 @@ líneas vecinas del resultado, que muchas veces explican más que la línea en s
 las entradas del periodo, con los filtros de fecha, agente y origen que tengas
 puestos. Escribe un término (el nombre del agente, una palabra del mensaje)
 solo para acotar los resultados.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/logs-log-viewer.png" data-desc-position="bottom"><img alt="Vista del Log Viewer con entradas de un agente y su origen" src="../../assets/img/parte-02/logs-log-viewer.png"></a></p>
 <h3 id="visualizacion-y-busqueda-avanzadas">Visualización y búsqueda avanzadas<a class="headerlink" href="#visualizacion-y-busqueda-avanzadas" title="Permanent link">¶</a></h3>
 <p>En la pestaña <strong>Advanced options</strong> se puede cambiar la vista y convertir los
 <em>logs</em> en gráficas. El <strong>Display mode</strong> decide si se muestran entradas de texto
@@ -5179,14 +5161,14 @@ extraen valores de cada línea.</p>
 Apache en formato estándar y dibuja tiempos de respuesta agrupados por página y
 código de respuesta. Vienen algunos modelos más de fábrica y puedes crear los
 tuyos con los botones de editar y crear.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/logs-advanced-options.png" data-desc-position="bottom"><img alt="Pestaña Advanced options del visor de logs, con el modo de visualización, el orden y el modelo de captura" src="../../assets/img/parte-02/logs-advanced-options.png"></a></p>
 <h3 id="filtros-frecuentes">Filtros frecuentes<a class="headerlink" href="#filtros-frecuentes" title="Permanent link">¶</a></h3>
 <p>Si repites la misma combinación de filtros, guárdala: <strong>Save filter</strong>, le pones
 nombre y <strong>Save</strong>. Luego la recuperas con <strong>Load filter</strong>, eligiéndola de la
 lista. Un filtro guardado se puede sobrescribir con los cambios actuales.</p>
 <p>En <strong>Operation → Logs → Filters</strong> se administran esos filtros: editarlos,
 borrarlos de uno en uno o en bloque, y crear otros nuevos.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-monitoring-log_viewer-frequently_filters_2.png" data-desc-position="bottom"><img alt="Guardado de un filtro frecuente del Log Viewer" src="../../media-wiki/wiki/pfms-monitoring-log_viewer-frequently_filters_2.png"></a></p>
 <h3 id="filtros-guardados-como-elementos-anclados">Filtros guardados como elementos anclados<a class="headerlink" href="#filtros-guardados-como-elementos-anclados" title="Permanent link">¶</a></h3>
 <p>El sistema de anclados de Pandora FMS permite dejar el <strong>Log viewer</strong> a mano en
 el menú, con los filtros ya puestos. Se hace con el icono de chincheta que hay
@@ -5201,7 +5183,7 @@ filtrado por ese agente y ese origen. Es la forma más cómoda de saltar de «es
 agente dejó de mandar <em>logs</em>» a «aquí están sus últimos mensajes».</p>
 <p>Por defecto, tanto el cuadro como el visor trabajan con las <strong>últimas 24
 horas</strong>; se cambia cuando haga falta.</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/logs-log-sources-agent.png" data-desc-position="bottom"><img alt="Cuadro Logs de la ficha del agente, con el origen Syslog, la última actualización y el botón Review" src="../../assets/img/parte-02/logs-log-sources-agent.png"></a></p>
 <h2 id="monitorizar-el-propio-motor-de-logs">Monitorizar el propio motor de logs<a class="headerlink" href="#monitorizar-el-propio-motor-de-logs" title="Permanent link">¶</a></h2>
 <p>¿Y si el que se queda callado es el propio motor? Cuando el colector está
 activado, el servidor de Pandora FMS se vigila a sí mismo: genera una batería de
@@ -5354,7 +5336,7 @@ permiso de lectura, igual que el resto de la consola web.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
