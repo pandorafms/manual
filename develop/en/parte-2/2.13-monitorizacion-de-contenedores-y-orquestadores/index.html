@@ -974,6 +974,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Container and orchestrator monitoring
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -990,6 +1008,69 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenShift
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results-and-first-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results and first checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -4151,6 +4232,58 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenShift
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results-and-first-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results and first checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -4167,20 +4300,91 @@
 
 
 <h1 id="container-and-orchestrator-monitoring">Container and orchestrator monitoring<a class="headerlink" href="#container-and-orchestrator-monitoring" title="Permanent link">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Pending draft</p>
-<p>Placeholder content (lorem ipsum) until this section is written from the escaleta.</p>
-</div>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.</p>
-<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-in culpa qui officia deserunt mollit anim id est laborum.</p>
-<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore
-veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+<p>Docker is monitored through a plugin executed by an EndPoint. Kubernetes and
+OpenShift are queried by Discovery through the cluster API. The collection
+method determines where to configure the integration and where to look for its
+results in the Pandora FMS web console.</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Collection and results</th>
+<th>Integration guide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Docker</td>
+<td>The EndPoint executes the plugin and adds modules to its existing agent.</td>
+<td><a href="https://pandorafms.com/docs/integrations/latest/plugins/docker/">Docker</a></td>
+</tr>
+<tr>
+<td>Kubernetes</td>
+<td>Discovery queries the API and generates agents and modules according to the task.</td>
+<td><a href="https://pandorafms.com/docs/integrations/latest/discovery/kubernetes/">Kubernetes</a></td>
+</tr>
+<tr>
+<td>OpenShift</td>
+<td>Discovery queries the API and generates agents and modules according to the task.</td>
+<td><a href="https://pandorafms.com/docs/integrations/latest/discovery/openshift/">OpenShift</a></td>
+</tr>
+</tbody>
+</table>
+<p>Installing a .disco package and the shared task lifecycle are covered in
+<a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/#how-a-disco-package-task-works">How a .disco package task works</a>.
+The guides in the table provide each integration's specific requirements,
+permissions, setup, parameters, modules, limitations and troubleshooting.</p>
+<p>Before configuration, check target access from the machine that will collect
+the data and authorize only the necessary queries. Protect credentials. Review
+the connection and security conditions in the relevant guide: HTTPS alone does
+not establish that server identity is verified or requests are authenticated.</p>
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">¶</a></h2>
+<p>The Docker plugin collects container usage and performance statistics, such as
+CPU, memory, network and block I/O. It is a conventional EndPoint plugin, not a
+Discovery task. Its modules are included in the EndPoint's existing agent.
+It does not create a separate agent per container.</p>
+<p>Follow the <a href="https://pandorafms.com/docs/integrations/latest/plugins/docker/">Docker guide</a>
+to prepare the plugin and integrate it with the EndPoint. Check daemon access
+under the account and environment running the EndPoint, not only from an
+administrator's interactive session. Then check in the web console that its
+agent receives data from the integration.</p>
+<h2 id="kubernetes">Kubernetes<a class="headerlink" href="#kubernetes" title="Permanent link">¶</a></h2>
+<p>Discovery queries the Kubernetes API to monitor cluster infrastructure and
+workloads. The task generates agents and modules according to its scope and
+the available data, without installing an EndPoint on every node.</p>
+<p>Prepare the access and metrics required by the integration, configure the task
+and check its first run. The
+<a href="https://pandorafms.com/docs/integrations/latest/discovery/kubernetes/">Kubernetes guide</a>
+details that preparation, resource selection, results and limitations.
+Shared Discovery operation is covered in 2.3. Plugin-specific fields and options
+belong in its guide.</p>
+<h2 id="openshift">OpenShift<a class="headerlink" href="#openshift" title="Permanent link">¶</a></h2>
+<p>The OpenShift integration also uses Discovery and the cluster API to collect
+information about infrastructure and workloads. The agents and modules generated
+depend on the task and the information obtained.</p>
+<p>Prepare access and configure the integration according to the
+<a href="https://pandorafms.com/docs/integrations/latest/discovery/openshift/">OpenShift guide</a>.
+Do not transfer Kubernetes wizard fields and controls to this integration.
+Each has its own configuration and limitations. After running the task, review
+its results and the data received in the web console.</p>
+<h2 id="results-and-first-checks">Results and first checks<a class="headerlink" href="#results-and-first-checks" title="Permanent link">¶</a></h2>
+<p>For Docker, check the EndPoint's agent. For Kubernetes and OpenShift, look for
+the agents and modules generated by the task. The first check should cover both
+collection and data reception:</p>
+<ol>
+<li>Inspect execution errors and confirm that access uses the authorized
+   identity and originates from the machine running the integration.</li>
+<li>Find the expected results and check that they receive recent data.
+   A summary reporting generated agents or manual plugin output alone does not
+   prove that the data has reached Pandora FMS.</li>
+<li>Compare representative values with the target. A missing module does not
+   prove that the resource is absent, nor does a single indicator establish
+   the health of the entire environment.</li>
+</ol>
+<p>For missing information, use the integration's guide for specific troubleshooting.
+For task lifecycle errors, see
+<a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/#when-it-fails">When it fails</a>.
+Perform these checks in the environment that will be monitored.</p>
 
 
 
