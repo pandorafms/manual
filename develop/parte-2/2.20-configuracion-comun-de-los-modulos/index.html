@@ -1,0 +1,4936 @@
+<!DOCTYPE html><html lang="es" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentación de producto de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/parte-2/2.20-configuracion-comun-de-los-modulos/">
+      
+      
+        <link rel="prev" href="../2.19-recoleccion-y-monitorizacion-de-logs/">
+      
+      
+        <link rel="next" href="../../parte-3/3.1-inventario/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../en/parte-2/2.20-configuracion-comun-de-los-modulos/" hreflang="en">
+        
+          <link rel="alternate" href="../../fr/parte-2/2.20-configuracion-comun-de-los-modulos/" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>20. Configuración común de los módulos - Pandora FMS — Documentación de producto</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuracion-comun-de-los-modulos" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construcción.</strong> Esta documentación aún se está
+      escribiendo: el contenido puede estar incompleto o cambiar sin previo
+      aviso.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Estás viendo una versión que no es la vigente (una versión anterior a la
+    última publicada).
+    <a href="../../..">
+      <strong>Ir a la última versión publicada.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-header__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentación de producto
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              20. Configuración común de los módulos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/parte-2/2.20-configuracion-comun-de-los-modulos/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../fr/parte-2/2.20-configuracion-comun-de-los-modulos/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentación de producto
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 01. Arranque rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 01. Arranque rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introducción y arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Política de versiones y soporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Actualizaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licenciamiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Monitorización con EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestor de credenciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización y descubrimiento automático con Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Descubrimiento de redes con Host y dispositivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tareas de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de redes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Monitorización de tráfico con netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Colecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Políticas de monitorización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Monitorización de aplicaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Monitorización de contenedores y orquestadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Monitorización de experiencia de usuario (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Monitorización entornos Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Monitorización entornos Virtualizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Monitorización IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Monitorización de APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Recolección y monitorización de logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuración común de los módulos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuración común de los módulos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#datos-basicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datos básicos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#umbrales-y-estados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Umbrales y estados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Umbrales y estados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuando-el-dato-no-llega-desconocido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuando el dato no llega: desconocido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umbrales-dinamicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Umbrales dinámicos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proteccion-flip-flop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protección flip-flop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cuando-se-ejecuta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuándo se ejecuta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-que-se-guarda-y-como-se-muestra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datos: qué se guarda y cómo se muestra
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizar-los-modulos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organizar los módulos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#en-una-politica-y-en-operaciones-masivas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        En una política y en operaciones masivas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comprobar-y-diagnosticar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobar y diagnosticar
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Control remoto con RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribución automática de software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ejecución remota de scripts y comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Parcheado de sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestión de configuración de equipos de red (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestión de IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Paradas planificadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integración de activos con ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Reconciliación de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Grupos, usuarios, perfiles y tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Autenticación externa y centralización de accesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Seguridad y visibilidad avanzada (Enterprise ACL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Buenas prácticas de etiquetado / naming / tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Dashboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Informes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización de negocio y servicios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola de eventos centralizada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertas y notificaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consolas Visuales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Mapas topológicos de red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestión de incidencias / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Análisis Predictivo / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Mapas GIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitecturas Distribuidas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidores satélite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribución e instalación automática de agentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de datos de histórico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mecanismos de autoprovisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportación de datos a servidores externos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimización de la Base de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Backup y restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Alta Disponibilidad (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 07. Seguridad y monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 07. Seguridad y monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitectura de seguridad de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Análisis de vulnerabilidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Hardening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de seguridad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Auditoría interna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integraciones dinámicas de IoC (MISP) y creación de reglas propias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Compliance: NIS2, ISO 27001 y ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuración segura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción e instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatización de tareas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. A detallar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Referencia completa de configuración del EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia completa de configuración de la consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Referencia completa de configuración del servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Referencia completa de Tentacle (servidor y cliente)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Cifrado de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Creación de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Creación de plugins locales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Creación de plugins remotos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Creación de extensiones de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Integración y automatización. Webhooks y API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Descubrimiento automático avanzado (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Troubleshooting con Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Análisis de volumetría y diseños para alta capacidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Cheat Sheet de comandos rápidos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 10. Base de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 10. Base de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Esquema de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 11. Anexos técnicos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 11. Anexos técnicos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Actualización de versiones de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glosario de términos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilidad y migración a la nueva arquitectura de servidores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ampliar los asistentes SNMP y WMI con componentes propios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qué es este FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor y base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agentes y sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola web y licencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Módulos y red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertas y eventos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Informes, logs y correo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Entornos grandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatización y plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#datos-basicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datos básicos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#umbrales-y-estados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Umbrales y estados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Umbrales y estados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuando-el-dato-no-llega-desconocido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuando el dato no llega: desconocido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umbrales-dinamicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Umbrales dinámicos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proteccion-flip-flop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protección flip-flop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cuando-se-ejecuta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuándo se ejecuta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-que-se-guarda-y-como-se-muestra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datos: qué se guarda y cómo se muestra
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizar-los-modulos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organizar los módulos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#en-una-politica-y-en-operaciones-masivas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        En una política y en operaciones masivas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comprobar-y-diagnosticar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprobar y diagnosticar
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="configuracion-comun-de-los-modulos">Configuración común de los módulos<a class="headerlink" href="#configuracion-comun-de-los-modulos" title="Permanent link">¶</a></h1>
+<p>Un módulo es una medida concreta de un agente: «cuánta CPU usa», «responde el puerto 443», «cuántos pedidos esperan en la cola». Lo que cambia entre un módulo y otro es <strong>cómo se obtiene el dato</strong> (un comando en el EndPoint, un <code>ping</code> desde el servidor, una consulta SNMP, una petición a una API) y eso se explica en el capítulo de cada tecnología. Lo que no cambia, o cambia poco, es todo lo demás: cada cuánto se mide, qué valores se consideran normales, qué pasa cuando el dato no llega, cuánto se guarda y cómo se organiza. Ese «todo lo demás» es un único formulario, el mismo para casi todos los tipos, y este capítulo lo explica una vez para no repetirlo en los diecinueve anteriores.</p>
+<p>Se llega a él desde <strong>Gestionar agentes</strong> (<em>Manage agents</em>), con el botón <strong>Módulos</strong> del agente y <strong>Crear módulo</strong>, o editando un módulo existente. Una política (ver <a href="../2.10-politicas-de-monitorizacion/">2.10, Políticas de monitorización</a>) usa el mismo formulario para definir módulos que luego reparte entre agentes.</p>
+<p>El formulario se divide en ocho pestañas:</p>
+<table>
+<thead>
+<tr>
+<th>Pestaña</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Básico</strong> (<em>Basic</em>)</td>
+<td>Nombre, tipo, umbrales de advertencia y crítico, y los campos propios del tipo de módulo (una URL, un OID, un comando…).</td>
+</tr>
+<tr>
+<td><strong>Información</strong> (<em>Information</em>)</td>
+<td>Descripción e instrucciones por estado.</td>
+</tr>
+<tr>
+<td><strong>Umbrales</strong> (<em>Thresholds</em>)</td>
+<td>Umbrales dinámicos, desconocido, modo silencioso y protección <em>flip-flop</em>.</td>
+</tr>
+<tr>
+<td><strong>Intervalos</strong> (<em>Intervals</em>)</td>
+<td>Intervalo de ejecución y programación tipo cron.</td>
+</tr>
+<tr>
+<td><strong>Datos</strong> (<em>Data</em>)</td>
+<td>Tiempo de espera, reintentos, valores mínimo y máximo, histórico, unidad y posprocesado.</td>
+</tr>
+<tr>
+<td><strong>Categorización</strong> (<em>Categorization</em>)</td>
+<td>Grupo del módulo, padre, identificador, categoría y etiquetas.</td>
+</tr>
+<tr>
+<td><strong>Macros</strong></td>
+<td>Macros personalizadas del módulo.</td>
+</tr>
+<tr>
+<td><strong>Relaciones</strong> (<em>Relationships</em>)</td>
+<td>Relaciones directas o de conmutación por error con módulos de otros agentes.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">No todos los campos aparecen siempre</p>
+<p>El formulario se adapta al tipo de módulo. Un módulo de EndPoint no tiene tiempo de espera ni reintentos, porque el servidor no lo ejecuta; un módulo personalizado API no tiene umbrales, porque su estado sale de sus condiciones; y el campo <em>FlipFlop timeout</em> solo existe en los módulos asíncronos. Si un campo de este capítulo no está en tu formulario, el tipo de módulo no lo usa.</p>
+</div>
+<h2 id="datos-basicos">Datos básicos<a class="headerlink" href="#datos-basicos" title="Permanent link">¶</a></h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/modulo-pestana-basic.png" data-desc-position="bottom"><img alt="Pestaña Básico del formulario de un módulo ICMP: nombre, tipo y umbrales de advertencia y crítico" src="../../assets/img/parte-02/modulo-pestana-basic.png"></a></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nombre</strong> (<em>Name</em>)</td>
+<td>Nombre del módulo, único dentro de su agente. Aparece en vistas, informes y alertas, así que conviene que se entienda sin ver el agente: «Uso de CPU», no «mod3».</td>
+</tr>
+<tr>
+<td><strong>Deshabilitado</strong> (<em>Disabled</em>)</td>
+<td>El módulo deja de ejecutarse y de recibir datos, pero conserva su configuración y su historial. Es la forma de apagarlo sin perderlo.</td>
+</tr>
+<tr>
+<td><strong>Tipo módulo</strong> (<em>Module type</em>)</td>
+<td>El tipo de dato que devuelve: numérico, booleano (<code>proc</code>: 1 normal, 0 crítico), alfanumérico o incremental, además de los asíncronos. El tipo decide qué umbrales tienen sentido. Los nombres de cada tipo y su uso en el EndPoint están en <a href="../2.1-monitorizacion-con-endpoints/#crear-modulos-propios">2.1</a>.</td>
+</tr>
+<tr>
+<td><strong>Descripción</strong> (<em>Description</em>), en <strong>Información</strong></td>
+<td>Texto libre. Es lo primero que ve quien recibe una alerta, así que merece una frase.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="umbrales-y-estados">Umbrales y estados<a class="headerlink" href="#umbrales-y-estados" title="Permanent link">¶</a></h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/modulo-pestana-umbrales.png" data-desc-position="bottom"><img alt="Pestaña Umbrales: umbral dinámico, desconocido, modo silencioso y protección flip-flop" src="../../assets/img/parte-02/modulo-pestana-umbrales.png"></a></p>
+<p>Un módulo puede estar en uno de cuatro estados: <strong>normal</strong>, <strong>advertencia</strong> (<em>warning</em>), <strong>crítico</strong> (<em>critical</em>) y <strong>desconocido</strong>. Los tres primeros salen de comparar el dato con los umbrales; el último, de que el dato no llegue.</p>
+<p>Los umbrales de advertencia y crítico están en la pestaña <strong>Básico</strong>. Cada uno tiene un valor mínimo y uno máximo y tres modos:</p>
+<table>
+<thead>
+<tr>
+<th>Modo</th>
+<th>Cuándo cambia el estado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Normal</strong></td>
+<td>El valor está <strong>dentro</strong> del rango. Si no pones máximo, cualquier valor por encima del mínimo cuenta; en los módulos numéricos, un máximo de <code>0</code> significa infinito.</td>
+</tr>
+<tr>
+<td><strong>Intervalo inverso</strong> (<em>Inverse interval</em>)</td>
+<td>El valor está <strong>fuera</strong> del rango. Funciona también con módulos alfanuméricos.</td>
+</tr>
+<tr>
+<td><strong>Porcentaje</strong> (<em>Percentage</em>)</td>
+<td>Se compara el valor nuevo con el anterior y cambia el estado si la variación, en porcentaje, supera el incremento (máximo) o el decremento (mínimo) indicados.</td>
+</tr>
+</tbody>
+</table>
+<p>Si un valor cumple a la vez el umbral de advertencia y el crítico, <strong>gana el crítico</strong>.</p>
+<div class="admonition example">
+<p class="admonition-title">CPU con aviso a partir de 70 y crítico a partir de 90</p>
+<p>Umbral de advertencia con mínimo <code>70</code> y máximo <code>95</code>; umbral crítico con mínimo <code>90</code> y máximo <code>0</code> (sin límite superior). Los dos rangos se solapan entre 90 y 95.</p>
+<table>
+<thead>
+<tr>
+<th>Valor recibido</th>
+<th>Estado</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>40</code></td>
+<td>Normal</td>
+<td>Fuera de los dos rangos.</td>
+</tr>
+<tr>
+<td><code>75</code></td>
+<td>Advertencia</td>
+<td>Dentro del rango de advertencia.</td>
+</tr>
+<tr>
+<td><code>92</code></td>
+<td>Crítico</td>
+<td>Cumple los dos y prevalece el crítico.</td>
+</tr>
+<tr>
+<td><code>99</code></td>
+<td>Crítico</td>
+<td>Por encima del mínimo crítico, sin límite superior.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Debajo del umbral de advertencia, <strong>Cambiar al estado crítico después de</strong> <em>N</em> <strong>intervalos en estado de advertencia</strong> promueve a crítico un módulo que lleva <em>N</em> ejecuciones seguidas en advertencia. Con <code>2</code>, la secuencia advertencia → advertencia → advertencia pasa a crítico. Si el módulo se queda «en aviso» para siempre porque nadie lo mira, este campo evita que se vuelva decoración.</p>
+<h3 id="cuando-el-dato-no-llega-desconocido">Cuando el dato no llega: desconocido<a class="headerlink" href="#cuando-el-dato-no-llega-desconocido" title="Permanent link">¶</a></h3>
+<p>Si un módulo pasa más de <strong>dos intervalos</strong> sin recibir datos, entra en estado desconocido. Hay tres ajustes en la pestaña <strong>Umbrales</strong> para gobernar ese comportamiento:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ignorar desconocidos</strong> (<em>Ignore unknown</em>)</td>
+<td>El módulo nunca pasa a desconocido: conserva el último estado conocido. Útil para datos que llegan a ratos; peligroso si lo activas para «limpiar» una pantalla roja, porque deja de avisarte de que el módulo está muerto.</td>
+</tr>
+<tr>
+<td><strong>Descartar eventos desconocidos</strong> (<em>Discard unknown events</em>)</td>
+<td>El módulo sí pasa a desconocido, pero no genera el evento.</td>
+</tr>
+<tr>
+<td><strong>Modo silencioso</strong> (<em>Quiet</em>)</td>
+<td>El módulo sigue recibiendo y guardando datos, pero no genera eventos ni dispara alertas. Se usa mientras se prueba un módulo nuevo o durante una intervención.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="umbrales-dinamicos">Umbrales dinámicos<a class="headerlink" href="#umbrales-dinamicos" title="Permanent link">¶</a></h3>
+<p>En vez de fijar los valores a mano, el módulo puede calcular sus umbrales a partir de su propio histórico. Se activa eligiendo un <strong>Intervalo de umbral dinámico</strong> (<em>Dynamic threshold interval</em>) en la pestaña <strong>Umbrales</strong>: el sistema toma los datos de ese periodo, calcula la media y la desviación estándar y establece los umbrales con ellos.</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Límite superior dinámico</strong> / <strong>Límite inferior dinámico</strong></td>
+<td>Ajustan, en porcentaje, el límite calculado. Si la media ronda 60 y el umbral crítico superior está en 80, un límite superior dinámico de <code>10</code> lo sube a 88.</td>
+</tr>
+<tr>
+<td><strong>Dinámico de dos colas</strong> (<em>Dynamic two tailed</em>)</td>
+<td>Añade un umbral inferior al superior, de modo que tanto los valores muy altos como los muy bajos cambian el estado.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="proteccion-flip-flop">Protección <em>flip-flop</em><a class="headerlink" href="#proteccion-flip-flop" title="Permanent link">¶</a></h3>
+<p>Un valor que oscila entre bien y mal a cada ciclo es un problema de interpretación: el módulo cambia de color constantemente y las alertas no paran. El <strong>umbral FF</strong> (<em>FF threshold</em>) exige que el nuevo estado se repita varias veces seguidas antes de dar el cambio por bueno. Con <code>0</code> (el valor por defecto) el módulo cambia de estado en cuanto recibe un dato fuera de rango; con <code>2</code> hacen falta dos datos críticos más, consecutivos, antes de pasar a crítico.</p>
+<ul>
+<li><strong>Todos los cambios de estado</strong> / <strong>Cada cambio de estado</strong> (<em>All state changing</em> / <em>Each state changing</em>): usar la misma tolerancia para cualquier cambio, o una distinta para el paso a normal, a advertencia y a crítico.</li>
+<li><strong>Intervalo FF</strong> (<em>FF interval</em>): intervalo más corto para la siguiente comprobación cuando se activa la protección, de modo que la confirmación llegue antes de lo habitual.</li>
+<li><strong>Tiempo de espera de FlipFlop</strong> (<em>FlipFlop timeout</em>): solo en módulos asíncronos; los datos iguales que confirman el cambio deben llegar dentro de ese tiempo.</li>
+<li><strong>Mantener los contadores</strong> (<em>Keep counters</em>): opción avanzada que cuenta por estado en lugar de por valor.</li>
+</ul>
+<p>Los equivalentes para el EndPoint (<code>module_ff_interval</code>, <code>module_min_ff_event</code>…) están en <a href="../2.1-monitorizacion-con-endpoints/#postprocesado-flip-flop-y-otros-ajustes-del-modulo">2.1</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Es una herramienta de entornos inestables</p>
+<p>Con <em>flip-flop</em> la consola tarda más en reflejar un fallo real: hace falta que se repita. Úsalo donde el ruido es el problema, no por sistema.</p>
+</div>
+<h2 id="cuando-se-ejecuta">Cuándo se ejecuta<a class="headerlink" href="#cuando-se-ejecuta" title="Permanent link">¶</a></h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/modulo-pestana-intervalos.png" data-desc-position="bottom"><img alt="Pestaña Intervalos: intervalo y programación cron de inicio y fin" src="../../assets/img/parte-02/modulo-pestana-intervalos.png"></a></p>
+<p>En la pestaña <strong>Intervalos</strong>, el <strong>Intervalo</strong> (<em>Interval</em>) es el periodo en el que el módulo debe devolver datos. En los módulos de EndPoint se expresa como un múltiplo del intervalo del agente: la consola lo muestra como «Intervalo del agente ×<em>N</em>». En los módulos que ejecuta el servidor es el periodo en que se lanza la comprobación. Es también la referencia del estado desconocido: dos intervalos sin datos.</p>
+<p>Los campos <strong>Cron desde</strong> (<em>Cron from</em>) y <strong>Cron hasta</strong> (<em>Cron to</em>) restringen cuándo se ejecuta el módulo, con cinco campos: minuto, hora, día del mes, mes y día de la semana. Tres casos:</p>
+<table>
+<thead>
+<tr>
+<th>Configuración</th>
+<th>Cuándo se ejecuta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Todos los campos en «Cualquiera» (por defecto)</td>
+<td>Siempre, sin restricción.</td>
+</tr>
+<tr>
+<td>Solo <strong>Cron desde</strong>, con valores concretos (<code>15 20 * * *</code>)</td>
+<td>Cuando coincide con esos valores: cada día a las 20:15.</td>
+</tr>
+<tr>
+<td><strong>Cron desde</strong> y <strong>Cron hasta</strong> (<code>5 * * * *</code> y <code>10 * * * *</code>)</td>
+<td>Durante el intervalo: cada hora, entre los minutos 5 y 10.</td>
+</tr>
+</tbody>
+</table>
+<p>El equivalente para el EndPoint es <code>module_crontab</code>, explicado en <a href="../2.1-monitorizacion-con-endpoints/#monitorizacion-programada">2.1</a>.</p>
+<p>En la pestaña <strong>Datos</strong> están el <strong>Tiempo de espera</strong> (<em>Timeout</em>) y los <strong>Reintentos</strong> (<em>Retries</em>): los segundos que se espera la respuesta de una comprobación remota y cuántas veces se repite si falla. No tienen sentido en módulos locales de EndPoint. Con <code>0</code> se aplica el valor por defecto del servidor.</p>
+<h2 id="datos-que-se-guarda-y-como-se-muestra">Datos: qué se guarda y cómo se muestra<a class="headerlink" href="#datos-que-se-guarda-y-como-se-muestra" title="Permanent link">¶</a></h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/modulo-pestana-datos.png" data-desc-position="bottom"><img alt="Pestaña Datos: tiempo de espera, reintentos, valores mínimo y máximo, histórico, unidad y posprocesado" src="../../assets/img/parte-02/modulo-pestana-datos.png"></a></p>
+<p>Todos en la pestaña <strong>Datos</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Valor mínimo</strong> / <strong>Valor máximo</strong> (<em>Min. Value</em> / <em>Max. Value</em>)</td>
+<td>Rango que el módulo puede devolver. El servidor <strong>descarta</strong> los datos fuera de él.</td>
+</tr>
+<tr>
+<td><strong>Histórico de datos</strong> (<em>Historical data</em>)</td>
+<td>Con él desactivado solo se guarda el último dato conocido: no hay gráficas, pero se ahorra espacio en la base de datos. Solo se justifica cuando hace falta que el sistema vaya más rápido.</td>
+</tr>
+<tr>
+<td><strong>Unidad</strong> (<em>Unit</em>)</td>
+<td>Texto que se muestra junto al valor (<code>%</code>, <code>MB</code>, <code>ms</code>).</td>
+</tr>
+<tr>
+<td><strong>Posprocesado</strong> (<em>Post process</em>)</td>
+<td>Multiplicador que se aplica al dato <strong>antes de guardarlo</strong>. Admite decimales.</td>
+</tr>
+<tr>
+<td><strong>Traducción de datos</strong> (<em>Data translation</em>)</td>
+<td>Aplica una traducción o fórmula al mostrar el dato; si eliges una, el campo de unidad se desactiva.</td>
+</tr>
+<tr>
+<td><strong>Servidor de exportación</strong> (<em>Export target</em>)</td>
+<td>Servidor de exportación al que se envía el módulo, si tienes uno configurado.</td>
+</tr>
+<tr>
+<td><strong>MADE</strong></td>
+<td>Solo en módulos numéricos: el dato lo procesa el motor MADE (si está activo) y genera eventos automáticamente.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">De bytes a megabytes</p>
+<p>Un módulo devuelve bytes y se quiere ver megabytes: posprocesado <code>0.00000095367</code> (1 / 1.048.576) y unidad <code>MB</code>. Un dato de <code>5242880</code> se guarda como <code>5</code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Cambiar el posprocesado con datos ya guardados</p>
+<p>El dato se guarda ya transformado. Si cambias el multiplicador en un módulo con histórico, los datos antiguos y los nuevos quedan en escalas distintas y las gráficas se vuelven incoherentes. Cambia la escala al crear el módulo, no después.</p>
+</div>
+<h2 id="organizar-los-modulos">Organizar los módulos<a class="headerlink" href="#organizar-los-modulos" title="Permanent link">¶</a></h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/modulo-pestana-categorizacion.png" data-desc-position="bottom"><img alt="Pestaña Categorización: grupo, padre, identificador, categoría y etiquetas del módulo" src="../../assets/img/parte-02/modulo-pestana-categorizacion.png"></a></p>
+<p>En la pestaña <strong>Categorización</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Grupo del módulo</strong> (<em>Module group</em>)</td>
+<td>Grupo funcional del módulo (red, sistema, base de datos…), distinto del grupo del agente. Sirve para filtrar y agrupar vistas.</td>
+</tr>
+<tr>
+<td><strong>Padre del módulo</strong> (<em>Module parent</em>)</td>
+<td>Módulo del que depende este, para la jerarquía de la protección en cascada.</td>
+</tr>
+<tr>
+<td><strong>ID personalizado</strong> (<em>Custom ID</em>)</td>
+<td>Identificador propio, por ejemplo el de tu inventario.</td>
+</tr>
+<tr>
+<td><strong>Categoría</strong> (<em>Category</em>)</td>
+<td>Sin efecto en la interfaz normal; está pensada para usarse con el Command Center.</td>
+</tr>
+<tr>
+<td><strong>Etiquetas de módulos</strong> (<em>Module tags</em>)</td>
+<td>Etiquetas que se propagan a los eventos del módulo, sirven de filtro en informes y vistas y pueden limitar el acceso de un usuario a ciertos módulos.</td>
+</tr>
+<tr>
+<td><strong>Etiquetas de política</strong> (<em>Policy tags</em>)</td>
+<td>Etiquetas que el módulo recibe de su política.</td>
+</tr>
+</tbody>
+</table>
+<p>Otros ajustes que organizan o documentan el módulo:</p>
+<ul>
+<li><strong>Protección en cascada de servicios</strong> (<em>Cascade Protection Services</em>), en <strong>Umbrales</strong>: si el módulo forma parte de un servicio, las alertas solo saltan en el nivel más alto del árbol donde se cumplan las condiciones, y no en todos a la vez.</li>
+<li><strong>Instrucciones de crítico, advertencia y desconocido</strong>, en <strong>Información</strong>: qué debe hacer quien reciba el aviso. Es el sitio para el «reinicia el servicio X, y si no, llama a Y».</li>
+<li><strong>Macros</strong>: variables propias del módulo, con nombres del estilo <code>_nombre_</code>, que se pueden usar en las alertas.</li>
+<li><strong>Relaciones entre módulos</strong> (directa o de conmutación por error): permiten sustituir un módulo por otro en el cálculo de SLA.</li>
+<li><strong>Importar desde el almacén de credenciales</strong>: en los tipos que lo permiten, rellena los campos con una credencial guardada (ver <a href="../2.2-gestor-de-credenciales/">2.2, Gestor de credenciales</a>). Solo copia los datos al formulario; el módulo no queda enlazado a la credencial.</li>
+</ul>
+<h2 id="en-una-politica-y-en-operaciones-masivas">En una política y en operaciones masivas<a class="headerlink" href="#en-una-politica-y-en-operaciones-masivas" title="Permanent link">¶</a></h2>
+<p>El formulario es el mismo, pero se comporta distinto:</p>
+<ul>
+<li><strong>En una política</strong>, los campos que la política controla aparecen bloqueados en el módulo del agente. Se cambian en la política, no agente por agente. Algunos campos, como las etiquetas de módulo, no están disponibles en el módulo de una política. Ver <a href="../2.10-politicas-de-monitorizacion/">2.10</a>.</li>
+<li><strong>En una operación masiva</strong> cada campo trae un candado: solo se cambian los campos cuyo candado abres, y el resto se respetan. Ver <a href="../2.11-operaciones-masivas/#el-candado-que-se-cambia-y-que-se-respeta">El candado: qué se cambia y qué se respeta</a> en 2.11.</li>
+</ul>
+<h2 id="comprobar-y-diagnosticar">Comprobar y diagnosticar<a class="headerlink" href="#comprobar-y-diagnosticar" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa probable</th>
+<th>Comprobación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>El módulo está en desconocido.</td>
+<td>Lleva más de dos intervalos sin datos: el agente o la comprobación no responden.</td>
+<td>Mira la hora del último dato; comprueba el agente o el servidor que ejecuta el módulo.</td>
+</tr>
+<tr>
+<td>Un módulo con datos viejos aparece normal y nunca en desconocido.</td>
+<td><strong>Ignorar desconocidos</strong> activado: conserva el último estado.</td>
+<td>Revisa la pestaña <strong>Umbrales</strong>.</td>
+</tr>
+<tr>
+<td>El dato supera el umbral y el estado no cambia.</td>
+<td>Umbral FF mayor que 0, o modo de umbral equivocado (normal frente a inverso).</td>
+<td>Revisa el umbral FF y el modo de cada umbral.</td>
+</tr>
+<tr>
+<td>El módulo cambia de estado y no hay alerta.</td>
+<td><strong>Modo silencioso</strong>, o la protección en cascada la delega en el servicio padre.</td>
+<td>Revisa <strong>Modo silencioso</strong> y <strong>Protección en cascada de servicios</strong>.</td>
+</tr>
+<tr>
+<td>El módulo tiene datos pero no hay gráfica.</td>
+<td><strong>Histórico de datos</strong> desactivado.</td>
+<td>Revisa la pestaña <strong>Datos</strong>.</td>
+</tr>
+<tr>
+<td>Faltan datos que sí llegan.</td>
+<td>Fuera de <strong>Valor mínimo</strong> y <strong>Valor máximo</strong>: el servidor los descarta.</td>
+<td>Revisa el rango de la pestaña <strong>Datos</strong>.</td>
+</tr>
+<tr>
+<td>Las gráficas muestran un salto de escala.</td>
+<td>Se cambió el posprocesado con datos ya guardados.</td>
+<td>Revisa el historial del cambio y reaplica la escala en una fecha limpia.</td>
+</tr>
+<tr>
+<td>El módulo no se ejecuta a la hora esperada.</td>
+<td>Programación cron restrictiva, o intervalo largo.</td>
+<td>Revisa <strong>Cron desde</strong> y <strong>Cron hasta</strong> y el intervalo.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

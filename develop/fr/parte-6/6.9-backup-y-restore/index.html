@@ -1,0 +1,5177 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-6/6.9-backup-y-restore/">
+      
+      
+        <link rel="prev" href="../6.8-optimizacion-de-la-base-de-datos/">
+      
+      
+        <link rel="next" href="../6.10-alta-disponibilidad-ha/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-6/6.9-backup-y-restore/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-6/6.9-backup-y-restore/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>9. Sauvegarde et restauration - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sauvegarde-et-restauration" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              9. Sauvegarde et restauration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-6/6.9-backup-y-restore/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-6/6.9-backup-y-restore/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction-ce-que-protege-une-sauvegarde-et-ce-quelle-ne-protege-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction : ce que protège une sauvegarde (et ce qu'elle ne protège pas)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ce-quil-faut-sauvegarder-dans-une-installation-de-pandora-fms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qu'il faut sauvegarder dans une installation de Pandora FMS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-dump-de-la-base-de-donnees-a-la-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le dump de la base de données à la main
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-sauvegarde-planifiee-depuis-la-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La sauvegarde planifiée depuis la console
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-db-backup-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le DB Backup Manager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-sauvegarde-complete-en-ligne-de-commande" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La sauvegarde complète en ligne de commande
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-sauvegarde-des-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La sauvegarde des fichiers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-restauration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La restauration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-reconstruction-de-la-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La reconstruction de la base de données
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-rapide-et-repartition-avec-les-autres-chapitres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Référence rapide et répartition avec les autres chapitres
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction-ce-que-protege-une-sauvegarde-et-ce-quelle-ne-protege-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction : ce que protège une sauvegarde (et ce qu'elle ne protège pas)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ce-quil-faut-sauvegarder-dans-une-installation-de-pandora-fms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qu'il faut sauvegarder dans une installation de Pandora FMS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-dump-de-la-base-de-donnees-a-la-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le dump de la base de données à la main
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-sauvegarde-planifiee-depuis-la-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La sauvegarde planifiée depuis la console
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-db-backup-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le DB Backup Manager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-sauvegarde-complete-en-ligne-de-commande" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La sauvegarde complète en ligne de commande
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-sauvegarde-des-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La sauvegarde des fichiers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-restauration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La restauration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-reconstruction-de-la-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La reconstruction de la base de données
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-rapide-et-repartition-avec-les-autres-chapitres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Référence rapide et répartition avec les autres chapitres
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="sauvegarde-et-restauration">Sauvegarde et restauration<a class="headerlink" href="#sauvegarde-et-restauration" title="Permanent link">¶</a></h1>
+<h2 id="introduction-ce-que-protege-une-sauvegarde-et-ce-quelle-ne-protege-pas">Introduction : ce que protège une sauvegarde (et ce qu'elle ne protège pas)<a class="headerlink" href="#introduction-ce-que-protege-une-sauvegarde-et-ce-quelle-ne-protege-pas" title="Permanent link">¶</a></h2>
+<p>Une sauvegarde ne se remarque pas le jour où on la fait, mais le jour où elle
+manque. Et ce jour-là ne ressemble jamais au jour où elle a été programmée : le
+serveur ne démarre pas, quelqu'un a effacé ce qu'il ne fallait pas, le disque a
+rendu les armes. Ce chapitre sert à faire de ce jour-là un mauvais moment avec
+solution plutôt qu'une perte définitive. Ce qui fait la différence, c'est tout ce
+qui se fait avant : ce qui est copié, avec quelle commande et si quelqu'un a un
+jour vérifié que la copie peut être restaurée.</p>
+<p>Ce qui est en jeu, c'est tout ce que l'installation a accumulé : l'historique des
+métriques, les événements, les alertes et la configuration qui soutient la
+supervision. Un effacement accidentel, un disque qui meurt ou une mise à jour qui
+se passe mal l'emportent en un instant.</p>
+<p>Avant d'entrer dans le vif du sujet, il convient d'écarter trois confusions qui
+coûtent des installations entières.</p>
+<p>La <strong>haute disponibilité n'est pas une sauvegarde</strong>. Un environnement en haute
+disponibilité réplique la base de données à chaud pour que le service ne tombe
+pas, mais il réplique aussi l'erreur : si quelqu'un supprime une table sur le
+nœud maître, la suppression arrive au secondaire. La resynchronisation entre
+nœuds d'un environnement HA utilise une copie physique des données, pas un dump
+logique, et elle est documentée dans <a href="../6.10-alta-disponibilidad-ha/">6.10 (Haute disponibilité
+(HA))</a>.</p>
+<p><strong>Migrer n'est pas copier.</strong> Changer d'architecture, de serveur ou de version du
+moteur est un déménagement avec ses propres procédures, et ce chapitre ne les
+aborde pas : la migration vers la nouvelle architecture de serveurs est dans
+<a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/">A3 (Compatibilité et migration vers la nouvelle architecture de
+serveurs)</a>
+et les mises à jour dans <a href="../../parte-1/1.4-actualizaciones/">1.4 (Mises à
+jour)</a>. Ici, il s'agit de garder ce qui existe
+et de le remettre à sa place.</p>
+<p>Et la troisième : <strong>une copie sans restauration éprouvée est une promesse, pas
+une sauvegarde</strong>. Un fichier compressé que personne n'a jamais ouvert ne protège
+de rien. La seule preuve qu'une copie vaut quelque chose, c'est de la restaurer,
+même sur une machine de test et avec une base de données de jeu.</p>
+<p>Cela posé, voici ce que Pandora FMS propose et ce qu'il ne propose pas. Il
+propose la <strong>tâche planifiée de la console</strong>, qui produit un dump de la base de
+données principale à la périodicité que vous indiquez ; le <strong>DB Backup
+Manager</strong>, qui administre ces copies depuis la console web ; l'utilitaire de
+<strong>sauvegarde complète en ligne de commande</strong>, qui ajoute les fichiers au dump ;
+et, bien sûr, les <strong>commandes manuelles</strong> de <code>mysqldump</code> et <code>tar</code>, où l'on finit
+toujours quand il faut faire quelque chose à la main.</p>
+<p>Ce qu'il ne propose pas, et il vaut mieux le savoir avant de s'y fier : il n'y a
+pas de sauvegarde automatique des fichiers (la tâche planifiée ne fait un dump
+que de la base de données principale) ni de sauvegarde intégrée de la base de
+données
+d'historique, qui vit sur un autre serveur et se copie à part, comme expliqué
+dans <a href="../6.5-base-de-datos-de-historico/">6.5 (Base de données
+d'historique)</a>. La création et la
+programmation de la tâche, avec ses paramètres et ses permissions, sont
+documentées dans <a href="../../parte-2/2.5-tareas-de-consola/">2.5 (Tâches de
+console)</a> ; ici, on explique ce que cette
+tâche produit, ce qu'elle laisse de côté et comment tout se restaure.</p>
+<p>Le chapitre suit l'ordre naturel d'une opération réelle : d'abord l'inventaire de
+ce qu'il faut copier, ensuite chaque voie de sauvegarde (le dump à la main, la
+tâche planifiée, le manager, l'utilitaire en ligne de commande et les fichiers)
+et, à la fin, la restauration et la reconstruction de la base de données. La
+reconstruction, qui est le dernier recours quand le moteur ne démarre plus, est
+renvoyée depuis <a href="../6.8-optimizacion-de-la-base-de-datos/">6.8 (Optimisation de la base de
+données)</a> : le critère pour savoir
+quand reconstruire plutôt qu'optimiser est là-bas, et les procédures sont ici.
+Le chiffrement de la base de données, qui conditionne ce qui peut être déchiffré
+à la restauration, est traité dans <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/">9.5 (Chiffrement de la base de
+données)</a>.</p>
+<h2 id="ce-quil-faut-sauvegarder-dans-une-installation-de-pandora-fms">Ce qu'il faut sauvegarder dans une installation de Pandora FMS<a class="headerlink" href="#ce-quil-faut-sauvegarder-dans-une-installation-de-pandora-fms" title="Permanent link">¶</a></h2>
+<p>Une installation de Pandora FMS n'est pas une seule chose. C'est une base de
+données, des fichiers de configuration, les programmes du serveur, la console
+web et, sur chaque machine supervisée, un EndPoint. La sauvegarde doit couvrir
+ce qui ne peut pas être reconstruit tout seul :</p>
+<table>
+<thead>
+<tr>
+<th>Composant</th>
+<th>Où il vit</th>
+<th>Comment il est copié</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base de données principale</td>
+<td>Le moteur MySQL, normalement sur la même machine que la console</td>
+<td>Dump avec <code>mysqldump</code> (<a href="#le-dump-de-la-base-de-donnees-a-la-main">à la main</a>) ou la <a href="#la-sauvegarde-planifiee-depuis-la-console">tâche planifiée</a></td>
+</tr>
+<tr>
+<td>Base de données d'historique</td>
+<td>Un autre serveur MySQL, si elle est configurée</td>
+<td>Son propre dump ; expliqué dans <a href="../6.5-base-de-datos-de-historico/">6.5 (Base de données d'historique)</a></td>
+</tr>
+<tr>
+<td>Configuration du serveur et des EndPoints</td>
+<td><code>/etc/pandora</code></td>
+<td><code>tar</code> (<a href="#la-sauvegarde-des-fichiers">La sauvegarde des fichiers</a>)</td>
+</tr>
+<tr>
+<td>Programmes et plugins du serveur</td>
+<td><code>/usr/share/pandora_server</code></td>
+<td><code>tar</code></td>
+</tr>
+<tr>
+<td>Données du serveur (configuration distante et collections)</td>
+<td><code>/var/spool/pandora/data_in</code></td>
+<td><code>tar</code></td>
+</tr>
+<tr>
+<td>Console web</td>
+<td><code>/var/www/html/pandora_console</code></td>
+<td><code>tar</code>, ou la <a href="#la-sauvegarde-complete-en-ligne-de-commande">sauvegarde complète</a></td>
+</tr>
+<tr>
+<td>EndPoint</td>
+<td>Son répertoire d'installation (sous Linux, <code>/usr/share/pandora_agent</code>) et sa configuration (<code>/etc/pandora</code>)</td>
+<td><code>tar</code></td>
+</tr>
+<tr>
+<td>Tentacle</td>
+<td><code>/etc/tentacle</code></td>
+<td><code>tar</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>La base de données et les fichiers vont ensemble.</strong> C'est la règle la plus
+souvent enfreinte et celle qui fait le plus mal. Restaurer une base de données
+sans les fichiers laisse une installation qui démarre à moitié : la console
+s'ouvre, mais la configuration distante des EndPoints n'est pas là, ou les
+plugins du serveur ont disparu. Et inversement : des fichiers sans la base de
+données sont une coquille vide. Une vraie sauvegarde complète a les deux
+moitiés.</p>
+<p><strong>Gardez la copie hors du serveur copié.</strong> Une sauvegarde qui vit sur le même
+disque que les données d'origine protège d'un effacement accidentel, mais pas
+d'une panne de disque, ni d'un incendie, ni d'un <code>rm</code> trop imaginatif. Sortez-la
+de la machine, vers un autre serveur ou un stockage externe, et ne la laissez
+pas sur le même système de fichiers.</p>
+<p><strong>Chaque pièce se copie là où elle vit.</strong> Dans une installation distribuée, avec
+la base de données sur un serveur, la console sur un autre et les EndPoints
+répartis, il n'y a pas de machine d'où tout copier d'un coup : la base de
+données est dumpée là où se trouve le moteur et les fichiers de chaque serveur
+sont empaquetés sur leur serveur. La sauvegarde complète dans un seul fichier,
+celle de <a href="#la-sauvegarde-complete-en-ligne-de-commande">La sauvegarde complète en ligne de
+commande</a>, ne vaut que quand tout
+cohabite sur la même machine.</p>
+<div class="admonition warning">
+<p class="admonition-title">Espace et permissions</p>
+<p>Un dump occupe autant que les données qu'il contient, et les fichiers d'une console avec des images et des extensions peuvent peser lourd. Avant de lancer une sauvegarde, vérifiez que la destination dispose de largement assez d'espace libre : s'arrêter à mi-chemin par disque plein est la façon la plus bête de perdre une sauvegarde. Et gardez les fichiers avec des permissions restreintes : un dump de la base de données contient des utilisateurs, de la configuration et des données de supervision qui ne devraient pas être à la portée de n'importe qui.</p>
+</div>
+<h2 id="le-dump-de-la-base-de-donnees-a-la-main">Le dump de la base de données à la main<a class="headerlink" href="#le-dump-de-la-base-de-donnees-a-la-main" title="Permanent link">¶</a></h2>
+<p>C'est l'outil de base, celui qui fonctionne tant que le moteur tourne. La
+commande est un <code>mysqldump</code> avec les deux mêmes options que la tâche planifiée
+du produit, et avec des paramètres fictifs pour que vous l'adaptiez à votre
+installation :</p>
+<div class="highlight"><pre><span></span><code>mysqldump<span class="w"> </span><span class="s1">'&lt;base_de_donnees&gt;'</span><span class="w"> </span>-h<span class="w"> </span><span class="s1">'&lt;hote&gt;'</span><span class="w"> </span>-u<span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="w"> </span>-p<span class="s1">'&lt;mot_de_passe&gt;'</span><span class="w"> </span>--single-transaction<span class="w"> </span>--max_allowed_packet<span class="o">=</span>512M<span class="w"> </span><span class="p">|</span><span class="w"> </span>gzip<span class="w"> </span>&gt;<span class="w"> </span>pandoradb.sql.gz
+</code></pre></div>
+<p>Chaque pièce de la commande a sa raison d'être :</p>
+<ul>
+<li><strong><code>&lt;base_de_donnees&gt;</code></strong> : le nom de la base de données ; celui d'une
+  installation toute neuve est <code>pandora</code>.</li>
+<li><strong><code>-h '&lt;hote&gt;'</code></strong> : l'hôte du moteur. Si la base de données vit sur la même
+  machine, <code>127.0.0.1</code> fait l'affaire ; si elle est distante, son adresse.</li>
+<li><strong><code>-u '&lt;utilisateur&gt;'</code> et <code>-p'&lt;mot_de_passe&gt;'</code></strong> : les identifiants d'accès à
+  la base de données ; dans une installation toute neuve, l'utilisateur est
+  <code>pandora</code>. Le <code>-p</code> se colle au mot de passe, sans espace ; si vous le laissez
+  seul, le client vous le demandera au clavier et il ne restera pas écrit dans
+  l'historique du terminal.</li>
+<li><strong><code>--single-transaction</code></strong> : le dump se fait dans une transaction, de façon
+  cohérente, sans bloquer les écritures.</li>
+<li><strong><code>--max_allowed_packet=512M</code></strong> : la taille maximale de paquet que le client
+  accepte lors du dump. C'est la valeur qu'utilise la tâche planifiée, et sans
+  elle une ligne ou un paquet volumineux peut interrompre le dump en cours de
+  route.</li>
+<li><strong><code>| gzip &gt; pandoradb.sql.gz</code></strong> : le dump est compressé à la volée. Le fichier
+  obtenu est celui qui est conservé et celui qui sera restauré ensuite.</li>
+</ul>
+<p>Inutile d'ajouter des options de routines, de déclencheurs ou d'événements. Le
+schéma du produit n'en définit aucun des trois, et les dumps internes du produit
+ne les utilisent pas ; les ajouter ne fait qu'ajouter du bruit à la commande.</p>
+<p><strong>L'historique va à part.</strong> Si vous avez configuré la base de données
+d'historique, elle ne se copie pas avec cette commande : elle vit sur un autre
+serveur et a besoin de son propre dump, avec les mêmes options et en pointant
+vers son hôte et son nom. Le détail de cette base, sa rétention et son
+partitionnement sont dans <a href="../6.5-base-de-datos-de-historico/">6.5 (Base de données
+d'historique)</a>, et la copie se fait avec le
+même modèle :</p>
+<div class="highlight"><pre><span></span><code>mysqldump<span class="w"> </span><span class="s1">'&lt;base_d_historique&gt;'</span><span class="w"> </span>-h<span class="w"> </span><span class="s1">'&lt;hote_de_l_historique&gt;'</span><span class="w"> </span>-u<span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="w"> </span>-p<span class="s1">'&lt;mot_de_passe&gt;'</span><span class="w"> </span>--single-transaction<span class="w"> </span>--max_allowed_packet<span class="o">=</span>512M<span class="w"> </span><span class="p">|</span><span class="w"> </span>gzip<span class="w"> </span>&gt;<span class="w"> </span>pandoradb_history.sql.gz
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Avec le chiffrement actif, la copie ne déchiffre rien toute seule</p>
+<p>Si la base de données utilise le chiffrement par colonnes, la copie emporte les champs chiffrés tels quels et n'inclut pas la phrase de chiffrement, qui est conservée à part. Sans cette phrase, à la restauration il n'y a rien à déchiffrer et les données chiffrées restent illisibles. La procédure de chiffrement et l'emplacement de la phrase sont dans <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/">9.5 (Chiffrement de la base de données)</a>.</p>
+</div>
+<p><strong>Faut-il arrêter les services pour copier ?</strong> Non. Avec <code>--single-transaction</code>,
+le dump est cohérent même si la supervision continue d'écrire, donc l'arrêt
+n'est pas une condition de la copie. L'arrêt concerne la restauration et la
+reconstruction, où l'ordre des opérations compte vraiment. Pour copier, il
+suffit que le moteur tourne et qu'il y ait de l'espace à la destination.</p>
+<p><strong>Vérifiez le fichier à la fin.</strong> Un dump interrompu à mi-chemin laisse un
+fichier qui ressemble à une copie sans en être une. Avant de le valider,
+vérifiez que l'archive compressée est complète :</p>
+<div class="highlight"><pre><span></span><code>gzip<span class="w"> </span>-t<span class="w"> </span>pandoradb.sql.gz
+</code></pre></div>
+<p>Si la commande ne renvoie rien, le fichier est intact. Et si le dump s'est
+interrompu en cours de route, c'est le moment de le refaire, pas dans trois
+mois.</p>
+<h2 id="la-sauvegarde-planifiee-depuis-la-console">La sauvegarde planifiée depuis la console<a class="headerlink" href="#la-sauvegarde-planifiee-depuis-la-console" title="Permanent link">¶</a></h2>
+<p>Programmer une copie pour ne pas avoir à y penser est la chose la plus sensée
+que l'on puisse faire en la matière. La <strong>tâche de sauvegarde de la base de
+données</strong> se crée et se programme dans la console web, dans <strong>Discovery →
+Liste des tâches (Task list)</strong>, onglet <strong>Console tasks</strong>, et sa création, ses
+paramètres et ses permissions sont documentés dans <a href="../../parte-2/2.5-tareas-de-consola/">2.5 (Tâches de
+console)</a>. Ici, il s'agit d'expliquer ce
+qu'elle laisse sur le disque et ce qu'elle n'y laisse pas.</p>
+<p><strong>Ce qu'elle produit.</strong> Chaque exécution crée deux fichiers dans le chemin
+configuré :</p>
+<ul>
+<li>Un <strong>dump compressé</strong> de la base de données principale, avec un nom qui porte
+  la date.</li>
+<li>Un <strong>résumé en texte</strong> du même nom, avec la version du produit, la date et les
+  versions de PHP et de MySQL du serveur. C'est le fichier que l'on consulte
+  pour savoir ce que contient chaque copie sans l'ouvrir.</li>
+</ul>
+<p>Les deux restent avec des permissions <strong>0600</strong> : seul l'utilisateur qui les a
+créés peut les lire. Le chemin par défaut est le dossier de pièces jointes de la
+console, <code>attachment/backups</code>, et il peut être remplacé par n'importe quel
+répertoire disposant des permissions de lecture et d'écriture. La rétention par
+défaut correspond aux <strong>trois dernières copies</strong> de cette tâche : au-delà de ce
+nombre, les plus anciennes sont supprimées d'elles-mêmes.</p>
+<p>Lors de sa création, la tâche vérifie que <code>mysqldump</code> existe et que la connexion
+à la base de données fonctionne, et valide que le chemin d'enregistrement existe
+et est accessible en écriture. Si quelque chose échoue, la tâche n'est pas
+créée. C'est un contrôle qui évite la sauvegarde classique qui ne s'est jamais
+exécutée parce que le chemin n'existait plus.</p>
+<div class="admonition warning">
+<p class="admonition-title">Ce que la tâche ne copie pas</p>
+<p>La tâche planifiée ne fait un dump <strong>que de la base de données principale</strong>. Elle n'inclut ni la base de données d'historique (qui est une autre base, sur un autre serveur), ni les fichiers de configuration, ni la console web, ni les EndPoints. Que personne ne la confonde avec une sauvegarde complète : pour cela, il y a l'utilitaire de <a href="#la-sauvegarde-complete-en-ligne-de-commande">La sauvegarde complète en ligne de commande</a> ou la combinaison du dump avec les <code>tar</code> de <a href="#la-sauvegarde-des-fichiers">La sauvegarde des fichiers</a>.</p>
+</div>
+<p><strong>Comment on la restaure.</strong> Comme un dump manuel : le fichier compressé que
+laisse la tâche s'importe avec <code>gunzip -c … | mysql …</code>, comme expliqué dans <a href="#la-restauration">La
+restauration</a>. Il n'y a pas de restauration automatique depuis
+la console : la restauration se fait à la main.</p>
+<h2 id="le-db-backup-manager">Le DB Backup Manager<a class="headerlink" href="#le-db-backup-manager" title="Permanent link">¶</a></h2>
+<p>Le <strong>DB Backup Manager</strong> est l'écran d'administration des copies, dans <strong>Outils
+d'administration → Gestionnaire de sauvegarde de la base de données (DB Backup
+Manager)</strong>, et seuls les administrateurs de la console web peuvent y entrer. Il
+travaille sur le même listage que celui qu'alimente la tâche planifiée : les
+copies que la tâche enregistre apparaissent ici, avec le même dossier et le même
+registre.</p>
+<p>En haut, il y a un filtre par <strong>chemin des copies</strong>, avec la liste des chemins
+des copies enregistrées, et un bouton de recherche pour rafraîchir le listage.
+Chaque copie affiche sa date, sa taille et un état :</p>
+<ul>
+<li><strong>OK</strong> : le fichier est à sa place ; il peut être téléchargé et restauré.</li>
+<li><strong>Perdu</strong> : le registre dit qu'il existe, mais le fichier n'est pas sur le
+  disque.</li>
+<li><strong>En cours</strong> : un dump est en cours d'exécution à ce moment-là.</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/backup-manager-listado.png" data-desc-position="bottom"><img alt="Listage du DB Backup Manager avec deux copies correctes et une perdue : description, date, taille, état, chemin et les actions de chaque ligne ; en bas, le bouton Supprimer les perdus (interface en anglais)" src="../../../assets/img/parte-06/backup-manager-listado.png"></a></p>
+<p>Sur chaque copie correcte, il y a trois actions : la télécharger sur la machine
+locale, la supprimer ou la restaurer ; les perdues et celles en cours ne peuvent
+qu'être supprimées. La restauration du manager <strong>n'est pas automatique</strong> : quand
+vous appuyez sur le bouton, la console demande confirmation et la restauration
+se fait à la main. La procédure complète, avec la syntaxe en vigueur, est dans
+<a href="#la-restauration">La restauration</a>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/backup-manager-restauracion.png" data-desc-position="bottom"><img alt="Boîte de dialogue de confirmation que le DB Backup Manager affiche quand vous appuyez sur le bouton de restauration (interface en anglais)" src="../../../assets/img/parte-06/backup-manager-restauracion.png"></a></p>
+<p>Quand il y a des copies perdues, le bouton <strong>Supprimer les perdus</strong> apparaît ; il
+nettoie d'un coup toutes celles qui sont dans cet état.</p>
+<div class="admonition note">
+<p class="admonition-title">Un fichier supprimé à la main ne disparaît pas de la liste</p>
+<p>Le manager ne parcourt pas le disque pour construire le listage : il se fie à son registre. Si quelqu'un supprime un fichier de copie en dehors de la console, la copie ne disparaît pas du listage : elle passe à l'état <strong>Perdu</strong>, et elle y reste jusqu'à ce que vous utilisiez <strong>Supprimer les perdus</strong>. C'est le comportement attendu, et la raison pour laquelle la liste peut afficher des copies qui n'existent plus.</p>
+</div>
+<h2 id="la-sauvegarde-complete-en-ligne-de-commande">La sauvegarde complète en ligne de commande<a class="headerlink" href="#la-sauvegarde-complete-en-ligne-de-commande" title="Permanent link">¶</a></h2>
+<p>Jusqu'ici, tout copiait la base de données ou les fichiers séparément. Reste le
+seul utilitaire du produit qui fait une sauvegarde complète en une seule étape,
+et il la fait en ligne de commande : <code>pandora_backup.sh</code>. Il est pensé pour les
+installations où le serveur et la console partagent la machine, et il laisse un
+unique fichier compressé avec :</p>
+<ul>
+<li>Le dump de la base de données.</li>
+<li>Le répertoire complet de la console web.</li>
+<li>La configuration de <code>/etc/pandora</code>.</li>
+<li>Les données du serveur de <code>/var/spool/pandora/data_in</code>.</li>
+</ul>
+<p>Le script se trouve dans <code>/usr/share/pandora_server/util/pandora_backup.sh</code>,
+s'exécute en <strong>root</strong> et a besoin de <code>mysqldump</code> disponible. Sans aucun
+paramètre, il affiche son aide, et voici ses options réelles :</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>À quoi elle sert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c &lt;chemin&gt;</code></td>
+<td>Chemin de la console web (par exemple, <code>/var/www/html/pandora_console</code>). De sa configuration, il tire les identifiants de la base de données.</td>
+</tr>
+<tr>
+<td><code>-d &lt;chemin&gt;</code></td>
+<td>Répertoire où le fichier de sauvegarde est déposé.</td>
+</tr>
+<tr>
+<td><code>-s &lt;fichier&gt;</code></td>
+<td>Fichier de sauvegarde qui va être restauré.</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>À la restauration, restaure aussi les fichiers, pas seulement la base de données.</td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td>Mode silencieux, sans messages. Pour le lancer depuis cron.</td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td>Ne copie ni ne restaure la base de données : seulement les fichiers.</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td>Affiche l'aide.</td>
+</tr>
+</tbody>
+</table>
+<p>Une sauvegarde se lance ainsi :</p>
+<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_backup.sh<span class="w"> </span>-c<span class="w"> </span>/var/www/html/pandora_console<span class="w"> </span>-d<span class="w"> </span>/backup
+</code></pre></div>
+<p>Le résultat est un fichier <code>pandorafms_backup_&lt;date&gt;.tar.gz</code> dans le répertoire
+de destination.</p>
+<div class="admonition warning">
+<p class="admonition-title">La restauration est destructive</p>
+<p>Restaurer avec <code>-s</code> ne fusionne rien : le script <strong>supprime la base de données actuelle</strong> et la recrée avant d'importer la copie ; avec <code>-f</code>, il écrase en plus les fichiers de l'installation. Si la copie est ancienne ou à moitié faite, le résultat est pire que le problème que vous alliez résoudre. Avant de restaurer, assurez-vous d'avoir une copie récente et que le fichier que vous passez est le bon :</p>
+<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_backup.sh<span class="w"> </span>-c<span class="w"> </span>/var/www/html/pandora_console<span class="w"> </span>-s<span class="w"> </span>/backup/pandorafms_backup_2026-10-21-03-00-00.tar.gz<span class="w"> </span>-f
+</code></pre></div>
+</div>
+<p><strong>Quand l'utiliser et quand ne pas l'utiliser.</strong> C'est la voie commode pour un
+petit serveur avec tout sur la même machine. Dans un environnement distribué,
+avec la base de données sur un serveur, la console sur un autre et les EndPoints
+répartis, il ne sert à rien : là, c'est le dump de la base d'un côté et les
+<code>tar</code> par composant de la section suivante de l'autre.</p>
+<h2 id="la-sauvegarde-des-fichiers">La sauvegarde des fichiers<a class="headerlink" href="#la-sauvegarde-des-fichiers" title="Permanent link">¶</a></h2>
+<p>La sauvegarde des fichiers se fait avec <code>tar</code>, composant par composant, avec les
+chemins réels de l'installation. Le modèle est toujours le même :</p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-pcvzf<span class="w"> </span>pandora_configuration.tar.gz<span class="w"> </span>/etc/pandora
+tar<span class="w"> </span>-pcvzf<span class="w"> </span>pandora_server.tar.gz<span class="w"> </span>/usr/share/pandora_server
+tar<span class="w"> </span>-pcvzf<span class="w"> </span>pandora_console.tar.gz<span class="w"> </span>/var/www/html/pandora_console
+tar<span class="w"> </span>-pcvzf<span class="w"> </span>pandora_data_in.tar.gz<span class="w"> </span>/var/spool/pandora/data_in
+tar<span class="w"> </span>-pcvzf<span class="w"> </span>agent.tar.gz<span class="w"> </span>/usr/share/pandora_agent
+tar<span class="w"> </span>-pcvzf<span class="w"> </span>tentacle.tar.gz<span class="w"> </span>/etc/tentacle
+</code></pre></div>
+<p>Chaque commande empaquette et compresse (<code>-z</code>) un composant, en conservant les
+permissions et les propriétaires (<code>-p</code>), ce qu'il faut pour que la restauration
+rende les fichiers exactement tels qu'ils étaient. Celle de la console web
+conserve les images, les extensions et les personnalisations ; celle des données
+du serveur inclut la configuration distante des EndPoints, les collections et
+les fichiers de contrôle. Sur les EndPoints Linux, le répertoire d'installation
+est <code>/usr/share/pandora_agent</code> ; sur d'autres plateformes, il change, et sa
+configuration vit dans <code>/etc/pandora</code>, qui passe déjà dans le premier <code>tar</code>.</p>
+<p>Trois avertissements pour que la sauvegarde des fichiers ne soit pas incomplète :</p>
+<ul>
+<li><strong>Les plugins du serveur peuvent vivre en dehors</strong> de
+  <code>/usr/share/pandora_server</code>. Si vous avez des plugins ou des scripts propres
+  dans d'autres répertoires, ajoutez un <code>tar</code> pour chacun.</li>
+<li><strong>La copie sort du serveur.</strong> Comme pour le dump : un <code>tar</code> qui dort sur le
+  même disque ne protège pas de la panne du disque.</li>
+<li><strong>Les données du serveur portent plus qu'il n'y paraît.</strong> Perdre
+  <code>/var/spool/pandora/data_in</code>, c'est perdre la configuration que les EndPoints
+  avaient déjà appliquée, et cela ne se récupère pas en réinstallant.</li>
+</ul>
+<p>Et la restauration de ces fichiers, aussi simple que de décompresser sur place,
+est racontée dans <a href="#la-restauration">La restauration</a>.</p>
+<h2 id="la-restauration">La restauration<a class="headerlink" href="#la-restauration" title="Permanent link">¶</a></h2>
+<p>Restaurer, ce n'est pas décompresser et espérer. Il y a un ordre, et l'ordre
+compte parce que chaque étape écrit dans des endroits que la suivante a besoin
+de trouver tranquilles.</p>
+<p><strong>1. Arrêtez ce qui écrit.</strong> Arrêtez le serveur de Pandora FMS (<code>systemctl stop
+pandora_server</code>) et l'EndPoint local s'il est sur la même machine (<code>systemctl
+stop pandora_agent_daemon</code>). La console web ne doit pas être utilisée pendant
+l'import, et le serveur Tentacle peut continuer de fonctionner : il continuera
+de recevoir des données des EndPoints et les traitera quand le serveur sera de
+retour.</p>
+<p><strong>2. Restaurez la base de données.</strong> Avec le moteur en marche, créez la base de
+données si elle n'existe pas :</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">base_de_donnees</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Et importez la copie dedans :</p>
+<div class="highlight"><pre><span></span><code>gunzip<span class="w"> </span>-c<span class="w"> </span>pandoradb.sql.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-h<span class="w"> </span><span class="s1">'&lt;hote&gt;'</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>&lt;base_de_donnees&gt;
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Le nom de la base de données doit être le même</p>
+<p>La copie a été faite sur une base de données portant un nom, et la restaurer sur une autre oblige ensuite à ajuster la configuration de la console et du serveur. Et si la base contient déjà des données, l'import les remplacera sans prévenir : le dump supprime et recrée chaque table. Si vous voulez les conserver, l'alternative est à l'étape 4.</p>
+</div>
+<p><strong>3. Utilisateurs et permissions.</strong> Si l'utilisateur de base de données de la
+console et du serveur existe déjà et que la base restaurée conserve ses
+permissions, il n'y a rien à faire. Si vous avez créé une base nouvelle,
+donnez-lui l'accès ; et si l'utilisateur s'est perdu (par exemple, après avoir
+reconstruit le répertoire de données du moteur), recréez-le avec la même
+syntaxe que celle qu'appliquent les installateurs du produit, celle en vigueur
+dans MySQL 8 :</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;mot_de_passe&gt;'</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;mot_de_passe&gt;'</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">base_de_donnees</span><span class="o">&gt;</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
+</code></pre></div>
+<p>La forme ancienne en une seule instruction, <code>GRANT … IDENTIFIED BY …</code>, est
+retirée dans MySQL 8 et échoue : si vous la voyez dans une vieille recette,
+remplacez-la par ces trois.</p>
+<p><strong>4. Alternative recommandée : la voie qui n'écrase pas.</strong> Si la base actuelle
+contient des données que vous voulez conserver, ne l'importez pas par-dessus
+comme à l'étape 2. Les étapes, en bref :</p>
+<ol>
+<li>
+<p>Créez la base nouvelle et donnez les permissions à l'utilisateur de la
+   console :</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">base_nouvelle</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">base_nouvelle</span><span class="o">&gt;</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Importez la copie dedans :</p>
+<div class="highlight"><pre><span></span><code>gunzip<span class="w"> </span>-c<span class="w"> </span>pandoradb.sql.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-h<span class="w"> </span><span class="s1">'&lt;hote&gt;'</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>&lt;base_nouvelle&gt;
+</code></pre></div>
+</li>
+<li>
+<p>Pointez la console vers la base nouvelle : dans <code>include/config.php</code> de la
+   console web, remplacez <code>$config["dbname"]="&lt;base_de_donnees&gt;";</code> par
+   <code>$config["dbname"]="&lt;base_nouvelle&gt;";</code>.</p>
+</li>
+<li>Pointez le serveur : dans <code>/etc/pandora/pandora_server.conf</code>, remplacez
+   <code>dbname &lt;base_de_donnees&gt;</code> par <code>dbname &lt;base_nouvelle&gt;</code>.</li>
+<li>Redémarrez le serveur et reconnectez-vous à la console.</li>
+</ol>
+<p><strong>5. Restaurez les fichiers.</strong> Chaque <code>tar</code> se décompresse sur place avec
+<code>-C /</code>, parce que les chemins à l'intérieur du fichier sont absolus :</p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xzf<span class="w"> </span>pandora_configuration.tar.gz<span class="w"> </span>-C<span class="w"> </span>/
+tar<span class="w"> </span>-xzf<span class="w"> </span>pandora_server.tar.gz<span class="w"> </span>-C<span class="w"> </span>/
+tar<span class="w"> </span>-xzf<span class="w"> </span>pandora_console.tar.gz<span class="w"> </span>-C<span class="w"> </span>/
+tar<span class="w"> </span>-xzf<span class="w"> </span>pandora_data_in.tar.gz<span class="w"> </span>-C<span class="w"> </span>/
+</code></pre></div>
+<p>En le faisant en root, les permissions et les propriétaires sont rendus
+exactement tels qu'ils étaient. Si la console se retrouve avec le mauvais
+propriétaire, le serveur web ne pourra pas écrire dans ses dossiers et vous le
+remarquerez dès que vous tenterez de téléverser une image.</p>
+<p><strong>6. Le cas « réinstaller et restaurer ».</strong> Quand la machine d'origine n'existe
+plus, l'ordre s'inverse : on installe d'abord une installation propre, avec la
+même version, en suivant <a href="../../parte-1/1.1-instalacion/">1.1
+(Installation)</a>, puis on restaure par-dessus : la
+base de données et les fichiers. Ce n'est pas une migration (celle-là est dans
+<a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/">A3</a>) :
+c'est remettre à sa place ce qui était là.</p>
+<p><strong>7. Vérifiez.</strong> Une restauration ne se termine pas quand la dernière commande
+se termine, mais quand tout fonctionne à nouveau :</p>
+<ul>
+<li>La console web s'ouvre et affiche les agents, les modules et les données
+  d'avant.</li>
+<li>Le serveur démarre et traite : <code>systemctl start pandora_server</code> et un coup
+  d'œil à son journal.</li>
+<li>Le cron de la console tient toujours : l'entrée de <code>/etc/crontab</code> qui appelle
+  chaque minute le cron de la console est celle qui fait avancer les événements,
+  les alertes et la maintenance.</li>
+<li>Les EndPoints rapportent à nouveau. Si l'un d'eux ne le fait pas, sa
+  configuration locale ou sa clé d'accès ne sont pas revenues correctement.</li>
+</ul>
+<p>Et démarrez dans l'ordre : d'abord le moteur (il tourne déjà), ensuite le
+serveur et enfin les EndPoints.</p>
+<h2 id="la-reconstruction-de-la-base-de-donnees">La reconstruction de la base de données<a class="headerlink" href="#la-reconstruction-de-la-base-de-donnees" title="Permanent link">¶</a></h2>
+<p>La reconstruction est le dernier recours, et c'est une restauration, pas un
+réglage. <a href="../6.8-optimizacion-de-la-base-de-datos/">6.8 (Optimisation de la base de
+données)</a> explique quand elle s'impose :
+quand optimiser une table ne se termine plus, quand le moteur ne démarre pas
+après un changement de configuration ou quand la base de données doit être
+refaite de zéro. Ici se trouvent les procédures.</p>
+<p><strong>Reconstruction partielle.</strong> Elle sert à ramener une base de données à un état
+compact et sain, le service arrêté. Le processus : arrêtez le serveur et laissez
+la console web hors d'usage ; ensuite, dumper la base, la supprimer, la recréer
+et importer le dump.</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>stop<span class="w"> </span>pandora_server
+mysqldump<span class="w"> </span><span class="s1">'&lt;base_de_donnees&gt;'</span><span class="w"> </span>-h<span class="w"> </span><span class="s1">'&lt;hote&gt;'</span><span class="w"> </span>-u<span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="w"> </span>-p<span class="s1">'&lt;mot_de_passe&gt;'</span><span class="w"> </span>--single-transaction<span class="w"> </span>--max_allowed_packet<span class="o">=</span>512M<span class="w"> </span><span class="p">|</span><span class="w"> </span>gzip<span class="w"> </span>&gt;<span class="w"> </span>/tmp/pandoradb.sql.gz
+</code></pre></div>
+<p>Ensuite, dans le client MySQL :</p>
+<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">base_de_donnees</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">base_de_donnees</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Puis l'import et le démarrage :</p>
+<div class="highlight"><pre><span></span><code>gunzip<span class="w"> </span>-c<span class="w"> </span>/tmp/pandoradb.sql.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-h<span class="w"> </span><span class="s1">'&lt;hote&gt;'</span><span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>&lt;base_de_donnees&gt;
+systemctl<span class="w"> </span>start<span class="w"> </span>pandora_server
+</code></pre></div>
+<p>Le dump peut prendre des minutes ou des heures, selon la taille ; l'import, de
+même. C'est une opération de fenêtre de maintenance, pas un moment mort entre
+deux tâches : sur une installation importante, l'arrêt de service seul se
+planifie autour d'une heure, et il faut y ajouter le dump et le rechargement. Le
+processus peut être automatisé, mais par sa nature délicate il vaut mieux le
+faire à la main, avec la fenêtre réservée et une copie récente déjà faite.</p>
+<p><strong>Reconstruction totale.</strong> Quand le moteur ne démarre pas ou qu'il faut refaire
+le répertoire de données (par exemple, après un changement dans <code>my.cnf</code> qui
+empêche le démarrage), la reconstruction va un pas plus loin et refait le
+répertoire de données du moteur. D'abord, si le moteur ne démarre pas, revenez à
+la configuration précédente pour qu'il puisse se lever, et profitez-en pour
+sortir le dump :</p>
+<div class="highlight"><pre><span></span><code>mysqldump<span class="w"> </span><span class="s1">'&lt;base_de_donnees&gt;'</span><span class="w"> </span>-h<span class="w"> </span><span class="s1">'&lt;hote&gt;'</span><span class="w"> </span>-u<span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="w"> </span>-p<span class="s1">'&lt;mot_de_passe&gt;'</span><span class="w"> </span>--single-transaction<span class="w"> </span>--max_allowed_packet<span class="o">=</span>512M<span class="w"> </span><span class="p">|</span><span class="w"> </span>gzip<span class="w"> </span>&gt;<span class="w"> </span>/home/pandora/pandoradb.sql.gz
+</code></pre></div>
+<p>Avec la copie à l'abri, et le serveur de Pandora FMS arrêté (comme dans la
+reconstruction partielle), arrêtez le moteur et reconstruisez son répertoire de
+données :</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+mv<span class="w"> </span>/var/lib/mysql<span class="w"> </span>/var/lib/mysql.bak
+mkdir<span class="w"> </span>/var/lib/mysql
+mysqld<span class="w"> </span>--initialize<span class="w"> </span>--datadir<span class="w"> </span>/var/lib/mysql
+</code></pre></div>
+<p><code>mysqld --initialize</code> génère un mot de passe temporaire pour l'utilisateur root ;
+notez-le, parce que vous en aurez besoin à l'étape suivante. Ensuite, ajustez
+les permissions et démarrez :</p>
+<div class="highlight"><pre><span></span><code>chown<span class="w"> </span>-R<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysql
+chcon<span class="w"> </span>-R<span class="w"> </span>system_u:object_r:mysqld_db_t:s0<span class="w"> </span>/var/lib/mysql
+systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+</code></pre></div>
+<p>La commande <code>chcon</code> concerne les systèmes avec SELinux (la famille RHEL) ; sur
+Ubuntu, elle n'est pas nécessaire. Et dans les distributions de la famille RHEL,
+le service s'appelle <code>mysqld</code> au lieu de <code>mysql</code>.</p>
+<p>Connectez-vous avec le mot de passe temporaire, changez-le et laissez la base de
+données prête :</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;mot_de_passe&gt;'</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">base_de_donnees</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Importez le dump et recréez l'utilisateur de base de données qu'utilisent la
+console et le serveur, avec la syntaxe en vigueur (la même que dans <a href="#la-restauration">La
+restauration</a>) :</p>
+<div class="highlight"><pre><span></span><code>gunzip<span class="w"> </span>-c<span class="w"> </span>/home/pandora/pandoradb.sql.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>&lt;base_de_donnees&gt;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;mot_de_passe&gt;'</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;mot_de_passe&gt;'</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">base_de_donnees</span><span class="o">&gt;</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Il n'y a plus de journaux binaires à supprimer</p>
+<p>Les anciennes recettes de reconstruction totale supprimaient à la main les fichiers de journal binaire du répertoire de données. Cette étape ne s'applique plus : sur un serveur unique, les installateurs et les déploiements standard de Pandora FMS désactivent les journaux binaires (<code>skip-log-bin</code>) ; si vous avez monté le moteur à la main, confirmez que la ligne est bien dans <code>my.cnf</code>. Dans un environnement de haute disponibilité, les journaux binaires sont obligatoires, mais là la reconstruction est une autre histoire et elle est racontée dans <a href="../6.10-alta-disponibilidad-ha/">6.10 (Haute disponibilité (HA))</a>.</p>
+</div>
+<p>Enfin, vérifiez que le moteur tourne avec les paramètres que vous attendez, que
+la console web et le serveur se connectent à la base de données et que tout
+fonctionne. La requête sur les variables sert à confirmer que la configuration
+appliquée est bien celle que vous croyez :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'innodb%'</span><span class="p">;</span>
+</code></pre></div>
+<p>Quand vous l'avez confirmé, supprimez l'ancien répertoire :</p>
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/mysql.bak
+</code></pre></div>
+<p>Si le serveur est en haute disponibilité, les services sont autres (<code>pandora_ha</code>
+au lieu de <code>pandora_server</code>), et le démarrage, l'arrêt et la resynchronisation
+d'un environnement HA sont documentés dans <a href="../6.10-alta-disponibilidad-ha/">6.10 (Haute disponibilité
+(HA))</a>.</p>
+<h2 id="reference-rapide-et-repartition-avec-les-autres-chapitres">Référence rapide et répartition avec les autres chapitres<a class="headerlink" href="#reference-rapide-et-repartition-avec-les-autres-chapitres" title="Permanent link">¶</a></h2>
+<p>Pour finir, l'aide-mémoire. Les commandes du chapitre, dans un tableau à copier :</p>
+<table>
+<thead>
+<tr>
+<th>Pour quoi faire</th>
+<th>Commande</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dumper la base de données principale</td>
+<td><code>mysqldump '&lt;base_de_donnees&gt;' -h '&lt;hote&gt;' -u '&lt;utilisateur&gt;' -p'&lt;mot_de_passe&gt;' --single-transaction --max_allowed_packet=512M</code>|<code>gzip &gt; pandoradb.sql.gz</code></td>
+</tr>
+<tr>
+<td>Dumper la base de données d'historique</td>
+<td><code>mysqldump '&lt;base_d_historique&gt;' -h '&lt;hote_de_l_historique&gt;' -u '&lt;utilisateur&gt;' -p'&lt;mot_de_passe&gt;' --single-transaction --max_allowed_packet=512M</code>|<code>gzip &gt; pandoradb_history.sql.gz</code></td>
+</tr>
+<tr>
+<td>Restaurer un dump</td>
+<td><code>gunzip -c pandoradb.sql.gz</code>|<code>mysql -h '&lt;hote&gt;' -u root -p &lt;base_de_donnees&gt;</code></td>
+</tr>
+<tr>
+<td>Vérifier qu'un dump est intact</td>
+<td><code>gzip -t pandoradb.sql.gz</code></td>
+</tr>
+<tr>
+<td>Sauvegarde complète (base et fichiers)</td>
+<td><code>/usr/share/pandora_server/util/pandora_backup.sh -c /var/www/html/pandora_console -d /backup</code></td>
+</tr>
+<tr>
+<td>Restaurer avec la sauvegarde complète</td>
+<td><code>/usr/share/pandora_server/util/pandora_backup.sh -c /var/www/html/pandora_console -s &lt;fichier&gt; -f</code></td>
+</tr>
+<tr>
+<td>Copier un composant</td>
+<td><code>tar -pcvzf &lt;fichier&gt;.tar.gz &lt;chemin&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Et la répartition avec les autres chapitres, pour que vous ne cherchiez pas où
+il n'y a rien :</p>
+<table>
+<thead>
+<tr>
+<th>Sujet</th>
+<th>Chapitre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Créer et programmer la tâche de sauvegarde, avec ses paramètres et ses permissions</td>
+<td><a href="../../parte-2/2.5-tareas-de-consola/">2.5 (Tâches de console)</a></td>
+</tr>
+<tr>
+<td>Base de données d'historique, sa rétention et son partitionnement</td>
+<td><a href="../6.5-base-de-datos-de-historico/">6.5 (Base de données d'historique)</a></td>
+</tr>
+<tr>
+<td>Quand reconstruire plutôt qu'optimiser</td>
+<td><a href="../6.8-optimizacion-de-la-base-de-datos/">6.8 (Optimisation de la base de données)</a></td>
+</tr>
+<tr>
+<td>Haute disponibilité et sa resynchronisation entre nœuds</td>
+<td><a href="../6.10-alta-disponibilidad-ha/">6.10 (Haute disponibilité (HA))</a></td>
+</tr>
+<tr>
+<td>Chiffrement de la base de données et phrase de chiffrement</td>
+<td><a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/">9.5 (Chiffrement de la base de données)</a></td>
+</tr>
+<tr>
+<td>Installation et réinstallation</td>
+<td><a href="../../parte-1/1.1-instalacion/">1.1 (Installation)</a></td>
+</tr>
+<tr>
+<td>Mises à jour</td>
+<td><a href="../../parte-1/1.4-actualizaciones/">1.4 (Mises à jour)</a></td>
+</tr>
+<tr>
+<td>Migration vers la nouvelle architecture de serveurs</td>
+<td><a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/">A3 (Compatibilité et migration vers la nouvelle architecture de serveurs)</a></td>
+</tr>
+</tbody>
+</table>
+<p>Et l'idée qui résume le chapitre, la même par laquelle il s'ouvrait : une
+sauvegarde ne vaut que si elle a été restaurée au moins une fois. Programmez-la,
+gardez-la hors du serveur et, de temps en temps, restaurez-la dans un
+environnement de test. Le jour où elle sera vraiment nécessaire, il n'y aura pas
+le temps de découvrir qu'elle ne fonctionnait pas.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

@@ -1,0 +1,5140 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-2/2.18-monitorizacion-de-apis/">
+      
+      
+        <link rel="prev" href="../2.17-monitorizacion-iot/">
+      
+      
+        <link rel="next" href="../2.19-recoleccion-y-monitorizacion-de-logs/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-2/2.18-monitorizacion-de-apis/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-2/2.18-monitorizacion-de-apis/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>18. Supervision des API - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#supervision-des-api" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              18. Supervision des API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-2/2.18-monitorizacion-de-apis/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-2/2.18-monitorizacion-de-apis/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#les-types-de-module-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les types de module API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comment-cela-fonctionne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment cela fonctionne
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurer-la-requete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurer la requête
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extraire-une-donnee-de-la-reponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extraire une donnée de la réponse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifier-letat-dune-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifier l'état d'une API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemples-et-resultats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples et résultats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilisation-avec-des-politiques-et-des-operations-en-masse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilisation avec des politiques et des opérations en masse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifier-et-diagnostiquer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifier et diagnostiquer
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#les-types-de-module-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les types de module API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comment-cela-fonctionne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment cela fonctionne
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurer-la-requete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurer la requête
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extraire-une-donnee-de-la-reponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extraire une donnée de la réponse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifier-letat-dune-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifier l'état d'une API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemples-et-resultats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples et résultats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilisation-avec-des-politiques-et-des-operations-en-masse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilisation avec des politiques et des opérations en masse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifier-et-diagnostiquer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifier et diagnostiquer
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="supervision-des-api">Supervision des API<a class="headerlink" href="#supervision-des-api" title="Permanent link">¶</a></h1>
+<p>Que le serveur web réponde ne signifie pas que le service fonctionne. Un <code>ping</code>
+répond, le port 443 est ouvert, le processus figure dans la liste… et l'API
+renvoie un <code>200</code> avec un corps qui dit <code>"status": "degraded"</code>, ou une file
+d'attente avec cent vingt-huit commandes non consommées, ou un <code>503</code> que personne
+n'a vu parce que le feu du tableau de bord de supervision reste au vert.
+Aujourd'hui, presque tout ce qui compte dans une entreprise se consulte en HTTP
+et se répond en JSON, et une vérification du type « le port est-il ouvert ? »
+reste souvent insuffisante.</p>
+<p>Pandora FMS résout cela avec des <strong>modules de type API</strong> : le serveur envoie une
+requête HTTP(S) à l'adresse que vous indiquez, lit la réponse et la transforme en
+module. Sans plugin, sans script et sans rien installer sur le système qui expose
+l'API. Deux questions peuvent être posées à une API, et chacune a son module :</p>
+<ul>
+<li><strong>« Quelle valeur renvoie-t-elle ? »</strong> Un nombre, un texte ou un vrai/faux
+  extrait de la réponse. C'est le <strong>module de récupération d'API</strong>.</li>
+<li><strong>« Est-elle en bonne santé ? »</strong> Un état, normal ou critique, qui vient de la
+  comparaison du code HTTP et de plusieurs champs de la réponse avec ce que vous
+  attendez. C'est le <strong>module personnalisé d'API</strong>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Serveur réseau</td>
+<td>Les modules d'API sont exécutés par le serveur réseau de Pandora FMS. Si aucun n'est actif, la console ne propose pas ces types à la création d'un module.</td>
+</tr>
+<tr>
+<td>Connectivité</td>
+<td>L'équipement du serveur doit atteindre l'URL de l'API (nom, port et pare-feu compris).</td>
+</tr>
+<tr>
+<td>Réponse</td>
+<td>JSON. Si l'API répond autre chose, le module ne traite rien.</td>
+</tr>
+<tr>
+<td>Création</td>
+<td>Uniquement dans les modules d'agent, de politique et dans les opérations en masse. Ils ne sont pas disponibles comme composants réseau.</td>
+</tr>
+</tbody>
+</table>
+<p>Ce chapitre traite de ce qui est propre aux modules d'API : la requête,
+l'extraction de la donnée et l'évaluation des conditions. Les champs communs à
+tous les modules (intervalle, groupe, seuils) fonctionnent comme dans le reste ;
+les alertes sont dans <a href="../../parte-5/5.5-alertas-y-notificaciones/">5.5, Alertes et
+notifications</a> et la répartition des
+modules entre de nombreux agents, dans <a href="../2.10-politicas-de-monitorizacion/">2.10, Politiques de
+supervision</a>.</p>
+<h2 id="les-types-de-module-api">Les types de module API<a class="headerlink" href="#les-types-de-module-api" title="Permanent link">¶</a></h2>
+<p>À la création d'un module d'agent, le sélecteur de type propose deux entrées
+nouvelles, à côté du module web et de celui de prévision :</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/api-selector-tipo-modulo.png" data-desc-position="bottom"><img alt="Fenêtre « Créer un module » avec le type « API retrieve module » sélectionné" src="../../../assets/img/parte-02/api-selector-tipo-modulo.png"></a></p>
+<table>
+<thead>
+<tr>
+<th>Entrée du sélecteur</th>
+<th>Type de donnée</th>
+<th>À quoi elle sert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Module de récupération d'API (<em>API retrieve module</em>)</td>
+<td>Numérique, booléen ou alphanumérique, au choix</td>
+<td>Enregistrer la valeur qui se trouve à un point précis de la réponse : une file d'attente, une latence, une version, un indicateur.</td>
+</tr>
+<tr>
+<td>Module personnalisé d'API (<em>API custom module</em>)</td>
+<td>Booléen</td>
+<td>Décider si l'API va bien : 1 si toutes les conditions sont remplies, 0 sinon.</td>
+</tr>
+</tbody>
+</table>
+<p>En interne, ce sont quatre types de module, car celui de récupération se dédouble
+selon la donnée qu'il enregistre :</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Donnée</th>
+<th>Ce qu'il enregistre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API retrieve numeric data</td>
+<td>Numérique</td>
+<td>Le nombre trouvé dans le chemin.</td>
+</tr>
+<tr>
+<td>API retrieve boolean data</td>
+<td>Booléen</td>
+<td>1 si la valeur trouvée est <code>true</code> ; 0 dans tout autre cas.</td>
+</tr>
+<tr>
+<td>API retrieve alphanumeric data</td>
+<td>Alphanumérique</td>
+<td>Le texte trouvé. Si le chemin pointe vers un objet ou une liste, il enregistre son contenu sous forme de texte JSON.</td>
+</tr>
+<tr>
+<td>API custom retrieve</td>
+<td>Booléen</td>
+<td>1 ou 0 selon les conditions.</td>
+</tr>
+</tbody>
+</table>
+<p>La règle de choix tient en une ligne. Si vous voulez <strong>la valeur</strong> (pour la
+représenter en graphique, pour lui mettre des seuils), utilisez la récupération.
+Si vous voulez <strong>un verdict</strong> sur la santé de l'API, utilisez le personnalisé. Et
+si vous avez besoin des deux, ce sont deux modules sur la même URL : ils ne se
+gênent pas.</p>
+<h2 id="comment-cela-fonctionne">Comment cela fonctionne<a class="headerlink" href="#comment-cela-fonctionne" title="Permanent link">¶</a></h2>
+<p>Le module ne passe par aucun EndPoint. C'est le serveur réseau qui l'exécute,
+comme un module réseau ou un module web :</p>
+<ol>
+<li>Quand le module doit s'exécuter (selon son intervalle), le serveur réseau
+   construit la requête avec l'URL, la méthode, les en-têtes et, le cas échéant,
+   le corps.</li>
+<li>Il envoie la requête avec le temps maximal configuré. Si elle échoue, il
+   réessaie : trois tentatives par défaut, que l'on change avec le champ
+   <strong>Retries</strong> de l'onglet <strong>Data</strong>. Il accepte des réponses jusqu'à 20 Mo.</li>
+<li>Il vérifie que la réponse est du JSON.</li>
+<li>Selon le type, il extrait la valeur d'un chemin (récupération) ou évalue le
+   code HTTP et les conditions (personnalisé).</li>
+<li>Il traite le résultat comme celui de n'importe quel autre module : la donnée
+   est enregistrée, l'état est calculé avec les seuils et les alertes se
+   déclenchent.</li>
+</ol>
+<pre class="mermaid"><code>flowchart LR
+    SRV["Serveur réseau"]
+    API["API (HTTP/HTTPS)"]
+    JSON{"Réponse&lt;br/&gt;JSON valide ?"}
+    REC["Récupération :&lt;br/&gt;valeur du chemin"]
+    CUS["Personnalisé :&lt;br/&gt;codes + conditions"]
+    MOD["Module :&lt;br/&gt;donnée et état"]
+    ERR["Sans donnée&lt;br/&gt;(la requête a échoué)"]
+
+    SRV --&gt;|"requête"| API
+    API --&gt;|"réponse"| JSON
+    JSON --&gt;|"oui"| REC
+    JSON --&gt;|"oui"| CUS
+    JSON --&gt;|"non"| ERR
+    REC --&gt; MOD
+    CUS --&gt; MOD</code></pre>
+<p>Un détail qu'il vaut mieux garder en tête : quand la requête échoue (l'API ne
+répond pas, la réponse n'est pas du JSON ou l'URL est vide), le module <strong>ne reçoit
+pas de donnée</strong>. Il ne passe pas en critique pour autant : il reste sans nouvelle
+valeur et, si la panne persiste, finit en état inconnu à l'expiration de son
+intervalle. C'est pourquoi le module personnalisé a ses propres codes d'erreur
+(voir plus bas) : ils permettent de transformer une panne précise de l'API en
+critique.</p>
+<h2 id="configurer-la-requete">Configurer la requête<a class="headerlink" href="#configurer-la-requete" title="Permanent link">¶</a></h2>
+<p>Les deux modules partagent le bloc de la requête, dans l'onglet <strong>Basic</strong> du
+formulaire de création ou d'édition du module (les autres onglets, communs à tous
+les modules, sont dans <a href="../2.20-configuracion-comun-de-los-modulos/">2.20</a>) :</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/api-formulario-recuperacion.png" data-desc-position="bottom"><img alt="Formulaire du module de récupération d'API : requête, en-têtes et requête de chemin JSON" src="../../../assets/img/parte-02/api-formulario-recuperacion.png"></a></p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Timeout</td>
+<td>Secondes d'attente de la réponse avant de la considérer comme un échec. C'est celui de cet onglet : le champ <em>Timeout</em> de l'onglet <strong>Data</strong> n'intervient pas dans ces modules.</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td>URL</td>
+<td>Adresse complète de l'<em>endpoint</em>, avec le schéma (<code>http://</code> ou <code>https://</code>). Elle est obligatoire : sans URL, le module ne s'exécute pas.</td>
+<td>vide</td>
+</tr>
+<tr>
+<td>Method</td>
+<td><code>GET</code>, <code>POST</code>, <code>PUT</code> ou <code>DELETE</code>.</td>
+<td><code>GET</code></td>
+</tr>
+<tr>
+<td>Ignore certificate</td>
+<td>S'il est activé, le certificat de l'API n'est pas validé. À n'utiliser qu'en test ou avec des certificats internes que vous ne pouvez pas corriger : cela désactive la vérification que vous parlez bien à qui vous croyez.</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td>Edit Headers</td>
+<td>En-têtes HTTP de la requête, sous forme de paires clé-valeur.</td>
+<td><code>Content-Type: application/json</code></td>
+</tr>
+<tr>
+<td>Edit body</td>
+<td>Contenu de la requête. Utile avec <code>POST</code>, <code>PUT</code> et <code>DELETE</code>.</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p>Trois règles expliquent la plupart des modules qui « ne font pas ce qu'ils
+devraient » :</p>
+<ul>
+<li><strong>Le corps n'est envoyé que si la méthode n'est pas <code>GET</code> et si l'en-tête
+  <code>Content-Type</code> vaut exactement <code>application/json</code>.</strong> Si vous changez cet
+  en-tête, le corps est ignoré sans avertissement.</li>
+<li><strong>L'authentification passe par les en-têtes.</strong> Il n'y a pas de champs
+  utilisateur et mot de passe : une API à <em>jeton</em> se consulte avec un en-tête
+  comme <code>Authorization: Bearer &lt;token&gt;</code>, et une API à clé, avec l'en-tête que
+  cette API exige. Gardez en tête que l'en-tête fait partie de la configuration
+  du module : quiconque peut voir ou modifier le module peut donc voir le
+  <em>jeton</em>.</li>
+<li><strong>Les en-têtes arrivent tels quels en <code>GET</code>.</strong> Le serveur s'identifie en outre
+  avec l'agent utilisateur <code>Pandora-API-Client/1.0</code>, au cas où l'API filtre
+  là-dessus.</li>
+<li><strong>C'est le serveur qui interroge, pas la console.</strong> La requête part de
+  l'équipement du serveur de Pandora FMS. Que l'API soit visible depuis votre
+  navigateur ne prouve pas qu'elle le soit depuis le serveur.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Content-Type en POST et PUT</p>
+<p>Lors des tests avec la version 8.0NG.805, l'API de destination a reçu les
+<code>POST</code> et <code>PUT</code> avec <code>Content-Type: application/x-www-form-urlencoded</code> bien
+que l'en-tête du module soit <code>application/json</code> ; le corps est bien arrivé
+intégralement. Si votre API exige exactement <code>application/json</code>,
+vérifiez-le avec une requête réelle avant de valider le module.</p>
+</div>
+<h2 id="extraire-une-donnee-de-la-reponse">Extraire une donnée de la réponse<a class="headerlink" href="#extraire-une-donnee-de-la-reponse" title="Permanent link">¶</a></h2>
+<p>Le module de récupération enregistre ce qu'il trouve dans la <strong>requête de chemin
+JSON</strong> (<em>JSON path Query</em>). Le chemin s'écrit avec les noms des champs séparés
+par des points, et les éléments d'une liste sont numérotés à partir de zéro :</p>
+<table>
+<thead>
+<tr>
+<th>Réponse de l'API</th>
+<th>Chemin</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{"queue": {"name": "pedidos", "pending": 128}}</code></td>
+<td><code>queue.pending</code></td>
+<td><code>128</code></td>
+</tr>
+<tr>
+<td><code>{"queue": {"name": "pedidos", "pending": 128}}</code></td>
+<td><code>queue.name</code></td>
+<td><code>pedidos</code></td>
+</tr>
+<tr>
+<td><code>{"items": [{"id": 7}, {"id": 9}]}</code></td>
+<td><code>items.1.id</code></td>
+<td><code>9</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Ce n'est pas du JSONPath complet</p>
+<p>La console parle de « JSONPath » dans ses messages, mais la syntaxe réelle
+est celle des points du tableau. Un chemin comme <code>$.queue.pending</code>,
+<code>queue['pending']</code> ou <code>items[?(@.id==9)]</code> ne trouve rien. Les noms de champ
+qui contiennent un point ne sont pas utilisables non plus.</p>
+</div>
+<p>Les modules de récupération ont leurs seuils d'avertissement et critique dans le
+même onglet <strong>Basic</strong>, comme tout module avec donnée ; leur fonctionnement est
+décrit dans <a href="../2.20-configuracion-comun-de-los-modulos/">2.20</a>.</p>
+<p>Inutile d'écrire le chemin à la main. Une fois l'URL renseignée, le bouton en
+forme de loupe de <strong>JSON path Query</strong> lance une requête préalable et affiche la
+réponse sous forme d'arbre ; en cliquant sur une valeur et en confirmant, le
+chemin se remplit tout seul. Ce bouton fait la requête <strong>depuis la console</strong>, pas
+depuis le serveur : il peut donc fonctionner même si le serveur n'atteint pas
+l'API (et inversement). Le bouton <strong>Test</strong> fait la même chose et affiche le
+résultat du chemin avant l'enregistrement.</p>
+<p>Le type de module décide de ce qui est fait de la valeur :</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Valeur trouvée</th>
+<th>Donnée du module</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numérique</td>
+<td><code>128</code></td>
+<td><code>128</code></td>
+</tr>
+<tr>
+<td>Alphanumérique</td>
+<td><code>"2.4.1"</code></td>
+<td><code>2.4.1</code></td>
+</tr>
+<tr>
+<td>Alphanumérique</td>
+<td>un objet, comme <code>queue</code> dans le premier tableau</td>
+<td>Son contenu sous forme de texte JSON ; l'ordre des champs peut changer (<code>{"pending":128,"name":"pedidos","consumers":4}</code>)</td>
+</tr>
+<tr>
+<td>Booléen</td>
+<td><code>true</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Booléen</td>
+<td><code>"true"</code> (texte)</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Booléen</td>
+<td><code>false</code>, <code>"ok"</code>, <code>1</code> ou toute autre chose</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<p>Si le chemin est vide, si la réponse n'est pas du JSON ou si le chemin n'existe
+pas dans la réponse, le module n'enregistre rien lors de cette exécution.</p>
+<h2 id="verifier-letat-dune-api">Vérifier l'état d'une API<a class="headerlink" href="#verifier-letat-dune-api" title="Permanent link">¶</a></h2>
+<p>Le module personnalisé n'extrait pas de valeur : il rend un verdict. Sa donnée
+vaut <code>1</code> (normal) quand tout va bien et <code>0</code> (critique) quand quelque chose ne
+colle pas. Il n'a pas de seuils propres : l'état est décidé par les codes
+d'erreur et les conditions.</p>
+<p>L'évaluation suit un ordre fixe :</p>
+<ol>
+<li>
+<p><strong>Codes d'erreur.</strong> Le champ <strong>Error Codes</strong> est une liste de codes HTTP
+   séparés par des virgules. Par défaut, dans un module neuf : <code>500, 404, 403</code>.
+   Si la réponse en contient un, le module passe à <code>0</code> et rien d'autre n'est
+   évalué.</p>
+<div class="admonition warning">
+<p class="admonition-title">Écrivez les codes sans espaces</p>
+<p>Lors des tests avec la version 8.0NG.805, avec des espaces après les
+virgules (<code>500, 503, 404, 403</code>, qui est aussi le format de la valeur par
+défaut), seul le premier code est reconnu : un <code>503</code> ou un <code>404</code> ne
+mettent pas le module à <code>0</code>. Sans espaces (<code>500,503,404,403</code>), ils
+fonctionnent tous. En attendant la correction, écrivez la liste sans
+espaces.</p>
+</div>
+<ol>
+<li><strong>Conditions.</strong> Si le code n'est pas dans la liste, chaque condition est
+   évaluée. <strong>Toutes</strong> doivent être remplies pour que le module vaille <code>1</code> ; il
+   suffit qu'une seule échoue pour qu'il vaille <code>0</code>. Un module sans conditions
+   vaut <code>1</code> tant que le code n'est pas dans la liste.</li>
+</ol>
+</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/api-formulario-personalizado.png" data-desc-position="bottom"><img alt="Formulaire du module personnalisé d'API : requête, en-têtes, codes d'erreur et deux conditions" src="../../../assets/img/parte-02/api-formulario-personalizado.png"></a></p>
+<p>Chaque condition se compose de quatre pièces :</p>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Ce que c'est</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSON path Query</td>
+<td>Le chemin du champ à évaluer, avec la même syntaxe à points que dans la section précédente. Il se remplit avec la loupe.</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Le type de donnée attendu : <code>Null</code>, <code>String</code>, <code>Number</code> ou <code>Boolean</code>.</td>
+</tr>
+<tr>
+<td>Condition</td>
+<td>L'opérateur de comparaison (il dépend du type ; tableau suivant).</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>La valeur de comparaison. Elle n'est pas utilisée par les opérateurs qui n'en ont pas besoin.</td>
+</tr>
+</tbody>
+</table>
+<p>Les opérateurs disponibles dépendent du type choisi :</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Opérateurs</th>
+<th>Remplie si</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Boolean</td>
+<td>Is true / Is false</td>
+<td>Le champ est vrai / faux. Ils n'utilisent pas <em>Value</em>.</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>Equals / Not equals</td>
+<td>Le champ est / n'est pas nul.</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>Equals / Not equals</td>
+<td>Le nombre est égal à / différent de l'attendu.</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>Greater than / Less than</td>
+<td>Il est supérieur / inférieur à l'attendu.</td>
+</tr>
+<tr>
+<td>String</td>
+<td>Equals / Not equals</td>
+<td>Le texte est égal à / différent de l'attendu.</td>
+</tr>
+<tr>
+<td>String</td>
+<td>Contains / Not contains</td>
+<td>Le texte contient / ne contient pas l'attendu.</td>
+</tr>
+<tr>
+<td>String</td>
+<td>Is empty / Is not empty</td>
+<td>Le champ est vide / n'est pas vide. Ils n'utilisent pas <em>Value</em>.</td>
+</tr>
+<tr>
+<td>String</td>
+<td>Regex match</td>
+<td>La valeur correspond à l'expression régulière, sans distinguer les majuscules.</td>
+</tr>
+</tbody>
+</table>
+<p>Quelques règles qui changent le résultat :</p>
+<ul>
+<li><strong>Un chemin qui n'existe pas compte comme une condition non remplie.</strong> Si l'API
+  change de format et que le champ disparaît, le module passe à <code>0</code>, ce qui est
+  justement le but.</li>
+<li><strong>Le type doit correspondre à la donnée.</strong> Avec le type <code>Number</code>, un champ non
+  numérique ne remplit pas la condition.</li>
+<li><strong>Les codes d'erreur sont évalués sur une réponse JSON.</strong> Si l'API répond une
+  erreur avec un corps qui n'est pas du JSON (une page HTML d'erreur, par
+  exemple) ou sans corps, la requête est considérée comme un échec et le module
+  reste sans donnée au lieu de passer à <code>0</code> (vérifié avec un <code>500</code> et un corps
+  HTML). Si ce cas vous intéresse, surveillez aussi que le module ne reste pas en
+  état inconnu.</li>
+</ul>
+<p>La console inclut un bouton <strong>Test</strong> sous les conditions. Il lance la requête et
+affiche quelles conditions sont remplies, combien ont été évaluées (<em>Total
+conditions</em>), combien passent (<em>Passed</em>) et combien non (<em>Failed</em>).</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/api-prueba-condiciones.png" data-desc-position="bottom"><img alt="Résultat du test des conditions : deux conditions, deux réussies" src="../../../assets/img/parte-02/api-prueba-condiciones.png"></a>
+ Utilisez-le toujours avant d'enregistrer : cela coûte bien moins cher que de
+découvrir une condition mal écrite à trois heures du matin.</p>
+<h2 id="exemples-et-resultats">Exemples et résultats<a class="headerlink" href="#exemples-et-resultats" title="Permanent link">¶</a></h2>
+<p>Les trois exemples utilisent une API fictive sur <code>api.example.com</code>. Ils ont été
+reproduits dans une console 8.0NG.805 avec une API de test locale, et les
+résultats sont ceux que le module a renvoyés.</p>
+<div class="admonition example">
+<p class="admonition-title">File de commandes en attente (récupération numérique)</p>
+<p>On veut représenter en graphique combien de commandes attendent dans la file
+et alerter si elles dépassent 500.</p>
+<p>Configuration : type de module de récupération d'API, donnée <strong>numérique</strong> ;
+URL <code>https://api.example.com/v1/queues/pedidos</code> ; méthode <code>GET</code> ; requête de
+chemin <code>queue.pending</code> ; seuil critique à partir de 500.</p>
+<p>Réponse de l'API :</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"queue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pedidos"</span><span class="p">,</span><span class="w"> </span><span class="nt">"pending"</span><span class="p">:</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span><span class="w"> </span><span class="nt">"consumers"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">}}</span>
+</code></pre></div>
+<p>Résultat : le module vaut <code>128</code> et se représente en graphique comme
+n'importe quel module numérique. Quand l'API renverra <code>"pending": 612</code>, le
+seuil le mettra en critique et les alertes associées se déclencheront.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Version déployée (récupération alphanumérique)</p>
+<p>On veut savoir quelle version tourne en production, pour voir dans
+l'historique quand elle a changé.</p>
+<p>Configuration : donnée <strong>alphanumérique</strong> ; URL
+<code>https://api.example.com/v1/info</code> ; requête de chemin <code>build.version</code>.</p>
+<p>Réponse : <code>{"build": {"version": "2.4.1", "commit": "9f3c2ab"}}</code></p>
+<p>Résultat : le module vaut <code>2.4.1</code>. Chaque déploiement apparaît comme un
+changement de valeur.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Santé de l'API avec un en-tête d'authentification (personnalisé)</p>
+<p>On veut un seul module qui mette l'API en critique si elle n'est pas saine,
+si la base de données est lente ou si elle répond par une erreur.</p>
+<p>Configuration : module personnalisé d'API ; URL
+<code>https://api.example.com/v1/health</code> ; méthode <code>GET</code> ; en-têtes
+<code>Content-Type: application/json</code> et <code>Authorization: Bearer &lt;token&gt;</code> ; codes
+d'erreur <code>500,503,404,403</code> (sans espaces) ; deux conditions :</p>
+<table>
+<thead>
+<tr>
+<th>JSON path Query</th>
+<th>Type</th>
+<th>Condition</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status</code></td>
+<td>String</td>
+<td>Equals</td>
+<td><code>ok</code></td>
+</tr>
+<tr>
+<td><code>checks.database.latency_ms</code></td>
+<td>Number</td>
+<td>Less than</td>
+<td><code>500</code></td>
+</tr>
+</tbody>
+</table>
+<p>Résultat selon ce que répond l'API :</p>
+<table>
+<thead>
+<tr>
+<th>Réponse</th>
+<th>Module</th>
+<th>Pourquoi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>200</code> avec <code>{"status": "ok", "checks": {"database": {"latency_ms": 120}}}</code></td>
+<td><code>1</code></td>
+<td>Code hors de la liste et les deux conditions sont remplies.</td>
+</tr>
+<tr>
+<td><code>200</code> avec <code>{"status": "degraded", "checks": {"database": {"latency_ms": 120}}}</code></td>
+<td><code>0</code></td>
+<td>La première condition échoue.</td>
+</tr>
+<tr>
+<td><code>200</code> avec <code>{"status": "ok", "checks": {"database": {"latency_ms": 900}}}</code></td>
+<td><code>0</code></td>
+<td>La seconde condition échoue : 900 n'est pas inférieur à 500.</td>
+</tr>
+<tr>
+<td><code>200</code> avec <code>{"status": "ok"}</code></td>
+<td><code>0</code></td>
+<td><code>checks.database.latency_ms</code> n'existe pas.</td>
+</tr>
+<tr>
+<td><code>503</code> avec <code>{"error": "unavailable"}</code></td>
+<td><code>0</code></td>
+<td>Code dans la liste d'erreurs (et, en plus, <code>status</code> manque).</td>
+</tr>
+<tr>
+<td><code>200</code> avec une page HTML</td>
+<td>sans donnée</td>
+<td>La réponse n'est pas du JSON.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="utilisation-avec-des-politiques-et-des-operations-en-masse">Utilisation avec des politiques et des opérations en masse<a class="headerlink" href="#utilisation-avec-des-politiques-et-des-operations-en-masse" title="Permanent link">¶</a></h2>
+<p>Les modules d'API peuvent être créés de la même manière que les autres modules
+réseau :</p>
+<ul>
+<li><strong>Sur un agent</strong>, depuis son formulaire de modules.</li>
+<li><strong>Dans une politique</strong>, pour répartir le même module entre de nombreux agents
+  (voir <a href="../2.10-politicas-de-monitorizacion/">2.10, Politiques de
+  supervision</a>). C'est le cas typique d'une
+  API avec le même contrat dans plusieurs environnements.</li>
+<li><strong>Avec des opérations en masse</strong>, pour changer un champ (un <em>timeout</em>, un
+  en-tête) dans beaucoup de modules à la fois (voir <a href="../2.11-operaciones-masivas/">2.11, Opérations
+  massives</a>).</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Secrets dans les en-têtes</p>
+<p>Une politique qui transporte un <em>jeton</em> dans un en-tête le distribue à tous
+les modules qu'elle génère. Si le <em>jeton</em> expire ou tourne, il faut le
+changer dans la politique (ou avec une opération en masse), pas agent par
+agent.</p>
+</div>
+<h2 id="verifier-et-diagnostiquer">Vérifier et diagnostiquer<a class="headerlink" href="#verifier-et-diagnostiquer" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Cause probable</th>
+<th>Vérification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>La console ne propose pas les types d'API à la création du module.</td>
+<td>Aucun serveur réseau actif, ou création d'un composant réseau.</td>
+<td>Vérifiez dans la liste des serveurs qu'un serveur réseau tourne ; créez le module sur un agent.</td>
+</tr>
+<tr>
+<td>Le module n'a aucune nouvelle donnée.</td>
+<td>L'API ne répond pas, la réponse n'est pas du JSON ou l'URL est vide.</td>
+<td>Rejouez la requête depuis l'équipement du serveur (<code>curl -i &lt;url&gt;</code>) avec les mêmes en-têtes et vérifiez que la réponse est du JSON.</td>
+</tr>
+<tr>
+<td>Le module de récupération n'enregistre rien.</td>
+<td>Le chemin n'existe pas dans la réponse ou il est mal écrit (par exemple, avec <code>$.</code> devant).</td>
+<td>Utilisez la loupe pour choisir le chemin sur la réponse réelle.</td>
+</tr>
+<tr>
+<td>Le module booléen vaut toujours <code>0</code>.</td>
+<td>La valeur du chemin n'est pas <code>true</code>. Un <code>1</code> ou un <code>"ok"</code> valent <code>0</code>.</td>
+<td>Passez à un module numérique ou à un module personnalisé avec des conditions.</td>
+</tr>
+<tr>
+<td>Un code de la liste d'erreurs (par exemple <code>503</code> ou <code>404</code>) ne met pas le module à <code>0</code>.</td>
+<td>La liste est écrite avec des espaces après les virgules et seul le premier code est reconnu.</td>
+<td>Réécrivez la liste sans espaces : <code>500,503,404,403</code>.</td>
+</tr>
+<tr>
+<td>Le module personnalisé vaut <code>0</code> et l'API répond bien.</td>
+<td>Une condition n'est pas remplie : chemin inexistant, type qui ne correspond pas ou opérateur erroné.</td>
+<td>Cliquez sur <strong>Test</strong> : il indique combien de conditions échouent.</td>
+</tr>
+<tr>
+<td>Le corps n'arrive pas à l'API.</td>
+<td>Méthode <code>GET</code>, ou l'en-tête <code>Content-Type</code> n'est pas exactement <code>application/json</code>.</td>
+<td>Vérifiez la méthode et l'en-tête.</td>
+</tr>
+<tr>
+<td>Erreur de certificat (HTTPS).</td>
+<td>Certificat expiré, auto-signé ou avec un nom qui ne correspond pas.</td>
+<td>Corrigez-le dans l'API ; en dernier recours seulement, activez <strong>Ignore certificate</strong>.</td>
+</tr>
+<tr>
+<td>Le module personnalisé vaut <code>1</code> alors que l'API est cassée (par exemple, elle répond <code>401</code>).</td>
+<td>Le code n'est pas dans la liste d'erreurs et aucune condition ne le détecte : sans conditions, tout ce qui n'est pas dans la liste donne <code>1</code>.</td>
+<td>Ajoutez le code à <strong>Error Codes</strong> (<code>401</code> si l'authentification échoue) et définissez au moins une condition sur le corps.</td>
+</tr>
+<tr>
+<td>La loupe fonctionne, mais pas le module.</td>
+<td>La console atteint l'API et le serveur non (ou l'inverse).</td>
+<td>Testez la requête depuis chaque équipement séparément.</td>
+</tr>
+</tbody>
+</table>
+<p>Pour voir ce que le serveur fait de chaque requête, consultez son journal
+(<code>/var/log/pandora/pandora_server.log</code>). Les échecs de la requête (URL vide,
+requête en échec) apparaissent avec l'identifiant du module ; le détail des
+exécutions correctes et des réponses qui ne sont pas du JSON ne se voit qu'en
+augmentant la verbosité du serveur.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

@@ -1,0 +1,5117 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-10/10.1-esquema-de-la-base-de-datos/">
+      
+      
+        <link rel="prev" href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/">
+      
+      
+        <link rel="next" href="../10.2-referencia-de-tablas/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-10/10.1-esquema-de-la-base-de-datos/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-10/10.1-esquema-de-la-base-de-datos/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1. Schéma de la base de données - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#schema-de-la-base-de-donnees" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Schéma de la base de données
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-10/10.1-esquema-de-la-base-de-datos/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-10/10.1-esquema-de-la-base-de-datos/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#vue-densemble-bases-de-donnees-moteur-fichiers-et-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vue d'ensemble : bases de données, moteur, fichiers et version
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#carte-par-zone-fonctionnelle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Carte par zone fonctionnelle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables-du-noyau-en-detail-et-diagramme-de-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables du noyau en détail et diagramme de relations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codes-et-enumerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codes et énumérations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base-de-donnees-dhistorique-ce-qui-bouge-quand-et-comment-elle-est-purgee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base de données d'historique : ce qui bouge, quand et comment elle est purgée
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-center-tables-propres-et-synchronisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Center : tables propres et synchronisation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#donnees-chiffrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Données chiffrées
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requetes-en-lecture-seule-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requêtes en lecture seule utiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#vue-densemble-bases-de-donnees-moteur-fichiers-et-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vue d'ensemble : bases de données, moteur, fichiers et version
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#carte-par-zone-fonctionnelle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Carte par zone fonctionnelle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables-du-noyau-en-detail-et-diagramme-de-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables du noyau en détail et diagramme de relations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codes-et-enumerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codes et énumérations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base-de-donnees-dhistorique-ce-qui-bouge-quand-et-comment-elle-est-purgee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base de données d'historique : ce qui bouge, quand et comment elle est purgée
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-center-tables-propres-et-synchronisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Center : tables propres et synchronisation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#donnees-chiffrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Données chiffrées
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requetes-en-lecture-seule-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requêtes en lecture seule utiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="schema-de-la-base-de-donnees">Schéma de la base de données<a class="headerlink" href="#schema-de-la-base-de-donnees" title="Permanent link">¶</a></h1>
+<p>Toute l'information de Pandora FMS —agents, modules, alertes, événements,
+utilisateurs, politiques— vit, au final, dans quelques tables MySQL. Il est
+tentant de regarder directement là-dedans quand l'interface ne donne pas la
+réponse rapide qu'il faut : un rapport avec du SQL personnalisé, un <code>SELECT</code> de
+diagnostic à trois heures du matin, un script qui a besoin de savoir dans quelle
+colonne le serveur garde le dernier contact d'un agent. Ce chapitre est la carte
+de ce territoire : quelles tables existent, à quoi sert chacune et comment elles
+se relient.</p>
+<div class="admonition warning">
+<p class="admonition-title">Avant de toucher à la base de données</p>
+<p>Le schéma change entre les versions —colonnes nouvelles, tables qui
+apparaissent ou disparaissent, types qui s'ajustent— sans autre avis que le
+changelog de chaque build. Cette page documente la version indiquée dans
+l'en-tête de la <a href="../10.2-referencia-de-tablas/">référence des tables</a>, qui
+est toujours alignée sur le code réel. Pour lire ou écrire des données de
+Pandora FMS depuis l'extérieur, la voie recommandée est
+l'<a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/">API REST</a> :
+elle est stable entre les versions et n'exige pas de connaître le schéma
+interne. Accéder directement à la base de données est un dernier recours,
+sans garantie de compatibilité, et <strong>il ne faut jamais écrire
+directement</strong> sur des tables gérées par le produit : le serveur et la
+console web partent du principe qu'ils sont les seuls à écrire là, et une
+ligne touchée à la main peut laisser l'agrégation des données, un compteur
+ou une file de tâches dans un état qu'ils ne savent pas interpréter
+eux-mêmes. Pour des requêtes en lecture seule, préférez toujours une
+réplique ou la base de données d'historique à la base principale en
+production.</p>
+</div>
+<p>Un détail qui surprend la première fois : la console web garde les textes (noms
+d'agent et de module, descriptions…) avec les caractères spéciaux convertis en
+entités HTML, si bien que <code>Router &amp; Firewall</code> apparaît dans la table comme
+<code>Router &amp;amp; Firewall</code>. Il faut en tenir compte pour filtrer par nom. Et les
+modules supprimés depuis la console ne disparaissent pas sur-le-champ : ils
+restent marqués avec <code>delete_pending = 1</code> jusqu'à ce que le serveur les élimine,
+c'est pourquoi les requêtes de modules les excluent.</p>
+<p>Ce chapitre couvre la base de données principale, celle d'historique et celle du
+Command Center. Il ne couvre pas les bases de données de tiers avec lesquelles
+Pandora FMS s'intègre (SIEM externes, CMDB, etc.) : celles-là ont leur propre
+schéma et restent hors du périmètre de cette documentation.</p>
+<h2 id="vue-densemble-bases-de-donnees-moteur-fichiers-et-version">Vue d'ensemble : bases de données, moteur, fichiers et version<a class="headerlink" href="#vue-densemble-bases-de-donnees-moteur-fichiers-et-version" title="Permanent link">¶</a></h2>
+<p>Une installation de Pandora FMS peut compter jusqu'à trois bases de données
+distinctes, toutes avec le même moteur :</p>
+<ul>
+<li><strong>Base de données principale</strong> (<code>pandora</code>) : la seule obligatoire. Elle garde
+  la configuration complète et les données récentes de supervision.</li>
+<li><strong>Base de données d'historique</strong> (facultative, activée avec
+  <code>history_db_enabled</code>) : même schéma que les tables de données de la
+  principale, pensée pour retenir des séries temporelles au-delà de ce que la
+  principale purge. Voir <a href="#base-de-donnees-dhistorique-ce-qui-bouge-quand-et-comment-elle-est-purgee">Base de données
+  d'historique</a>.</li>
+<li><strong>Base de données du Command Center</strong> : dans les installations avec Command
+  Center, chaque nœud conserve sa propre base principale et le Command Center
+  ajoute une base à lui avec des tables <code>tmetaconsole_*</code>. Voir <a href="#command-center-tables-propres-et-synchronisation">Command
+  Center</a>.</li>
+</ul>
+<p>Le moteur pris en charge est Percona Server for MySQL 8 —recommandé, surtout
+au-delà de 4 000 agents— ou MySQL 8 / MySQL 8.4 depuis la build 785 ; la table
+complète des prérequis est dans
+<a href="../../parte-1/1.1-instalacion/">Installation</a>.</p>
+<p>Le schéma se définit dans deux fichiers qui se chargent une seule fois, à
+l'installation : <code>pandoradb.sql</code> (structure : les 271 tables) et
+<code>pandoradb_data.sql</code> (données de départ : types de module, configuration par
+défaut, catalogues). À partir de là, deux jetons de la table <code>tconfig</code> —
+<code>db_scheme_version</code> (par exemple <code>8.0NG</code>) et <code>db_scheme_build</code> (par exemple
+<code>PD260915</code>)— identifient la version de schéma installée, et la console les
+compare avec la version du paquet pour avertir des bases de données obsolètes.</p>
+<p>Entre versions majeures, les changements de schéma arrivent sous forme de
+fichiers <code>extras/mr/&lt;numéro&gt;.sql</code>, un par <em>build</em>. La console garde dans
+<code>tconfig</code> le jeton <code>MR</code> avec le numéro le plus élevé déjà appliqué et, à chaque
+contrôle de mises à jour, propose comme en attente les fichiers de numéro
+supérieur ; une fois appliqué, le fichier est déplacé vers <code>extras/mr/updated/</code>
+et le jeton <code>MR</code> est mis à jour. Ils ne s'exécutent pas à la main, sauf si la
+procédure de mise à jour l'indique explicitement.</p>
+<h2 id="carte-par-zone-fonctionnelle">Carte par zone fonctionnelle<a class="headerlink" href="#carte-par-zone-fonctionnelle" title="Permanent link">¶</a></h2>
+<p>Les 271 tables du schéma ne sont pas organisées en différents <code>SCHEMA</code> ni en
+bases de données séparées —elles vivent toutes dans la même base de données—,
+mais elles répondent bien à une répartition fonctionnelle claire. Le tableau
+suivant regroupe les tables par la zone qu'elles couvrent ; c'est une
+construction de cette documentation pour faciliter la navigation, pas une
+structure déclarée dans le moteur.</p>
+<table>
+<thead>
+<tr>
+<th>Zone fonctionnelle</th>
+<th>Ce qu'elle couvre</th>
+<th>Nb de tables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agents et supervision (noyau)</td>
+<td>Agents, modules, leur configuration et leurs données</td>
+<td>37</td>
+</tr>
+<tr>
+<td>Groupes et organisation</td>
+<td>Hiérarchie de groupes et de catégories</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Alertes</td>
+<td>Modèles, actions et commandes d'alerte</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Événements</td>
+<td>Journal des événements et son cycle de vie</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Politiques</td>
+<td>Configuration déployée en bloc sur les agents</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Utilisateurs, profils et sessions</td>
+<td>Comptes, permissions et sessions actives</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Notifications et messagerie</td>
+<td>Avis internes et messages entre utilisateurs</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Rapports et visualisation</td>
+<td>Rapports, graphiques, tableaux de bord, consoles visuelles</td>
+<td>34</td>
+</tr>
+<tr>
+<td>Discovery et reconnaissance</td>
+<td>Tâches de découverte du réseau</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Cartes réseau et SIG</td>
+<td>Cartes réseau et géolocalisation</td>
+<td>17</td>
+</tr>
+<tr>
+<td>Cluster et haute disponibilité</td>
+<td>Configuration de cluster d'agents</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Command Center</td>
+<td>Nœuds, synchronisation et migration entre nœuds</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Gestionnaire d'identifiants</td>
+<td>Stockage d'identifiants réutilisables</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Serveurs, configuration et maintenance</td>
+<td>Serveurs, configuration globale, sauvegardes</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Traps SNMP</td>
+<td>Traps reçus et leur normalisation</td>
+<td>2</td>
+</tr>
+<tr>
+<td>IPAM (gestion des adresses IP)</td>
+<td>Réseaux, sous-réseaux et adresses IP gérés</td>
+<td>8</td>
+</tr>
+<tr>
+<td>NCM (Network Config Manager)</td>
+<td>Configuration des équipements réseau</td>
+<td>12</td>
+</tr>
+<tr>
+<td>RMM (Remote Monitoring &amp; Management)</td>
+<td>Gestion à distance des équipements</td>
+<td>7</td>
+</tr>
+<tr>
+<td>SIEM</td>
+<td>Règles et décodeurs d'événements de sécurité</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Sécurité et vulnérabilités</td>
+<td>Vulnérabilités et correctifs détectés</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Arrêts planifiés</td>
+<td>Fenêtres de maintenance planifiée</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>Étiquetage de modules et de politiques</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Services</td>
+<td>Services composés d'autres éléments</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Auto-configuration d'agents</td>
+<td>Règles d'auto-configuration d'agents nouveaux</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Commandes distantes (console web)</td>
+<td>Commandes distantes exécutables depuis la console</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="../../parte-2/2.9-colecciones/">Collections</a> et plugins</td>
+<td>Collections de fichiers et catalogue de plugins</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Langues et traduction</td>
+<td>Traductions de l'interface</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Divers / utilitaires internes</td>
+<td>Tables de support sans zone propre</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<p>Pour le détail des colonnes, des types, des clés et des commentaires de
+n'importe quelle table de cette liste, la <a href="../10.2-referencia-de-tablas/">référence des
+tables</a> réunit les 271 tables regroupées par cette
+même zone, avec un lien direct vers chacune.</p>
+<h2 id="tables-du-noyau-en-detail-et-diagramme-de-relations">Tables du noyau en détail et diagramme de relations<a class="headerlink" href="#tables-du-noyau-en-detail-et-diagramme-de-relations" title="Permanent link">¶</a></h2>
+<p>Une poignée de tables concentre la plus grande partie des requêtes habituelles.
+Les connaître par cœur évite plus d'un retour à la référence complète :</p>
+<ul>
+<li><strong>Agent et inventaire des modules.</strong> <code>tagente</code> garde un enregistrement par
+  agent (<code>id_grupo</code> référence <code>tgrupo</code> ; <code>modo</code> est le mode d'apprentissage du
+  module à sa création, pas un état de l'agent — voir
+  <a href="#codes-et-enumerations">Codes et énumérations</a>). Chaque module de cet agent
+  est une ligne dans <code>tagente_modulo</code> (<code>id_agente</code> référence <code>tagente</code>,
+  <code>id_tipo_modulo</code> référence <code>ttipo_modulo</code>, le catalogue des types de module).
+  Le dernier état connu de chaque module vit dans <code>tagente_estado</code> : une ligne
+  par module, avec <code>id_agente_modulo</code> et <code>id_agente</code> qui pointent vers les
+  tables précédentes par convention de nom, sans <code>FOREIGN KEY</code> déclarée.</li>
+<li><strong>Données des modules.</strong> Les séries temporelles se répartissent en quatre
+  tables selon le type de donnée : <code>tagente_datos</code> (numériques),
+  <code>tagente_datos_string</code> (chaîne), <code>tagente_datos_inc</code> (incrémentales) et
+  <code>tagente_datos_log4x</code> (logs). Les quatre sont indexées par
+  <code>id_agente_modulo</code> + <code>utimestamp</code>, également sans <code>FOREIGN KEY</code> déclarée —le
+  volume qu'elles déplacent chaque jour déconseille ce contrôle à chaque
+  insertion (voir <a href="#base-de-donnees-dhistorique-ce-qui-bouge-quand-et-comment-elle-est-purgee">Base de données
+  d'historique</a>).</li>
+<li><strong>Alertes.</strong> Un modèle d'alerte (<code>talert_templates</code>) est affecté à un module
+  concret via <code>talert_template_modules</code> (<code>id_agent_module</code> référence
+  <code>tagente_modulo</code>, <code>id_alert_template</code> référence <code>talert_templates</code> ; là
+  vivent aussi <code>times_fired</code>, <code>last_fired</code>, <code>disabled</code> et <code>standby</code>). Chaque
+  affectation déclenche une ou plusieurs actions via
+  <code>talert_template_module_actions</code>, qui pointent vers <code>talert_actions</code> et, de
+  là, vers <code>talert_commands</code>.</li>
+<li><strong>Événements.</strong> <code>tevento</code> est une ligne par événement généré, avec <code>id_agente</code>,
+  <code>id_grupo</code>, <code>id_agentmodule</code> et <code>id_alert_am</code> comme références par convention
+  (sans <code>FOREIGN KEY</code> déclarée). <code>event_type</code> est un <code>ENUM</code> fermé avec les types
+  d'événement possibles ; <code>criticity</code> et <code>estado</code> sont les codes décrits dans la
+  section suivante.</li>
+<li><strong>Politiques.</strong> <code>tpolicies</code> est l'en-tête d'une politique ; <code>tpolicy_agents</code>
+  et <code>tpolicy_groups</code> définissent sur quels agents ou groupes elle s'applique,
+  et <code>tpolicy_modules</code> et <code>tpolicy_alerts</code> quels modules et alertes elle déploie
+  sur eux.</li>
+<li><strong>Gestionnaire d'identifiants.</strong> <code>tcredential_store</code> garde chaque identifiant
+  sous son <code>identifier</code> comme clé primaire ; <code>product</code> est un <code>ENUM</code> avec les
+  types d'identifiant pris en charge (<code>CUSTOM</code>, <code>AWS</code>, <code>AZURE</code>, <code>GOOGLE</code>, <code>SAP</code>,
+  <code>WMI</code>, <code>SNMP</code>). Le détail fonctionnel complet est dans
+  <a href="../../parte-2/2.2-gestor-de-credenciales/">Gestionnaire d'identifiants</a>, et son
+  chiffrement dans <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/">Chiffrement de la base de
+  données</a> ; ici, seule la forme
+  de la table nous intéresse.</li>
+</ul>
+<p>Le diagramme suivant résume ces relations. Les lignes continues marquent une
+<code>FOREIGN KEY</code> déclarée dans le schéma ; le reste sont des relations par
+convention de nom de colonne, sans restriction déclarée dans le moteur.</p>
+<pre class="mermaid"><code>erDiagram
+    tgrupo ||--o{ tagente : "id_grupo"
+    tagente ||--o{ tagente_modulo : "id_agente"
+    ttipo_modulo ||--o{ tagente_modulo : "id_tipo_modulo"
+    tagente_modulo ||--o{ tagente_estado : "id_agente_modulo (sans FK)"
+    tagente_modulo ||--o{ tagente_datos : "id_agente_modulo (sans FK)"
+    talert_templates ||--o{ talert_template_modules : "id_alert_template"
+    tagente_modulo ||--o{ talert_template_modules : "id_agent_module"
+    talert_template_modules ||--o{ talert_template_module_actions : "id_alert_template_module"
+    talert_actions ||--o{ talert_template_module_actions : "id_alert_action"
+    tagente ||--o{ tevento : "id_agente (sans FK)"
+    tgrupo ||--o{ tevento : "id_grupo (sans FK)"
+    tpolicies ||--o{ tpolicy_agents : "id_policy"
+    tagente ||--o{ tpolicy_agents : "id_agent (sans FK)"
+
+    tagente {
+        int id_agente PK
+        varchar nombre
+        int id_grupo FK
+        tinyint modo
+        datetime ultimo_contacto
+    }
+    tagente_modulo {
+        int id_agente_modulo PK
+        int id_agente FK
+        smallint id_tipo_modulo FK
+    }
+    tagente_estado {
+        int id_agente_estado PK
+        int id_agente_modulo
+        int estado
+    }
+    tagente_datos {
+        int id_agente_modulo
+        bigint utimestamp
+    }
+    tevento {
+        bigint id_evento PK
+        int id_agente
+        int id_grupo
+        enum event_type
+        int criticity
+        tinyint estado
+    }
+    talert_templates {
+        int id PK
+    }
+    talert_template_modules {
+        int id PK
+        int id_agent_module FK
+        int id_alert_template FK
+        int times_fired
+        bigint last_fired
+        tinyint disabled
+        tinyint standby
+    }
+    talert_template_module_actions {
+        int id PK
+        int id_alert_template_module FK
+        int id_alert_action FK
+    }
+    talert_actions {
+        int id PK
+    }
+    tpolicies {
+        int id PK
+    }
+    tpolicy_agents {
+        int id PK
+        int id_policy FK
+        int id_agent
+    }
+    tgrupo {
+        mediumint id_grupo PK
+        varchar nombre
+    }
+    ttipo_modulo {
+        smallint id_tipo_modulo PK
+    }</code></pre>
+<h2 id="codes-et-enumerations">Codes et énumérations<a class="headerlink" href="#codes-et-enumerations" title="Permanent link">¶</a></h2>
+<p>Plusieurs colonnes gardent des entiers qui n'ont de sens qu'avec leur table de
+significations à portée de main.</p>
+<p><strong>État de module</strong> (colonne <code>estado</code> de <code>tagente_estado</code>) : valeurs que le
+serveur garde réellement.</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Normal</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Critique</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td><em>Warning</em></td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td>Inconnu (<em>unknown</em>)</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td>Non démarré — valeur initiale à la création du module, avant de recevoir la première donnée</td>
+</tr>
+</tbody>
+</table>
+<p>Les constantes de console <code>AGENT_MODULE_STATUS_*</code> ajoutent des valeurs
+supplémentaires, mais ce sont des <strong>valeurs de filtre</strong> de l'interface, pas
+quelque chose que la colonne garde jamais : <code>5</code> (non démarré, dans les filtres),
+<code>6</code> (non normal, regroupement), <code>7</code> (normal forcé) et <code>100</code>/<code>200</code>/<code>300</code>
+(critique, <em>warning</em> ou normal avec une alerte déclenchée). Ne pas confondre
+colonne et filtre : si l'on interroge <code>estado</code> directement en SQL, seules les
+valeurs <code>0</code> à <code>4</code> apparaîtront.</p>
+<p><strong>État de l'agent :</strong> aucune colonne ne le garde. La console web le calcule à
+partir des compteurs de <code>tagente</code> (<code>normal_count</code>, <code>warning_count</code>,
+<code>critical_count</code>, <code>unknown_count</code>, <code>notinit_count</code>, <code>total_count</code> et
+<code>fired_count</code>, celui des alertes déclenchées), que le serveur tient à jour. Pour
+savoir comment se porte un agent en SQL, on regarde ces compteurs.</p>
+<p><strong>Mode de l'agent</strong> (colonne <code>modo</code> dans <code>tagente</code>) : <code>0</code> normal, <code>1</code>
+apprentissage (<em>learning</em>), <code>2</code> autodésactivé (<em>autodisable</em>). La colonne a <code>0</code>
+par défaut, mais en pratique les agents naissent à <code>1</code> : c'est la valeur
+qu'utilisent le serveur à la création d'un agent depuis un XML et la console web
+lors d'un ajout à la main.</p>
+<p><strong>Type de module</strong> (table <code>ttipo_modulo</code>) : catalogue avec id, nom interne (par
+exemple <code>generic_data</code>), catégorie numérique et type de donnée (<code>numeric</code>,
+<code>boolean</code>, <code>string</code>). Il y a près de quarante types ; le catalogue complet est
+dans la ligne <code>ttipo_modulo</code> de la <a href="../10.2-referencia-de-tablas/#ttipo_modulo">référence des
+tables</a>.</p>
+<p><strong>État d'événement</strong> (colonne <code>estado</code> dans <code>tevento</code>) : <code>0</code> nouveau, <code>1</code>
+validé, <code>2</code> en cours.</p>
+<p><strong>Type d'événement</strong> (colonne <code>event_type</code> dans <code>tevento</code>, <code>ENUM</code> fermé) :
+<code>going_unknown</code>, <code>unknown</code>, <code>alert_fired</code>, <code>alert_recovered</code>,
+<code>alert_ceased</code>, <code>alert_manual_validation</code>, <code>recon_host_detected</code>, <code>system</code>,
+<code>error</code>, <code>new_agent</code>, <code>going_up_warning</code>, <code>going_up_critical</code>,
+<code>going_down_warning</code>, <code>going_down_normal</code>, <code>going_down_critical</code>,
+<code>going_up_normal</code>, <code>configuration_change</code>, <code>ncm</code>.</p>
+<p><strong>Criticité d'événement</strong> (colonne <code>criticity</code> dans <code>tevento</code>) : <code>0</code>
+maintenance, <code>1</code> informatif, <code>2</code> normal, <code>3</code> <em>warning</em>, <code>4</code> critique, <code>5</code> mineur
+(<em>minor</em>), <code>6</code> majeur (<em>major</em>). Les valeurs <code>20</code>, <code>21</code> et <code>34</code> sont des
+combinaisons qu'utilisent les filtres de la console (<code>20</code>, non normal ; <code>21</code>,
+critique ou normal ; <code>34</code>, <em>warning</em> ou critique) et ne sont pas des criticités
+propres à un événement concret.</p>
+<p><strong>Alertes déclenchées :</strong> il n'existe pas de colonne d'« état » unique pour une
+alerte. Elle se déduit de <code>talert_template_modules.times_fired</code> (compteur de
+déclenchements) et <code>last_fired</code> (horodatage du dernier) ; <code>standby</code> et
+<code>disabled</code> contrôlent si l'alerte peut se déclencher tout court.</p>
+<h2 id="base-de-donnees-dhistorique-ce-qui-bouge-quand-et-comment-elle-est-purgee">Base de données d'historique : ce qui bouge, quand et comment elle est purgée<a class="headerlink" href="#base-de-donnees-dhistorique-ce-qui-bouge-quand-et-comment-elle-est-purgee" title="Permanent link">¶</a></h2>
+<p>La base d'historique est facultative (<code>history_db_enabled</code> dans <code>tconfig</code>, à côté
+de <code>history_db_host</code>, <code>history_db_port</code>, <code>history_db_name</code> et du reste des
+paramètres de connexion, configurables depuis <strong>Réglages → Configuration du
+système → Base de données d'historique</strong>). Quand elle est active, le serveur y
+déplace —tâche périodique de <code>pandora_db.pl</code>— les données de séries temporelles
+des modules (<code>tagente_datos</code>, <code>tagente_datos_string</code>) et, le cas échéant, les
+événements et les traps. Le détail exact du déplacement est une fonctionnalité
+Enterprise et ne se trouve pas dans l'arborescence community, donc il n'est pas
+documenté ici.</p>
+<p>Dans la base principale, le même processus périodique purge les données qui ont
+déjà atteint leur échéance, avec ces limites par défaut :</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Par défaut</th>
+<th>Purge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>days_purge</code></td>
+<td>45 jours</td>
+<td><code>tagente_datos</code></td>
+</tr>
+<tr>
+<td><code>string_purge</code></td>
+<td>7 jours</td>
+<td><code>tagente_datos_string</code></td>
+</tr>
+<tr>
+<td><code>event_purge</code></td>
+<td>7 jours</td>
+<td><code>tevento</code></td>
+</tr>
+<tr>
+<td><code>days_delete_not_initialized</code></td>
+<td>7 jours</td>
+<td>Agents qui passent ce temps sans démarrer</td>
+</tr>
+<tr>
+<td><code>days_compact</code></td>
+<td>0 (désactivé)</td>
+<td>Compactage des données anciennes</td>
+</tr>
+</tbody>
+</table>
+<p>La base de données d'historique, quand elle est active, a son propre cycle de
+purge —la même fonction, exécutée sur la connexion d'historique— avec ses
+propres limites (<code>history_db_days</code>, <code>history_db_string_days</code>) : elle n'hérite
+pas des jours de la base principale.</p>
+<p>Pour dimensionner de combien chaque base va grossir selon le nombre d'agents et
+de modules, voir
+<a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/">Analyse volumétrique et conceptions pour la haute
+capacité</a>,
+que l'on ne répète pas ici.</p>
+<h2 id="command-center-tables-propres-et-synchronisation">Command Center : tables propres et synchronisation<a class="headerlink" href="#command-center-tables-propres-et-synchronisation" title="Permanent link">¶</a></h2>
+<p>Le Command Center a sa propre base de données, avec des tables préfixées
+<code>tmetaconsole_*</code> qui répliquent ou mettent en cache de l'information des nœuds
+gérés —elles ne remplacent jamais les tables équivalentes de chaque nœud, qui
+restent la source d'origine de ces données—.</p>
+<p>Les tables clés sont :</p>
+<ul>
+<li><code>tmetaconsole_setup</code> : enregistrement de chaque nœud, avec son URL et les
+  identifiants de connexion à sa base de données, son API et sa console —
+  chiffrés si le
+  <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/">chiffrement de la base de données</a>
+  est actif—.</li>
+<li><code>tmetaconsole_agent</code> : agents synchronisés depuis les nœuds, avec leur nœud
+  d'origine.</li>
+<li><code>tmetaconsole_agent_secondary_group</code> : groupes secondaires répliqués depuis
+  les nœuds.</li>
+<li><code>tmetaconsole_ha_databases</code> : bases de données de haute disponibilité
+  enregistrées par nœud.</li>
+<li><code>tmetaconsole_license_limit_cache</code> : cache de la limite de licence agrégée de
+  tous les nœuds.</li>
+</ul>
+<p>La synchronisation et la migration d'éléments entre nœuds utilisent un second
+groupe de tables : <code>tsync_queue</code> (file de synchronisation), <code>tmigration_queue</code>
+et <code>tmigration_module_queue</code> (files de migration d'agents et de modules entre
+nœuds), <code>tmerge_error</code>, <code>tmerge_steps</code> et <code>tmerge_queries</code> (fusion de nœuds) et
+<code>tnode_relations</code> (relation entre chaque élément et son nœud d'origine). Quand
+la migration déplace des données de module entre des nœuds qui ont la base de
+données d'historique activée, l'opération touche aussi cette connexion
+d'historique en origine et en destination, pas seulement la base principale de
+chaque nœud.</p>
+<p>L'enregistrement et la gestion des nœuds depuis l'interface sont couverts dans
+leur propre chapitre de Command Center ; cette section ne répète pas cette
+procédure.</p>
+<h2 id="donnees-chiffrees">Données chiffrées<a class="headerlink" href="#donnees-chiffrees" title="Permanent link">¶</a></h2>
+<p>Ce chapitre est, par convention de tout le site, le seul endroit où l'on nomme
+des tables et des colonnes : les autres pages —y compris
+<a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/">Chiffrement de la base de
+données</a>— renvoient ici au lieu
+de les répéter. Avec le chiffrement actif, ces colonnes gardent la valeur
+chiffrée au lieu de l'originale : mots de passe de modules de plugin et
+identifiants SNMPv3 dans <code>tagente_modulo</code> et <code>tpolicy_modules</code> ; mots de passe
+de modules d'inventaire Enterprise ; champs personnalisés d'agent marqués comme
+type mot de passe dans <code>tagent_custom_data</code> ; plusieurs jetons de mot de passe
+dans <code>tconfig</code> (courrier SMTP, LDAP/Active Directory, base de données
+d'historique, réplication de la console, API, proxy de mises à jour, Pandora RC,
+commandes distantes, hash d'accès entre nœuds) ; les mots de passe de connexion
+à chaque nœud dans <code>tmetaconsole_setup</code> ; et utilisateur, mot de passe et champs
+additionnels de chaque identifiant dans <code>tcredential_store</code>.</p>
+<p>Toutes sont conservées en <code>TEXT</code> ou <code>VARCHAR</code> : le chiffrement n'utilise aucun
+type binaire dédié, il produit du texte en base64. Cela a une conséquence
+directe pour qui interroge la base à la main : un <code>SELECT</code> sur l'une de ces
+colonnes renvoie la valeur chiffrée, pas l'originale. Pour la lire en clair, il
+faut le mécanisme de chiffrement et de déchiffrement, pas une requête SQL — voir
+<a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/">Chiffrement de la base de
+données</a> pour la liste complète
+des données protégées et la procédure d'activation.</p>
+<h2 id="requetes-en-lecture-seule-utiles">Requêtes en lecture seule utiles<a class="headerlink" href="#requetes-en-lecture-seule-utiles" title="Permanent link">¶</a></h2>
+<p>Une poignée de requêtes couvre la plupart des besoins de diagnostic ponctuel.
+Toutes sont en lecture seule et respectent l'avertissement du début du chapitre :
+préférer une réplique ou la base de données d'historique à la principale en
+production.</p>
+<p>Agents qui ne contactent pas depuis plus d'un jour :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">nombre</span><span class="p">,</span><span class="w"> </span><span class="n">direccion</span><span class="p">,</span><span class="w"> </span><span class="n">ultimo_contacto</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tagente</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">ultimo_contacto</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span><span class="p">;</span>
+</code></pre></div>
+<p>Modules en état critique en ce moment :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">nombre</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">agente</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">nombre</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">modulo</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tagente_estado</span><span class="w"> </span><span class="n">e</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tagente_modulo</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id_agente_modulo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">id_agente_modulo</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tagente</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id_agente</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_agente</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">estado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">delete_pending</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<p>Événements par criticité sur les dernières 24 heures :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">criticity</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tevento</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">utimestamp</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">UNIX_TIMESTAMP</span><span class="p">(</span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">DAY</span><span class="p">)</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">criticity</span><span class="p">;</span>
+</code></pre></div>
+<p>Alertes qui se sont déclenchées au moins une fois, avec leur dernier
+déclenchement :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">nombre</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">modulo</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">times_fired</span><span class="p">,</span><span class="w"> </span><span class="n">FROM_UNIXTIME</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">last_fired</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ultimo_disparo</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">talert_template_modules</span><span class="w"> </span><span class="n">t</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tagente_modulo</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">id_agent_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">id_agente_modulo</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">times_fired</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<p>Données d'un module sur une plage de dates :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">FROM_UNIXTIME</span><span class="p">(</span><span class="n">utimestamp</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">fecha</span><span class="p">,</span><span class="w"> </span><span class="n">datos</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tagente_datos</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_agente_modulo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">utimestamp</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="n">UNIX_TIMESTAMP</span><span class="p">(</span><span class="s1">'2026-01-01'</span><span class="p">)</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">UNIX_TIMESTAMP</span><span class="p">(</span><span class="s1">'2026-01-31'</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">utimestamp</span><span class="p">;</span>
+</code></pre></div>
+<p>Nombre d'agents par groupe :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">nombre</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">grupo</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">agentes</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tagente</span><span class="w"> </span><span class="n">a</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tgrupo</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_grupo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">id_grupo</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">nombre</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">agentes</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+<p>Champs personnalisés d'un agent concret :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">description</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tagent_custom_data</span><span class="w"> </span><span class="n">d</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tagent_custom_fields</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id_field</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">id_field</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id_agent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<p>Modules sans données (inconnus) regroupés par groupe :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">nombre</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">grupo</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">modulos_desconocidos</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tagente_estado</span><span class="w"> </span><span class="n">e</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tagente_modulo</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id_agente_modulo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">id_agente_modulo</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tagente</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id_agente</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_agente</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tgrupo</span><span class="w"> </span><span class="k">g</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id_grupo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">id_grupo</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">estado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">delete_pending</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">nombre</span><span class="p">;</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

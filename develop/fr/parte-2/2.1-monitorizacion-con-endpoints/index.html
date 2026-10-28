@@ -1,0 +1,6542 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-2/2.1-monitorizacion-con-endpoints/">
+      
+      
+        <link rel="prev" href="../../parte-1/1.5-licenciamiento/">
+      
+      
+        <link rel="next" href="../2.2-gestor-de-credenciales/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-2/2.1-monitorizacion-con-endpoints/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-2/2.1-monitorizacion-con-endpoints/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1. Supervision avec des EndPoints - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#supervision-avec-des-endpoints" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Supervision avec des EndPoints
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-2/2.1-monitorizacion-con-endpoints/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-2/2.1-monitorizacion-con-endpoints/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#quest-ce-quun-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qu'est-ce qu'un EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Qu'est-ce qu'un EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-trois-endpoints-go-perl-et-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les trois EndPoints : Go, Perl et Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#premiers-pas-avec-un-endpoint-fraichement-installe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Premiers pas avec un EndPoint fraîchement installé
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Premiers pas avec un EndPoint fraîchement installé">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametres-essentiels-de-pandora_agentconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paramètres essentiels de pandora_agent.conf
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-distante-depuis-la-console-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration distante depuis la console web
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration distante depuis la console web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoconfiguration-des-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autoconfiguration des EndPoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#superviser-les-bases-du-systeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Superviser les bases du système
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Superviser les bases du système">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modules-communs-a-tous-les-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules communs à tous les EndPoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervision-specifique-a-linux-et-unix-endpoints-go-et-perl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision spécifique à Linux et Unix (EndPoints Go et Perl)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervision-specifique-a-ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision spécifique à MS Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creer-vos-propres-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer vos propres modules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Créer vos propres modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creer-des-modules-depuis-la-console-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer des modules depuis la console web
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supervision-avancee-de-ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision avancée de MS Windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plugins EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collections-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collections de fichiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supervision-avancee-avec-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision avancée avec l'EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supervision avancée avec l'EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supervision-conditionnelle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision conditionnelle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervision-intensive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision intensive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervision-planifiee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision planifiée
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-traitement-flip-flop-et-autres-reglages-du-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-traitement, flip-flop et autres réglages du module
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lendpoint-comme-point-de-supervision-du-reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'EndPoint comme point de supervision du réseau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="L'EndPoint comme point de supervision du réseau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controles-distants-depuis-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contrôles distants depuis l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode broker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serveur-secondaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serveur secondaire
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actions-distantes-sur-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actions distantes sur l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autres-techniques-de-supervision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autres techniques de supervision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autres techniques de supervision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#surveiller-des-fichiers-texte-avec-module_regexp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Surveiller des fichiers texte avec module_regexp
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fonctionnement-interne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonctionnement interne
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparatif-des-fonctionnalites-entre-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparatif des fonctionnalités entre EndPoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#depannage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dépannage
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#quest-ce-quun-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qu'est-ce qu'un EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Qu'est-ce qu'un EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-trois-endpoints-go-perl-et-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les trois EndPoints : Go, Perl et Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#premiers-pas-avec-un-endpoint-fraichement-installe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Premiers pas avec un EndPoint fraîchement installé
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Premiers pas avec un EndPoint fraîchement installé">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametres-essentiels-de-pandora_agentconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paramètres essentiels de pandora_agent.conf
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-distante-depuis-la-console-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration distante depuis la console web
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration distante depuis la console web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoconfiguration-des-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autoconfiguration des EndPoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#superviser-les-bases-du-systeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Superviser les bases du système
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Superviser les bases du système">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modules-communs-a-tous-les-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules communs à tous les EndPoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervision-specifique-a-linux-et-unix-endpoints-go-et-perl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision spécifique à Linux et Unix (EndPoints Go et Perl)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervision-specifique-a-ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision spécifique à MS Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creer-vos-propres-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer vos propres modules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Créer vos propres modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creer-des-modules-depuis-la-console-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer des modules depuis la console web
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supervision-avancee-de-ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision avancée de MS Windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plugins EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collections-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collections de fichiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supervision-avancee-avec-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision avancée avec l'EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supervision avancée avec l'EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supervision-conditionnelle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision conditionnelle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervision-intensive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision intensive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervision-planifiee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision planifiée
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-traitement-flip-flop-et-autres-reglages-du-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-traitement, flip-flop et autres réglages du module
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lendpoint-comme-point-de-supervision-du-reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'EndPoint comme point de supervision du réseau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="L'EndPoint comme point de supervision du réseau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controles-distants-depuis-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contrôles distants depuis l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode broker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serveur-secondaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serveur secondaire
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actions-distantes-sur-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actions distantes sur l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autres-techniques-de-supervision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autres techniques de supervision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autres techniques de supervision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#surveiller-des-fichiers-texte-avec-module_regexp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Surveiller des fichiers texte avec module_regexp
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fonctionnement-interne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonctionnement interne
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparatif-des-fonctionnalites-entre-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparatif des fonctionnalités entre EndPoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#depannage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dépannage
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="supervision-avec-des-endpoints">Supervision avec des EndPoints<a class="headerlink" href="#supervision-avec-des-endpoints" title="Permanent link">¶</a></h1>
+<p>L'EndPoint est le logiciel qui s'installe dans la machine à superviser pour en
+tirer le meilleur parti : les processus, les services, les fichiers, tout ce qui
+ne se voit que de l'intérieur. Pandora FMS en maintient trois, un en Go, un
+autre en Perl et un autre en C++ pour Windows, qui partagent le format de
+configuration et le protocole d'envoi, mais diffèrent dans ce que chaque système
+d'exploitation permet. Ce chapitre couvre ce que fait un EndPoint, comment faire
+les premiers pas avec lui et comment gérer sa configuration depuis la console
+web sans toucher le fichier à la main à chaque fois.</p>
+<h2 id="quest-ce-quun-endpoint">Qu'est-ce qu'un EndPoint<a class="headerlink" href="#quest-ce-quun-endpoint" title="Permanent link">¶</a></h2>
+<p>Un EndPoint fait, en boucle, toujours la même chose : il lit son fichier de
+configuration, exécute les modules qu'il a définis, rassemble le résultat dans un
+XML et l'envoie au serveur par Tentacle. Ce cycle se répète toutes les <code>interval</code>
+secondes, sans plus d'ambition ni de mystère. La complexité, s'il y en a, tient à
+la décision des modules à exécuter, pas au mécanisme de livraison.</p>
+<p>Il convient de ne pas confondre deux choses au nom proche. L'<strong>agent</strong> est le
+conteneur logique qui existe dans la console web : un nom, des modules, un
+historique. L'<strong>EndPoint</strong> est le processus installé sur la machine qui alimente
+cet agent en données. La plupart du temps, les deux vont de pair — un EndPoint, un
+agent —, mais l'agent peut exister sans aucun EndPoint derrière et recevoir des
+données par une autre voie : la supervision distante (SNMP, WMI, contrôles réseau
+depuis le serveur ou depuis un serveur satellite), l'insertion par API ou un
+plugin de <em>discovery</em>. La question qui tranche entre installer un EndPoint et
+recourir à la supervision distante est simple : avez-vous besoin de quelque chose
+qui ne se voit que de l'intérieur de la machine — un processus, un fichier de
+log, l'utilisation réelle du CPU, un script à vous —, ou ce que l'on voit de
+l'extérieur suffit-il ? La seconde option ne demande pas de toucher la machine
+cible ; la première, oui.</p>
+<p>L'installation de l'EndPoint se trouve dans
+<a href="../../parte-1/1.1-instalacion/#installation-en-ligne-de-lendpoint">Installation en ligne de l'EndPoint</a>
+et ses variantes hors ligne. Ici, on part du principe qu'il est déjà installé et
+en marche.</p>
+<h3 id="les-trois-endpoints-go-perl-et-windows">Les trois EndPoints : Go, Perl et Windows<a class="headerlink" href="#les-trois-endpoints-go-perl-et-windows" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>EndPoint</th>
+<th>Langage</th>
+<th>Systèmes</th>
+<th>Service</th>
+<th>Configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Go</td>
+<td>Go</td>
+<td>Linux x86_64</td>
+<td><code>systemd</code> (<code>pandora_agent_daemon</code>)</td>
+<td><code>/etc/pandora/pandora_agent.conf</code></td>
+</tr>
+<tr>
+<td>Unix (Perl)</td>
+<td>Perl</td>
+<td>Autres Unix : AIX, HP-UX, Solaris, BSD, macOS ; et Linux sur les architectures sans binaire Go</td>
+<td><code>systemd</code> (<code>pandora_agent_daemon</code>)</td>
+<td><code>/etc/pandora/pandora_agent.conf</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td>C++</td>
+<td>MS Windows</td>
+<td>Service <code>PandoraFMSAgent</code></td>
+<td><code>pandora_agent.conf</code> dans le dossier d'installation</td>
+</tr>
+</tbody>
+</table>
+<p>Sous Linux, l'EndPoint Go est aujourd'hui celui qui s'installe par défaut et
+celui qui est recommandé, et il a de bonnes raisons de l'être. C'est un unique
+binaire autonome, compilé de façon statique et sans bibliothèques externes : il
+ne réclame ni interpréteur, ni modules, ni versions précises de quoi que ce soit
+d'installé sur la machine. Le peu qu'il utilise du système, ce sont les outils
+que tout Linux apporte d'origine (<code>sh</code>, <code>ps</code>, <code>df</code>) et le client Tentacle, qui
+voyage dans le même paquet. Cela le rend idéal pour un déploiement à grande
+échelle sur les systèmes avec lesquels il est compatible : on le copie, on le
+lance et il fonctionne, sans surprises de dépendances d'une machine à l'autre. Et
+comme Go compile de façon croisée pour de nombreux systèmes d'exploitation et
+architectures, le même code peut produire des binaires pour d'autres plateformes
+sans rien réécrire ; aujourd'hui, le paquet officiel est distribué pour Linux
+x86_64.</p>
+<div class="admonition tip">
+<p class="admonition-title">Un seul binaire, zéro dépendance</p>
+<p>Pour déployer des EndPoints sur de nombreuses machines Linux x86_64,
+l'EndPoint Go est l'option la plus commode : il n'y a rien à préparer sur le
+système avant de l'installer.</p>
+</div>
+<p>L'EndPoint Perl entre en jeu dans deux situations : les systèmes Unix qui ne sont
+pas Linux (AIX, HP-UX, Solaris, les BSD, macOS) et les architectures Linux pour
+lesquelles il n'existe pas de binaire Go, soit aujourd'hui <code>x86</code>, <code>armv7l</code> et
+<code>aarch64</code>. L'installateur en ligne détecte l'architecture tout seul et passe à
+une compilation de Perl depuis les sources sans qu'il faille le demander
+expressément. Sous Windows, le seul candidat est l'EndPoint natif en C++.</p>
+<p>Les trois parlent la même langue vers le serveur : même format de
+<code>pandora_agent.conf</code>, même syntaxe <code>module_begin</code> / <code>module_end</code>, même XML de
+données et même transport Tentacle. Ce qui change de l'un à l'autre — les types
+de module qu'il prend en charge, la présence d'un watchdog, la façon de le
+redémarrer — est signalé section par section au fil de leur apparition.</p>
+<h2 id="premiers-pas-avec-un-endpoint-fraichement-installe">Premiers pas avec un EndPoint fraîchement installé<a class="headerlink" href="#premiers-pas-avec-un-endpoint-fraichement-installe" title="Permanent link">¶</a></h2>
+<p>Un EndPoint fraîchement installé enregistre l'agent dans la console web dès qu'il
+envoie son premier XML : il n'y a pas à le créer à la main. Cela est possible
+grâce à l'autocréation d'agents du serveur (<code>autocreate 1</code> dans
+<code>pandora_server.conf</code>), qui est activée par défaut dans tous les environnements.
+L'agent apparaît dans le groupe que déclare l'EndPoint — si ce groupe n'existe
+pas, dans le groupe de réserve que fixe <code>autocreate_group</code> sur le serveur — avec
+l'intervalle et les modules que le modèle de configuration apporte d'usine : sous
+Linux et Windows, une poignée de modules de base (charge CPU, connexions TCP et
+plugins d'utilisation du disque, de la mémoire et du réseau), suffisants pour
+vérifier d'un coup d'œil que l'envoi fonctionne. L'intervalle par défaut est de
+300 secondes (cinq minutes) ; le changer revient à modifier <code>interval</code> dans le
+fichier de configuration.</p>
+<div class="admonition note">
+<p class="admonition-title">Si l'agent n'apparaît pas</p>
+<p>Avec <code>autocreate 0</code> sur le serveur, les données d'un agent qui n'existe pas
+dans la console sont écartées. C'est une option de sécurité pour les
+environnements où seuls des agents créés à la main sont admis ; si
+l'EndPoint envoie et que l'agent n'apparaît pas, c'est la première chose
+qu'il convient de vérifier.</p>
+</div>
+<p>Sous Linux, l'EndPoint tourne comme service <code>systemd</code> sous le nom
+<code>pandora_agent_daemon</code> :</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>pandora_agent_daemon
+systemctl<span class="w"> </span>stop<span class="w"> </span>pandora_agent_daemon
+systemctl<span class="w"> </span>restart<span class="w"> </span>pandora_agent_daemon
+</code></pre></div>
+<p>L'ancien script de démarrage de <code>/etc/init.d</code> est encore présent dans quelque
+paquet, mais il est retiré : il se contente d'avertir qu'il faut utiliser
+<code>systemctl</code> et se termine sans rien faire. Ne l'utilisez pas et ne documentez pas
+de procédures à son sujet.</p>
+<p>Sous Windows, l'EndPoint tourne comme le service <code>PandoraFMSAgent</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="n">NET</span> <span class="nb">START </span><span class="n">PandoraFMSAgent</span>
+<span class="n">NET</span> <span class="n">STOP</span> <span class="n">PandoraFMSAgent</span>
+</code></pre></div>
+<p>La configuration réside dans <code>/etc/pandora/pandora_agent.conf</code> sous Linux et Unix
+— le même fichier pour l'EndPoint Go et l'EndPoint Perl ; dans une installation
+avec son propre chemin, dans <code>&lt;préfixe&gt;/etc/pandora/</code> — et dans
+<code>pandora_agent.conf</code> à l'intérieur du dossier d'installation sous Windows (par
+défaut, <code>C:\Program Files\pandora_agent</code>). Tout changement manuel dans ce fichier
+exige de redémarrer le service pour être appliqué ; si la configuration distante
+est active, il faut en outre tenir compte de ce qui est expliqué plus bas, car un
+changement local peut finir écrasé.</p>
+<h3 id="parametres-essentiels-de-pandora_agentconf">Paramètres essentiels de pandora_agent.conf<a class="headerlink" href="#parametres-essentiels-de-pandora_agentconf" title="Permanent link">¶</a></h3>
+<p>Parmi les nombreux jetons que <code>pandora_agent.conf</code> accepte, voici ceux que l'on
+touche le premier jour. Le reste — les modules à part — se trouve dans la
+<a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/">référence complète de configuration de l'EndPoint</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Ce qu'il fait</th>
+<th>Par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>server_ip</code></td>
+<td>IP ou FQDN du serveur Pandora FMS auquel l'EndPoint rend compte.</td>
+<td><code>localhost</code></td>
+</tr>
+<tr>
+<td><code>interval</code></td>
+<td>Secondes entre chaque cycle de collecte et d'envoi.</td>
+<td><code>300</code></td>
+</tr>
+<tr>
+<td><code>group</code></td>
+<td>Groupe auquel l'agent est affecté dans la console web.</td>
+<td>Aucune valeur dans le code ; les modèles d'installation apportent <code>Servers</code>.</td>
+</tr>
+<tr>
+<td><code>agent_alias</code></td>
+<td>Nom visible de l'agent dans la console. S'il reste vide, il prend le nom de la machine (<em>hostname</em>). À ne pas confondre avec <code>agent_name</code>, l'identifiant interne que le serveur utilise pour ne pas dupliquer des agents : changer l'alias ne renomme pas l'agent.</td>
+<td>Vide (hostname)</td>
+</tr>
+<tr>
+<td><code>remote_config</code></td>
+<td>Permet de modifier cette configuration et ses modules depuis la console. Le sujet est traité en détail dans la section suivante.</td>
+<td><code>0</code> dans le code ; les modèles d'installation le laissent à <code>1</code></td>
+</tr>
+<tr>
+<td><code>debug</code></td>
+<td>Avec <code>1</code>, l'EndPoint consigne plus de détail dans son log et, après l'envoi de chaque XML, en conserve une copie dans le dossier temporaire (avec le suffixe <code>sent</code>) au lieu de l'effacer. Les données sont envoyées de la même manière : cela sert à voir ce qui est envoyé exactement, pas à tester en cachette.</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-distante-depuis-la-console-web">Configuration distante depuis la console web<a class="headerlink" href="#configuration-distante-depuis-la-console-web" title="Permanent link">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Elle est activée d'usine</p>
+<p>Les modèles d'installation de Linux et de Windows apportent
+<code>remote_config 1</code> : tout EndPoint installé avec le paquet standard permet,
+dès la première minute, à quiconque a accès à la console de modifier sa
+configuration et ses modules sans toucher la machine. L'installateur en
+ligne ne change cette valeur que si on lui passe explicitement la variable
+<code>PANDORA_REMOTE_CONFIG</code> ; si l'on ne touche à rien, elle reste active. Si le
+jeton <code>remote_config</code> manque purement et simplement du fichier, la valeur
+que suppose le code est <code>0</code>, mais ce n'est pas ce qu'apporte l'installation
+standard : c'est la situation d'un fichier modifié à la main et tronqué.
+Avant de considérer qu'un EndPoint est fermé aux changements distants,
+vérifiez le jeton.</p>
+</div>
+<p>Avec la configuration distante active, la console peut remplacer le
+<code>pandora_agent.conf</code> de l'EndPoint en entier et créer ou modifier des modules
+locaux sans que personne ne se connecte à la machine. Le mécanisme sous-jacent
+est le même dans les trois EndPoints, avec des nuances : à chaque cycle,
+l'EndPoint calcule le MD5 de sa configuration actuelle et le compare à celui qui
+se trouve sur le serveur.</p>
+<ul>
+<li>Si le serveur n'a pas encore de MD5 pour cet agent, l'EndPoint téléverse sa
+  configuration locale : c'est le premier contact, et la console part de ce qui
+  existait déjà sur la machine au lieu d'exiger de l'écrire de zéro.</li>
+<li>Si le MD5 du serveur diffère du MD5 local, l'EndPoint télécharge la
+  configuration nouvelle et la laisse comme fichier actif.</li>
+<li>S'ils coïncident, rien ne se passe : c'est le cas normal, cycle après cycle.</li>
+</ul>
+<p>La désactiver est aussi simple que de mettre <code>remote_config 0</code> et de redémarrer
+le service ; à partir de là, les changements n'entrent qu'en modifiant le fichier
+à la main sur la machine.</p>
+<p>Deux autres pièces de la configuration qu'il convient de connaître dès le début :
+les <em>custom fields</em> de l'agent, que l'EndPoint peut déclarer dans son fichier
+(<code>custom_field1_name</code>, <code>custom_field1_value</code> et les suivants) et qui, avec la
+configuration distante active, se modifient aussi depuis la console ; et les
+groupes protégés par mot de passe : si le groupe de la console exige un mot de
+passe, l'EndPoint doit le déclarer avec <code>group_password</code> pour que le serveur crée
+l'agent dans ce groupe.</p>
+<p>Un champ personnalisé ne se remplit que s'il existe déjà dans la console sous ce
+même nom (<strong>Ressources → Champs personnalisés</strong>) ; s'il n'existe pas, le serveur
+écarte la valeur sans plus. C'est là que se définit aussi son type : texte libre,
+liste de valeurs, mot de passe (la console l'affiche avec des astérisques) ou
+lien. Pour un champ de type lien, l'EndPoint envoie une paire avec le texte et
+l'adresse :</p>
+<div class="highlight"><pre><span></span><code>custom_field1_name Documentation
+custom_field1_value ["Manuel du serveur","https://intranet.example.com/srv01"]
+</code></pre></div>
+<p>Une différence entre EndPoints, et non des moindres : l'EndPoint Perl applique la
+configuration distante avec n'importe quel <code>transfer_mode</code> (<code>tentacle</code>, <code>ssh</code>,
+<code>ftp</code> ou <code>local</code>), tandis que l'EndPoint Go ne le fait qu'avec <code>tentacle</code> ou
+<code>local</code> ; avec <code>ssh</code> ou <code>ftp</code>, il ne télécharge pas de configuration distante.</p>
+<h3 id="autoconfiguration-des-endpoints">Autoconfiguration des EndPoints<a class="headerlink" href="#autoconfiguration-des-endpoints" title="Permanent link">¶</a></h3>
+<p>La configuration distante a une extension naturelle pour les grands déploiements :
+l'autoconfiguration, qui applique un groupe, des politiques ou une configuration
+supplémentaire à chaque EndPoint nouveau dès qu'il s'enregistre, selon des règles
+définies à l'avance, sans les toucher un par un. Le sujet est expliqué en détail
+dans <a href="../../parte-6/6.6-mecanismos-de-autoprovision/">Mécanismes d'auto-approvisionnement</a>.</p>
+<h2 id="superviser-les-bases-du-systeme">Superviser les bases du système<a class="headerlink" href="#superviser-les-bases-du-systeme" title="Permanent link">¶</a></h2>
+<p>Avant de penser à des scripts propres ou à des intégrations exotiques, il convient
+de couvrir l'évident : combien de CPU et de mémoire libre il reste, combien
+d'espace disque il reste, si un processus ou un service sont toujours vivants.
+C'est 80 % de ce que l'on demande à un EndPoint, et une bonne partie arrive
+faite : sans rien configurer, le modèle avec lequel il est installé collecte déjà
+l'essentiel.</p>
+<table>
+<thead>
+<tr>
+<th>Ce qui sort d'usine</th>
+<th>Linux (Go et Perl)</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Utilisation du CPU</td>
+<td>Module <code>CPU Load</code> (avec <code>vmstat</code>), plus <code>CPU IOWait</code> et <code>Load Average</code></td>
+<td>Module <code>CPU Load</code> (interroge WMI)</td>
+</tr>
+<tr>
+<td>Utilisation de chaque disque (%)</td>
+<td>Plugin <code>pandora_df_used</code></td>
+<td>Plugin <code>df_percent_used.vbs</code></td>
+</tr>
+<tr>
+<td>Utilisation de la mémoire (%)</td>
+<td>Plugin <code>pandora_mem_used</code> (inclut le <em>swap</em>)</td>
+<td>Plugin <code>mem_percent_used.vbs</code></td>
+</tr>
+<tr>
+<td>Trafic réseau</td>
+<td>Plugins <code>pandora_netusage</code> et <code>net_usage</code></td>
+<td>Plugin <code>network.vbs</code></td>
+</tr>
+<tr>
+<td>Connexions TCP</td>
+<td>Module <code>TCP_Connections</code></td>
+<td>Module <code>TCP_Connections</code></td>
+</tr>
+<tr>
+<td>Services connus</td>
+<td>Plugin <code>autodiscover --default</code> : il détecte les services habituels (bases de données, serveurs web…) et surveille leur état, leur CPU et leur mémoire</td>
+<td>Idem, avec <code>autodiscover.exe --default</code></td>
+</tr>
+<tr>
+<td>Informations matérielles (CPU, RAM, disques, interfaces)</td>
+<td>Plugin <code>hardware_info</code>, une fois par jour</td>
+<td>Idem, avec <code>hardware_info.exe</code></td>
+</tr>
+</tbody>
+</table>
+<p>Malgré cela, il convient de savoir comment faire chaque chose à la main : pour
+surveiller un disque, un processus ou un service précis, pour ajuster des seuils
+ou pour remplacer le modèle par le vôtre. Ce qui suit décrit les modules natifs de
+chaque EndPoint : d'abord ce qui est commun aux trois, ensuite ce qui change
+selon le système d'exploitation.</p>
+<h3 id="modules-communs-a-tous-les-endpoints">Modules communs à tous les EndPoints<a class="headerlink" href="#modules-communs-a-tous-les-endpoints" title="Permanent link">¶</a></h3>
+<p>Go, Perl et Windows partagent ces cinq modules avec la même syntaxe :</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Ce qu'il mesure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>module_cpuusage</code></td>
+<td>Pourcentage d'utilisation du CPU.</td>
+</tr>
+<tr>
+<td><code>module_freememory</code></td>
+<td>Mémoire libre, en MB.</td>
+</tr>
+<tr>
+<td><code>module_freepercentmemory</code></td>
+<td>Mémoire libre, en %.</td>
+</tr>
+<tr>
+<td><code>module_freedisk</code></td>
+<td>Espace libre sur une partition ou une unité, en MB.</td>
+</tr>
+<tr>
+<td><code>module_freepercentdisk</code></td>
+<td>Espace libre sur une partition ou une unité, en %.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name CPU
+module_type generic_data
+module_cpuusage
+module_end
+
+module_begin
+module_name Mémoire libre
+module_type generic_data
+module_freememory
+module_end
+
+module_begin
+module_name Mémoire libre (%)
+module_type generic_data
+module_freepercentmemory
+module_end
+
+module_begin
+module_name Disque / libre (%)
+module_type generic_data
+module_freepercentdisk /
+module_end
+</code></pre></div>
+<p><code>module_freedisk</code> et <code>module_freepercentdisk</code> ont besoin de savoir quelle unité
+regarder : sous Linux et Unix, le point de montage tel qu'il apparaît dans <code>df</code>
+(<code>/</code>, <code>/var</code>) ; sous Windows, la lettre de l'unité (<code>C:</code>). Le reste de la
+définition — quel disque, quelle partition — ne se devine pas : si le point de
+montage ou la lettre n'existent pas sur la machine, le module ne génère pas de
+donnée.</p>
+<p><code>module_cpuusage</code> admet en option le numéro du cœur à mesurer (<code>0</code> le premier,
+<code>1</code> le second…) ; sans valeur, ou avec <code>all</code>, il agrège l'utilisation de tous les
+cœurs en une seule.</p>
+<h3 id="supervision-specifique-a-linux-et-unix-endpoints-go-et-perl">Supervision spécifique à Linux et Unix (EndPoints Go et Perl)<a class="headerlink" href="#supervision-specifique-a-linux-et-unix-endpoints-go-et-perl" title="Permanent link">¶</a></h3>
+<p>Sous Linux et le reste des Unix, <code>module_proc</code> et <code>module_service</code> sont le même
+module sous deux noms : ils cherchent, parmi les processus en cours, celui dont
+la ligne de commande complète — telle que l'affiche <code>ps aux</code>, depuis le nom du
+binaire et au-delà — coïncide exactement avec le paramètre. Le résultat est <code>1</code>
+s'il y a une correspondance et <code>0</code> s'il n'y en a pas ; ce n'est <strong>pas</strong> un
+décompte de processus, donc peu importe qu'il y ait une instance du processus en
+cours ou cinq. Il n'existe ni mode asynchrone ni watchdog : si le processus meurt,
+le cycle suivant le reflète, et la surveillance s'arrête là.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name SSHD actif
+module_type generic_proc
+module_service /usr/sbin/sshd -D
+module_end
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">La ligne de commande entière, pas seulement le nom</p>
+<p><code>module_service sshd</code> ne trouve rien si le processus réel tourne comme
+<code>/usr/sbin/sshd -D</code>. Il faut copier la ligne telle que l'affiche <code>ps aux</code>,
+arguments compris.</p>
+</div>
+<p>Deux modules exclusifs à Unix ajoutent du détail sur ce même processus :
+<code>module_cpuproc</code> (utilisation du CPU) et <code>module_memproc</code> (mémoire résidente, en
+MB). Tous deux exigent le même type de correspondance exacte que <code>module_proc</code>,
+et si le processus ne tourne pas, le module ne génère pas de donnée pendant ce
+cycle. Est également exclusif à Unix <code>module_occupiedpercentdisk</code>, le pendant de
+<code>module_freepercentdisk</code> : le pourcentage occupé au lieu du pourcentage libre.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name SSHD, utilisation du CPU
+module_type generic_data
+module_cpuproc /usr/sbin/sshd -D
+module_end
+
+module_begin
+module_name Disque / occupé (%)
+module_type generic_data
+module_occupiedpercentdisk /
+module_end
+</code></pre></div>
+<p>Pour tout ce qu'un module natif ne couvre pas, il y a <code>module_exec</code> : il exécute
+la commande ou le script qu'on lui passe et prend sa sortie standard comme
+donnée. Sous Linux et Unix, il s'exécute via <code>/bin/sh</code>, et sur certains systèmes
+(Debian et ses dérivés, surtout) ce <code>/bin/sh</code> est <code>dash</code>, pas <code>bash</code> : si la
+commande utilise une syntaxe propre à <code>bash</code> (<code>[[ ]]</code>, <em>arrays</em>, <code>source</code>…), elle
+échoue en silence ou avec un résultat différent de celui attendu dans un terminal
+interactif. La façon sûre de l'éviter est d'envelopper la commande dans
+<code>bash -c</code>.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Connexions établies
+module_type generic_data
+module_exec bash -c "ss -tn state established | wc -l"
+module_end
+</code></pre></div>
+<h3 id="supervision-specifique-a-ms-windows">Supervision spécifique à MS Windows<a class="headerlink" href="#supervision-specifique-a-ms-windows" title="Permanent link">¶</a></h3>
+<p>Sous Windows, <code>module_service</code> et <code>module_proc</code> cessent d'être le même module et
+chacun regarde une chose différente.</p>
+<p><code>module_service</code> vérifie l'état d'un service par son <strong>nom court</strong> — l'interne,
+celui qui apparaît dans la colonne « Nom du service » du gestionnaire de
+services, pas le nom d'affichage —, entre guillemets s'il contient des espaces.
+Il renvoie <code>1</code> si le service est en cours et <code>0</code> s'il est arrêté ou n'existe pas.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Spooler d'impression
+module_type generic_proc
+module_service Spooler
+module_end
+</code></pre></div>
+<p><code>module_proc</code> cherche par nom de processus, extension <code>.exe</code> comprise
+(<code>notepad.exe</code>, pas <code>notepad</code>), et contrairement à Unix il renvoie bien le nombre
+d'instances en cours, pas un simple oui/non.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Instances de notepad
+module_type generic_data
+module_proc notepad.exe
+module_end
+</code></pre></div>
+<p>Les deux modules admettent sous Windows un mode asynchrone (<code>module_async</code>) : au
+lieu d'attendre l'intervalle suivant, l'EndPoint surveille les changements d'état
+et envoie la donnée dès qu'ils se produisent. Pour les services, il s'appuie sur
+les notifications du journal d'événements du Gestionnaire de contrôle des
+services ; sur les éditions de Windows qui ne les proposent pas (les Home),
+l'EndPoint passe tout seul à vérifier l'état toutes les 10 secondes. Les modules
+asynchrones ne sont pas admis sur les agents broker.</p>
+<p>Le watchdog (<code>module_watchdog yes</code>) se greffe sur le mode asynchrone et
+transforme le module en surveillant actif. Attention à la valeur : sans elle, le
+watchdog ne s'active pas.</p>
+<ul>
+<li>
+<p><strong>Services.</strong> Si le service s'arrête, l'EndPoint le relance lui-même ; il n'y a
+  pas de commande à indiquer.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Spooler d'impression
+module_type generic_proc
+module_service Spooler
+module_async yes
+module_watchdog yes
+module_end
+</code></pre></div>
+</li>
+<li>
+<p><strong>Processus.</strong> Il faut lui dire comment le relancer avec <code>module_start_command</code>
+  (sans cela, l'EndPoint écarte le module et le note dans son log).
+  <code>module_startdelay</code> et <code>module_retrydelay</code> fixent, en millisecondes, l'attente
+  avant le démarrage et entre les tentatives, et <code>module_retries</code> le nombre de
+  tentatives. Le processus est lancé comme le service de l'EndPoint lui-même,
+  c'est-à-dire comme <code>SYSTEM</code> ; pour le lancer dans la session de l'utilisateur
+  qui a le bureau ouvert, on ajoute <code>module_user_session yes</code>.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Notepad
+module_type generic_proc
+module_proc notepad.exe
+module_async yes
+module_watchdog yes
+module_start_command c:\windows\notepad.exe
+module_startdelay 3000
+module_retrydelay 2000
+module_retries 5
+module_end
+</code></pre></div>
+</li>
+</ul>
+<p>Windows n'a pas de <code>module_cpuproc</code>, <code>module_memproc</code> ni
+<code>module_occupiedpercentdisk</code> : pour l'utilisation du CPU ou de la mémoire d'un
+processus précis sous Windows, il faut recourir à <code>module_perfcounter</code> ou à
+<code>module_wmiquery</code> (voir plus bas).</p>
+<h2 id="creer-vos-propres-modules">Créer vos propres modules<a class="headerlink" href="#creer-vos-propres-modules" title="Permanent link">¶</a></h2>
+<p>La première chose que l'on décide en créant un module, c'est son type
+(<code>module_type</code>) : il dit au serveur quelle classe de donnée il reçoit et comment
+calculer son état. Voici ceux qui s'utilisent dans un EndPoint :</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Ce qu'il reçoit</th>
+<th>Comment il s'interprète</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>generic_data</code></td>
+<td>Un nombre.</td>
+<td>La valeur telle quelle ; l'état vient des seuils. C'est le type par défaut.</td>
+</tr>
+<tr>
+<td><code>generic_proc</code></td>
+<td><code>1</code> ou <code>0</code>.</td>
+<td>État direct : <code>1</code> est normal et <code>0</code>, critique. Pour « est-il vivant ? ».</td>
+</tr>
+<tr>
+<td><code>generic_data_string</code></td>
+<td>Un texte.</td>
+<td>Le texte tel quel ; l'état vient des seuils de texte.</td>
+</tr>
+<tr>
+<td><code>generic_data_inc</code></td>
+<td>Un compteur qui ne fait que croître.</td>
+<td>La vitesse de variation par seconde entre deux lectures (octets/s, requêtes/s…).</td>
+</tr>
+<tr>
+<td><code>generic_data_inc_abs</code></td>
+<td>Un compteur qui ne fait que croître.</td>
+<td>La différence absolue entre deux lectures, sans division par le temps.</td>
+</tr>
+<tr>
+<td><code>async_data</code>, <code>async_proc</code>, <code>async_string</code></td>
+<td>La même chose que leurs équivalents <code>generic_*</code>.</td>
+<td>Des données qui n'arrivent pas à intervalles fixes (événements, changements d'état). Elles ne passent jamais à inconnu : si aucune donnée n'arrive dans le double de leur intervalle, elles reviennent à normal (<code>async_recovery 1</code> sur le serveur, la valeur par défaut).</td>
+</tr>
+<tr>
+<td><code>log</code></td>
+<td>Des lignes de log.</td>
+<td>Ce n'est pas une donnée de supervision : il va à la collecte de logs.</td>
+</tr>
+</tbody>
+</table>
+<p>Les deux incrémentaux ont besoin d'une lecture antérieure pour calculer quoi que
+ce soit, si bien que la première donnée qu'ils envoient est écartée. La liste
+complète des types de module de Pandora FMS, y compris ceux de la supervision
+distante, est traitée dans
+<a href="../../parte-1/1.2-introduccion-y-arquitectura/">Introduction et architecture</a>.</p>
+<p>Tout module, natif ou propre, se déclare avec la même enveloppe : <code>module_begin</code>
+ouvre la définition, <code>module_end</code> la ferme, et entre les deux vont <code>module_name</code>
+(obligatoire), le module de donnée lui-même (<code>module_exec</code>, l'un des modules
+natifs précédents…) et, éventuellement, <code>module_description</code>, <code>module_type</code> (par
+défaut, <code>generic_data</code>, une valeur numérique) et les jetons de seuil :
+<code>module_min_warning</code>, <code>module_max_warning</code>, <code>module_min_critical</code>,
+<code>module_max_critical</code> marquent les plages d'avertissement et de critique ;
+<code>module_str_warning</code> et <code>module_str_critical</code> font la même chose par comparaison
+de texte ou expression régulière pour les modules de type chaîne. <code>module_unit</code>
+ajoute une unité à la valeur affichée dans la console web (<code>%</code>, <code>GB</code>…) et
+<code>module_group</code> regroupe des modules liés sous une même rubrique dans la vue de
+l'agent. Les trois EndPoints admettent ces jetons avec le même nom et le même
+effet.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Disque /var libre (%)
+module_type generic_data
+module_freepercentdisk /var
+module_min_warning 20
+module_min_critical 10
+module_unit %
+module_group Disque
+module_end
+</code></pre></div>
+<p>Par défaut, chaque module s'exécute à tous les cycles de l'EndPoint, c'est-à-dire
+toutes les <code>interval</code> secondes. Pour l'espacer, il y a <code>module_interval</code>, qui ne se
+mesure pas en secondes mais en cycles : c'est un multiplicateur de l'<code>interval</code>
+général. Avec <code>interval 300</code> (cinq minutes), un module avec <code>module_interval 4</code>
+s'exécute un cycle sur quatre, toutes les 20 minutes. Cela sert pour des
+vérifications coûteuses ou qui ne changent pas souvent, sans toucher au rythme
+des autres modules.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Paquets en attente de mise à jour
+module_type generic_data
+module_exec apt list --upgradable 2&gt;/dev/null | grep -c upgradable || true
+module_interval 12
+module_end
+</code></pre></div>
+<p>Si ce qu'il faut est un intervalle fixe dans le temps, indépendant d'<code>interval</code>
+(une fois par jour, toutes les heures), il y a <code>module_absoluteinterval</code>, qui est
+expliqué dans <a href="#supervision-planifiee">Supervision planifiée</a>.</p>
+<p>Pour ce qu'aucun module natif ne couvre, <code>module_exec</code> accepte n'importe quelle
+commande ou script installé sur la machine et transforme sa sortie standard en
+donnée du module ; c'est la porte d'entrée des plugins locaux, dont le
+développement est traité dans
+<a href="../../parte-9/9.8-creacion-de-plugins-locales/">Création de plugins locaux</a>.</p>
+<p>Deux règles avant les exemples. La première : la commande doit renvoyer une valeur
+unique, sur une seule ligne. La seconde, celle qui cause le plus de déboires : si
+la commande se termine avec un code de sortie différent de <code>0</code>, l'EndPoint écarte
+la donnée même si elle a écrit quelque chose. Sous Linux et Unix, la commande est
+lancée avec <code>sh -c</code> ; sous Windows, avec <code>cmd.exe /c</code>.</p>
+<p>Utilisateurs avec une session ouverte sur un serveur Linux, avec avertissement à
+partir de cinq :</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Utilisateurs connectés
+module_type generic_data
+module_exec who | wc -l
+module_min_warning 5
+module_end
+</code></pre></div>
+<p>Y a-t-il une sauvegarde des dernières 24 heures ? Le module renvoie <code>1</code> ou <code>0</code> et,
+comme il est de type <code>generic_proc</code>, le <code>0</code> met le module en critique sans définir
+de seuils :</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Sauvegarde récente
+module_type generic_proc
+module_exec [ -n "$(find /backup -name '*.tar.gz' -mtime -1)" ] &amp;&amp; echo 1 || echo 0
+module_end
+</code></pre></div>
+<p>Sous Windows, l'équipe attend-elle un redémarrage pour finir d'appliquer des mises
+à jour ? <code>reg query</code> renvoie un code d'erreur quand la clé n'existe pas, ce qui
+est justement le cas normal, si bien que <code>&amp;&amp; … ||</code> transforme le résultat en un
+<code>1</code> ou un <code>0</code> qui se termine toujours bien :</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Redémarrage en attente
+module_type generic_data
+module_exec reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired" &gt;nul 2&gt;&amp;1 &amp;&amp; echo 1 || echo 0
+module_min_warning 1
+module_end
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Le code de sortie, toujours sous contrôle</p>
+<p>Un <code>grep -c</code> qui ne trouve rien écrit <code>0</code>, mais sort avec le code <code>1</code> et
+l'EndPoint jette la donnée. Si une commande peut échouer dans le cas normal,
+forcez la sortie avec <code>&amp;&amp; echo … || echo …</code> ou terminez le tube par une
+commande qui finit toujours bien, comme <code>wc -l</code>.</p>
+</div>
+<h3 id="creer-des-modules-depuis-la-console-web">Créer des modules depuis la console web<a class="headerlink" href="#creer-des-modules-depuis-la-console-web" title="Permanent link">¶</a></h3>
+<p>Avec la configuration distante active (voir plus haut), la console web permet de
+créer et de modifier ces mêmes modules locaux sans toucher <code>pandora_agent.conf</code> à
+la main : le formulaire génère les mêmes jetons que ceux vus dans cette section et
+l'EndPoint les récupère lors de sa vérification suivante de la configuration
+distante. Sans configuration distante, la seule voie est de modifier le fichier
+directement sur la machine.</p>
+<h2 id="supervision-avancee-de-ms-windows">Supervision avancée de MS Windows<a class="headerlink" href="#supervision-avancee-de-ms-windows" title="Permanent link">¶</a></h2>
+<p>L'EndPoint Windows ajoute une poignée de modules qui n'ont pas d'équivalent en Go
+ni en Perl, parce qu'ils dépendent de technologies propres à Windows.</p>
+<p><code>module_wmiquery</code> exécute une requête WQL contre WMI et <code>module_wmicolumn</code> indique
+quelle colonne du résultat prendre comme valeur du module :</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Mémoire physique libre (KB)
+module_type generic_data
+module_wmiquery SELECT FreePhysicalMemory FROM Win32_OperatingSystem
+module_wmicolumn FreePhysicalMemory
+module_end
+</code></pre></div>
+<p>Si la requête renvoie plusieurs lignes, le module recueille une donnée par ligne ;
+pour une valeur unique, il convient que la requête n'en renvoie qu'une.</p>
+<p><code>module_perfcounter</code> lit directement un compteur de performance de Windows (les
+mêmes que montre le Moniteur de performances). Les noms des compteurs sont dans la
+langue du système : l'exemple vaut pour un Windows en espagnol. Pour les compteurs
+qui expriment un taux (« par seconde »), <code>module_cooked 1</code> fournit la valeur déjà
+calculée au lieu du compteur brut.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Octets reçus par le réseau
+module_type generic_data
+module_perfcounter \Interfaz de red(*)\Bytes recibidos/segundo
+module_cooked 1
+module_end
+</code></pre></div>
+<p>Le visualiseur d'événements de Windows se lit avec <code>module_logchannel</code> (celui qui
+est recommandé) ou avec <code>module_logevent</code>, conservé pour compatibilité. Les deux
+filtrent par journal (<code>module_source</code>, le seul obligatoire), type, code
+d'événement, application ou motif, et leur usage principal est la collecte de
+logs, qui a son propre chapitre :
+<a href="../2.19-recoleccion-y-monitorizacion-de-logs/">Collecte et supervision des logs</a>.</p>
+<p>Enfin, <code>module_exec_powershell</code> exécute la commande ou le script indiqué via
+PowerShell (<code>powershell -C "&lt;commande&gt;"</code>), pour tout ce qui se résout mieux avec
+une cmdlet qu'avec une commande de <code>cmd.exe</code> :</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Services arrêtés
+module_type generic_data
+module_exec_powershell (Get-Service | Where-Object {$_.Status -eq 'Stopped'}).Count
+module_end
+</code></pre></div>
+<h2 id="plugins-endpoint">Plugins EndPoint<a class="headerlink" href="#plugins-endpoint" title="Permanent link">¶</a></h2>
+<p>Un plugin local ressemble à <code>module_exec</code> en ce qu'il s'agit d'un programme
+installé sur la machine que l'EndPoint exécute à chaque cycle, mais avec une
+différence importante : il ne renvoie pas une donnée, mais des modules entiers. Le
+plugin écrit dans sa sortie le XML d'un ou de plusieurs modules (nom, type,
+donnée, description…) et l'EndPoint l'ajoute tel quel à son fichier de données.
+C'est pourquoi un seul plugin comme <code>pandora_df_used</code> crée un module pour chaque
+disque qu'il trouve. Les trois EndPoints l'admettent avec <code>module_plugin</code>, et
+comme avec <code>module_exec</code>, si le plugin se termine avec un code de sortie différent
+de <code>0</code>, sa sortie est écartée.</p>
+<p>La forme la plus courte est une ligne isolée, qui s'exécute à chaque cycle :</p>
+<div class="highlight"><pre><span></span><code>module_plugin nagios_plugin_wrapper Disco_tmp /usr/lib/nagios/plugins/check_disk -w 20% -c 10% -p /tmp
+</code></pre></div>
+<p>S'il faut ajuster la façon dont il s'exécute, <code>module_plugin</code> va aussi dans un
+bloc <code>module_begin</code> / <code>module_end</code>, à côté des jetons qui contrôlent l'exécution :
+<code>module_interval</code> (tous les combien de cycles de l'EndPoint : <code>2</code>, un sur deux),
+<code>module_absoluteinterval</code> (un intervalle propre, comme <code>1d</code>), <code>module_timeout</code>
+(secondes de marge avant de le considérer comme échoué) ou <code>module_crontab</code>. Dans
+ce cas, <code>module_name</code> et <code>module_type</code> ne sont pas nécessaires : le nom, le type
+et la donnée, c'est le plugin lui-même qui les met dans son XML. Les modèles
+d'installation font déjà ainsi :</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_plugin hardware_info
+module_absoluteinterval 1d
+module_end
+
+module_begin
+module_plugin autodiscover --default
+module_timeout 30
+module_end
+</code></pre></div>
+<p>Le paquet de Linux et Unix apporte déjà plusieurs plugins prêts à l'emploi dans
+son dossier de plugins — certains, comme <code>pandora_df_used</code> ou <code>autodiscover</code>, sont
+déjà apparus dans le tableau de supervision par défaut — et il suffit de les
+citer par leur nom, sans chemin. Parmi eux se trouve <code>nagios_plugin_wrapper</code>, qui
+exécute un plugin Nagios déjà écrit (son premier argument est le nom du module ;
+le reste, l'appel au plugin avec ses paramètres) et convertit son code de sortie
+et son texte en un module de Pandora FMS, sans rien réécrire. Sous Windows, les
+plugins que le paquet apporte sont des scripts VBScript et des exécutables isolés
+dans le dossier <code>util\</code> (les mêmes <code>df_percent_used.vbs</code>,
+<code>mem_percent_used.vbs</code> ou <code>autodiscover.exe</code> du tableau précédent) ; un plugin
+propre en PowerShell s'invoque comme n'importe quelle autre commande, avec
+<code>module_plugin</code> :</p>
+<div class="highlight"><pre><span></span><code>module_plugin powershell.exe -File "%ProgramFiles%\pandora_agent\util\mi_plugin.ps1"
+</code></pre></div>
+<p>Écrire un plugin propre, dans n'importe quel langage, est traité dans
+<a href="../../parte-9/9.8-creacion-de-plugins-locales/">Création de plugins locaux</a>.</p>
+<h3 id="collections-de-fichiers">Collections de fichiers<a class="headerlink" href="#collections-de-fichiers" title="Permanent link">¶</a></h3>
+<p>Pour ne pas copier un plugin à la main sur chaque machine, il existe les
+<a href="../2.9-colecciones/">collections</a> : des paquets de fichiers que l'on téléverse une
+fois dans la console web et que l'on affecte aux EndPoints qui en ont besoin,
+lesquels les téléchargent et les laissent prêts pour qu'un <code>module_plugin</code> les
+utilise. Les trois EndPoints les admettent ; la façon de les créer, de les
+affecter et de les utiliser depuis les politiques est expliquée dans leur
+chapitre, <a href="../2.9-colecciones/">Collections</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Configuration distante, condition préalable</p>
+<p>Les collections se distribuent par le même canal que la configuration
+distante (voir <a href="#configuration-distante-depuis-la-console-web">Configuration distante depuis la console web</a>) :
+sans elle active, il n'y a aucun moyen de pousser une collection vers
+l'EndPoint.</p>
+</div>
+<h2 id="supervision-avancee-avec-lendpoint">Supervision avancée avec l'EndPoint<a class="headerlink" href="#supervision-avancee-avec-lendpoint" title="Permanent link">¶</a></h2>
+<h3 id="supervision-conditionnelle">Supervision conditionnelle<a class="headerlink" href="#supervision-conditionnelle" title="Permanent link">¶</a></h3>
+<p>Une précondition (<code>module_precondition</code>) décide si le module arrive à s'exécuter ;
+une condition (<code>module_condition</code>) évalue le résultat déjà obtenu. Les deux
+partagent la même syntaxe, dans les trois EndPoints :</p>
+<table>
+<thead>
+<tr>
+<th>Forme</th>
+<th>Syntaxe</th>
+<th>Elle est remplie quand</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Comparaison numérique</td>
+<td><code>&lt;opérateur&gt; &lt;valeur&gt; &lt;commande&gt;</code></td>
+<td>La valeur satisfait <code>&lt;opérateur&gt; &lt;valeur&gt;</code>. Opérateurs : <code>&gt;</code>, <code>&lt;</code>, <code>=</code> et <code>!=</code> (il n'y a ni <code>&gt;=</code> ni <code>&lt;=</code>).</td>
+</tr>
+<tr>
+<td>Intervalle</td>
+<td><code>(&lt;minimum&gt;,&lt;maximum&gt;) &lt;commande&gt;</code></td>
+<td>La valeur se situe entre les deux bornes, bornes exclues.</td>
+</tr>
+<tr>
+<td>Expression régulière</td>
+<td><code>=~ &lt;motif&gt; &lt;commande&gt;</code></td>
+<td>La valeur coïncide avec <code>&lt;motif&gt;</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Ce qui change, c'est d'où vient la valeur et ce que fait la commande :</p>
+<ul>
+<li>Dans une <strong>précondition</strong>, l'EndPoint exécute d'abord la <code>&lt;commande&gt;</code> et compare
+  sa sortie. Si un module en a plusieurs, toutes doivent être remplies ; si l'une
+  échoue, le module ne s'exécute pas pendant ce cycle.</li>
+<li>Dans une <strong>condition</strong>, la valeur est la donnée que le module vient d'obtenir.
+  Si elle est remplie, l'EndPoint lance la <code>&lt;commande&gt;</code> à part, comme action de
+  réponse (redémarrer quelque chose, nettoyer un dossier…) ; la donnée du module
+  ne change pas.</li>
+</ul>
+<p>Une précondition pour éviter les fausses alarmes : le module vérifie s'il existe
+une sauvegarde récente sur une ressource réseau montée sur <code>/backup</code>, mais
+seulement si cette ressource est montée. Si elle ne l'est pas, le module ne
+s'exécute pas pendant ce cycle, au lieu de marquer en critique une sauvegarde
+qu'il n'a même pas pu regarder :</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Sauvegarde récente
+module_type generic_proc
+module_precondition = 1 mountpoint -q /backup &amp;&amp; echo 1 || echo 0
+module_exec [ -n "$(find /backup -name '*.tar.gz' -mtime -1)" ] &amp;&amp; echo 1 || echo 0
+module_end
+</code></pre></div>
+<p>Une condition comme action de réponse : le module mesure à quel point le disque
+racine est occupé et, s'il dépasse 90 %, l'EndPoint efface les logs compressés de
+plus de 30 jours. La donnée est envoyée de la même manière ; l'effacement est un
+effet à part :</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Disque / occupé (%)
+module_type generic_data
+module_occupiedpercentdisk /
+module_condition &gt; 90 find /var/log -name '*.gz' -mtime +30 -delete
+module_min_warning 85
+module_end
+</code></pre></div>
+<h3 id="supervision-intensive">Supervision intensive<a class="headerlink" href="#supervision-intensive" title="Permanent link">¶</a></h3>
+<p>La supervision intensive sert à être averti avant qu'une chose ne tombe, sans
+multiplier les données envoyées. Elle s'active avec le jeton global
+<code>intensive_interval</code>, en secondes et plus court qu'<code>interval</code> : l'EndPoint se met
+à faire un tour toutes les <code>intensive_interval</code> secondes. À chaque tour, il
+exécute les modules marqués avec <code>module_intensive_condition</code>, mais n'envoie leur
+donnée que lorsque leur respect de la condition change, ou lorsque leur intervalle
+normal arrive à échéance. Avec <code>intensive_interval</code> à <code>0</code> (la valeur par défaut),
+il vaut la même chose qu'<code>interval</code> et il n'y a pas de supervision intensive. La
+condition utilise la même syntaxe que celles du tableau précédent, sans commande.</p>
+<div class="highlight"><pre><span></span><code># Partie générale du fichier
+interval 300
+intensive_interval 10
+
+module_begin
+module_name Ping de la passerelle
+module_type generic_proc
+module_exec ping -c 1 -W 1 192.168.1.1 &gt;/dev/null 2&gt;&amp;1 &amp;&amp; echo 1 || echo 0
+module_intensive_condition = 0
+module_end
+</code></pre></div>
+<h3 id="supervision-planifiee">Supervision planifiée<a class="headerlink" href="#supervision-planifiee" title="Permanent link">¶</a></h3>
+<p>Il y a deux façons qu'un module ne suive pas le rythme normal de l'EndPoint.</p>
+<p><code>module_absoluteinterval</code> lui donne un intervalle propre, en temps réel et non en
+cycles comme <code>module_interval</code>. Il admet un nombre avec suffixe (<code>30s</code>, <code>15m</code>,
+<code>6h</code>, <code>1d</code>) ou, sans suffixe, un nombre de cycles d'<code>interval</code>. En dessous,
+l'EndPoint le traduit en cycles en arrondissant à la hausse : avec
+<code>interval 300</code>, un <code>module_absoluteinterval 7m</code> s'exécute tous les deux cycles,
+c'est-à-dire toutes les 10 minutes. Il ne convient donc pas d'en attendre plus de
+précision que celle de l'<code>interval</code> lui-même.</p>
+<p>Ce qui le distingue vraiment de <code>module_interval</code>, c'est la mémoire : les trois
+EndPoints enregistrent l'heure de la dernière exécution du module dans un fichier
+de référence (<code>.ref</code>), de sorte que l'intervalle est respecté même si l'EndPoint
+redémarre. Un module quotidien s'exécute une fois par jour, pas une fois par jour
+plus une par redémarrage. La valeur spéciale <code>once</code> fait que le module s'exécute
+une seule fois et le convertit en asynchrone.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Certificat web : jours avant expiration
+module_type generic_data
+module_exec echo $(( ( $(date -d "$(openssl x509 -enddate -noout -in /etc/ssl/certs/web.pem | cut -d= -f2)" +%s) - $(date +%s) ) / 86400 ))
+module_absoluteinterval 1d
+module_end
+</code></pre></div>
+<p><code>module_crontab</code> va un pas plus loin : le module ne s'exécute que lorsque l'heure
+coïncide avec une expression cron de cinq champs (minute, heure, jour du mois,
+mois, jour de la semaine) ; les autres cycles ne font rien. C'est ce qui convient
+à ce qui n'a de sens qu'à une heure précise, comme une fermeture nocturne ou un
+rapport hebdomadaire.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Rapport hebdomadaire généré (lundi, 9:00)
+module_type generic_proc
+module_exec [ -f /var/reports/weekly.done ] &amp;&amp; echo 1 || echo 0
+module_crontab 0 9 * * 1
+module_end
+</code></pre></div>
+<h3 id="post-traitement-flip-flop-et-autres-reglages-du-module">Post-traitement, flip-flop et autres réglages du module<a class="headerlink" href="#post-traitement-flip-flop-et-autres-reglages-du-module" title="Permanent link">¶</a></h3>
+<p>Une poignée de jetons, communs aux trois EndPoints, ajustent comment la donnée
+est traitée une fois obtenue, sans toucher à la façon dont elle est obtenue. Ce
+sont les équivalents dans le fichier de configuration des champs du formulaire
+décrits dans
+<a href="../2.20-configuracion-comun-de-los-modulos/">2.20, Configuration commune des modules</a> :</p>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>module_postprocess</code></td>
+<td>Facteur par lequel le serveur multiplie la valeur numérique à la réception (pour convertir des octets en MB, par exemple). L'EndPoint l'envoie tel quel avec la donnée.</td>
+</tr>
+<tr>
+<td><code>module_ff_interval</code>, <code>module_ff_type</code>, <code>module_each_ff</code>, <code>module_min_ff_event*</code></td>
+<td>Ils ajustent le <em>flip-flop</em> : combien de changements d'état consécutifs sont nécessaires pour que le serveur déclenche un événement, au lieu d'un par changement.</td>
+</tr>
+<tr>
+<td><code>module_timeout</code></td>
+<td>Secondes de marge pour que la commande ou le plugin du module se termine avant de le considérer comme échoué.</td>
+</tr>
+<tr>
+<td><code>module_save &lt;variable&gt;</code></td>
+<td>Enregistre la valeur du module dans la variable d'environnement indiquée, pour que les modules exécutés ensuite l'utilisent.</td>
+</tr>
+</tbody>
+</table>
+<p><code>module_async</code>, déjà vu dans la supervision de services et de processus de
+Windows, est exclusif à cet EndPoint : il convertit le module en un surveillant
+qui avertit dès qu'il change d'état, au lieu d'attendre le cycle. Ni Go ni Perl ne
+l'implémentent.</p>
+<h2 id="lendpoint-comme-point-de-supervision-du-reseau">L'EndPoint comme point de supervision du réseau<a class="headerlink" href="#lendpoint-comme-point-de-supervision-du-reseau" title="Permanent link">¶</a></h2>
+<h3 id="controles-distants-depuis-lendpoint">Contrôles distants depuis l'EndPoint<a class="headerlink" href="#controles-distants-depuis-lendpoint" title="Permanent link">¶</a></h3>
+<p>Un EndPoint peut aussi surveiller une autre machine du réseau depuis là où il est
+installé, sans que cette machine ait son propre EndPoint. La différence entre
+systèmes est de fond, pas de nuance : Windows apporte des modules natifs pour
+cela ; sous Linux et Unix, avec Go ou avec Perl, il n'existe pas d'équivalents et
+on les construit avec <code>module_exec</code>.</p>
+<p>Sous Windows, <code>module_ping</code> lance un ping contre l'hôte indiqué et donne <code>1</code> ou
+<code>0</code> selon qu'il obtient une réponse ; <code>module_ping_count</code> et <code>module_ping_timeout</code>
+ajustent le nombre de tentatives et le temps d'attente. <code>module_tcpcheck</code> vérifie
+si un port TCP répond, avec <code>module_port</code> pour indiquer lequel et <code>module_timeout</code>
+pour la marge d'attente. <code>module_snmpget</code> lance une requête SNMP et prend la
+valeur renvoyée comme donnée du module, avec <code>module_snmp_version</code>,
+<code>module_snmp_community</code>, <code>module_snmp_agent</code> (l'hôte) et <code>module_snmp_oid</code>.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Ping vers la passerelle
+module_type generic_proc
+module_ping 192.168.1.1
+module_ping_count 2
+module_ping_timeout 1
+module_end
+
+module_begin
+module_name Port web du serveur
+module_type generic_proc
+module_tcpcheck 192.168.1.10
+module_port 443
+module_end
+</code></pre></div>
+<p>Sous Linux et Unix, le même résultat s'obtient avec <code>module_exec</code>, appuyé sur les
+outils du système. Ici s'applique la même règle que dans tout autre <code>module_exec</code> :
+le code de sortie décide si la donnée est envoyée, il faut donc le forcer
+explicitement au lieu de se fier à celui de la commande.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Ping vers la passerelle
+module_type generic_proc
+module_exec ping -c 1 -W 1 192.168.1.1 &gt;/dev/null 2&gt;&amp;1 &amp;&amp; echo 1 || echo 0
+module_end
+
+module_begin
+module_name Port web du serveur
+module_type generic_proc
+module_exec nc -z -w 2 192.168.1.10 443 &amp;&amp; echo 1 || echo 0
+module_end
+
+module_begin
+module_name Uptime par SNMP
+module_type generic_data
+module_exec snmpget -Ovq -c public -v 2c 192.168.1.10 sysUpTime.0
+module_end
+</code></pre></div>
+<p>Pour la supervision réseau depuis l'extérieur de la machine cible — sans besoin
+d'aucun EndPoint —, il y a la supervision distante, dans
+<a href="../2.6-monitorizacion-de-redes/">Supervision des réseaux</a>.</p>
+<h3 id="mode-broker">Mode broker<a class="headerlink" href="#mode-broker" title="Permanent link">¶</a></h3>
+<p>Un EndPoint en mode broker cesse de rendre compte comme un agent unique et se met
+à générer et envoyer, dans le même cycle, un ou plusieurs agents supplémentaires :
+chaque <code>broker_agent &lt;nom&gt;</code> dans <code>pandora_agent.conf</code> lève un agent enfant avec sa
+propre configuration, dérivée de celle de l'EndPoint principal (même serveur, même
+intervalle, même mode de transfert), mais avec son propre nom et ses propres
+modules. C'est ce qui permet, par exemple, qu'un unique EndPoint installé sur une
+passerelle rende compte des données de plusieurs appareils situés derrière elle,
+chacun comme son propre agent dans la console.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/endpoint-modo-broker.png" data-desc-position="bottom"><img alt="Un EndPoint en mode broker effectue des contrôles distants sur plusieurs appareils et envoie au serveur un XML pour chacun" class="diagrama diagrama-ancho" src="../../../assets/img/parte-01/endpoint-modo-broker.png"></a></p>
+<p>Les trois EndPoints l'admettent. Dans l'EndPoint Windows, les agents broker
+n'admettent pas de modules asynchrones : un module avec <code>module_async</code> dans la
+configuration d'un broker est écarté.</p>
+<div class="highlight"><pre><span></span><code>broker_agent Router-planta-1
+broker_agent Router-planta-2
+</code></pre></div>
+<h3 id="mode-proxy">Mode proxy<a class="headerlink" href="#mode-proxy" title="Permanent link">¶</a></h3>
+<p>En mode proxy, l'EndPoint cesse de se limiter à envoyer ses propres données et se
+met aussi à servir d'intermédiaire Tentacle pour d'autres EndPoints de son réseau
+qui n'atteignent pas directement le serveur. Au démarrage avec <code>proxy_mode 1</code>, il
+lève son propre serveur Tentacle local (<code>tentacle_server</code>) à l'écoute sur
+<code>proxy_address</code> et <code>proxy_port</code> (par défaut, toutes les interfaces et le port
+<code>41121</code>, le même que celui du serveur), et réachemine ce qu'il reçoit vers
+<code>server_ip</code> et <code>server_port</code>. <code>proxy_max_connection</code> limite les connexions
+simultanées qu'il accepte (par défaut, <code>10</code>) et <code>proxy_timeout</code> le temps d'attente
+de chacune (par défaut, <code>1</code> seconde). Les EndPoints qui s'appuient sur le proxy
+n'ont qu'à pointer leur <code>server_ip</code> vers la machine qui fait office de proxy, au
+lieu du serveur réel.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/endpoint-modo-proxy.png" data-desc-position="bottom"><img alt="Plusieurs EndPoints envoient leurs XML à l'EndPoint en mode proxy, qui les réachemine tous vers le serveur de Pandora FMS" class="diagrama diagrama-ancho" src="../../../assets/img/parte-01/endpoint-modo-proxy.png"></a></p>
+<div class="highlight"><pre><span></span><code># Sur l'EndPoint qui fait office de proxy
+proxy_mode 1
+proxy_address 0.0.0.0
+proxy_port 41121
+</code></pre></div>
+<h3 id="serveur-secondaire">Serveur secondaire<a class="headerlink" href="#serveur-secondaire" title="Permanent link">¶</a></h3>
+<p><code>secondary_mode</code> décide si l'EndPoint envoie aussi ses données à un second
+serveur, en plus du principal (<code>server_ip</code>), et dans quelles circonstances :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Comportement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>never</code> (par défaut)</td>
+<td>L'envoi ne se fait que vers le serveur principal.</td>
+</tr>
+<tr>
+<td><code>on_error</code></td>
+<td>On essaie d'abord le principal ; seulement s'il échoue, on envoie au secondaire.</td>
+</tr>
+<tr>
+<td><code>always</code></td>
+<td>L'envoi se fait vers les deux serveurs, toujours.</td>
+</tr>
+</tbody>
+</table>
+<p>Le serveur secondaire se configure avec son propre jeu de jetons en miroir —
+<code>secondary_server_ip</code>, <code>secondary_server_port</code>, <code>secondary_transfer_mode</code>,
+<code>secondary_server_ssl</code>, <code>secondary_server_path</code>, <code>secondary_server_user</code>,
+<code>secondary_server_pwd</code> —, indépendants de ceux du serveur principal. C'est la voie
+pour ne pas cesser de rendre compte quand le serveur principal n'est pas
+disponible, ou pour alimenter en même temps deux installations de Pandora FMS
+distinctes, sans dépendre du mode proxy ni d'une architecture distribuée complète.</p>
+<div class="highlight"><pre><span></span><code>secondary_mode on_error
+secondary_server_ip 10.0.0.5
+secondary_transfer_mode tentacle
+</code></pre></div>
+<h2 id="actions-distantes-sur-lendpoint">Actions distantes sur l'EndPoint<a class="headerlink" href="#actions-distantes-sur-lendpoint" title="Permanent link">¶</a></h2>
+<p>Les EndPoints Perl et Windows peuvent écouter des ordres par un petit serveur UDP :
+il s'active avec <code>udp_server 1</code> (il arrive désactivé), écoute sur
+<code>udp_server_port</code> (<code>41122</code> par défaut) et ne sert que les adresses de
+<code>udp_server_auth_address</code> (<code>0.0.0.0</code>, la valeur par défaut, admet n'importe
+laquelle). L'EndPoint Go n'a pas de serveur UDP.</p>
+<p>Les ordres qu'il comprend sont peu nombreux et délibérément limités :</p>
+<table>
+<thead>
+<tr>
+<th>Ordre</th>
+<th>Ce qu'il fait</th>
+<th>Perl</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>REFRESH AGENT</code></td>
+<td>Force une exécution immédiate du cycle : l'EndPoint collecte et envoie ses données sans attendre l'intervalle.</td>
+<td>Oui</td>
+<td>Oui (voir la note)</td>
+</tr>
+<tr>
+<td><code>START PROCESS &lt;nom&gt;</code> / <code>STOP PROCESS &lt;nom&gt;</code></td>
+<td>Exécute la commande définie dans <code>process_&lt;nom&gt;_start</code> / <code>process_&lt;nom&gt;_stop</code>. Sans ce jeton, l'ordre est rejeté.</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td><code>START SERVICE &lt;nom&gt;</code> / <code>STOP SERVICE &lt;nom&gt;</code></td>
+<td>Démarre ou arrête le service Windows indiqué, uniquement s'il est autorisé avec <code>service_&lt;nom&gt; 1</code>.</td>
+<td>Non</td>
+<td>Oui</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>udp_server 1
+udp_server_port 41122
+udp_server_auth_address 10.0.0.20
+process_backup_start /usr/local/bin/run_backup.sh
+process_backup_stop /usr/local/bin/stop_backup.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>udp_server 1
+udp_server_auth_address 10.0.0.20
+service_spooler 1
+process_informe_start C:\scripts\informe.bat
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Trois mots sous Windows</p>
+<p>L'EndPoint Windows exige que tout ordre comporte exactement trois mots ;
+c'est pourquoi, pour le rafraîchir, l'ordre est <code>REFRESH AGENT *</code>. C'est la
+forme qu'utilise l'action d'alerte « Restart agent » fournie d'origine ; si
+un ordre de deux mots ne fait rien sur un EndPoint Windows, voilà la raison.</p>
+</div>
+<p>Depuis le serveur, les ordres s'envoient avec <code>udp_client.pl</code>
+(<code>/usr/share/pandora_server/util/udp_client.pl &lt;ip&gt; 41122 "&lt;ordre&gt;"</code>), qui est ce
+qu'utilisent la commande d'alerte « Remote agent control » et l'action
+« Restart agent ».</p>
+<p>Pour exécuter des commandes ou des scripts arbitraires sur l'EndPoint depuis la
+console, sans dépendre de ce serveur UDP ni d'actions prédéfinies, il y a
+l'exécution distante de commandes et de scripts :
+<a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/">Exécution distante de scripts et de commandes</a>.</p>
+<h2 id="autres-techniques-de-supervision">Autres techniques de supervision<a class="headerlink" href="#autres-techniques-de-supervision" title="Permanent link">¶</a></h2>
+<p>Trois mécanismes de plus, d'usage ponctuel, complètent ce qu'un EndPoint peut
+apporter au-delà de ses modules :</p>
+<ul>
+<li><strong>KeepAlive.</strong> Un module de type <code>keep_alive</code> qui passe en critique quand
+  l'agent cesse d'envoyer des données. Il se crée seulement depuis la console web
+  (même sans configuration distante) et ne laisse pas de trace dans
+  <code>pandora_agent.conf</code>.</li>
+<li><strong>Command Snapshot.</strong> Un module de type texte qui recueille la sortie complète
+  d'une commande longue (<code>ps aux</code>, <code>netstat -n</code>) pour la voir dans la console
+  telle quelle, comme une capture. Il faut pour cela activer l'option <em>Command
+  line snapshot</em> dans la configuration de la console web. Avec l'EndPoint Go,
+  cela ne fonctionne pas : <code>module_exec</code> ne prend que la première ligne de la
+  sortie.</li>
+<li><strong>Supervision d'images.</strong> Un module de type texte (<code>generic_data_string</code> ou
+  <code>async_string</code>) dont la donnée est une image encodée en base64
+  (<code>data:image/jpeg;base64,…</code>), que la console affiche comme image au lieu de
+  comme texte. Normalement, c'est un plugin qui le génère.</li>
+</ul>
+<p>L'EndPoint participe aussi à deux domaines qui ont leur propre chapitre :
+l'inventaire du système, dans <a href="../../parte-3/3.1-inventario/">Inventaire</a>, et la
+collecte de logs, dans
+<a href="../2.19-recoleccion-y-monitorizacion-de-logs/">Collecte et supervision des logs</a>.</p>
+<h3 id="surveiller-des-fichiers-texte-avec-module_regexp">Surveiller des fichiers texte avec module_regexp<a class="headerlink" href="#surveiller-des-fichiers-texte-avec-module_regexp" title="Permanent link">¶</a></h3>
+<p><code>module_regexp</code> surveille un fichier texte en cherchant les lignes nouvelles qui
+remplissent <code>module_pattern</code> (une expression régulière) ; <code>module_pattern_exclude</code>
+écarte celles qui, le remplissant, coïncident en plus avec cet autre motif. Ce
+qu'il renvoie dépend du type : avec <code>generic_data</code>, combien de lignes coïncident ;
+avec <code>generic_proc</code>, <code>1</code> s'il y en a une ; avec <code>generic_data_string</code>, les lignes.
+Les trois EndPoints l'admettent avec les mêmes jetons, y compris
+<code>module_pattern_exclude</code> : malgré ce que dit quelque documentation ancienne, il
+n'est pas exclusif à Linux, il fonctionne aussi dans l'EndPoint Windows. Seul
+Windows ajoute <code>module_noseekeof</code> : avec <code>1</code>, le module relit le fichier entier à
+chaque exécution au lieu de seulement ce qui a été ajouté depuis la précédente.</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_name Erreurs dans le log de l'application
+module_type generic_data_string
+module_regexp /var/log/miapp/error.log
+module_pattern ERROR
+module_pattern_exclude ERROR_CONOCIDO
+module_end
+</code></pre></div>
+<p>C'est le mécanisme minimal pour surveiller un fichier isolé ; pour une collecte de
+logs véritable — centralisée, avec de multiples sources et une recherche
+postérieure —, il y a
+<a href="../2.19-recoleccion-y-monitorizacion-de-logs/">Collecte et supervision des logs</a>.</p>
+<h2 id="fonctionnement-interne">Fonctionnement interne<a class="headerlink" href="#fonctionnement-interne" title="Permanent link">¶</a></h2>
+<p>Tout ce qui précède — modules, plugins, collections — débouche sur le même
+mécanisme de livraison. Il convient de le comprendre une fois, car il explique
+d'un coup pourquoi l'agent apparaît tout seul dans la console, ce que fait
+vraiment <code>debug 1</code> et pourquoi un tampon plein ne jette pas les données à la
+poubelle.</p>
+<p><strong>Le XML de données et l'autocréation.</strong> À chaque cycle, l'EndPoint rassemble le
+résultat de tous ses modules dans un unique document XML, enveloppé dans une
+balise <code>&lt;agent_data&gt;</code> avec les attributs de l'agent (nom, alias, groupe,
+intervalle, version…) et un <code>&lt;module&gt;</code> pour chaque module, avec son nom, son type
+et sa donnée. Ce fichier s'écrit d'abord dans le dossier <code>temporal</code> sous le nom
+<code>&lt;hash de l'agent&gt;.&lt;timestamp&gt;.data</code> et c'est de là qu'il est envoyé ; le XML n'est
+pas généré directement à la volée au moment de l'envoi, si bien qu'il reste
+toujours une trace sur le disque pendant que le cycle dure. C'est ce même XML que
+le serveur traite pour créer l'agent et ses modules la première fois qu'ils
+apparaissent (<code>autocreate 1</code>, déjà vu dans
+<a href="#premiers-pas-avec-un-endpoint-fraichement-installe">Premiers pas avec un EndPoint fraîchement installé</a>) :
+il n'y a pas deux formats différents, l'un pour la création et l'autre pour le
+quotidien.</p>
+<p><strong>Modes apprentissage, normal et autodésactivé.</strong> Qu'un module nouveau du XML
+finisse dans la console dépend aussi du mode de l'agent, qui se choisit en le
+modifiant dans la console web :</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Ce qu'il fait avec le XML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mode apprentissage (par défaut)</td>
+<td>Il crée les modules nouveaux et met à jour les données de l'agent (adresse IP, intervalle, version du système d'exploitation et de l'EndPoint, champs personnalisés) ainsi que la configuration des modules qui existent déjà, sauf ceux qui viennent d'une politique.</td>
+</tr>
+<tr>
+<td>Mode normal</td>
+<td>Il ne traite que les données des modules qui existent déjà : les nouveaux sont écartés et les données de l'agent que le XML envoie n'écrasent pas celles de la console.</td>
+</tr>
+<tr>
+<td>Mode autodésactivé</td>
+<td>Comme le mode apprentissage, mais le serveur désactive l'agent quand tous ses modules (sans compter les asynchrones) passent à inconnu, et le réactive dès que de nouvelles données arrivent. Pensé pour les machines qui apparaissent et disparaissent.</td>
+</tr>
+</tbody>
+</table>
+<p>C'est la première suspicion quand quelqu'un ajoute un <code>module_begin</code> à l'EndPoint,
+vérifie que le XML sort bien et que le module n'apparaît jamais : l'agent est en
+mode normal et le serveur, obéissant, l'ignore.</p>
+<p><strong>Transfert : Tentacle, SSH, FTP et local.</strong> L'envoi proprement dit est fait par un
+programme externe que l'EndPoint lance contre le fichier <code>.data</code>, selon
+<code>transfer_mode</code> : les trois EndPoints admettent les quatre modes — <code>tentacle</code> (par
+défaut), <code>ssh</code> (avec <code>scp</code>), <code>ftp</code> et <code>local</code> (une copie de fichier, pour quand
+l'EndPoint tourne sur la même machine que le serveur) — avec le même répertoire en
+Go, Perl et Windows.</p>
+<div class="admonition note">
+<p class="admonition-title">Tentacle, le mode par défaut</p>
+<p><code>tentacle</code> est celui que les modèles d'installation apportent, et son client
+voyage dans le paquet de l'EndPoint lui-même ; <code>ssh</code> et <code>ftp</code> dépendent du
+fait que la machine ait <code>scp</code> ou un client FTP.</p>
+</div>
+<p>Avec Tentacle, deux jetons activent des options du client : <code>server_ssl 1</code> ajoute
+<code>-c</code> (chiffrement) à l'appel de <code>tentacle_client</code>, et <code>server_pwd</code> ajoute
+<code>-x &lt;clé&gt;</code> (mot de passe partagé avec le serveur). Les deux se traduisent de la
+même façon dans les trois EndPoints.</p>
+<p><strong>Le tampon de XML.</strong> Si l'envoi du cycle échoue — serveur tombé, réseau coupé —,
+l'EndPoint jette par défaut ce XML : le tour suivant en génère un nouveau et la
+donnée perdue ne revient pas. <code>xml_buffer 1</code> change cette politique : le fichier
+<code>.data</code> qui n'a pas pu être envoyé reste dans <code>temporal</code> et l'EndPoint réessaie de
+l'envoyer, avec celui du tour suivant, au cycle d'après. La politique s'applique
+de la même façon en Go, Perl et Windows, avec les trois mêmes limites, toutes de
+même valeur par défaut (<code>1024</code>, dans le sens que chacune indique) :</p>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Limite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temporal_min_size</code></td>
+<td>Mégaoctets libres minimaux sur la partition de <code>temporal</code> ; en dessous, rien de nouveau n'est enregistré dans le tampon.</td>
+</tr>
+<tr>
+<td><code>temporal_max_files</code></td>
+<td>Nombre maximal de fichiers <code>.data</code> accumulés dans <code>temporal</code>.</td>
+</tr>
+<tr>
+<td><code>temporal_max_size</code></td>
+<td>Mégaoctets maximaux occupés par ces fichiers dans leur ensemble.</td>
+</tr>
+</tbody>
+</table>
+<p>Avec <code>xml_buffer 0</code> (la valeur par défaut), ces trois limites ne sont même pas
+vérifiées : l'EndPoint n'accumule rien qui ne puisse être envoyé dans l'instant.</p>
+<p><strong><code>debug</code>, encore une fois.</strong> Il est déjà apparu dans
+<a href="#parametres-essentiels-de-pandora_agentconf">Paramètres essentiels de pandora_agent.conf</a> :
+avec <code>debug 1</code>, l'envoi ne change pas — la donnée sort de la même façon, cycle
+après cycle — mais l'EndPoint cesse de vérifier la configuration distante et les
+collections à chaque tour et conserve chaque <code>.data</code> envoyé avec le suffixe <code>sent</code>
+au lieu de l'effacer, pour pouvoir le revoir ensuite.</p>
+<p><strong><code>autotime</code>.</strong> Par défaut, l'EndPoint met dans le XML l'heure locale de la machine
+sur laquelle il tourne (<code>timestamp</code>). Avec <code>autotime 1</code>, cet attribut disparaît du
+XML et c'est le serveur qui met sa propre heure de réception en traitant la
+donnée. Cela sert pour les EndPoints sur des machines dont l'horloge n'est pas
+fiable — une machine virtuelle mal synchronisée, un appareil sans NTP — et qui,
+autrement, généreraient des données avec une marque temporelle décalée. Le
+comportement est identique dans les trois EndPoints.</p>
+<h2 id="comparatif-des-fonctionnalites-entre-endpoints">Comparatif des fonctionnalités entre EndPoints<a class="headerlink" href="#comparatif-des-fonctionnalites-entre-endpoints" title="Permanent link">¶</a></h2>
+<p>Avant d'installer un EndPoint précis sur une machine, il convient d'avoir sous la
+main ce qu'il est capable de faire et ce qu'il ne l'est pas. Le tableau résume par
+fonctionnalité, pas jeton par jeton — cela se trouve dans la
+<a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/">référence complète de configuration de l'EndPoint</a>,
+qui détaille chaque jeton un par un avec sa compatibilité exacte.</p>
+<table>
+<thead>
+<tr>
+<th>Fonctionnalité</th>
+<th>Go</th>
+<th>Perl</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modules natifs de base (CPU, mémoire, disque)</td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Modules de processus sous Unix (<code>module_proc</code>/<code>module_service</code> oui/non, <code>module_cpuproc</code>, <code>module_memproc</code>, <code>module_occupiedpercentdisk</code>)</td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Non</td>
+</tr>
+<tr>
+<td>Service et processus sous Windows avec mode asynchrone et watchdog</td>
+<td>Non</td>
+<td>Non</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>WMI, compteurs de performance, visualiseur d'événements, PowerShell</td>
+<td>Non</td>
+<td>Non</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Contrôles réseau natifs (<code>module_ping</code>, <code>module_tcpcheck</code>, <code>module_snmpget</code>)</td>
+<td>Non (avec <code>module_exec</code>)</td>
+<td>Non (avec <code>module_exec</code>)</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td><code>module_exec</code></td>
+<td>Oui, première ligne de la sortie</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Plugins locaux (<code>module_plugin</code>)</td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Collections de fichiers</td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Configuration distante</td>
+<td>Oui, seulement <code>tentacle</code> et <code>local</code></td>
+<td>Oui, les quatre modes de transfert</td>
+<td>Oui, les quatre modes de transfert</td>
+</tr>
+<tr>
+<td>Précondition, condition, intensive, <code>module_crontab</code>, <code>module_absoluteinterval</code></td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Mode broker</td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Oui, sans modules asynchrones dans les agents broker</td>
+</tr>
+<tr>
+<td>Mode proxy</td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Serveur secondaire</td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td>Serveur UDP (actions distantes)</td>
+<td>Non</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td><code>module_regexp</code></td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Oui, en plus avec <code>module_noseekeof</code></td>
+</tr>
+<tr>
+<td>Modes de transfert du XML de données (<code>tentacle</code>, <code>ssh</code>, <code>ftp</code>, <code>local</code>)</td>
+<td>Les quatre</td>
+<td>Les quatre</td>
+<td>Les quatre</td>
+</tr>
+<tr>
+<td>Tampon de XML (<code>xml_buffer</code>)</td>
+<td>Oui</td>
+<td>Oui</td>
+<td>Oui</td>
+</tr>
+</tbody>
+</table>
+<h2 id="depannage">Dépannage<a class="headerlink" href="#depannage" title="Permanent link">¶</a></h2>
+<p>La plupart des problèmes avec un EndPoint se ramènent à l'une de ces
+vérifications, dans l'ordre où il convient de les faire.</p>
+<ol>
+<li><strong>L'agent apparaît-il dans la console ?</strong> Si rien n'apparaît, vérifiez
+   <code>autocreate</code> sur le serveur (voir
+   <a href="#premiers-pas-avec-un-endpoint-fraichement-installe">Premiers pas avec un EndPoint fraîchement installé</a>)
+   et que l'EndPoint atteint le serveur : le port de Tentacle (<code>41121</code> par
+   défaut) doit être accessible entre les deux machines.</li>
+<li><strong>Le fichier de configuration est-il celui que vous croyez ?</strong> Avec la
+   configuration distante active, un changement fait à la main sur la machine
+   peut être écrasé par le serveur au cycle suivant si le MD5 ne coïncide pas
+   (voir
+   <a href="#configuration-distante-depuis-la-console-web">Configuration distante depuis la console web</a>).
+   Comparez le fichier local avec celui que montre la console avant de considérer
+   un changement comme perdu.</li>
+<li><strong>Le plugin ou le <code>module_exec</code> ont-ils les permissions et le chemin
+   corrects ?</strong> Un plugin propre ou un script hors du dossier de plugins
+   nécessitent le chemin complet, et le fichier, la permission d'exécution
+   (<code>chmod 755</code> sous Linux et Unix).</li>
+<li>
+<p><strong>La sortie et le code de sortie sont-ils ceux qu'attend l'EndPoint ?</strong>
+   Exécutez la commande ou le plugin à la main, dans le même compte que celui
+   avec lequel tourne l'EndPoint, et vérifiez deux choses : que le code de sortie
+   est <code>0</code> (sinon, l'EndPoint écarte la donnée même si elle a écrit quelque chose
+   de bon) et que la sortie est exactement ce que l'on attend — une seule valeur
+   pour <code>module_exec</code>, un XML complet et valide pour un plugin —. Pour vérifier le
+   XML d'un plugin, <code>xmllint</code> est plus fiable que de le regarder à l'œil. Comme un
+   plugin écrit un ou plusieurs <code>&lt;module&gt;</code> isolés, sans élément racine, il faut
+   les envelopper avant de les valider :</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"&lt;plugin&gt;"</span><span class="p">;</span><span class="w"> </span>./mi_plugin<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"&lt;/plugin&gt;"</span><span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xmllint<span class="w"> </span>--noout<span class="w"> </span>-
+</code></pre></div>
+</li>
+<li>
+<p><strong>Mode debug.</strong> Avec <code>debug 1</code> (voir
+   <a href="#parametres-essentiels-de-pandora_agentconf">Paramètres essentiels de pandora_agent.conf</a>),
+   chaque <code>.data</code> envoyé est conservé avec le suffixe <code>sent</code> dans le dossier
+   <code>temporal</code>, si bien que l'on peut ouvrir et vérifier exactement ce que chaque
+   module ou plugin a généré pendant ce cycle, sans attendre qu'il arrive dans la
+   console.</p>
+</li>
+<li><strong>Le log de l'EndPoint.</strong> Sous Linux et Unix,
+   <code>/var/log/pandora/pandora_agent.log</code> par défaut (<code>logfile</code> dans
+   <code>pandora_agent.conf</code>) ; sous Windows, <code>pandora_agent.log</code> dans le dossier
+   d'installation, et <code>pandora_debug.log</code> à côté si le mode debug est actif.</li>
+<li><strong>Redémarrer le service</strong> après tout changement manuel dans le fichier de
+   configuration : <code>systemctl restart pandora_agent_daemon</code> sous Linux et Unix,
+   <code>NET STOP</code> / <code>NET START PandoraFMSAgent</code> sous Windows (voir
+   <a href="#premiers-pas-avec-un-endpoint-fraichement-installe">Premiers pas avec un EndPoint fraîchement installé</a>).</li>
+<li><strong>Exécuter l'EndPoint à la main, sans le service.</strong> Chaque EndPoint a sa
+   propre façon de tourner hors du service, utile pour voir les messages au fur
+   et à mesure qu'ils se produisent : l'EndPoint Go admet
+   <code>pandora_agent --once /etc/pandora</code> pour un seul cycle de collecte et d'envoi ;
+   l'EndPoint Windows admet <code>PandoraAgent.exe --process</code> pour tourner comme
+   processus d'utilisateur au lieu de comme service, et <code>--test-ssh</code> /
+   <code>--test-ftp</code> pour essayer séparément ces deux modes de transfert avec la
+   configuration actuelle.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Permissions de l'EndPoint, pas seulement du plugin</p>
+<p>Sous Linux, le service <code>pandora_agent_daemon</code> tourne comme <code>root</code> sauf si
+<code>pandora_user</code> est fixé dans la configuration ; sous Windows, le service
+tourne comme <code>SYSTEM</code>. Une commande qui fonctionne dans un terminal
+interactif peut échouer à l'intérieur de l'EndPoint si elle dépend de
+variables d'environnement ou de permissions que seul l'utilisateur qui a
+ouvert ce terminal possède.</p>
+</div>
+<p>Pour ce qui n'est pas spécifique à l'EndPoint — erreurs du serveur, de la console
+web ou d'autres composants —, il y a le
+<a href="../../parte-9/9.13-troubleshooting-con-pandora/">guide général de résolution des problèmes</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

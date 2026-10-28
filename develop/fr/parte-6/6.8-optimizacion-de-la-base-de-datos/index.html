@@ -1,0 +1,5518 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-6/6.8-optimizacion-de-la-base-de-datos/">
+      
+      
+        <link rel="prev" href="../6.7-exportacion-de-datos-a-servidores-externos/">
+      
+      
+        <link rel="next" href="../6.9-backup-y-restore/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-6/6.8-optimizacion-de-la-base-de-datos/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-6/6.8-optimizacion-de-la-base-de-datos/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>8. Optimisation de la base de données - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#optimisation-de-la-base-de-donnees" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              8. Optimisation de la base de données
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-6/6.8-optimizacion-de-la-base-de-datos/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-6/6.8-optimizacion-de-la-base-de-datos/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction-pourquoi-la-base-de-donnees-se-degrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction : pourquoi la base de données se dégrade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quelle-configuration-du-moteur-apporte-pandora-fms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quelle configuration du moteur apporte Pandora FMS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reglage-fin-des-parametres-du-moteur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Réglage fin des paramètres du moteur
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disque-journaux-binaires-et-charge-du-systeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disque, journaux binaires et charge du système
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-de-la-sante-de-la-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic de la santé de la base de données
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fragmentation-la-mesurer-avant-de-toucher-a-quoi-que-ce-soit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fragmentation : la mesurer avant de toucher à quoi que ce soit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimisation-des-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimisation des tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requetes-lentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requêtes lentes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reconstruction-de-la-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reconstruction de la base de données
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partitionnement-manuel-des-grandes-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partitionnement manuel des grandes tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-rapide-et-repartition-avec-les-autres-chapitres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Référence rapide et répartition avec les autres chapitres
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction-pourquoi-la-base-de-donnees-se-degrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction : pourquoi la base de données se dégrade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quelle-configuration-du-moteur-apporte-pandora-fms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quelle configuration du moteur apporte Pandora FMS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reglage-fin-des-parametres-du-moteur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Réglage fin des paramètres du moteur
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disque-journaux-binaires-et-charge-du-systeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disque, journaux binaires et charge du système
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-de-la-sante-de-la-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic de la santé de la base de données
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fragmentation-la-mesurer-avant-de-toucher-a-quoi-que-ce-soit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fragmentation : la mesurer avant de toucher à quoi que ce soit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimisation-des-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimisation des tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requetes-lentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requêtes lentes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reconstruction-de-la-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reconstruction de la base de données
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partitionnement-manuel-des-grandes-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partitionnement manuel des grandes tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-rapide-et-repartition-avec-les-autres-chapitres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Référence rapide et répartition avec les autres chapitres
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="optimisation-de-la-base-de-donnees">Optimisation de la base de données<a class="headerlink" href="#optimisation-de-la-base-de-donnees" title="Permanent link">¶</a></h1>
+<h2 id="introduction-pourquoi-la-base-de-donnees-se-degrade">Introduction : pourquoi la base de données se dégrade<a class="headerlink" href="#introduction-pourquoi-la-base-de-donnees-se-degrade" title="Permanent link">¶</a></h2>
+<p>Dans une installation de Pandora FMS, l'écriture ne s'arrête jamais : les modules
+livrent leur donnée, les événements s'accumulent et les traps arrivent sans
+discontinuer. Les tables de séries temporelles croissent sans répit, la
+maintenance périodique purge l'ancien, et l'espace libéré n'est pas toujours
+réutilisé correctement. Le résultat, au fil des mois, est une base de données
+pleine de trous à l'intérieur. Les requêtes de graphiques et de rapports, qui
+sont celles qui lisent le plus, ralentissent peu à peu, et un jour l'écran met du
+temps à afficher ce qu'il affichait autrefois tout seul.</p>
+<p>C'est cela, la dégradation, et il vaut mieux savoir d'emblée ce qui peut être fait
+et ce qui ne peut pas l'être. Pandora FMS <strong>n'optimise pas la base de données à
+votre place</strong>. Sa maintenance périodique, qui tourne toutes les heures via cron,
+fait quatre choses : elle purge les données qui dépassent leur rétention, elle
+vérifie la cohérence de la base, elle contrôle son intégrité référentielle et, si
+une base de données historique est configurée, elle y déplace l'ancien. À la fin,
+elle horodate l'heure de son dernier passage. Ce qu'elle <strong>ne</strong> fait <strong>pas</strong>,
+c'est défragmenter ou reconstruire quoi que ce soit : il n'y a aucun
+<code>OPTIMIZE TABLE</code> caché dans la maintenance, et la console web n'a aucun bouton
+« Optimiser ». Si vous êtes arrivé ici en cherchant ce bouton, je vous épargne la
+recherche : il n'existe pas.</p>
+<p>D'où le propos de ce chapitre. Il ne s'agit pas ici d'une fonction du produit,
+mais de l'administration du moteur, MySQL ou Percona Server for MySQL. C'est vous
+qui réglez le moteur, vous qui mesurez la fragmentation, vous qui décidez quand
+optimiser et quand reconstruire. Pandora FMS vous donne le diagnostic et la
+documentation pour le faire avec discernement.</p>
+<p>Les autres pièces du puzzle vivent dans d'autres chapitres et ne sont pas
+répétées ici. La base de données historique, sa rétention et le partitionnement
+automatique de ses tables sont en
+<a href="../6.5-base-de-datos-de-historico/">6.5 (Base de données d'historique)</a>. La
+sauvegarde et la restauration, où aboutit la reconstruction, en
+<a href="../6.9-backup-y-restore/">6.9 (Sauvegarde et restauration)</a>. Et le
+dimensionnement du système, avec la mémoire et le CPU que demande chaque
+scénario, en
+<a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/">9.14 (Analyse volumétrique et conceptions pour la haute capacité)</a>.</p>
+<h2 id="quelle-configuration-du-moteur-apporte-pandora-fms">Quelle configuration du moteur apporte Pandora FMS<a class="headerlink" href="#quelle-configuration-du-moteur-apporte-pandora-fms" title="Permanent link">¶</a></h2>
+<p>Pandora FMS fonctionne sur MySQL 8 et sa variante recommandée, Percona Server for
+MySQL 8. Les deux sont compatibles entre elles et, par commodité, ce chapitre dit
+« MySQL » tout court ; là où il est question d'un test ou d'une valeur
+recommandée, il a été fait sur Percona.</p>
+<p>La première chose à savoir, c'est que vous ne partez pas de zéro. L'installateur
+de Pandora FMS ne se contente pas de laisser le moteur avec les valeurs d'usine :
+il écrit un <code>my.cnf</code> avec un bloc de paramètres déjà pensé pour le produit. Ce
+bloc fixe, entre autres, ces valeurs :</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Valeur</th>
+<th>Paramètre</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max_allowed_packet</code></td>
+<td><code>64M</code></td>
+<td><code>innodb_lock_wait_timeout</code></td>
+<td><code>90</code></td>
+</tr>
+<tr>
+<td><code>innodb_file_per_table</code></td>
+<td>Activé</td>
+<td><code>innodb_flush_log_at_trx_commit</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>innodb_flush_method</code></td>
+<td><code>O_DIRECT</code></td>
+<td><code>innodb_log_buffer_size</code></td>
+<td><code>16M</code></td>
+</tr>
+<tr>
+<td><code>innodb_log_file_size</code></td>
+<td><code>512M</code></td>
+<td><code>innodb_io_capacity</code></td>
+<td><code>1000</code></td>
+</tr>
+<tr>
+<td><code>thread_cache_size</code></td>
+<td><code>32</code></td>
+<td><code>thread_stack</code></td>
+<td><code>256K</code></td>
+</tr>
+<tr>
+<td><code>max_connections</code></td>
+<td><code>300</code></td>
+<td><code>key_buffer_size</code></td>
+<td><code>4M</code></td>
+</tr>
+<tr>
+<td><code>sql_mode</code></td>
+<td>Vide</td>
+<td><code>character-set-server</code></td>
+<td><code>utf8mb4</code></td>
+</tr>
+<tr>
+<td><code>read_buffer_size</code></td>
+<td><code>128K</code></td>
+<td><code>read_rnd_buffer_size</code></td>
+<td><code>128K</code></td>
+</tr>
+<tr>
+<td><code>sort_buffer_size</code></td>
+<td><code>1M</code></td>
+<td><code>join_buffer_size</code></td>
+<td><code>4M</code></td>
+</tr>
+</tbody>
+</table>
+<p>Les deux dernières lignes sont des tampons par session, et non globaux : ils sont
+réservés pour chaque connexion. Le moteur utilise <code>utf8mb4</code> sur tous les
+systèmes, parce que c'est la valeur par défaut de MySQL 8, et l'installateur de
+base de données dédiée pour Ubuntu 22.04 le fixe en plus explicitement dans le
+fichier. Et le bloc désactive les journaux binaires avec <code>skip-log-bin</code>, ce qui
+n'est correct que sur un serveur unique, comme on le voit en
+<a href="#disque-journaux-binaires-et-charge-du-systeme">Disque, journaux binaires et charge du
+système</a>.</p>
+<p>Quatre de ces valeurs ne sont pas fixes. L'installateur les adapte au système et
+au fait que la base de données soit sur le même serveur ou sur un serveur dédié,
+et elles se déplacent entre deux profils : <code>innodb_log_file_size</code> entre <code>64M</code> et
+<code>512M</code>, <code>innodb_io_capacity</code> entre <code>100</code> et <code>1000</code>, <code>thread_cache_size</code> entre <code>8</code>
+et <code>32</code>, et <code>max_connections</code> entre <code>100</code> et <code>300</code>. Sur les systèmes les plus
+récents, et surtout quand le moteur est MySQL 8.4, l'installateur ajoute en outre
+deux paramètres qui n'apparaissent pas sur les autres :
+<code>innodb_change_buffering = ALL</code> et <code>performance_schema = OFF</code>. Comme la valeur
+exacte dépend de votre cas, ne vous fiez pas au tableau : vérifiez celle que
+possède le moteur en marche, ce qui est justement ce qui est expliqué un peu plus
+bas.</p>
+<p>Le tampon InnoDB est le seul à ne pas avoir de valeur fixe : l'installateur le
+calcule à partir de la mémoire du serveur. La règle générale est <strong>40 % de la
+RAM</strong>, et dans plusieurs combinaisons de système et d'installateur elle descend à
+<strong>25 %</strong> quand le serveur a moins de 7,5 GB. L'idée est qu'il mange une portion
+généreuse de la mémoire et laisse le reste au système et au serveur Pandora FMS.
+C'est la décision la plus importante de toute la configuration du moteur et elle
+est expliquée en détail en
+<a href="#reglage-fin-des-parametres-du-moteur">Réglage fin des paramètres du moteur</a>.</p>
+<p><strong>Comment savoir quelle configuration est active.</strong></p>
+<p>Le fichier de configuration n'est pas toujours là où l'on croit, aussi le plus
+rapide est-il de le demander au moteur lui-même. Le binaire du serveur imprime,
+avec <code>--verbose</code>, la liste des fichiers qu'il lit et dans quel ordre :</p>
+<div class="highlight"><pre><span></span><code>mysqld<span class="w"> </span>--help<span class="w"> </span>--verbose<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-40
+</code></pre></div>
+<p>Avec cela, vous localisez le <code>my.cnf</code> qui est réellement appliqué (sur Ubuntu,
+c'est généralement <code>/etc/mysql/my.cnf</code> ; sur les distributions de la famille
+RHEL, <code>/etc/my.cnf</code>). Pour voir les valeurs à chaud, sans ouvrir le fichier, on
+interroge les variables du moteur :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'innodb%'</span><span class="p">;</span>
+</code></pre></div>
+<p>Et pour un paramètre précis, la même requête restreinte au nom :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'innodb_buffer_pool_size'</span><span class="p">;</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Les paramètres doivent être dans leur section</p>
+<p>Un paramètre écrit en dehors de la section <code>[mysqld]</code> du <code>my.cnf</code> n'est pas
+appliqué, et le moteur démarre tranquillement avec la valeur précédente.
+C'est l'erreur la plus fréquente et la plus difficile à voir, parce qu'elle
+ne donne aucun avertissement : la valeur ne change simplement pas. Vérifiez
+toujours la valeur à chaud avec <code>SHOW VARIABLES</code>, ne vous fiez pas au
+fichier.</p>
+</div>
+<p>Les exigences du serveur de base de données, avec le système d'exploitation et
+les versions admises, sont en
+<a href="../../parte-1/1.1-instalacion/">1.1 (Installation)</a>. Le <code>my.cnf</code> qu'utilise un
+environnement de haute disponibilité n'est pas celui-ci, mais celui de
+réplication, décrit en
+<a href="../6.10-alta-disponibilidad-ha/">6.10 (Haute disponibilité (HA))</a>. Et si ce que
+vous cherchez est la machine nécessaire pour un volume précis, c'est
+<a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/">9.14 (Analyse volumétrique et conceptions pour la haute capacité)</a>.</p>
+<h2 id="reglage-fin-des-parametres-du-moteur">Réglage fin des paramètres du moteur<a class="headerlink" href="#reglage-fin-des-parametres-du-moteur" title="Permanent link">¶</a></h2>
+<p>C'est ici que se trouve le gros du travail d'administration. Le tableau suivant
+réunit les paramètres qui comptent, avec la valeur qu'applique Pandora FMS et à
+quoi ils servent. Ceux qui portent une valeur fixe sont ceux que écrit
+l'installateur ; ceux qui dépendent du système sont indiqués comme tels.</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Valeur qu'applique Pandora FMS</th>
+<th>À quoi cela sert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>innodb_buffer_pool_size</code></td>
+<td>Calculé : 25 % ou 40 % de la RAM, selon le système</td>
+<td>Cache en mémoire des données et des index d'InnoDB. C'est, de loin, le paramètre qui pèse le plus sur les performances</td>
+</tr>
+<tr>
+<td><code>innodb_log_file_size</code></td>
+<td><code>64M</code> ou <code>512M</code>, selon le système</td>
+<td>Taille de chaque fichier de journal d'InnoDB</td>
+</tr>
+<tr>
+<td><code>innodb_log_buffer_size</code></td>
+<td><code>16M</code></td>
+<td>Tampon en mémoire où InnoDB accumule les écritures dans le journal avant de les descendre sur disque</td>
+</tr>
+<tr>
+<td><code>innodb_io_capacity</code></td>
+<td><code>100</code>, <code>300</code> ou <code>1000</code>, selon le système</td>
+<td>Capacité d'entrée/sortie qu'InnoDB peut demander au disque</td>
+</tr>
+<tr>
+<td><code>innodb_file_per_table</code></td>
+<td>Activé</td>
+<td>Un espace de tables par table, au lieu d'un seul partagé</td>
+</tr>
+<tr>
+<td><code>innodb_flush_log_at_trx_commit</code></td>
+<td><code>0</code></td>
+<td>Politique d'écriture à la validation de chaque transaction</td>
+</tr>
+<tr>
+<td><code>innodb_flush_method</code></td>
+<td><code>O_DIRECT</code></td>
+<td>Comment InnoDB écrit sur disque, sans passer par le cache du système d'exploitation</td>
+</tr>
+<tr>
+<td><code>innodb_lock_wait_timeout</code></td>
+<td><code>90</code></td>
+<td>Secondes qu'une transaction attend un verrou avant d'abandonner</td>
+</tr>
+<tr>
+<td><code>innodb_thread_concurrency</code></td>
+<td><code>0</code> (valeur par défaut du moteur)</td>
+<td>Limite de threads concurrents d'InnoDB ; <code>0</code> veut dire « sans limite »</td>
+</tr>
+<tr>
+<td><code>max_allowed_packet</code></td>
+<td><code>64M</code></td>
+<td>Taille maximale d'un paquet de données entre client et moteur</td>
+</tr>
+<tr>
+<td><code>max_connections</code></td>
+<td><code>100</code> ou <code>300</code>, selon le système</td>
+<td>Connexions simultanées admises</td>
+</tr>
+<tr>
+<td><code>thread_cache_size</code></td>
+<td><code>8</code> ou <code>32</code>, selon le système</td>
+<td>Threads que le moteur garde en réserve pour les réutiliser</td>
+</tr>
+<tr>
+<td><code>thread_stack</code></td>
+<td><code>256K</code></td>
+<td>Pile mémoire affectée à chaque thread</td>
+</tr>
+<tr>
+<td><code>key_buffer_size</code></td>
+<td><code>4M</code></td>
+<td>Tampon de clés, propre à MyISAM. Il n'accélère pas InnoDB</td>
+</tr>
+<tr>
+<td><code>read_buffer_size</code></td>
+<td><code>128K</code></td>
+<td>Tampon par session pour les lectures séquentielles</td>
+</tr>
+<tr>
+<td><code>read_rnd_buffer_size</code></td>
+<td><code>128K</code></td>
+<td>Tampon par session pour les lectures dans un ordre dispersé</td>
+</tr>
+<tr>
+<td><code>sort_buffer_size</code></td>
+<td><code>1M</code></td>
+<td>Tampon par session pour les tris</td>
+</tr>
+<tr>
+<td><code>join_buffer_size</code></td>
+<td><code>4M</code></td>
+<td>Tampon par session pour les jointures qui n'utilisent pas d'index</td>
+</tr>
+<tr>
+<td><code>sql_mode</code></td>
+<td>Vide</td>
+<td>Mode SQL strict désactivé</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Le tampon InnoDB : plus de mémoire avant plus de CPU.</strong></p>
+<p>Si vous ne pouvez toucher qu'à un seul paramètre, touchez à celui-ci.
+<code>innodb_buffer_pool_size</code> est la mémoire où InnoDB met en cache les pages de
+données et d'index qu'il lit, et plus il est grand, moins souvent il doit aller
+au disque. Dans une base de données de supervision, où le schéma est de beaucoup
+lire et d'écrire en continu, cela fait la différence entre une console web qui
+répond et une console web qui traîne.</p>
+<p>L'expérience avec le produit pointe toujours dans la même direction : <strong>plus de
+mémoire rend plus que plus de CPU</strong>. Un système d'entreprise démarre bien avec
+4 GB de RAM ; pour un grand environnement, 16 GB est un point de départ
+raisonnable. L'installateur calcule déjà la valeur à partir de la mémoire
+disponible, mais sur les grosses machines il convient de la revoir, parce que les
+pourcentages sont une approximation et le nombre qui compte vraiment est l'espace
+qu'occupent les données et les index actifs. Si le tampon tient entièrement en
+mémoire, le disque cesse d'être le goulot d'étranglement pour les lectures.</p>
+<p><strong>Journaux d'InnoDB et capacité de disque.</strong></p>
+<p>InnoDB écrit ses changements dans un journal avant de les consolider dans les
+tables. L'installateur fixe chaque fichier de journal à <code>64M</code> ou <code>512M</code>, selon le
+système, et son tampon à <code>16M</code>. Un journal petit oblige le moteur à le descendre
+sur disque plus souvent, et c'est là que se perd la performance ; un journal
+grand allonge la récupération après une chute, parce qu'il y a plus à refaire.
+Les valeurs de Pandora FMS sont un compromis pensé pour la production à fort
+volume de transactions.</p>
+<p><code>innodb_io_capacity</code> dit combien d'entrées/sorties InnoDB peut demander au
+disque. L'installateur le laisse à une valeur prudente — entre <code>100</code> et <code>1000</code>,
+selon le système — qui suppose un disque capable. Si le disque est différent, le
+nombre s'ajuste à ce qu'il supporte. La référence, ce sont les IOPS du disque :</p>
+<table>
+<thead>
+<tr>
+<th>Type de disque</th>
+<th>IOPS approximatives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disque mécanique à 7 500 tr/min</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Disque mécanique à 15 000 tr/min</td>
+<td>190</td>
+</tr>
+<tr>
+<td>SSD</td>
+<td>1 500</td>
+</tr>
+</tbody>
+</table>
+<p>Un SSD n'est pas un luxe sur un serveur de base de données de supervision : c'est
+la différence entre une maintenance qui se termine à temps et une qui chevauche
+la suivante.</p>
+<p><code>innodb_file_per_table</code> mérite un paragraphe à part parce qu'il conditionne tout
+le reste. Avec l'espace de tables par table activé, chaque table vit dans son
+propre fichier. Cela permet de déplacer une table précise vers un autre disque,
+de la restaurer sans toucher aux autres et, surtout, que la fragmentation d'une
+table n'entraîne pas les autres. Si le paramètre n'est pas activé, toutes les
+tables partagent un espace unique et la fragmentation est commune, de sorte que
+les performances se dégradent plus tôt. L'installateur l'active d'office, et le
+partitionnement manuel des grandes tables l'exige.</p>
+<p><strong>La politique d'écriture à la validation.</strong></p>
+<p><code>innodb_flush_log_at_trx_commit</code> décide de ce que le moteur risque pour aller
+plus vite. Avec la valeur <code>0</code>, InnoDB regroupe les écritures et les vide environ
+une fois par seconde, au lieu de descendre sur disque à chaque transaction. La
+contrepartie est claire : en cas de chute, on peut perdre la dernière seconde de
+données. Dans une base de données de supervision, cette seconde est une poignée
+de valeurs de module, et l'échange vaut la peine. Pandora FMS applique <code>0</code> dans
+l'installateur ; un environnement de haute disponibilité utilise une autre
+valeur, car là la réplication change les règles du jeu et le <code>my.cnf</code> est un
+autre.</p>
+<p>Très lié à cela, <code>innodb_flush_method = O_DIRECT</code> évite que les écritures passent
+par le cache du système d'exploitation. Dans une base de données qui a déjà son
+propre grand tampon, dupliquer le cache dans le système n'aide pas, il gêne.</p>
+<p><strong>Verrous, paquets et concurrence.</strong></p>
+<p><code>innodb_lock_wait_timeout</code> fixe à <code>90</code> secondes l'attente maximale d'une
+transaction pour un verrou. Si ce temps s'épuise, l'opération échoue et le client
+reçoit le classique <strong>« MySQL has gone away »</strong>. Les 90 secondes donnent une
+marge pour qu'un blocage ponctuel se résolve seul, sans que le moteur abandonne
+du premier coup. Qu'un temps d'attente s'épuise de façon habituelle n'est pas un
+réglage manquant : c'est le symptôme que quelque chose d'autre va mal.</p>
+<p><code>max_allowed_packet</code> à <code>64M</code> permet de déplacer de gros paquets, comme les envois
+massifs de données des EndPoints ou une restauration. <code>max_connections</code> (à <code>100</code>
+ou <code>300</code>, selon le système) couvre largement les connexions de la console, du
+serveur et de la maintenance, chacune avec son petit groupe de connexions.
+<code>thread_cache_size</code> et <code>thread_stack</code> complètent la partie threads : le moteur
+garde des threads en réserve (<code>8</code> ou <code>32</code>, selon le système) pour ne pas les
+créer et les détruire à chaque connexion, et affecte 256K de pile à chacun.</p>
+<p>Quant à <code>innodb_thread_concurrency</code>, la valeur par défaut <code>0</code> laisse InnoDB
+ouvrir autant de threads qu'il peut. C'est un paramètre avancé et, mal réglé, il
+va plus lentement qu'en le laissant tranquille. S'il faut l'affiner sur un
+système à forte concurrence, la formule recommandée est le nombre de processeurs
+physiques multiplié par deux, plus le nombre de disques où vit InnoDB. En cas de
+doute, on le laisse à <code>0</code>.</p>
+<p><strong>Les tampons par session.</strong></p>
+<p>Les quatre tampons par session (<code>read_buffer_size</code>, <code>read_rnd_buffer_size</code>,
+<code>sort_buffer_size</code> et <code>join_buffer_size</code>) sont réservés par connexion, pas une
+seule fois. Ils se multiplient par le nombre de connexions simultanées, aussi les
+augmenter gaiement gonfle la consommation de mémoire. Les valeurs de Pandora FMS
+sont contenues et suffisantes pour les requêtes du produit. <code>key_buffer_size</code>, à
+<code>4M</code>, est un tampon MyISAM et n'accélère pas InnoDB ; il reste à sa valeur basse
+parce qu'il n'apporte rien au moteur qu'utilise le produit.</p>
+<p><strong>Ce qui n'existe plus : le cache de requêtes.</strong></p>
+<p>MySQL 8 a retiré le cache de requêtes que les versions précédentes apportaient.
+Les paramètres qui le gouvernaient (<code>query_cache_size</code>, <code>query_cache_limit</code>,
+<code>query_cache_type</code>) n'existent plus, et le <code>my.cnf</code> de Pandora FMS ne les définit
+pas. Il n'y a rien à configurer ici : si vous venez d'une installation ancienne
+et que ces paramètres sont encore dans le fichier, supprimez-les, car le moteur
+actuel ne les reconnaît pas et peut refuser de démarrer. On les retire du
+<code>my.cnf</code> et on continue.</p>
+<div class="admonition warning">
+<p class="admonition-title">Chaque changement exige un redémarrage et une vérification</p>
+<p>Les paramètres du moteur ne s'appliquent pas à chaud : il faut redémarrer le
+service et vérifier qu'il démarre sans erreur et que la console web et le
+serveur se connectent toujours à la base de données. Un <code>my.cnf</code> avec une
+erreur de syntaxe ou une valeur hors limites peut laisser le moteur à terre.
+Changez un bloc, redémarrez, vérifiez, et alors seulement passez au suivant.</p>
+</div>
+<h2 id="disque-journaux-binaires-et-charge-du-systeme">Disque, journaux binaires et charge du système<a class="headerlink" href="#disque-journaux-binaires-et-charge-du-systeme" title="Permanent link">¶</a></h2>
+<p>Le goulot d'étranglement habituel d'une base de données n'est ni le CPU ni la
+mémoire : c'est le disque. Trois règles d'or, et aucune n'est négociable quand le
+volume serre. La première, séparer le système d'exploitation, les données de la
+base de données et les journaux de réplication sur des disques différents, pour
+qu'ils ne se disputent pas la même tête ni le même contrôleur. La deuxième,
+utiliser du SSD. La troisième, quand le client et le moteur sont sur la même
+machine, se connecter par socket plutôt que par TCP/IP, ce qui se traduit par une
+amélioration d'environ 7,5 % sans rien toucher d'autre : il suffit de ne pas
+indiquer de nom d'hôte à la connexion, au lieu de forcer <code>localhost</code>.</p>
+<p>Les <strong>journaux binaires</strong> sont l'autre pièce du disque. Si vous avez un serveur
+unique de Pandora FMS, vous n'en avez pas besoin et l'installateur les désactive
+déjà avec <code>skip-log-bin</code>. Si vous avez de la haute disponibilité, ils sont
+<strong>obligatoires</strong>, parce que la réplication s'appuie sur eux, et le <code>my.cnf</code> est
+un autre : il porte un bloc de paramètres de réplication et, en plus, une valeur
+différente pour la politique d'écriture
+(<code>innodb_flush_log_at_trx_commit = 2</code>) et une limite de connexions propre
+(<code>200</code>). Ce fichier, avec ses nœuds et ses précautions, est documenté en
+<a href="../6.10-alta-disponibilidad-ha/">6.10 (Haute disponibilité (HA))</a>.</p>
+<p><strong>Comment savoir si le système souffre.</strong></p>
+<p>Avant de toucher à la base de données, il convient de vérifier que le problème
+est là où vous croyez. Le système d'exploitation apporte l'outil qu'il faut :</p>
+<div class="highlight"><pre><span></span><code>vmstat<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">10</span>
+</code></pre></div>
+<p>Elle renvoie dix échantillons, un par seconde. Ce qu'il faut regarder est dans
+les dernières colonnes. Une sortie d'un système sain a cet aspect :</p>
+<div class="highlight"><pre><span></span><code>procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu------
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0  46248  78664 154644 576800    0    0     2   147    0    9  7 10 83  0  0
+ 2  0  46248  78904 154648 576740    0    0     0   184  728 2484 63  6 31  0  0
+ 0  0  46248  79028 154648 576736    0    0     0    20   35   37  0  1 98  1  0
+ 1  0  46248  79028 154648 576736    0    0     0     0   28   22  0  0 100  0  0
+</code></pre></div>
+<p>La lecture est directe. La colonne <code>wa</code> (attente d'entrée/sortie) au-dessus de 10
+signale un problème de disque qu'il faut résoudre. La colonne <code>sy</code> (temps
+système) ne devrait pas dépasser 10 ou 15. Et <code>si</code> et <code>so</code> (mémoire d'échange)
+devraient être à 0 : sinon, le système utilise le swap, qui est un destructeur de
+performance en bonne et due forme. La solution, alors, n'est pas dans la base de
+données : il faut augmenter la mémoire ou réduire ce qui la consomme, en
+commençant par les threads du serveur et les tampons du moteur.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-vmstat.png" data-desc-position="bottom"><img alt="Sortie de vmstat sur un serveur en marche" src="../../../assets/img/parte-06/optimizacion-vmstat.png"></a></p>
+<h2 id="diagnostic-de-la-sante-de-la-base-de-donnees">Diagnostic de la santé de la base de données<a class="headerlink" href="#diagnostic-de-la-sante-de-la-base-de-donnees" title="Permanent link">¶</a></h2>
+<p>Avant d'optimiser quoi que ce soit, mesurez. La console web n'offre pas d'action
+d'optimisation, mais elle offre un diagnostic complet de la base de données, et
+il convient de le connaître parce qu'il est la porte d'entrée de tout le reste.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-diagnostico-general.png" data-desc-position="bottom"><img alt="Statistiques de taille et d'état de santé de la base de données dans l'outil de diagnostic (interface en anglais)" src="../../../assets/img/parte-06/optimizacion-diagnostico-general.png"></a></p>
+<p>L'outil principal se trouve dans <strong>Outils d'administration → Information de
+diagnostic</strong>. Il réunit, sur un seul écran, la taille de la base de données, son
+état de santé, des informations sur le moteur et deux blocs qui sont ceux qui
+nous intéressent ici :</p>
+<ul>
+<li>Les <strong>variables du moteur comparées aux valeurs recommandées</strong>. Le diagnostic
+  parcourt les variables de MySQL et marque en rouge celles qui n'atteignent pas
+  le minimum conseillé, avec leur valeur actuelle et la valeur qu'elles devraient
+  avoir. Le tableau suivant reprend ces minimums.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Valeur recommandée par le diagnostic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>innodb_buffer_pool_size</code></td>
+<td>250 MB ou plus (l'avertissement lui-même parle de 40 % de la mémoire du serveur)</td>
+</tr>
+<tr>
+<td><code>innodb_file_per_table</code></td>
+<td>Activé</td>
+</tr>
+<tr>
+<td><code>innodb_lock_wait_timeout</code></td>
+<td>90 secondes ou plus</td>
+</tr>
+<tr>
+<td><code>innodb_log_buffer_size</code></td>
+<td>16M ou plus</td>
+</tr>
+<tr>
+<td><code>innodb_log_file_size</code></td>
+<td>64M ou plus</td>
+</tr>
+<tr>
+<td><code>max_allowed_packet</code></td>
+<td>32M ou plus</td>
+</tr>
+<tr>
+<td><code>max_connections</code></td>
+<td>90 ou plus</td>
+</tr>
+<tr>
+<td><code>read_buffer_size</code></td>
+<td>32K ou plus</td>
+</tr>
+<tr>
+<td><code>read_rnd_buffer_size</code></td>
+<td>32K ou plus</td>
+</tr>
+<tr>
+<td><code>sort_buffer_size</code></td>
+<td>32K ou plus</td>
+</tr>
+<tr>
+<td><code>thread_cache_size</code></td>
+<td>8 ou plus</td>
+</tr>
+<tr>
+<td><code>thread_stack</code></td>
+<td>256K ou plus</td>
+</tr>
+<tr>
+<td><code>sql_mode</code></td>
+<td>Vide</td>
+</tr>
+</tbody>
+</table>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-diagnostico-variables.png" data-desc-position="bottom"><img alt="Métriques de performance de MySQL dans le diagnostic, avec une variable marquée en rouge (interface en anglais)" src="../../../assets/img/parte-06/optimizacion-diagnostico-variables.png"></a></p>
+<p>En plus de ces minimums, le diagnostic compare chaque variable à la valeur qu'il
+s'attend à trouver, y compris la politique d'écriture d'InnoDB. Si une variable
+apparaît en rouge, revoyez le <code>my.cnf</code> : le plus courant est que le paramètre n'ait
+pas été appliqué parce qu'il est hors de sa section, ou que quelqu'un l'ait changé
+après coup.</p>
+<p>Il y a une ligne qui peut sortir en rouge et qu'<strong>il ne faut pas toucher</strong> : celle
+de la <strong>politique d'écriture d'InnoDB</strong>. Le diagnostic attend la valeur prudente,
+et l'installateur d'un serveur unique applique la rapide, si bien que dans une
+installation fraîche cette ligne apparaît en rouge même si rien ne va mal.
+Laissez-la telle quelle, avec la valeur qu'a mise l'installateur. Dans un
+environnement de haute disponibilité, vous ne la verrez pas ainsi : là le <code>my.cnf</code>
+utilise la valeur prudente et la ligne arrive en vert, comme il est expliqué en
+<a href="#disque-journaux-binaires-et-charge-du-systeme">Disque, journaux binaires et charge du
+système</a>.</p>
+<ul>
+<li>La <strong>fragmentation de la table de séries numériques</strong>. Quand elle dépasse
+  <strong>10 %</strong>, le diagnostic avertit que la table est fragmentée et qu'elle devrait
+  être défragmentée. Elle se mesure dans le même panneau et elle est expliquée en
+  <a href="#fragmentation-la-mesurer-avant-de-toucher-a-quoi-que-ce-soit">Fragmentation : la mesurer avant de toucher à quoi que ce
+  soit</a>.</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-diagnostico-fragmentacion.png" data-desc-position="bottom"><img alt="Bloc de fragmentation des tables du diagnostic (interface en anglais)" src="../../../assets/img/parte-06/optimizacion-diagnostico-fragmentacion.png"></a></p>
+<p>Les deux autres outils du menu ont un rôle différent. <strong>Outils d'administration →
+Vérifier schéma de la BD</strong> vérifie que la base de données est correcte : il
+détecte les tables ou les champs qui manquent après une migration ou une mise à
+jour. Pour l'exécuter, l'utilisateur de base de données a besoin des privilèges de
+consultation, suppression, création et références. Et <strong>Outils d'administration →
+Interface de la BD</strong> permet de lancer des requêtes directement contre la base
+depuis la console, utile pour une vérification ponctuelle sans ouvrir un client à
+part. Le diagnostic général du produit, au-delà de la base de données, est couvert
+en <a href="../../parte-9/9.13-troubleshooting-con-pandora/">9.13 (Dépannage avec Pandora)</a>.</p>
+<p><strong>Le script de diagnostic du serveur.</strong></p>
+<p>Quand il faut ouvrir un incident, la console ne suffit pas : il faut une photo du
+serveur. C'est à cela que sert le script de diagnostic, qui s'exécute à la main
+sur la machine :</p>
+<div class="highlight"><pre><span></span><code>./pandora_diagnostic.sh
+</code></pre></div>
+<p>Il recueille, dans un unique fichier dans <code>/tmp/pandora_diag.&lt;date&gt;.data</code>, les
+informations du processeur et de la mémoire, le temps d'activité, les processus
+de Pandora FMS en marche, le contenu du <code>my.cnf</code> du moteur, la configuration du
+serveur (sans mots de passe), la liste de ses journaux, l'utilisation du disque et
+un échantillon de <code>vmstat</code> et du journal du système. C'est la première pièce que
+l'on demande à l'ouverture d'un ticket, parce qu'elle évite vingt questions. Il
+s'exécute sur le serveur, pas depuis la console, et son résultat ne se lit pas à
+l'écran : c'est un fichier que l'on joint.</p>
+<p><strong>L'état de la maintenance périodique.</strong></p>
+<p>Enfin, l'état de la maintenance de la base de données se surveille depuis
+<strong>Réglages → Configuration du système → Performance</strong>, dans l'onglet de maintenance de
+la base de données. Cet écran referme le diagnostic par le bas : chaque ligne dit
+quand elle s'est exécutée pour la dernière fois et affiche un feu tricolore, si
+bien que d'un coup d'œil on sait si la base de données est purgée et contrôlée au
+rythme prévu ou si la maintenance s'est arrêtée. Le détail de l'indicateur et de
+son seuil est en
+<a href="../6.5-base-de-datos-de-historico/">6.5 (Base de données d'historique)</a>, et
+l'inventaire complet des options de cet écran, avec sa valeur par défaut, en
+<a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/">9.2 (Référence complète de configuration de la console)</a>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-mantenimiento-estado.png" data-desc-position="bottom"><img alt="État de la maintenance de la base de données, avec le feu tricolore au vert (interface en anglais)" src="../../../assets/img/parte-06/optimizacion-mantenimiento-estado.png"></a></p>
+<h2 id="fragmentation-la-mesurer-avant-de-toucher-a-quoi-que-ce-soit">Fragmentation : la mesurer avant de toucher à quoi que ce soit<a class="headerlink" href="#fragmentation-la-mesurer-avant-de-toucher-a-quoi-que-ce-soit" title="Permanent link">¶</a></h2>
+<p>Une base de données se fragmente comme se fragmente un disque : entre une
+insertion et la suivante il y a des suppressions, et l'espace qui reste libre se
+répartit en trous. Dans Pandora FMS, le schéma est clair : les tables de séries
+temporelles reçoivent des insertions constantes et la purge supprime des séries
+anciennes en continu, aussi ces tables sont-elles les premières à accumuler de
+l'espace libre inutilisé. Avec le temps, lire un graphique oblige le moteur à
+sauter entre les trous et tout va plus lentement.</p>
+<p>Mesurer la fragmentation est bon marché et ne change rien, aussi le fait-on
+toujours avant de décider. La requête va au catalogue du moteur lui-même, pas aux
+tables du produit, et c'est pourquoi elle peut être publiée entière :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">ENGINE</span><span class="p">,</span>
+<span class="w">       </span><span class="k">TABLE_NAME</span><span class="p">,</span>
+<span class="w">       </span><span class="n">ROUND</span><span class="p">(</span><span class="n">DATA_LENGTH</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="p">)</span><span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="n">data_length</span><span class="p">,</span>
+<span class="w">       </span><span class="n">ROUND</span><span class="p">(</span><span class="n">INDEX_LENGTH</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">index_length</span><span class="p">,</span>
+<span class="w">       </span><span class="n">ROUND</span><span class="p">(</span><span class="n">DATA_FREE</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="p">)</span><span class="w">    </span><span class="k">AS</span><span class="w"> </span><span class="n">data_free</span><span class="p">,</span>
+<span class="w">       </span><span class="p">(</span><span class="n">DATA_FREE</span><span class="o">/</span><span class="p">(</span><span class="n">INDEX_LENGTH</span><span class="o">+</span><span class="n">DATA_LENGTH</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">frag_ratio</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span>
+<span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TABLE_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'BASE TABLE'</span>
+<span class="w">   </span><span class="k">AND</span><span class="w"> </span><span class="n">DATA_FREE</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+<span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">frag_ratio</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+<p>Chaque ligne est une table avec de l'espace libre et chaque colonne mesure une
+chose : le moteur (<code>ENGINE</code>), le nom de la table (<code>TABLE_NAME</code>), les mégaoctets de
+données (<code>data_length</code>), ceux des index (<code>index_length</code>), ceux de l'espace libre
+(<code>data_free</code>) et le quotient entre l'espace libre et l'espace occupé
+(<code>frag_ratio</code>). Le résultat arrive trié de la fragmentation la plus grande à la
+plus petite, aussi les premières lignes sont-elles les candidates.</p>
+<p>Deux avertissements pour bien la lire. Le premier, que le quotient trompe sur les
+petites tables : une table minuscule avec quelques mégaoctets libres peut donner
+un <code>frag_ratio</code> très élevé sans que cela importe à personne. Il faut toujours
+regarder le quotient <strong>et</strong> les tailles absolues, et retenir les grandes tables
+qui ont en plus un quotient élevé. Le second, que les 10 % ne viennent pas de la
+requête : c'est le seuil qu'applique le diagnostic de la console web sur la table
+de séries numériques, comme on l'a vu en
+<a href="#diagnostic-de-la-sante-de-la-base-de-donnees">Diagnostic de la santé de la base de
+données</a>. La requête vous donne la
+carte ; le seuil, c'est le discernement qui le pose.</p>
+<div class="admonition warning">
+<p class="admonition-title">Mesurer n'est que mesurer</p>
+<p>La requête ne touche pas aux données, mais sur un serveur chargé et avec des
+tables énormes elle peut prendre du temps, parce qu'elle oblige à lire le
+catalogue du moteur. Lancez-la à un moment calme. Et n'attendez pas que
+mesurer répare quoi que ce soit : la fragmentation reste là jusqu'à ce que la
+table soit optimisée.</p>
+</div>
+<p>Le détail des tables présentes dans le schéma et de leur nom est en
+<a href="../../parte-10/10.1-esquema-de-la-base-de-datos/">10.1 (Schéma de la base de données)</a>
+et en <a href="../../parte-10/10.2-referencia-de-tablas/">10.2 (Référence des tables)</a>. Ici,
+et dans tout le chapitre, les tables sont décrites par leur fonction, pas par leur
+nom.</p>
+<h2 id="optimisation-des-tables">Optimisation des tables<a class="headerlink" href="#optimisation-des-tables" title="Permanent link">¶</a></h2>
+<p>L'opération qui récupère l'espace est <code>OPTIMIZE TABLE</code>. Elle s'exécute sur les
+tables qui en ont besoin, et la commande, avec le nom de la table renvoyé à la
+référence de la partie 10, est celle-ci :</p>
+<div class="highlight"><pre><span></span><code><span class="n">OPTIMIZE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Il convient d'optimiser les tables qui croissent et se purgent sans arrêt : les
+<strong>tables de séries temporelles</strong> (les numériques et celle des séries de texte), la
+<strong>table d'événements</strong>, la <strong>table d'inventaire des modules</strong> et celles des
+<strong>agents</strong>, des <strong>modules</strong> et des <strong>états de module</strong>. La liste précise des noms,
+avec leur contenu et leur taille habituelle, est en
+<a href="../../parte-10/10.2-referencia-de-tablas/">10.2 (Référence des tables)</a>. Quand vous
+terminez la série, il convient de rafraîchir le moteur avec :</p>
+<div class="highlight"><pre><span></span><code><span class="n">FLUSH</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span>
+</code></pre></div>
+<p>En InnoDB, <code>OPTIMIZE TABLE</code> n'est pas une opération magique : le moteur la traduit
+en une reconstruction de la table, qui met à jour les statistiques des index et
+libère l'espace non utilisé de l'index groupé. C'est ce que dit le manuel de MySQL
+lui-même, et cela explique tant son utilité que son coût. Le moteur répond
+généralement par un message qui confirme la traduction : <strong>« Table does not support
+optimize, doing recreate + analyze instead »</strong>. Ce n'est pas une erreur ; c'est la
+façon qu'a InnoDB de dire qu'il va reconstruire.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-optimize-table.png" data-desc-position="bottom"><img alt="Sortie d'OPTIMIZE TABLE dans le client MySQL, avec le message qui confirme la reconstruction (le nom de la table est masqué)" src="../../../assets/img/parte-06/optimizacion-optimize-table.png"></a></p>
+<p>Et c'est là le problème. Reconstruire une table signifie <strong>la réécrire
+entièrement</strong>, aussi l'opération verrouille-t-elle la table et a-t-elle besoin, en
+plus, d'assez d'espace libre sur le disque pour héberger la copie pendant qu'elle
+se fait. Si le disque est plein, la commande échoue et ne s'exécute pas. Si la
+table est très grande, la reconstruction peut prendre des heures et rester
+bloquée ; à ce point, elle cesse d'être une alternative et ce qu'il faut faire est
+reconstruire la base de données, comme expliqué en
+<a href="#reconstruction-de-la-base-de-donnees">Reconstruction de la base de données</a>.</p>
+<p>La cadence n'est pas fixée par le produit, elle est fixée par le discernement. Un
+environnement normal s'optimise <strong>une fois par an</strong> ; un grand environnement,
+<strong>tous les six mois</strong>. Et toujours dans une fenêtre de maintenance, parce que
+pendant l'opération la table n'est pas disponible. Pour la procédure de sauvegarde
+et de restauration, au cas où quelque chose se tordrait, rendez-vous en
+<a href="../6.9-backup-y-restore/">6.9 (Sauvegarde et restauration)</a>.</p>
+<h2 id="index">Index<a class="headerlink" href="#index" title="Permanent link">¶</a></h2>
+<p>Les requêtes qui souffrent le plus dans une installation de Pandora FMS sont
+celles des graphiques et des rapports, et presque toutes filtrent par un module et
+par une plage de temps. Pour que ces requêtes ne parcourent pas la table entière,
+les <strong>tables de séries temporelles</strong> portent deux index : un composé du module et
+de l'horodatage, et un autre sur l'horodatage seul. Le premier résout la requête
+typique d'un graphique d'un module ; le second couvre les balayages par période.</p>
+<p>Pendant des années, la documentation a présenté ces index comme « facultatifs »,
+quelque chose qu'il fallait ajouter à la main après l'installation. Ce n'est plus
+vrai : le schéma actuel les apporte d'usine. Si vous rencontrez une installation
+ancienne où ils manquent, ce n'est pas qu'ils sont désactivés : c'est que le
+schéma est incomplet, et il faut les ajouter.</p>
+<p>Pour vérifier qu'ils sont là, il y a deux chemins. Le premier, la vérification de
+schéma de la console web, <strong>Outils d'administration → Vérifier schéma de la BD</strong>,
+qui avertit de ce qui manque.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/optimizacion-comprobacion-esquema.png" data-desc-position="bottom"><img alt="Vérification du schéma de la base de données depuis la console (interface en anglais)" src="../../../assets/img/parte-06/optimizacion-comprobacion-esquema.png"></a></p>
+<p>Le second, demander au moteur les index d'une table précise :</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>La sortie renvoie une ligne pour chaque colonne qui compose chaque index, avec son
+nom, sa position dans l'index et son unicité. Il suffit de vérifier que les deux
+index attendus apparaissent : le composé et celui de l'horodatage. Le nom de la
+table précise à interroger est en
+<a href="../../parte-10/10.2-referencia-de-tablas/">10.2 (Référence des tables)</a>.</p>
+<p>S'ils manquent, on les ajoute avec une instruction comme celle-ci, en remplaçant
+les espaces réservés par le nom réel de la table et de ses colonnes, qui sont eux
+aussi dans la référence :</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="k">ADD</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="o">&lt;</span><span class="n">index_name</span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;</span><span class="n">module_column</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">timestamp_column</span><span class="o">&gt;</span><span class="p">);</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Ajouter un index à chaud se remarque</p>
+<p>Créer un index sur une grande table verrouille et consomme des ressources, et
+dans une installation en production cela se perçoit. Faites-le dans une
+fenêtre de maintenance, avec la sauvegarde récente, et vérifiez ensuite avec
+<code>SHOW INDEX</code> que l'index a bien été créé. Pour le diagnostic général des
+incidents, <a href="../../parte-9/9.13-troubleshooting-con-pandora/">9.13 (Dépannage avec
+Pandora)</a>.</p>
+</div>
+<h2 id="requetes-lentes">Requêtes lentes<a class="headerlink" href="#requetes-lentes" title="Permanent link">¶</a></h2>
+<p>Le moteur peut journaliser les requêtes qui dépassent un seuil, et ce journal est
+un excellent outil de diagnostic. C'est aussi un outil qui se paie, parce que
+chaque requête enregistrée écrit sur disque et rivalise avec le travail normal. La
+recommandation de Pandora FMS est tranchante : <strong>ne le laissez pas activé de façon
+permanente</strong>. On l'allume quand il y a un problème, on regarde ce qu'il faut et on
+l'éteint.</p>
+<p>L'activation se fait dans le <code>my.cnf</code>, en ajoutant ces lignes :</p>
+<div class="highlight"><pre><span></span><code><span class="na">slow_query_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">1</span>
+<span class="na">long_query_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">2</span>
+<span class="na">slow_query_log_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/var/log/mysql_slow.log</span>
+</code></pre></div>
+<p>Le seuil de <code>long_query_time</code> est en secondes : avec <code>2</code>, toute requête qui prend
+plus de deux secondes est journalisée. Avant de démarrer, il faut créer le fichier
+et lui donner les bons droits, parce que le moteur y écrit avec son propre
+utilisateur :</p>
+<div class="highlight"><pre><span></span><code>touch<span class="w"> </span>/var/log/mysql_slow.log
+chown<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/log/mysql_slow.log
+chmod<span class="w"> </span><span class="m">640</span><span class="w"> </span>/var/log/mysql_slow.log
+</code></pre></div>
+<p>Ensuite, on redémarre MySQL et on le laisse travailler un moment. Quand vous avez
+recueilli assez d'échantillons, on lit le fichier et on cherche les motifs :
+requêtes qui se répètent, filtres qui n'exploitent pas un index, tris que l'on
+pourrait éviter. De là sortent deux actions possibles : ajouter un index qui
+manque (comme on l'a vu en <a href="#index">Index</a>) ou corriger la requête précise.
+L'analyse terminée, on commente les lignes ajoutées dans le <code>my.cnf</code> et on
+redémarre le service pour revenir à la normale. Le diagnostic des requêtes qui
+apparaissent, avec le reste des incidents, est en
+<a href="../../parte-9/9.13-troubleshooting-con-pandora/">9.13 (Dépannage avec Pandora)</a>.</p>
+<h2 id="reconstruction-de-la-base-de-donnees">Reconstruction de la base de données<a class="headerlink" href="#reconstruction-de-la-base-de-donnees" title="Permanent link">¶</a></h2>
+<p>Il y a un point où optimiser cesse de servir. Quand une table est si grande que
+<code>OPTIMIZE TABLE</code> ne termine pas, reste bloquée ou exige un espace libre qui
+n'existe pas, l'alternative est de reconstruire. Et il convient de bien comprendre
+ce que cela veut dire, parce que ce n'est pas un réglage du moteur : c'est une
+restauration.</p>
+<p>Reconstruire implique d'arrêter le service, de faire un vidage complet et cohérent
+de la base de données, de la vider et de recharger le vidage. L'effet est le même
+que celui d'une optimisation poussée à l'extrême : la base de données reste
+compacte et avec des statistiques fraîches. Le prix est un arrêt de service qui
+peut durer environ une heure, plus le temps de vidage et de rechargement, qui sur
+les grandes bases se mesure en heures. C'est pourquoi la reconstruction est
+traitée comme une opération de restauration, avec sa sauvegarde, sa fenêtre et sa
+vérification ultérieure, et non comme un réglage que l'on fait un mardi
+après-midi.</p>
+<p>Le critère de décision est simple : si la table tient dans une fenêtre de
+maintenance et qu'il y a de l'espace pour la reconstruction, on optimise ; si elle
+ne tient pas, on reconstruit. La procédure complète, avec la reconstruction
+partielle d'une base et la reconstruction totale, l'arrêt du service, le vidage
+cohérent et le rechargement, vit en
+<a href="../6.9-backup-y-restore/">6.9 (Sauvegarde et restauration)</a>. Ici ne reste que la
+frontière entre les deux opérations. Si la reconstruction est précédée d'un
+problème de performance que l'on ne comprend pas, le diagnostic général est en
+<a href="../../parte-9/9.13-troubleshooting-con-pandora/">9.13 (Dépannage avec Pandora)</a>.</p>
+<h2 id="partitionnement-manuel-des-grandes-tables">Partitionnement manuel des grandes tables<a class="headerlink" href="#partitionnement-manuel-des-grandes-tables" title="Permanent link">¶</a></h2>
+<p>Répartir une table énorme en morceaux plus petits a deux avantages qui se
+remarquent au quotidien. Le premier, qu'une requête par plage de dates ne touche
+que la partition qui lui correspond, au lieu de parcourir la table entière. Le
+second, que la purge des données anciennes cesse d'être une suppression massive et
+devient quelque chose de bien moins coûteux, parce qu'on peut écarter une
+partition entière. Dans les installations à fort volume, c'est l'une des
+optimisations les plus appréciées.</p>
+<p>Le prérequis est l'espace de tables par table, c'est-à-dire <code>innodb_file_per_table</code>
+activé. Sans lui, le partitionnement n'a pas de sens. L'opération se fait avec un
+<code>ALTER TABLE</code> qui déclare les partitions par plage sur l'horodatage de la donnée ;
+la procédure et la syntaxe complètes sont en
+<a href="../6.5-base-de-datos-de-historico/">6.5 (Base de données d'historique)</a>. Là se
+trouve aussi le partitionnement <strong>automatique</strong> de l'historique, qui est la voie
+recommandée quand il n'est pas besoin de contrôler le processus à la main : il se
+configure depuis la console web et n'exige pas d'écrire du SQL. Le partitionnement
+manuel est pour qui préfère ce contrôle ou veut partitionner la base de données
+active, ce que l'automatique ne couvre pas.</p>
+<p>Il convient toutefois de le traiter comme une opération d'administration et non
+comme un réglage d'un moment : il faut le planifier avec une fenêtre de
+maintenance et une sauvegarde récente, et en 6.5 se trouvent les avertissements de
+coût qui accompagnent la procédure. Le schéma sur lequel il s'applique et les noms
+précis de table et de colonne sont en
+<a href="../../parte-10/10.1-esquema-de-la-base-de-datos/">10.1 (Schéma de la base de données)</a>
+et <a href="../../parte-10/10.2-referencia-de-tablas/">10.2 (Référence des tables)</a>.</p>
+<h2 id="reference-rapide-et-repartition-avec-les-autres-chapitres">Référence rapide et répartition avec les autres chapitres<a class="headerlink" href="#reference-rapide-et-repartition-avec-les-autres-chapitres" title="Permanent link">¶</a></h2>
+<p>Pour finir, l'aide-mémoire. D'abord, les paramètres du moteur et la valeur
+qu'applique Pandora FMS, pour les avoir sous la main :</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Valeur</th>
+<th>Paramètre</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>innodb_buffer_pool_size</code></td>
+<td>25 % ou 40 % de la RAM, selon le système</td>
+<td><code>max_allowed_packet</code></td>
+<td><code>64M</code></td>
+</tr>
+<tr>
+<td><code>innodb_lock_wait_timeout</code></td>
+<td><code>90</code></td>
+<td><code>innodb_file_per_table</code></td>
+<td>Activé</td>
+</tr>
+<tr>
+<td><code>innodb_flush_log_at_trx_commit</code></td>
+<td><code>0</code> (en haute disponibilité, <code>2</code>)</td>
+<td><code>innodb_flush_method</code></td>
+<td><code>O_DIRECT</code></td>
+</tr>
+<tr>
+<td><code>innodb_log_file_size</code></td>
+<td><code>64M</code> ou <code>512M</code>, selon le système</td>
+<td><code>innodb_log_buffer_size</code></td>
+<td><code>16M</code></td>
+</tr>
+<tr>
+<td><code>innodb_io_capacity</code></td>
+<td><code>100</code>, <code>300</code> ou <code>1000</code>, selon le système</td>
+<td><code>thread_cache_size</code></td>
+<td><code>8</code> ou <code>32</code>, selon le système</td>
+</tr>
+<tr>
+<td><code>thread_stack</code></td>
+<td><code>256K</code></td>
+<td><code>max_connections</code></td>
+<td><code>100</code> ou <code>300</code>, selon le système</td>
+</tr>
+<tr>
+<td><code>key_buffer_size</code></td>
+<td><code>4M</code></td>
+<td><code>sql_mode</code></td>
+<td>Vide</td>
+</tr>
+<tr>
+<td><code>read_buffer_size</code></td>
+<td><code>128K</code></td>
+<td><code>read_rnd_buffer_size</code></td>
+<td><code>128K</code></td>
+</tr>
+<tr>
+<td><code>sort_buffer_size</code></td>
+<td><code>1M</code></td>
+<td><code>join_buffer_size</code></td>
+<td><code>4M</code></td>
+</tr>
+</tbody>
+</table>
+<p>Et les commandes de ce chapitre, dans une liste courte à copier :</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Localiser le fichier de configuration que le moteur applique</span>
+mysqld<span class="w"> </span>--help<span class="w"> </span>--verbose<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-40
+
+<span class="c1"># Mesurer la charge du système</span>
+vmstat<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">10</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Voir les valeurs du moteur à chaud</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'innodb%'</span><span class="p">;</span>
+
+<span class="c1">-- Mesurer la fragmentation des tables</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">ENGINE</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span>
+<span class="w">       </span><span class="n">ROUND</span><span class="p">(</span><span class="n">DATA_LENGTH</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="p">)</span><span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="n">data_length</span><span class="p">,</span>
+<span class="w">       </span><span class="n">ROUND</span><span class="p">(</span><span class="n">INDEX_LENGTH</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">index_length</span><span class="p">,</span>
+<span class="w">       </span><span class="n">ROUND</span><span class="p">(</span><span class="n">DATA_FREE</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="p">)</span><span class="w">    </span><span class="k">AS</span><span class="w"> </span><span class="n">data_free</span><span class="p">,</span>
+<span class="w">       </span><span class="p">(</span><span class="n">DATA_FREE</span><span class="o">/</span><span class="p">(</span><span class="n">INDEX_LENGTH</span><span class="o">+</span><span class="n">DATA_LENGTH</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">frag_ratio</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span>
+<span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TABLE_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'BASE TABLE'</span>
+<span class="w">   </span><span class="k">AND</span><span class="w"> </span><span class="n">DATA_FREE</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+<span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">frag_ratio</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+
+<span class="c1">-- Optimiser les tables qui en ont besoin et rafraîchir le moteur</span>
+<span class="n">OPTIMIZE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">FLUSH</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span>
+
+<span class="c1">-- Vérifier les index d'une table</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>La répartition avec les autres chapitres, pour que vous ne cherchiez pas où il
+n'y a rien :</p>
+<table>
+<thead>
+<tr>
+<th>Sujet</th>
+<th>Chapitre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base de données d'historique, rétention, purge et partitionnement automatique</td>
+<td><a href="../6.5-base-de-datos-de-historico/">6.5 (Base de données d'historique)</a></td>
+</tr>
+<tr>
+<td>Sauvegarde, restauration et reconstruction de la base de données</td>
+<td><a href="../6.9-backup-y-restore/">6.9 (Sauvegarde et restauration)</a></td>
+</tr>
+<tr>
+<td>Haute disponibilité, réplication binaire et son <code>my.cnf</code></td>
+<td><a href="../6.10-alta-disponibilidad-ha/">6.10 (Haute disponibilité (HA))</a></td>
+</tr>
+<tr>
+<td>Inventaire des options de la console web</td>
+<td><a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/">9.2 (Référence complète de configuration de la console)</a></td>
+</tr>
+<tr>
+<td>Référence de configuration du serveur</td>
+<td><a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/">9.3 (Référence complète de configuration du serveur)</a></td>
+</tr>
+<tr>
+<td>Diagnostic général et incidents</td>
+<td><a href="../../parte-9/9.13-troubleshooting-con-pandora/">9.13 (Dépannage avec Pandora)</a></td>
+</tr>
+<tr>
+<td>Dimensionnement et outils de capacité</td>
+<td><a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/">9.14 (Analyse volumétrique et conceptions pour la haute capacité)</a></td>
+</tr>
+<tr>
+<td>Schéma et référence des tables</td>
+<td><a href="../../parte-10/10.1-esquema-de-la-base-de-datos/">10.1 (Schéma de la base de données)</a> et <a href="../../parte-10/10.2-referencia-de-tablas/">10.2 (Référence des tables)</a></td>
+</tr>
+<tr>
+<td>Questions fréquentes de serveur et base de données</td>
+<td><a href="../../parte-12/12.2-servidor-y-base-de-datos/">12.2 (Serveur et base de données)</a> et <a href="../../parte-12/12.8-entornos-grandes/">12.8 (Grands environnements)</a></td>
+</tr>
+</tbody>
+</table>
+<p>L'idée qui résume le chapitre est celle qui l'ouvrait : Pandora FMS n'optimise pas
+la base de données à votre place. Il vous donne le diagnostic, la maintenance qui
+purge et contrôle, et la documentation pour que vous la gardiez saine. Le reste
+est métier d'administrateur : mesurer avant de toucher, comprendre ce que fait
+chaque paramètre, ne pas se fier à un bouton qui n'existe pas et savoir quand la
+table est déjà trop grande pour l'optimiser et qu'il faut reconstruire.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

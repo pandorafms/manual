@@ -1,0 +1,6764 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-1/1.1-instalacion/">
+      
+      
+        <link rel="prev" href="../../">
+      
+      
+        <link rel="next" href="../1.2-introduccion-y-arquitectura/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-1/1.1-instalacion/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-1/1.1-instalacion/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1. Installation - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installation" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-1/1.1-instalacion/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-1/1.1-instalacion/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#ce-qui-va-etre-installe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qui va être installé
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prérequis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-en-ligne-du-serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation en ligne du serveur
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-en-ligne-de-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation en ligne de l'EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation en ligne de l'EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MS Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-du-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation du satellite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation du satellite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-en-ligne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-dopensearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation d'OpenSearch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exigences-minimales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences minimales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exigences minimales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exigences-du-serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences du serveur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-de-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences de l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-du-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences du satellite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-dopensearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences d'OpenSearch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-du-siem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences du SIEM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-de-securite-et-de-reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences de sécurité et de réseau
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personnalisation-de-linstallation-automatique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personnalisation de l'installation automatique
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Personnalisation de l'installation automatique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serveur-et-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serveur et console
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serveur et console">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-pour-linstallateur-en-ligne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs pour l'installateur en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-doptimisation-du-noyau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs d'optimisation du noyau
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-sur-une-base-de-donnees-externe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation sur une base de données externe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-dune-base-de-donnees-externe-pour-lhistorique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation d'une base de données externe pour l'historique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-dans-un-autre-chemin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation dans un autre chemin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-avec-un-utilisateur-non-privilegie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation avec un utilisateur non privilégié
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-pour-linstallateur-en-ligne_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs pour l'installateur en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-dans-un-autre-chemin_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation dans un autre chemin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-avec-un-utilisateur-non-privilegie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation avec un utilisateur non privilégié
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satellite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Satellite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-pour-linstallateur-en-ligne_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs pour l'installateur en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opensearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenSearch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenSearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-pour-linstallateur-en-ligne_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs pour l'installateur en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-hors-ligne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation hors ligne
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation hors ligne">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-hors-ligne-du-serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation hors ligne du serveur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-hors-ligne-du-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation hors ligne du satellite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation hors ligne du satellite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-manuelle-sous-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation manuelle sous Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-sous-ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation sous MS Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-hors-ligne-de-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation hors ligne de l'EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation hors ligne de l'EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows-sans-surveillance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows sans surveillance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desinstallation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Désinstallation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Désinstallation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serveur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base de données
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satellite_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satellite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#ce-qui-va-etre-installe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qui va être installé
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prérequis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-en-ligne-du-serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation en ligne du serveur
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-en-ligne-de-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation en ligne de l'EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation en ligne de l'EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MS Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-du-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation du satellite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation du satellite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-en-ligne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-dopensearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation d'OpenSearch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exigences-minimales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences minimales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exigences minimales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exigences-du-serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences du serveur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-de-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences de l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-du-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences du satellite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-dopensearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences d'OpenSearch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-du-siem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences du SIEM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exigences-de-securite-et-de-reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences de sécurité et de réseau
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personnalisation-de-linstallation-automatique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personnalisation de l'installation automatique
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Personnalisation de l'installation automatique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serveur-et-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serveur et console
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serveur et console">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-pour-linstallateur-en-ligne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs pour l'installateur en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-doptimisation-du-noyau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs d'optimisation du noyau
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-sur-une-base-de-donnees-externe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation sur une base de données externe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-dune-base-de-donnees-externe-pour-lhistorique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation d'une base de données externe pour l'historique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-dans-un-autre-chemin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation dans un autre chemin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-avec-un-utilisateur-non-privilegie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation avec un utilisateur non privilégié
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-pour-linstallateur-en-ligne_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs pour l'installateur en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-dans-un-autre-chemin_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation dans un autre chemin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-avec-un-utilisateur-non-privilegie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation avec un utilisateur non privilégié
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satellite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Satellite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-pour-linstallateur-en-ligne_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs pour l'installateur en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opensearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenSearch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenSearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valeurs-pour-linstallateur-en-ligne_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valeurs pour l'installateur en ligne
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-hors-ligne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation hors ligne
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation hors ligne">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-hors-ligne-du-serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation hors ligne du serveur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-hors-ligne-du-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation hors ligne du satellite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation hors ligne du satellite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-manuelle-sous-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation manuelle sous Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-sous-ms-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation sous MS Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-hors-ligne-de-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation hors ligne de l'EndPoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation hors ligne de l'EndPoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows-sans-surveillance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows sans surveillance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desinstallation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Désinstallation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Désinstallation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serveur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base de données
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#satellite_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Satellite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h1>
+<p>Installer Pandora FMS est la partie facile du projet. Le difficile, c'est de
+décider sur quoi il tourne, ce qui reste dehors et qui s'en souviendra dans deux
+ans. Ce chapitre couvre l'installation du produit, ses exigences et les décisions
+qu'il vaut mieux prendre avant d'exécuter la première commande, pas après.</p>
+<h2 id="ce-qui-va-etre-installe">Ce qui va être installé<a class="headerlink" href="#ce-qui-va-etre-installe" title="Permanent link">¶</a></h2>
+<p>L'installateur en ligne de Pandora FMS monte sur une seule machine le <strong>serveur</strong>,
+la <strong>console web</strong>, la <strong>base de données</strong> et, en option, un <strong>EndPoint local</strong>
+pour superviser le serveur lui-même. C'est l'environnement <em>monolithe</em> et il
+couvre la majorité des cas.</p>
+<p>Les composants n'ont pas besoin de vivre ensemble. L'installation individuelle de
+chaque pièce se fait après coup pour adapter l'architecture : base de données sur
+un serveur dédié, OpenSearch à part, un ou plusieurs satellites pour les réseaux
+distants ou plusieurs nœuds coordonnés depuis le Command Center. Ici on explique
+l'installation standard ; les variantes sont dans la section
+<a href="#personnalisation-de-linstallation-automatique">Personnalisation de l'installation automatique</a>.</p>
+<p>Les composants installables de Pandora FMS sont :</p>
+<ul>
+<li><strong>Serveur</strong> (<code>pandora_server</code>), avec sa base de données et le serveur Tentacle.</li>
+<li><strong>Console web</strong> (<code>pandora_console</code>).</li>
+<li><strong>EndPoint</strong> (<code>pandora_agent</code> et agents associés), sur l'équipement à superviser.</li>
+<li><strong>Satellite Server</strong>, serveur autonome pour les réseaux distants.</li>
+<li><strong>OpenSearch</strong>, moteur de stockage des logs, en option.</li>
+<li><strong>Command Center</strong> (<code>mf_server</code>) et <strong>Cloud Server</strong> (<code>cloud_server</code>), pour les
+  environnements distribués.</li>
+</ul>
+<p>Les exigences complètes de chaque composant sont plus bas, dans
+<a href="#exigences-minimales">Exigences minimales</a>. Lisez-les avant de commencer ; elles
+font la différence entre une installation qui tient des années et une qui donne sa
+première frayeur au bout de trois mois.</p>
+<h2 id="prerequis">Prérequis<a class="headerlink" href="#prerequis" title="Permanent link">¶</a></h2>
+<p>Avant de lancer l'installation en ligne :</p>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internet</td>
+<td>Accès à internet et aux dépôts officiels de la distribution (RHEL / Rocky Linux / Ubuntu Server).</td>
+</tr>
+<tr>
+<td><code>curl</code></td>
+<td>Installé (il est fourni par défaut dans presque toutes les distributions).</td>
+</tr>
+<tr>
+<td>Utilisateur</td>
+<td><strong>root</strong> (ou l'équivalent avec <code>sudo</code>).</td>
+</tr>
+<tr>
+<td>Système d'exploitation</td>
+<td>RHEL, Rocky Linux et AlmaLinux 9 ou 10, ou Ubuntu Server 22.04 ou 24.04. Plus de détail dans <a href="#exigences-du-serveur">Exigences du serveur</a>.</td>
+</tr>
+<tr>
+<td>Matériel</td>
+<td>Respecter les <a href="#exigences-du-serveur">exigences minimales de matériel</a>.</td>
+</tr>
+<tr>
+<td>RHEL 8</td>
+<td>Machine sous licence et abonnée aux dépôts standard.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="installation-en-ligne-du-serveur">Installation en ligne du serveur<a class="headerlink" href="#installation-en-ligne-du-serveur" title="Permanent link">¶</a></h2>
+<p>Si la machine a internet, c'est la voie recommandée. L'installateur en ligne monte
+l'environnement serveur complet en une seule étape.</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-SsL<span class="w"> </span>https://pfms.me/deploy_pandora_one<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">PANDORA_LTS</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>bash
+</code></pre></div>
+<p>L'outil se demande depuis la page de Pandora FMS et fonctionne avec <strong>RHEL</strong>,
+<strong>Rocky Linux</strong>, <strong>AlmaLinux</strong> et <strong>Ubuntu Server</strong>. Red Hat est l'option
+recommandée ; le reste est pris en charge avec les versions indiquées par le
+<a href="#exigences-du-serveur">tableau des systèmes d'exploitation</a>.</p>
+<p>L'exécution précédente réalise une installation complète. L'installateur accepte
+en plus des variables d'environnement pour la personnaliser (mots de passe de base
+de données, version de MySQL et de PHP, canal LTS ou Feature Release, paquets
+précis, etc.). Elles sont toutes regroupées plus bas, dans
+<a href="#personnalisation-de-linstallation-automatique">Personnalisation de l'installation automatique</a>.</p>
+<h2 id="installation-en-ligne-de-lendpoint">Installation en ligne de l'EndPoint<a class="headerlink" href="#installation-en-ligne-de-lendpoint" title="Permanent link">¶</a></h2>
+<p>L'EndPoint est le programme qui vit dans l'équipement supervisé. Il n'est pas
+obligatoire (la supervision distante existe), mais c'est la seule façon d'obtenir
+le maximum de détail : processus, inventaire, logs locaux.</p>
+<h3 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">¶</a></h3>
+<p>L'installateur en ligne fonctionne avec les distributions Red Hat (RHEL, Fedora,
+Rocky), SUSE/OpenSUSE et Debian/Ubuntu. Il installe <strong>toujours depuis un TAR</strong>,
+jamais depuis un RPM, et il vérifie que le paquet téléchargé est un EndPoint
+authentique avant de le configurer contre votre serveur.</p>
+<p>Installation minimale (agent GO, version LTS) :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PANDORA_SERVER_IP</span><span class="o">=</span><span class="s1">'10.0.0.1'</span>
+curl<span class="w"> </span>-sSL<span class="w"> </span>https://pfms.me/agent-deploy<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</code></pre></div>
+<p>L'installateur accepte des variables d'environnement pour automatiser
+l'installation ou choisir le paquet. Elles sont toutes regroupées plus bas, dans
+<a href="#personnalisation-de-linstallation-automatique">Personnalisation de l'installation automatique</a>.</p>
+<p>Architectures prises en charge : <code>x86_64</code> avec binaires. Sur <code>x86</code>, <code>armv7l</code> et
+<code>aarch64</code>, le script passe automatiquement à une compilation depuis les sources
+(<code>PERL_SOURCES</code>). Sur d'autres architectures, le processus s'arrête.</p>
+<h3 id="ms-windows">MS Windows<a class="headerlink" href="#ms-windows" title="Permanent link">¶</a></h3>
+<p>L'EndPoint est fourni comme auto-installeur <code>.exe</code>. Pour l'installation en ligne,
+exécutez PowerShell en administrateur :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="n">https</span><span class="p">://</span><span class="n">marketplace</span><span class="p">.</span><span class="n">pandorafms</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">pandorafms</span><span class="p">/</span><span class="n">LTS</span><span class="p">/</span><span class="n">PandoraFMS_One_Agent_Windows-lts</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">exe</span> <span class="n">-OutFile</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span><span class="p">;</span> <span class="p">&amp;</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">S</span> <span class="p">-</span><span class="n">-ip</span> <span class="no">[IP_DU_SERVEUR]</span> <span class="p">-</span><span class="n">-group</span> <span class="no">[GROUPE]</span> <span class="p">-</span><span class="n">-remote_config</span> <span class="n">1</span>
+</code></pre></div>
+<p>Et démarrez le service :</p>
+<div class="highlight"><pre><span></span><code><span class="n">NET</span> <span class="nb">START </span><span class="n">PandoraFMSAgent</span>
+</code></pre></div>
+<p>Les détails de l'installation manuelle et sans surveillance sont dans
+<a href="#installation-hors-ligne-de-lendpoint">Installation hors ligne de l'EndPoint</a>.</p>
+<h2 id="installation-du-satellite">Installation du satellite<a class="headerlink" href="#installation-du-satellite" title="Permanent link">¶</a></h2>
+<p>Le <strong>Satellite Server</strong> est un serveur <em>headless</em> (sans interface web) pensé pour
+découvrir et superviser les réseaux distants que le serveur de Pandora FMS
+n'atteint pas et où l'on ne peut pas non plus installer d'EndPoints : éléments de
+réseau par SNMP/ICMP, serveurs Windows par WMI et Linux par SNMP. Il exécute
+jusqu'à 500 contrôles par seconde, n'a pas besoin de connexion à la base de
+données de Pandora FMS et envoie les données en XML.</p>
+<h3 id="installation-en-ligne">Installation en ligne<a class="headerlink" href="#installation-en-ligne" title="Permanent link">¶</a></h3>
+<p>Systèmes d'exploitation pris en charge : <strong>EL10</strong> (RHEL 10 / Rocky Linux 10,
+option recommandée), <strong>Ubuntu Server 22.04</strong> et <strong>Raspberry Pi OS</strong> (Debian 12+,
+avec le paquet spécifique pour Raspberry).</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PANDORA_SERVER_IP</span><span class="o">=</span><span class="s1">'&lt;IP ou FQDN du Pandora FMS Server&gt;'</span>
+curl<span class="w"> </span>-Ls<span class="w"> </span>https://pfms.me/satellite-ent-deploy<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</code></pre></div>
+<p>L'installateur accepte des variables d'environnement (canal de version, groupe par
+défaut, configuration distante, installation de l'agent, etc.), regroupées plus bas
+dans
+<a href="#personnalisation-de-linstallation-automatique">Personnalisation de l'installation automatique</a>.</p>
+<div class="admonition info">
+<p class="admonition-title">Compatibilité</p>
+<p>Le Satellite Server 785 n'est pas compatible avec les versions antérieures de
+Pandora FMS. Installez-le à côté d'un environnement 785 ou supérieur, sinon
+vous aurez des fonctions qui apparaissent mais ne fonctionnent pas.</p>
+</div>
+<h2 id="installation-dopensearch">Installation d'OpenSearch<a class="headerlink" href="#installation-dopensearch" title="Permanent link">¶</a></h2>
+<p>La collecte de logs est optionnelle, et pour l'activer il faut une instance
+d'<strong>OpenSearch</strong>. <strong>Elle ne s'installe pas par défaut</strong> avec le serveur : c'est un
+déploiement à part, et la recommandation est qu'elle vive sur un serveur
+indépendant de celui de Pandora FMS.</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-SsL<span class="w"> </span>https://pfms.me/pandorafms-opensearch-el<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</code></pre></div>
+<p>L'installateur crée un nœud prêt à l'emploi, avec HTTPS et authentification par
+mot de passe, et il est compatible avec <strong>EL8, EL9 et Ubuntu 22.04 Server</strong>. Il
+accepte des variables d'environnement pour le nom du cluster et le mot de passe,
+regroupées plus bas dans
+<a href="#personnalisation-de-linstallation-automatique">Personnalisation de l'installation automatique</a>.</p>
+<p>Vérification que le nœud répond :</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>https://127.0.0.1:9200<span class="w"> </span>-ku<span class="w"> </span><span class="s1">'admin:&lt;mot_de_passe&gt;'</span>
+</code></pre></div>
+<p>Changez aussi ce mot de passe. Appliquez le même critère qu'avec la base de
+données : ce qui est publié ne protège rien.</p>
+<h2 id="exigences-minimales">Exigences minimales<a class="headerlink" href="#exigences-minimales" title="Permanent link">¶</a></h2>
+<h3 id="exigences-du-serveur">Exigences du serveur<a class="headerlink" href="#exigences-du-serveur" title="Permanent link">¶</a></h3>
+<p><strong>Matériel.</strong> Les valeurs sont des minimums, calculés en supposant que 80 % des
+modules conservent un historique et un échantillonnage moyen de cinq minutes, avec
+serveur, console et base de données sur la même machine :</p>
+<table>
+<thead>
+<tr>
+<th>Matériel</th>
+<th>Petit (≤ 1 000 modules)</th>
+<th>Moyen (≤ 10 000)</th>
+<th>Grand (≤ 30 000)</th>
+<th>Très grand (≤ 80 000)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>2 cœurs à 2 GHz</td>
+<td>4 cœurs à 2,5 GHz</td>
+<td>6 cœurs à 3 GHz</td>
+<td>10 cœurs à 3 GHz</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>4 GB</td>
+<td>8 GB</td>
+<td>16 GB</td>
+<td>32 GB</td>
+</tr>
+<tr>
+<td>Stockage</td>
+<td>15K rpm ou SSD ≥ 300 MB/s</td>
+<td>15K rpm ou SSD ≥ 300 MB/s</td>
+<td>SSD ≥ 300 MB/s</td>
+<td>SSD ≥ 300 MB/s</td>
+</tr>
+<tr>
+<td>Disque</td>
+<td>40 / 60 GB</td>
+<td>60 / 150 GB</td>
+<td>120 / 250 GB</td>
+<td>250 / 400 GB</td>
+</tr>
+</tbody>
+</table>
+<p>Si l'on conserve des informations sur plus d'un mois, il faut déployer une
+<a href="#installation-dune-base-de-donnees-externe-pour-lhistorique">base de données d'historique</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Virtualisation</p>
+<p>Dans les environnements virtuels, attribuez à la machine un disque
+indépendant, avec de l'espace réservé et à haute vitesse. Mettre la base de
+données sur un volume partagé et fin, c'est la façon la plus fiable d'obtenir
+un goulot d'étranglement que personne ne localisera avant des semaines.</p>
+</div>
+<p>Au-delà de 80 000 métriques, un seul nœud n'a plus de sens : il faut de la
+supervision distribuée avec plusieurs nœuds (<strong>Command Center</strong>).</p>
+<p><strong>Logiciel.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Logiciel</th>
+<th>Exigences</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Système d'exploitation</td>
+<td>RHEL 10, Rocky Linux 10, RHEL 9 (recommandé), Rocky Linux 9 (recommandé), Ubuntu Server 22.04 et 24.04.</td>
+</tr>
+<tr>
+<td>Console</td>
+<td>PHP 8.4 depuis la version 785 ; PHP 8.2 de la 776 à la 784 ; PHP 8 de la 760 à la 775 ; PHP 7.4 de la 759 à la 767 ; PHP 7.2 de la 729 à la 758.</td>
+</tr>
+<tr>
+<td>Base de données</td>
+<td>Percona Server for MySQL 8 (recommandé, surtout au-delà de 4 000 agents), MySQL 8 ou MySQL 8.4 depuis la version 785.</td>
+</tr>
+<tr>
+<td>Navigateurs</td>
+<td>Chrome, Firefox, Opera et Edge. Pour les graphiques interactifs et les cartes réseau, Firefox ou Chrome.</td>
+</tr>
+<tr>
+<td>systemd</td>
+<td>Nécessaire depuis la version 779. Il est installé et activé sur les OS pris en charge.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">EL10 et Ubuntu</p>
+<p><strong>EL10</strong> désigne l'ensemble des systèmes recommandés : Rocky Linux 10,
+AlmaLinux 10 et Red Hat 10. <strong>L'installation hors ligne n'est pas prise en
+charge sur Ubuntu Server</strong>, donc ne le choisissez pas pour un serveur sans
+connexion. Pour le Command Center, il est recommandé d'éviter Ubuntu.</p>
+</div>
+<p>Chaque version LTS de Pandora FMS prend en charge des versions précises de système
+d'exploitation ; consultez la politique de prise en charge des versions d'OS avant
+de décider.</p>
+<p><strong>Permissions.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Utilisateur d'installation</td>
+<td>Le serveur s'installe en <strong>root</strong>. L'installation crée un utilisateur <code>pandora</code> affecté au groupe <code>root</code> ; il peut être changé ensuite, en tenant compte du fait qu'il faudra reconfigurer le serveur Tentacle. Il existe aussi l'installation avec un utilisateur non privilégié, avec une procédure à part.</td>
+</tr>
+<tr>
+<td>Console</td>
+<td>Apache a besoin de permissions de lecture et d'exécution sur les fichiers de la console ; <code>config.php</code> doit avoir les permissions <code>600</code>.</td>
+</tr>
+<tr>
+<td>Serveur</td>
+<td>Permissions d'écriture sur <code>/var/spool/pandora/</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exigences-de-lendpoint">Exigences de l'EndPoint<a class="headerlink" href="#exigences-de-lendpoint" title="Permanent link">¶</a></h3>
+<p>L'EndPoint peut s'exécuter sur tout équipement disposant du système d'exploitation
+minimal requis :</p>
+<table>
+<thead>
+<tr>
+<th>Composant</th>
+<th>Système d'exploitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pandora EndPoint 4.0 ou ultérieur</td>
+<td>RHEL 10 / Rocky Linux 10 ; RHEL 6.x, 8 et 9 ; Fedora 34 ; CentOS 6.x, 7 et 8 ; AlmaLinux ; SLES 11 SP1 ou ultérieur ; OpenSUSE 11.x ou ultérieur ; Debian 5.x ou ultérieur ; Ubuntu Server ou Desktop 11 ou ultérieur ; Linux Mint ; Elementary OS ; Manjaro ; HPUX B.11.11 ou ultérieur avec Perl 5.8 ; AIX 4.3.3 ou ultérieur avec Perl 5.8 ; AIX 7.1 et 7.2 ; BSD (NetBSD, OpenBSD, FreeBSD) avec Perl 5.8 ; MacOS X 10.6 ou ultérieur ; Solaris 8 ou ultérieur avec Perl 5.8 ; Windows NT4, XP, 2000, 2003, 2008, 7, 8, 10, 11, 2012, Server 2016 et Server 2019.</td>
+</tr>
+<tr>
+<td>Pandora Android EndPoint 2.0 ou ultérieur</td>
+<td>Android 6 ou ultérieur.</td>
+</tr>
+<tr>
+<td>Pandora Embedded EndPoint 4.0 ou ultérieur</td>
+<td>Appareils <em>embedded</em> ; nécessite une compilation.</td>
+</tr>
+</tbody>
+</table>
+<p>Sur les systèmes de type <code>*nix</code>, <strong>systemd</strong> doit être installé et démarré. Dans
+les environnements UNIX, en plus :</p>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Perl</td>
+<td>5.8 ou ultérieur.</td>
+</tr>
+<tr>
+<td>Dépendances</td>
+<td><code>perl-YAML-Tiny-1.73-2</code>, <code>perl-Sys-Syslog</code> et <code>unzip</code>.</td>
+</tr>
+<tr>
+<td>logrotate</td>
+<td>Configuré pour l'agent (bloc suivant).</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>cat&gt;<span class="w"> </span>/etc/logrotate.d/pandora_agent<span class="w"> </span><span class="s">&lt;&lt;EO_LRA</span>
+<span class="s">/var/log/pandora/pandora_agent.log {</span>
+<span class="s">        su root apache</span>
+<span class="s">        weekly</span>
+<span class="s">        missingok</span>
+<span class="s">        size 300000</span>
+<span class="s">        rotate 3</span>
+<span class="s">        maxage 90</span>
+<span class="s">        compress</span>
+<span class="s">        notifempty</span>
+<span class="s">        copytruncate</span>
+<span class="s">}</span>
+<span class="s">EO_LRA</span>
+chmod<span class="w"> </span><span class="m">0644</span><span class="w"> </span>/etc/logrotate.d/pandora_agent
+</code></pre></div>
+<p>Sur Linux, l'EndPoint s'exécute en <strong>root</strong> pour disposer de toutes les
+fonctionnalités ; sur Windows, avec des permissions d'administrateur.</p>
+<h3 id="exigences-du-satellite">Exigences du satellite<a class="headerlink" href="#exigences-du-satellite" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Satellite</th>
+<th>Détails</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Matériel (Windows)</td>
+<td>x64 ; minimum 2 cœurs à 2 GHz (4 recommandé) ; minimum 6 GB de RAM (8 recommandé) ; disque minimum 5 GB (10 recommandé).</td>
+</tr>
+<tr>
+<td>Matériel (Linux)</td>
+<td>x64 ; minimum 2 cœurs à 2 GHz (4 recommandé) ; minimum 4 GB de RAM (6 recommandé) ; disque minimum 5 GB (10 recommandé).</td>
+</tr>
+<tr>
+<td>Systèmes d'exploitation</td>
+<td>Linux 64 bits ; MS Windows 64 bits.</td>
+</tr>
+<tr>
+<td>Dépendances</td>
+<td><code>fping</code>, <code>nmap</code>, <code>perl</code>, <code>pandorawmic</code> (version NG 762 ou ultérieure) et <code>libnsl</code> ; <code>snmp</code> pour SNMP.</td>
+</tr>
+</tbody>
+</table>
+<p>Sur Rocky Linux 8 ou ultérieur, il faut d'abord configurer le dépôt EPEL. Sur
+Windows, selon la version du système, il faut installer Microsoft Visual C++
+Redistributable.</p>
+<h3 id="exigences-dopensearch">Exigences d'OpenSearch<a class="headerlink" href="#exigences-dopensearch" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Système d'exploitation</td>
+<td>Rocky Linux 8 / RHEL 8 / Ubuntu 22.04 (recommandés).</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>Minimum 4 GB (dev/testing) ; recommandé 8 GB par instance. Il faut l'estimer selon le volume de données.</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>Minimum 4 cœurs.</td>
+</tr>
+<tr>
+<td>SWAP</td>
+<td>Désactivé sur le ou les nœuds OpenSearch.</td>
+</tr>
+<tr>
+<td>Stockage</td>
+<td>50 GB de disque système et 100 GB pour OpenSearch.</td>
+</tr>
+<tr>
+<td>Connectivité</td>
+<td>Depuis le serveur et la console de Pandora FMS vers l'API OpenSearch (<code>9200/TCP</code>) et entre nœuds de cluster (<code>9300/TCP</code>).</td>
+</tr>
+</tbody>
+</table>
+<p>Un seul nœud avec ces caractéristiques stocke jusqu'à 1 GB de données par jour
+pendant 30 jours. Pour plus de résilience et de capacité, on configure un
+<strong>cluster</strong> (minimum 3 nœuds pour garantir l'intégrité des données) et on répartit
+la charge avec un répartiteur de type <strong>Keepalived</strong>.</p>
+<h3 id="exigences-du-siem">Exigences du SIEM<a class="headerlink" href="#exigences-du-siem" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenSearch</td>
+<td>Base de données <strong>OpenSearch sur une instance dédiée</strong>.</td>
+</tr>
+<tr>
+<td>Collecte de logs</td>
+<td>Activée.</td>
+</tr>
+<tr>
+<td>Ressources du nœud</td>
+<td>Minimum <strong>4 cœurs, 8 GB de RAM et 100 GB de disque SSD</strong>.</td>
+</tr>
+<tr>
+<td>Instance SIEM</td>
+<td>Un serveur dédié est recommandé pour <code>siemserver</code> et <code>siemevents</code>.</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Avec la fonctionnalité SIEM activée.</td>
+</tr>
+</tbody>
+</table>
+<p>Une fois les exigences remplies, le SIEM s'active depuis la console dans
+<strong>Management → Settings → System Settings → SIEM → Activate SIEM</strong>. À
+l'enregistrement, les modèles de normalisation sont créés dans OpenSearch et
+<code>siemserver</code> et <code>siemevents</code> sont activés sur les serveurs correspondants.</p>
+<h3 id="exigences-de-securite-et-de-reseau">Exigences de sécurité et de réseau<a class="headerlink" href="#exigences-de-securite-et-de-reseau" title="Permanent link">¶</a></h3>
+<p>Si la machine dispose d'applications de sécurité (EDR, XDR, antivirus), il faut
+ouvrir les processus et les chemins de Pandora FMS, sinon vous verrez des
+composants mourir sans explication. Transmettez cette liste à l'administrateur de
+l'EDR, telle quelle.</p>
+<p>Pour le <strong>serveur</strong> :</p>
+<div class="highlight"><pre><span></span><code>/var/spool/pandora
+/usr/share/pandora_server
+/etc/pandora
+/var/log/pandora
+/etc/tentacle
+/usr/bin/pandora_server
+/usr/bin/pandora_exec
+/usr/bin/tentacle_server
+/usr/bin/tentacle_client
+/usr/bin/pandora_ha
+/usr/bin/pandora_db
+/usr/bin/pandora_manage
+/usr/bin/pandora_revent
+/usr/bin/pandora_encrypt_db
+/usr/bin/pandorafsnmp
+/usr/bin/pandorawmic
+/usr/bin/clean_pandora_server
+/usr/bin/clean_tentacle_serverd
+/usr/bin/clean_tentacle_rmm
+</code></pre></div>
+<p>Pour les <strong>EndPoints</strong> :</p>
+<div class="highlight"><pre><span></span><code>/usr/share/pandora_agent
+/usr/bin/pandora_agent
+/usr/bin/pandora_agent_exec
+/usr/bin/pandora_revent
+/var/spool/pandora
+/etc/pandora
+/var/log/pandora
+/usr/bin/tentacle_server
+/usr/bin/tentacle_client
+/usr/bin/clean_pandora_agent_daemon
+</code></pre></div>
+<p>Pour le <strong>Satellite Server</strong> :</p>
+<div class="highlight"><pre><span></span><code>/usr/bin/satellite_server
+/etc/pandora
+/var/spool/pandora
+/usr/sbin/fping
+/usr/sbin/wmic
+/usr/bin/tentacle_server
+/usr/bin/tentacle_client
+/usr/bin/pandorafsnmp
+/usr/bin/pandorawmic
+/usr/bin/clean_satellite_serverd
+</code></pre></div>
+<p>Dans les installations personnalisées, il faut faire précéder chaque chemin du
+répertoire où l'installation a été faite.</p>
+<p><strong>Ports.</strong> Le tableau complet. Quand l'équipe réseau demandera quoi ouvrir, voici
+la liste :</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocole</th>
+<th>Service</th>
+<th>Description</th>
+<th>Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80</td>
+<td>TCP</td>
+<td>Console</td>
+<td>Administration web et API</td>
+<td>Navigateur → Console</td>
+</tr>
+<tr>
+<td>80</td>
+<td>TCP</td>
+<td>Console (API)</td>
+<td>Utilisation de l'API/CLI</td>
+<td>Client → Console</td>
+</tr>
+<tr>
+<td>80</td>
+<td>TCP</td>
+<td>Command Center</td>
+<td>Communication Command Center ↔ Nœuds</td>
+<td>Command Center ↔ Nœud</td>
+</tr>
+<tr>
+<td>162</td>
+<td>UDP</td>
+<td>Serveur</td>
+<td>Réception de traps</td>
+<td>Équipement → Serveur</td>
+</tr>
+<tr>
+<td>443</td>
+<td>TCP</td>
+<td>Console (API)</td>
+<td>Utilisation de l'API/CLI</td>
+<td>Client → Console</td>
+</tr>
+<tr>
+<td>443</td>
+<td>TCP</td>
+<td>Command Center</td>
+<td>Communication Command Center ↔ Nœuds</td>
+<td>Command Center ↔ Nœud</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>TCP</td>
+<td>Console et Serveur</td>
+<td>Connexion à la base de données</td>
+<td>Serveur → BDD</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>TCP</td>
+<td>Command Center</td>
+<td>Base de données des nœuds</td>
+<td>Command Center ↔ BDD</td>
+</tr>
+<tr>
+<td>4444</td>
+<td>TCP</td>
+<td>Serveur</td>
+<td>Connexion avec Selenium GRID</td>
+<td>Serveur → Selenium</td>
+</tr>
+<tr>
+<td>9995</td>
+<td>UDP</td>
+<td>Serveur</td>
+<td>Sondes NetFlow</td>
+<td>nfcapd → Serveur</td>
+</tr>
+<tr>
+<td>9200</td>
+<td>TCP</td>
+<td>Console et Serveur</td>
+<td>OpenSearch (logs)</td>
+<td>Serveur → OpenSearch</td>
+</tr>
+<tr>
+<td>9300</td>
+<td>TCP</td>
+<td>OpenSearch</td>
+<td>Communication entre nœuds de cluster</td>
+<td>Nœud ↔ Nœud</td>
+</tr>
+<tr>
+<td>41121</td>
+<td>TCP</td>
+<td>Agents</td>
+<td>Communication Tentacle</td>
+<td>EndPoint → Serveur</td>
+</tr>
+<tr>
+<td>41122</td>
+<td>UDP</td>
+<td>Agents</td>
+<td>Actions distantes en UDP</td>
+<td>EndPoint ↔ Serveur</td>
+</tr>
+<tr>
+<td>41123</td>
+<td>TCP</td>
+<td>Agents</td>
+<td>Fonctionnalité RMM</td>
+<td>EndPoint ↔ Serveur</td>
+</tr>
+</tbody>
+</table>
+<p>Pour la supervision standard, le serveur a en plus besoin d'une sortie vers ce
+qu'il supervise : <code>80/TCP</code> et <code>443/TCP</code> pour la supervision web (WUX), <code>161/UDP</code>
+pour SNMP polling et ICMP pour les contrôles réseau.</p>
+<h2 id="personnalisation-de-linstallation-automatique">Personnalisation de l'installation automatique<a class="headerlink" href="#personnalisation-de-linstallation-automatique" title="Permanent link">¶</a></h2>
+<h3 id="serveur-et-console">Serveur et console<a class="headerlink" href="#serveur-et-console" title="Permanent link">¶</a></h3>
+<h4 id="valeurs-pour-linstallateur-en-ligne">Valeurs pour l'installateur en ligne<a class="headerlink" href="#valeurs-pour-linstallateur-en-ligne" title="Permanent link">¶</a></h4>
+<p>L'exécution de base installe l'environnement complet. Ces variables
+d'environnement la personnalisent (valeurs pour RHEL et Rocky Linux) :</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Fonction</th>
+<th>Par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TZ</code></td>
+<td>Fuseau horaire de la machine</td>
+<td><code>Europe/Madrid</code></td>
+</tr>
+<tr>
+<td><code>DBHOST</code></td>
+<td>Hôte de la base de données</td>
+<td><code>127.0.0.1</code></td>
+</tr>
+<tr>
+<td><code>DBNAME</code></td>
+<td>Nom de la base à créer</td>
+<td><code>pandora</code></td>
+</tr>
+<tr>
+<td><code>DBUSER</code></td>
+<td>Utilisateur de la base</td>
+<td><code>pandora</code></td>
+</tr>
+<tr>
+<td><code>DBPASS</code></td>
+<td>Mot de passe de l'utilisateur</td>
+<td><code>Pandor4!</code></td>
+</tr>
+<tr>
+<td><code>DBPORT</code></td>
+<td>Port de la base</td>
+<td><code>3306</code></td>
+</tr>
+<tr>
+<td><code>DBROOTPASS</code></td>
+<td>Mot de passe root de la base</td>
+<td><code>Pandor4!</code></td>
+</tr>
+<tr>
+<td><code>SKIP_PRECHECK</code></td>
+<td>Ignorer la vérification d'installation préalable</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>SKIP_DATABASE_INSTALL</code></td>
+<td>Ne pas installer la base (en utiliser une externe)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>SKIP_KERNEL_OPTIMIZATIONS</code></td>
+<td>Ignorer l'optimisation du noyau</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>MYVER</code></td>
+<td>Version de MySQL (<code>80</code> ou <code>84</code>)</td>
+<td><code>80</code></td>
+</tr>
+<tr>
+<td><code>PHPVER</code></td>
+<td>Version de PHP (<code>82</code> ou <code>84</code>)</td>
+<td><code>84</code></td>
+</tr>
+<tr>
+<td><code>PANDORA_SERVER_PACKAGE</code></td>
+<td>URL du RPM du serveur</td>
+<td>dernière disponible</td>
+</tr>
+<tr>
+<td><code>PANDORA_CONSOLE_PACKAGE</code></td>
+<td>URL du RPM de la console</td>
+<td>dernière disponible</td>
+</tr>
+<tr>
+<td><code>PANDORA_AGENT_PACKAGE</code></td>
+<td>URL du RPM de l'agent</td>
+<td>dernière disponible</td>
+</tr>
+<tr>
+<td><code>PANDORA_BETA</code></td>
+<td>Installer la bêta (<code>1</code>)</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>PANDORA_LTS</code></td>
+<td>Installer la branche LTS au lieu de Feature Release</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<p>Sur <strong>Ubuntu Server</strong>, la liste est semblable : elle n'inclut pas les variables de
+paquet du serveur, de la console et de l'agent, et elle ajoute <code>POOL_SIZE</code> pour
+fixer la mémoire de MySQL (par défaut, elle se calcule automatiquement).</p>
+<p>Exemple sur EL10 avec des valeurs explicites :</p>
+<div class="highlight"><pre><span></span><code>env<span class="w"> </span><span class="nv">TZ</span><span class="o">=</span><span class="s1">'Europe/Madrid'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBHOST</span><span class="o">=</span><span class="s1">'127.0.0.1'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBNAME</span><span class="o">=</span><span class="s1">'pandora'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBUSER</span><span class="o">=</span><span class="s1">'pandora'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBPASS</span><span class="o">=</span><span class="s1">'ChangezCeMotDePasse'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBPORT</span><span class="o">=</span><span class="s1">'3306'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBROOTPASS</span><span class="o">=</span><span class="s1">'ChangezCeMotDePasseRoot'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">MYVER</span><span class="o">=</span><span class="m">84</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">PHPVER</span><span class="o">=</span><span class="m">84</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">SKIP_PRECHECK</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">SKIP_DATABASE_INSTALL</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">SKIP_KERNEL_OPTIMIZATIONS</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">PANDORA_BETA</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">PANDORA_LTS</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pfms.me/deploy_pandora_one<span class="k">)</span><span class="s2">"</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Changez les mots de passe par défaut</p>
+<p><code>Pandor4!</code> est écrit dans la documentation publique. C'est le premier que
+tentera toute personne qui sait par où entrer. Le laisser en place n'est pas
+une négligence, c'est laisser la porte ouverte et poser le paillasson.</p>
+</div>
+<h4 id="valeurs-doptimisation-du-noyau">Valeurs d'optimisation du noyau<a class="headerlink" href="#valeurs-doptimisation-du-noyau" title="Permanent link">¶</a></h4>
+<p>L'installateur en ligne ajuste certains paramètres du noyau. Avec
+<code>SKIP_KERNEL_OPTIMIZATIONS=1</code>, il n'y touche pas, mais il vaut mieux savoir ce que
+l'on perd : ce sont des réglages pensés pour que le serveur supporte beaucoup de
+connexions simultanées sans que le système d'exploitation devienne le goulot
+d'étranglement.</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Par défaut</th>
+<th>Fixé par Pandora</th>
+<th>Ce qu'il fait</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>net.ipv4.tcp_syn_retries</code></td>
+<td>5</td>
+<td>3</td>
+<td>Tentatives lors de l'envoi d'une demande de connexion TCP avant de la considérer comme échouée.</td>
+</tr>
+<tr>
+<td><code>net.ipv4.tcp_synack_retries</code></td>
+<td>5</td>
+<td>3</td>
+<td>Tentatives lors de la réception de l'accusé de réception d'une connexion TCP.</td>
+</tr>
+<tr>
+<td><code>net.ipv4.tcp_max_syn_backlog</code></td>
+<td>1024</td>
+<td>65536</td>
+<td>Taille maximale de la file des connexions TCP en attente d'acceptation.</td>
+</tr>
+<tr>
+<td><code>net.core.wmem_max</code></td>
+<td>124928</td>
+<td>8388608</td>
+<td>Tampon maximal d'envoi de données par connexion réseau.</td>
+</tr>
+<tr>
+<td><code>net.core.rmem_max</code></td>
+<td>131071</td>
+<td>8388608</td>
+<td>Tampon maximal de réception de données par connexion réseau.</td>
+</tr>
+<tr>
+<td><code>net.core.somaxconn</code></td>
+<td>128</td>
+<td>1024</td>
+<td>Connexions en attente dans la file d'écoute des sockets.</td>
+</tr>
+<tr>
+<td><code>net.core.optmem_max</code></td>
+<td>20480</td>
+<td>81920</td>
+<td>Tampon maximal pour les options de socket.</td>
+</tr>
+</tbody>
+</table>
+<p>Ne les touchez pas à la main, sauf si vous savez exactement ce que vous faites.
+Laissez <code>SKIP_KERNEL_OPTIMIZATIONS=0</code> et laissez l'installateur faire son travail.</p>
+<h4 id="installation-sur-une-base-de-donnees-externe">Installation sur une base de données externe<a class="headerlink" href="#installation-sur-une-base-de-donnees-externe" title="Permanent link">¶</a></h4>
+<p>S'il existe un serveur dédié pour la base de données, la marche à suivre est :
+créer la base et l'utilisateur, lui donner toutes les permissions sur cette base et
+installer avec <code>SKIP_DATABASE_INSTALL=1</code> et les valeurs de connexion. Avant
+d'installer, testez la connexion depuis le futur serveur de Pandora FMS. Découvrir
+le pare-feu à deux heures du matin s'évite avec cinq minutes de vérification.</p>
+<div class="highlight"><pre><span></span><code>env<span class="w"> </span><span class="nv">DBHOST</span><span class="o">=</span><span class="s1">'192.168.1.107'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBNAME</span><span class="o">=</span><span class="s1">'pandora'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBUSER</span><span class="o">=</span><span class="s1">'pandora'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBPASS</span><span class="o">=</span><span class="s1">'ChangezCeMotDePasse'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBPORT</span><span class="o">=</span><span class="s1">'3306'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">SKIP_DATABASE_INSTALL</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pfms.me/deploy_pandora_one<span class="k">)</span><span class="s2">"</span>
+</code></pre></div>
+<p>Restreignez l'utilisateur de la base de données à l'IP du serveur de Pandora FMS :
+si le mot de passe se retrouve compromis, qu'il ne serve depuis nulle part ailleurs.</p>
+<h4 id="installation-dune-base-de-donnees-externe-pour-lhistorique">Installation d'une base de données externe pour l'historique<a class="headerlink" href="#installation-dune-base-de-donnees-externe-pour-lhistorique" title="Permanent link">¶</a></h4>
+<p>Pour déployer une base de données dédiée (historique compris), il existe un
+installateur en ligne propre. Il ne demande que <code>curl</code> et un système compatible :</p>
+<ul>
+<li><strong>EL9</strong> : Rocky Linux 9.x ou RHEL 9.x.</li>
+<li><strong>EL10</strong> : Rocky Linux 10 ou RHEL 10.</li>
+<li><strong>Ubuntu</strong> : 22.04.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pfms.me/db-deploy-el9<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</code></pre></div>
+<p>Sur Ubuntu :</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pfms.me/db-deploy-u2204<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</code></pre></div>
+<p>Variables prises en charge :</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TZ</code></td>
+<td>Fuseau horaire de la machine</td>
+<td><code>Europe/Madrid</code></td>
+</tr>
+<tr>
+<td><code>MYVER</code></td>
+<td>Version de MySQL (8.0 ou 8.4)</td>
+<td><code>84</code></td>
+</tr>
+<tr>
+<td><code>DBNAME</code></td>
+<td>Nom de la base à créer</td>
+<td><code>pandora</code></td>
+</tr>
+<tr>
+<td><code>DBUSER</code></td>
+<td>Utilisateur de la base</td>
+<td><code>pandora</code></td>
+</tr>
+<tr>
+<td><code>DBPASS</code></td>
+<td>Mot de passe de l'utilisateur</td>
+<td><code>Pandor4!</code></td>
+</tr>
+<tr>
+<td><code>DBROOTPASS</code></td>
+<td>Mot de passe de l'utilisateur root</td>
+<td><code>Pandor4!</code></td>
+</tr>
+<tr>
+<td><code>SKIP_KERNEL_OPTIMIZATIONS</code></td>
+<td>Ignorer les optimisations du noyau</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>POOL_SIZE</code></td>
+<td>Mémoire pour MySQL (buffer pool)</td>
+<td>Automatique</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>env<span class="w"> </span><span class="nv">TZ</span><span class="o">=</span><span class="s1">'Europe/Madrid'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">MYVER</span><span class="o">=</span><span class="m">84</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBNAME</span><span class="o">=</span><span class="s1">'pandora'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBUSER</span><span class="o">=</span><span class="s1">'pandora'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBPASS</span><span class="o">=</span><span class="s1">'ChangezCeMotDePasse'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">DBROOTPASS</span><span class="o">=</span><span class="s1">'ChangezCeMotDePasseRoot'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">POOL_SIZE</span><span class="o">=</span>4G<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pfms.me/db-deploy-el9<span class="k">)</span><span class="s2">"</span>
+</code></pre></div>
+<h4 id="installation-dans-un-autre-chemin">Installation dans un autre chemin<a class="headerlink" href="#installation-dans-un-autre-chemin" title="Permanent link">¶</a></h4>
+<p>Pour installer le serveur dans un autre chemin, l'installateur accepte
+<code>--destdir</code> :</p>
+<div class="highlight"><pre><span></span><code>./pandora_server_installer<span class="w"> </span>--install<span class="w"> </span>--destdir<span class="w"> </span>&lt;destdir&gt;
+</code></pre></div>
+<p>Ensuite, il faut configurer le démarrage automatique et le script de maintenance
+<code>pandora_db</code> dans le cron :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"\"&lt;destdir&gt;/usr/share/pandora_server/util/pandora_db\" \</span>
+<span class="s2"> \"&lt;destdir&gt;/etc/pandora/pandora_server.conf\"&gt;/dev/null 2&gt;&amp;1"</span>&gt;<span class="w"> </span>/etc/cron.hourly/pandora_db
+</code></pre></div>
+<h4 id="installation-avec-un-utilisateur-non-privilegie">Installation avec un utilisateur non privilégié<a class="headerlink" href="#installation-avec-un-utilisateur-non-privilegie" title="Permanent link">¶</a></h4>
+<p>L'installateur accepte de s'exécuter avec un utilisateur sans privilèges :</p>
+<div class="highlight"><pre><span></span><code>./pandora_server_installer<span class="w"> </span>--install<span class="w"> </span>--no-root<span class="w"> </span>--destdir<span class="w"> </span>/opt/pandora
+</code></pre></div>
+<p>Cet utilisateur doit avoir des permissions d'écriture sur le chemin indiqué dans
+<code>--destdir</code>.</p>
+<h3 id="endpoint">EndPoint<a class="headerlink" href="#endpoint" title="Permanent link">¶</a></h3>
+<h4 id="valeurs-pour-linstallateur-en-ligne_1">Valeurs pour l'installateur en ligne<a class="headerlink" href="#valeurs-pour-linstallateur-en-ligne_1" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Fonction</th>
+<th>Par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PANDORA_SERVER_IP</code></td>
+<td>IP ou FQDN du serveur de Pandora FMS</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PANDORA_AGENT_PACKAGE</code></td>
+<td>Type de paquet : <code>GO</code>, <code>PERL</code> ou <code>PERL_SOURCES</code>, ou URL directe</td>
+<td><code>GO</code></td>
+</tr>
+<tr>
+<td><code>PANDORA_AGENT_PACKAGE_TYPE</code></td>
+<td>Dépendances à installer quand le paquet est une URL</td>
+<td><code>GO</code></td>
+</tr>
+<tr>
+<td><code>PANDORA_AGENT_RELEASE</code></td>
+<td>Version : LTS (<code>STABLE</code>) ou <code>BETA</code></td>
+<td><code>STABLE</code></td>
+</tr>
+<tr>
+<td><code>PANDORA_SKIP_CONFIRMATION</code></td>
+<td>Installation sans surveillance et sans confirmations (<code>1</code>=oui)</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PANDORA_SERVER_IP</span><span class="o">=</span><span class="s1">'10.0.0.1'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">       </span><span class="nv">PANDORA_AGENT_PACKAGE</span><span class="o">=</span>GO<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span><span class="nv">PANDORA_AGENT_RELEASE</span><span class="o">=</span>STABLE<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span><span class="nv">PANDORA_SKIP_CONFIRMATION</span><span class="o">=</span><span class="m">1</span>
+curl<span class="w"> </span>-sSL<span class="w"> </span>https://pfms.me/agent-deploy<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</code></pre></div>
+<h4 id="installation-dans-un-autre-chemin_1">Installation dans un autre chemin<a class="headerlink" href="#installation-dans-un-autre-chemin_1" title="Permanent link">¶</a></h4>
+<p>L'EndPoint peut s'installer entièrement dans un répertoire défini : y restent les
+logs, la configuration, les binaires et les pages <code>man</code>.</p>
+<div class="highlight"><pre><span></span><code>./pandora_agent_installer<span class="w"> </span>--install<span class="w"> </span>/opt/pandora
+</code></pre></div>
+<h4 id="installation-avec-un-utilisateur-non-privilegie_1">Installation avec un utilisateur non privilégié<a class="headerlink" href="#installation-avec-un-utilisateur-non-privilegie_1" title="Permanent link">¶</a></h4>
+<p>Il peut aussi s'exécuter avec un utilisateur autre que <code>root</code>. Par exemple, avec
+l'utilisateur <code>pandora</code> :</p>
+<div class="highlight"><pre><span></span><code>./pandora_agent_installer<span class="w"> </span>--install<span class="w"> </span>/home/pandora<span class="w"> </span>pandora
+</code></pre></div>
+<p>En spécifiant un utilisateur personnalisé, l'installation doit aller dans un
+emplacement où cet utilisateur a des permissions d'écriture. L'utilisateur
+<code>pandora</code> est désactivé par défaut : pour l'utiliser, il faut lui donner un <em>shell</em>
+valide dans <code>/etc/passwd</code>.</p>
+<h3 id="satellite">Satellite<a class="headerlink" href="#satellite" title="Permanent link">¶</a></h3>
+<h4 id="valeurs-pour-linstallateur-en-ligne_2">Valeurs pour l'installateur en ligne<a class="headerlink" href="#valeurs-pour-linstallateur-en-ligne_2" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Par défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PANDORA_SERVER_IP</code></td>
+<td>—</td>
+<td><strong>Obligatoire.</strong> IP ou FQDN du serveur vers lequel pointe le satellite.</td>
+</tr>
+<tr>
+<td><code>VERSION</code></td>
+<td><code>LATEST</code></td>
+<td>Canal d'installation : <code>LATEST</code> ou <code>LEGACY</code>.</td>
+</tr>
+<tr>
+<td><code>TZ</code></td>
+<td><code>Europe/Madrid</code></td>
+<td>Fuseau horaire au format IANA.</td>
+</tr>
+<tr>
+<td><code>REMOTE_CONFIG</code></td>
+<td><code>1</code></td>
+<td>Gestion de la configuration depuis la console (<code>1</code>=oui).</td>
+</tr>
+<tr>
+<td><code>INSTALL_AGENT</code></td>
+<td><code>1</code></td>
+<td>Installe l'EndPoint sur le satellite lui-même (<code>1</code>=oui).</td>
+</tr>
+<tr>
+<td><code>PANDORA_GROUP</code></td>
+<td><code>Servers</code></td>
+<td>Groupe par défaut des agents du satellite.</td>
+</tr>
+<tr>
+<td><code>SKIP_KERNEL_OPTIMIZATIONS</code></td>
+<td><code>0</code></td>
+<td>Omet les réglages de performance du noyau (<code>1</code>=omettre).</td>
+</tr>
+<tr>
+<td><code>RHEL_CHECK_SUBSCRIPTION</code></td>
+<td><code>1</code></td>
+<td>Vérifie les abonnements actifs sur RHEL (<code>1</code>=oui).</td>
+</tr>
+<tr>
+<td><code>PANDORA_SKIP_CONFIRMATION</code></td>
+<td><code>0</code></td>
+<td>Installation sans surveillance et sans confirmations (<code>1</code>=oui).</td>
+</tr>
+<tr>
+<td><code>PANDORA_BETA</code></td>
+<td><code>0</code></td>
+<td>Installe la version bêta de développement (<code>1</code>=oui).</td>
+</tr>
+<tr>
+<td><code>SATELLITE_SERVER_PACKAGE</code></td>
+<td>Sélection automatique</td>
+<td>URL personnalisée du tarball du Satellite Server.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>env<span class="w"> </span><span class="nv">TZ</span><span class="o">=</span><span class="s1">'Europe/Madrid'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">PANDORA_SERVER_IP</span><span class="o">=</span><span class="s1">'192.168.10.10'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">VERSION</span><span class="o">=</span><span class="s1">'LATEST'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pfms.me/satellite-ent-deploy<span class="k">)</span><span class="s2">"</span>
+</code></pre></div>
+<p>En outre, l'installation manuelle demande de fixer le jeton <code>server_ip</code> dans
+<code>/etc/pandora/satellite_server.conf</code> en pointant vers le Pandora FMS Server, et de
+démarrer <code>satellite_serverd</code>. Dans les installations sous Windows, le chemin doit
+être indiqué <strong>sans guillemets</strong> ; avec des guillemets, l'installateur ne
+l'interprète pas correctement.</p>
+<h3 id="opensearch">OpenSearch<a class="headerlink" href="#opensearch" title="Permanent link">¶</a></h3>
+<h4 id="valeurs-pour-linstallateur-en-ligne_3">Valeurs pour l'installateur en ligne<a class="headerlink" href="#valeurs-pour-linstallateur-en-ligne_3" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CLUSTER_NAME</code></td>
+<td><code>pandora_opensearch</code></td>
+</tr>
+<tr>
+<td><code>OPENSEARCH_PASS</code></td>
+<td><code>P4nd0r4!FMS</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>env<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span><span class="s1">'pandora_opensearch'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">OPENSEARCH_PASS</span><span class="o">=</span><span class="s1">'ChangezCeMotDePasse'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>curl<span class="w"> </span>-SsL<span class="w"> </span>https://pfms.me/pandorafms-opensearch-el<span class="k">)</span><span class="s2">"</span>
+</code></pre></div>
+<p>Pour les configurations avancées (nœuds, modèles, gestion des utilisateurs et du
+cluster), il existe une documentation spécifique d'OpenSearch ; l'installateur ne
+monte qu'un nœud basique fonctionnel.</p>
+<h2 id="installation-hors-ligne">Installation hors ligne<a class="headerlink" href="#installation-hors-ligne" title="Permanent link">¶</a></h2>
+<p>Pour les environnements sans connexion à internet. <strong>Elle n'est pas prise en
+charge sur Ubuntu.</strong></p>
+<h3 id="installation-hors-ligne-du-serveur">Installation hors ligne du serveur<a class="headerlink" href="#installation-hors-ligne-du-serveur" title="Permanent link">¶</a></h3>
+<p>Les systèmes compatibles sont <strong>RHEL 9 / Rocky Linux 9</strong> et <strong>RHEL 10 / Rocky
+Linux 10</strong>.</p>
+<p>Étapes :</p>
+<ol>
+<li>Disposer d'une instance propre, avec les exigences matérielles et le système
+   d'exploitation pris en charge.</li>
+<li>Télécharger le paquet <em>offline</em> pour le système d'exploitation depuis le
+   portail de support (disponible pour les versions LTS et LTS précédentes).</li>
+<li>Téléverser le tarball sur le serveur.</li>
+<li>Le décompresser et exécuter l'installateur :</li>
+</ol>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvzf<span class="w"> </span>&lt;offline_package&gt;.tar.gz
+<span class="nb">cd</span><span class="w"> </span>pandora_packages/
+./pandora_deploy_enterprise_local_el9.sh
+</code></pre></div>
+<p>Sur EL10, le script est <code>pandora_deploy_enterprise_local_el10.sh</code>. Quand le
+processus se termine, on accède à la console web avec l'utilisateur <code>admin</code> et le
+mot de passe <code>pandora</code>.</p>
+<h3 id="installation-hors-ligne-du-satellite">Installation hors ligne du satellite<a class="headerlink" href="#installation-hors-ligne-du-satellite" title="Permanent link">¶</a></h3>
+<h4 id="installation-manuelle-sous-linux">Installation manuelle sous Linux<a class="headerlink" href="#installation-manuelle-sous-linux" title="Permanent link">¶</a></h4>
+<p>Une fois les dépendances installées et le paquet téléchargé, on le décompresse et
+on exécute l'installateur :</p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xvzf<span class="w"> </span>pandorafms_satellite_server_X.XNG.XXX_x86_64.tar.gz
+<span class="nb">cd</span><span class="w"> </span>satellite_server/
+./satellite_server_installer<span class="w"> </span>--install
+</code></pre></div>
+<p>Ensuite, il faut éditer <code>/etc/pandora/satellite_server.conf</code> et fixer le jeton
+<code>server_ip</code> avec l'adresse du Pandora FMS Server. Le service se démarre avec :</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>satellite_serverd
+</code></pre></div>
+<p>Le journal est dans <code>/var/log/satellite_server.log</code>.</p>
+<h4 id="installation-sous-ms-windows">Installation sous MS Windows<a class="headerlink" href="#installation-sous-ms-windows" title="Permanent link">¶</a></h4>
+<p>L'installateur (signé depuis la version 762) inclut Nmap et Visual C++
+Redistributable de MS Visual Studio 2015-2022. Il s'exécute avec les droits
+d'administrateur : on saisit la licence, on configure l'adresse du serveur et les
+règles d'exploration, puis on redémarre la machine. Si les requêtes WMI échouent,
+il faut exécuter le service du Satellite Server avec un compte Administrateur.</p>
+<h3 id="installation-hors-ligne-de-lendpoint">Installation hors ligne de l'EndPoint<a class="headerlink" href="#installation-hors-ligne-de-lendpoint" title="Permanent link">¶</a></h3>
+<p>L'EndPoint s'installe depuis le paquet tarball, valable pour tout
+Unix/Linux/macOS. Il ne demande pas de compilation.</p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvzf<span class="w"> </span>pandorafms_one_agent_linux-latest.tar.gz
+<span class="nb">cd</span><span class="w"> </span>unix
+./pandora_agent_installer<span class="w"> </span>--install
+systemctl<span class="w"> </span>start<span class="w"> </span>pandora_agent_daemon
+</code></pre></div>
+<p><code>libnsl</code> peut devoir être installé manuellement. Si l'on utilise les sources
+(<code>.src.tar.gz</code>), il y a des dépendances Perl supplémentaires, dont <code>YAML::Tiny</code> et
+<code>Thread::Semaphore</code>. Sous FreeBSD et NetBSD, l'emplacement des fichiers et le
+script de démarrage changent : l'agent reste dans <code>/usr/local/bin/pandora_agent</code>,
+le script dans <code>/usr/local/etc/rc.d/pandora_agent</code>, la configuration dans
+<code>/usr/local/etc/pandora/pandora_agent.conf</code>, et il faut ajouter
+<code>pandora_agent_enable="YES"</code> à <code>/etc/rc.conf</code>.</p>
+<p>Après l'installation, il faut éditer <code>/etc/pandora/pandora_agent.conf</code> pour
+pointer vers le serveur et, en recommandation, activer la configuration distante :</p>
+<div class="highlight"><pre><span></span><code>sed<span class="w"> </span>-i<span class="w"> </span><span class="s2">"s/^remote_config.*</span>$<span class="s2">/remote_config 1/g"</span><span class="w"> </span>/etc/pandora/pandora_agent.conf
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>pandora_agent_daemon
+</code></pre></div>
+<h4 id="windows-sans-surveillance">Windows sans surveillance<a class="headerlink" href="#windows-sans-surveillance" title="Permanent link">¶</a></h4>
+<p>L'installateur Windows prend en charge le mode sans surveillance depuis la version
+5.1 de l'EndPoint :</p>
+<div class="highlight"><pre><span></span><code>"PandoraFMS_One_Agent_Windows-lts.x86_64.exe" /S
+</code></pre></div>
+<p>Chemin personnalisé :</p>
+<div class="highlight"><pre><span></span><code>"PandoraFMS_One_Agent_Windows-lts.x86_64.exe" /S /D=C:\PFMS_agent
+</code></pre></div>
+<p>Paramètres écrits dans la configuration de l'EndPoint : <code>--ip</code> (<code>server_ip</code>),
+<code>--group</code> (<code>group</code>), <code>--alias</code> (<code>agent_alias</code>) et <code>--remote_config</code>
+(<code>remote_config</code>). Exemple :</p>
+<div class="highlight"><pre><span></span><code>"PandoraFMS_One_Agent_Windows-lts.x86_64.exe" /S --ip 192.168.0.59 --group Applications --alias Mifunne --remote_config 1
+</code></pre></div>
+<h2 id="verification">Vérification<a class="headerlink" href="#verification" title="Permanent link">¶</a></h2>
+<p>Une fois l'installation terminée, ouvrez la console à l'adresse
+<code>http://&lt;serveur&gt;/pandora_console/</code> et confirmez qu'elle charge l'écran de
+connexion. L'utilisateur initial est <code>admin</code> avec le mot de passe <code>pandora</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Changez le mot de passe à la première connexion. Et si vous avez installé avec
+un utilisateur personnalisé ou un chemin différent, vérifiez le démarrage des
+services avant de vous déclarer satisfait ; la panne que l'on ne vérifie pas
+aujourd'hui devient un incident lundi.</p>
+</div>
+<h2 id="desinstallation">Désinstallation<a class="headerlink" href="#desinstallation" title="Permanent link">¶</a></h2>
+<p>Les installateurs <strong>ne sont pas copiés</strong> pendant l'installation, donc on ne peut
+pas recourir à leur <code>--uninstall</code> après coup. La désinstallation doit se faire à
+la main : voici les fichiers et les dossiers que laisse chaque composant et les
+commandes pour les retirer (en <strong>root</strong>). Si plusieurs composants cohabitent sur la
+même machine, ne supprimez pas les répertoires partagés avant de les avoir tous
+retirés.</p>
+<h3 id="serveur">Serveur<a class="headerlink" href="#serveur" title="Permanent link">¶</a></h3>
+<ul>
+<li>Binaires dans <code>/usr/bin</code> : <code>pandora_server</code>, <code>pandora_exec</code>, <code>pandora_supervisor</code>,
+  <code>pandora_db</code>, <code>pandora_ha</code>, <code>pandora_manage</code>, <code>pandora_revent</code>,
+  <code>pandora_encrypt_db</code>, <code>braa</code>, <code>pandorafsnmp</code>, <code>pandorawmic</code>,
+  <code>pandora_iot_server</code>, <code>pandora_netflow_server</code>, <code>tentacle_server</code>,
+  <code>tentacle_client</code>, <code>clean_pandora_server</code>, <code>clean_tentacle_serverd</code> et
+  <code>clean_tentacle_rmm</code>.</li>
+<li>Bibliothèques et utilitaires : <code>/usr/share/pandora_server</code>.</li>
+<li>Services : <code>/etc/systemd/system/pandora_server.service</code>, <code>pandora_ha.service</code>,
+  <code>tentacle_serverd.service</code>, <code>tentacle_rmm.service</code>,
+  <code>pandora_iot_server.service</code> et <code>pandora_netflow_server.service</code>.</li>
+<li>Tâches et rotation : <code>/etc/cron.hourly/pandora_db</code> et
+  <code>/etc/logrotate.d/pandora_server</code>.</li>
+<li>Configuration : <code>/etc/pandora/pandora_server.conf</code>, <code>pandora_server.env</code>,
+  <code>pandora_server_extra.env</code>, <code>/etc/pandora/conf.d</code> et <code>/etc/tentacle</code>.</li>
+<li>Données, logs et PID : <code>/var/spool/pandora</code>, <code>/var/log/pandora</code> et
+  <code>/var/run/pandora_supervisor.pid</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>stop<span class="w"> </span>pandora_server<span class="w"> </span>pandora_ha<span class="w"> </span>tentacle_serverd<span class="w"> </span>tentacle_rmm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>pandora_iot_server<span class="w"> </span>pandora_netflow_server
+systemctl<span class="w"> </span>disable<span class="w"> </span>pandora_server<span class="w"> </span>pandora_ha<span class="w"> </span>tentacle_serverd<span class="w"> </span>tentacle_rmm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>pandora_iot_server<span class="w"> </span>pandora_netflow_server
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/systemd/system/<span class="o">{</span>pandora_server,pandora_ha,tentacle_serverd,tentacle_rmm,pandora_iot_server,pandora_netflow_server<span class="o">}</span>.service
+systemctl<span class="w"> </span>daemon-reload
+rm<span class="w"> </span>-f<span class="w"> </span>/usr/bin/<span class="o">{</span>pandora_server,pandora_exec,pandora_supervisor,pandora_db,pandora_ha,pandora_manage,pandora_revent,pandora_encrypt_db,braa,pandorafsnmp,pandorawmic,pandora_iot_server,pandora_netflow_server,tentacle_server,tentacle_client,clean_pandora_server,clean_tentacle_serverd,clean_tentacle_rmm<span class="o">}</span>
+rm<span class="w"> </span>-Rf<span class="w"> </span>/usr/share/pandora_server
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/cron.hourly/pandora_db<span class="w"> </span>/etc/logrotate.d/pandora_server
+</code></pre></div>
+<p>Et, s'il ne reste aucun autre composant, la configuration et les données
+partagées :</p>
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-Rf<span class="w"> </span>/etc/pandora<span class="w"> </span>/etc/tentacle<span class="w"> </span>/var/spool/pandora<span class="w"> </span>/var/log/pandora
+</code></pre></div>
+<h3 id="console">Console<a class="headerlink" href="#console" title="Permanent link">¶</a></h3>
+<p>Cela dépend de la façon dont elle a été installée :</p>
+<ul>
+<li><strong>RPM (RHEL / Rocky Linux)</strong> : elle se retire avec le gestionnaire de paquets.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>dnf<span class="w"> </span>remove<span class="w"> </span>pandorafms_console
+</code></pre></div>
+<ul>
+<li><strong>Tarball (Ubuntu)</strong> : elle a été copiée dans <code>/var/www/html/pandora_console</code> et
+  a laissé sa rotation de logs.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-Rf<span class="w"> </span>/var/www/html/pandora_console
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/logrotate.d/pandora_console
+</code></pre></div>
+<p>La console partage avec le serveur le répertoire <code>/var/spool/pandora/data_in</code>
+(<code>collections</code>, <code>conf</code>, <code>md5</code>, <code>netflow</code>) : ne le supprimez pas s'il y a un
+serveur. Elle ne touche pas à la base de données ; cela se fait à part.</p>
+<h3 id="base-de-donnees">Base de données<a class="headerlink" href="#base-de-donnees" title="Permanent link">¶</a></h3>
+<p>L'installation crée la base <code>pandora</code> et l'utilisateur <code>pandora</code>. Si MySQL ou
+Percona ne servaient qu'à Pandora FMS :</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
+mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"DROP DATABASE pandora; DROP USER 'pandora'@'localhost';"</span>
+dnf<span class="w"> </span>remove<span class="w"> </span><span class="s1">'Percona-Server*'</span><span class="w">        </span><span class="c1"># RHEL/Rocky ; sous Ubuntu, apt remove percona-server-server ou mysql-server</span>
+rm<span class="w"> </span>-Rf<span class="w"> </span>/var/lib/mysql<span class="w"> </span>/etc/my.cnf<span class="w"> </span>/etc/my.cnf.d
+</code></pre></div>
+<p>Si la base est sur un autre serveur ou héberge des données d'autres applications,
+limitez l'opération à <code>DROP DATABASE</code> et <code>DROP USER</code>.</p>
+<h3 id="satellite_1">Satellite<a class="headerlink" href="#satellite_1" title="Permanent link">¶</a></h3>
+<ul>
+<li>Binaires dans <code>/usr/bin</code> : <code>satellite_server</code>, <code>tentacle_client</code>,
+  <code>pandorafsnmp</code>, <code>wmic</code>, <code>pandorawmic</code> et <code>clean_satellite_serverd</code>.</li>
+<li>Configuration : <code>/etc/pandora/satellite_server.conf</code>,
+  <code>satellite_server.env</code>, <code>satellite_server_extra.env</code>,
+  <code>/etc/pandora/satellite_plugins</code> et le répertoire d'agents <code>/etc/pandora/conf</code>.</li>
+<li>Démarrage : <code>/etc/init.d/satellite_serverd</code> (avec son lien dans <code>/etc/rc.d</code>) et
+  <code>/etc/systemd/system/satellite_serverd.service</code>.</li>
+<li>Rotation, logs et fichiers temporaires : <code>/etc/logrotate.d/pandora_satellite</code>,
+  <code>/var/log/satellite_server.log</code> et <code>/var/spool/pandora/tmp/satellite_server</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>stop<span class="w"> </span>satellite_serverd
+systemctl<span class="w"> </span>disable<span class="w"> </span>satellite_serverd
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/systemd/system/satellite_serverd.service
+systemctl<span class="w"> </span>daemon-reload
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/init.d/satellite_serverd
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/rc.d/rc?.d/S90satellite_server
+rm<span class="w"> </span>-f<span class="w"> </span>/usr/bin/<span class="o">{</span>satellite_server,tentacle_client,pandorafsnmp,wmic,pandorawmic,clean_satellite_serverd<span class="o">}</span>
+rm<span class="w"> </span>-Rf<span class="w"> </span>/etc/pandora/satellite_plugins<span class="w"> </span>/etc/pandora/conf<span class="w"> </span>/var/spool/pandora/tmp/satellite_server
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/pandora/satellite_server.conf<span class="w"> </span>/etc/pandora/satellite_server.env<span class="w"> </span>/etc/pandora/satellite_server_extra.env
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/logrotate.d/pandora_satellite<span class="w"> </span>/var/log/satellite_server.log
+</code></pre></div>
+<p>Le répertoire <code>/opt/pandorafms/perl5</code> du satellite est partagé avec d'autres
+composants : ne le supprimez que s'il ne reste aucun composant installé.</p>
+<h3 id="endpoint_1">EndPoint<a class="headerlink" href="#endpoint_1" title="Permanent link">¶</a></h3>
+<p>Sur Linux et Unix, il laisse :</p>
+<ul>
+<li>Binaires dans <code>/usr/bin</code> : <code>pandora_agent</code>, <code>pandora_agent_exec</code>,
+  <code>pandora_revent</code>, <code>tentacle_client</code> et <code>clean_pandora_agent_daemon</code>.</li>
+<li>Répertoire de base de l'agent : <code>/usr/share/pandora_agent</code> (<code>plugins</code>,
+  <code>collections</code>, <code>commands</code>, <code>ref</code>).</li>
+<li>Configuration : <code>/etc/pandora/pandora_agent.conf</code> et <code>pandora_agent.env</code>.</li>
+<li>Démarrage : <code>/etc/systemd/system/pandora_agent_daemon.service</code> (ou le script de
+  <code>/etc/init.d</code>).</li>
+<li>Rotation, logs et pages <code>man</code> : <code>/etc/logrotate.d/pandora_agent</code>,
+  <code>/var/log/pandora/pandora_agent.log</code>,
+  <code>/usr/share/man/man1/pandora_agent.1.gz</code> et <code>tentacle_client.1.gz</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>stop<span class="w"> </span>pandora_agent_daemon
+systemctl<span class="w"> </span>disable<span class="w"> </span>pandora_agent_daemon
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/systemd/system/pandora_agent_daemon.service
+systemctl<span class="w"> </span>daemon-reload
+rm<span class="w"> </span>-f<span class="w"> </span>/usr/bin/<span class="o">{</span>pandora_agent,pandora_agent_exec,pandora_revent,tentacle_client,clean_pandora_agent_daemon<span class="o">}</span>
+rm<span class="w"> </span>-Rf<span class="w"> </span>/usr/share/pandora_agent
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/pandora/pandora_agent.conf<span class="w"> </span>/etc/pandora/pandora_agent.env
+rm<span class="w"> </span>-f<span class="w"> </span>/etc/logrotate.d/pandora_agent<span class="w"> </span>/var/log/pandora/pandora_agent.log
+rm<span class="w"> </span>-f<span class="w"> </span>/usr/share/man/man1/pandora_agent.1.gz<span class="w"> </span>/usr/share/man/man1/tentacle_client.1.gz
+</code></pre></div>
+<p>S'il y a un serveur ou un satellite sur la même machine, ne supprimez pas
+<code>/etc/pandora</code> ni <code>/var/spool/pandora</code> en entier.</p>
+<p><strong>MS Windows</strong> inclut bien un désinstalleur. De façon automatisée :</p>
+<div class="highlight"><pre><span></span><code>"%ProgramFiles%\pandora_agent\uninst.exe" /S
+</code></pre></div>
+<p>Ou depuis le binaire de l'agent :</p>
+<div class="highlight"><pre><span></span><code>pandoraagent.exe --uninstall
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

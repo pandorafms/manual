@@ -1,0 +1,5782 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-9/9.4-referencia-completa-de-tentacle/">
+      
+      
+        <link rel="prev" href="../9.3-referencia-completa-de-configuracion-del-servidor/">
+      
+      
+        <link rel="next" href="../9.5-cifrado-de-la-base-de-datos/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-9/9.4-referencia-completa-de-tentacle/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-9/9.4-referencia-completa-de-tentacle/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>4. Référence complète de Tentacle (serveur et client) - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reference-complete-de-tentacle-serveur-et-client" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4. Référence complète de Tentacle (serveur et client)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-9/9.4-referencia-completa-de-tentacle/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-9/9.4-referencia-completa-de-tentacle/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-le-protocole-tentacle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Le protocole Tentacle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Le protocole Tentacle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-des-commandes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table des commandes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envoi-de-fichiers-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Envoi de fichiers (SEND)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reception-de-fichiers-recv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Réception de fichiers (RECV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compression-zsendzrecv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compression (ZSEND/ZRECV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-du-mode-non-securise-ls-mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opérations du mode non sécurisé (LS, MV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentification-par-mot-de-passe-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentification par mot de passe (PASS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chiffrement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chiffrement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-des-erreurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestion des erreurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noms-de-fichiers-et-taille-de-bloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Noms de fichiers et taille de bloc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-deux-proxys-de-tentacle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les deux proxys de Tentacle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-le-client-tentacle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Le client Tentacle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Le client Tentacle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options-de-ligne-de-commande" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options de ligne de commande
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regles-de-combinaison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Règles de combinaison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proxy-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proxy HTTP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codes-de-sortie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codes de sortie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-depuis-lendpoint-et-le-serveur-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilisation depuis l'EndPoint et le serveur satellite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples-dutilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples d'utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-le-serveur-tentacle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Le serveur Tentacle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Le serveur Tentacle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options-de-ligne-de-commande_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options de ligne de commande
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichier-de-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichier de configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modele-du-paquet-face-aux-valeurs-internes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modèle du paquet face aux valeurs internes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtres-et-repertoires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtres et répertoires
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service systemd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instance-rmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instance RMM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securite-mot-de-passe-tls-et-combinaisons-de-certificats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sécurité : mot de passe, TLS et combinaisons de certificats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guide-rapide-des-certificats-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guide rapide des certificats OpenSSL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-le-protocole-tentacle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Le protocole Tentacle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Le protocole Tentacle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-des-commandes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table des commandes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envoi-de-fichiers-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Envoi de fichiers (SEND)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reception-de-fichiers-recv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Réception de fichiers (RECV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compression-zsendzrecv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compression (ZSEND/ZRECV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-du-mode-non-securise-ls-mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opérations du mode non sécurisé (LS, MV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentification-par-mot-de-passe-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentification par mot de passe (PASS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chiffrement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chiffrement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-des-erreurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestion des erreurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noms-de-fichiers-et-taille-de-bloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Noms de fichiers et taille de bloc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-deux-proxys-de-tentacle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les deux proxys de Tentacle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-le-client-tentacle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Le client Tentacle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Le client Tentacle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options-de-ligne-de-commande" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options de ligne de commande
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regles-de-combinaison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Règles de combinaison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proxy-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proxy HTTP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codes-de-sortie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codes de sortie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-depuis-lendpoint-et-le-serveur-satellite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilisation depuis l'EndPoint et le serveur satellite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples-dutilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemples d'utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-le-serveur-tentacle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Le serveur Tentacle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Le serveur Tentacle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options-de-ligne-de-commande_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options de ligne de commande
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichier-de-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichier de configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modele-du-paquet-face-aux-valeurs-internes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modèle du paquet face aux valeurs internes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtres-et-repertoires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtres et répertoires
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service systemd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instance-rmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instance RMM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securite-mot-de-passe-tls-et-combinaisons-de-certificats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sécurité : mot de passe, TLS et combinaisons de certificats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guide-rapide-des-certificats-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guide rapide des certificats OpenSSL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="reference-complete-de-tentacle-serveur-et-client">Référence complète de Tentacle (serveur et client)<a class="headerlink" href="#reference-complete-de-tentacle-serveur-et-client" title="Permanent link">¶</a></h1>
+<blockquote>
+<p>Référence technique brute du protocole Tentacle et de ses deux
+implémentations (Go et Perl). Elle se consulte, elle ne se lit pas d'un bout
+à l'autre ; le reste du site renvoie ici pour toute option ou tout jeton du
+binaire Tentacle. Pour les jetons de connexion de l'EndPoint (<code>server_ip</code>,
+<code>server_opts</code>…), voir <a href="../9.1-referencia-completa-de-configuracion-del-endpoint/">9.1 · Référence complète de configuration de
+l'EndPoint</a> ; pour
+les jetons du serveur de synchronisation qui utilisent Tentacle en dessous,
+voir <a href="../9.3-referencia-completa-de-configuracion-del-servidor/">9.3 · Référence complète de configuration du
+serveur</a>.</p>
+</blockquote>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
+<p><strong>Tentacle</strong> est à la fois un protocole de transfert de fichiers et l'outil
+client/serveur qui le parle. Il a remplacé SCP/FTP en 2008 comme méthode
+d'envoi par défaut des XML de données des EndPoint, et le port IANA <code>tcp/41121</code>
+lui est attribué.</p>
+<p>Dans le produit, Tentacle transporte : les XML de données qu'envoie chaque
+EndPoint, les fichiers de configuration distante, les
+<a href="../../parte-2/2.9-colecciones/">collections</a>, les commandes distantes (RMM), le
+trafic des serveurs satellite, le proxy Tentacle et l'instance dédiée de RMM.</p>
+<p>Il existe deux implémentations du même protocole, avec les mêmes options de
+ligne de commande (même lettre, même signification) :</p>
+<ul>
+<li><strong>Go</strong> (binaire statique <code>tentacle_server</code>/<code>tentacle_client</code>, sans dépendances
+  à l'exécution) : c'est l'implémentation <strong>par défaut dans les paquets de
+  Linux</strong> (serveur, EndPoint et serveur satellite) et <strong>la recommandée</strong>. Elle
+  traite chaque connexion avec une goroutine au lieu du thread en attente
+  active de Perl.</li>
+<li><strong>Perl</strong> (<code>tentacle_server</code> v0.6.2, <code>tentacle_client</code> v0.4.0) :
+  l'implémentation de référence historique du protocole. C'est celle que
+  <strong>les paquets de Windows</strong> continuent d'embarquer, compilée en <code>.exe</code>
+  (EndPoint et serveur satellite).</li>
+</ul>
+<p>Elles sont interchangeables : un client Perl parle à un serveur Go et
+inversement, car les deux implémentent le même protocole avec les mêmes règles.</p>
+<p>Le chapitre s'organise en trois blocs : le protocole lui-même (indépendant de
+l'implémentation), le client et le serveur.</p>
+<h2 id="1-le-protocole-tentacle">1. Le protocole Tentacle<a class="headerlink" href="#1-le-protocole-tentacle" title="Permanent link">¶</a></h2>
+<p>La conception est volontairement simple :</p>
+<ul>
+<li>La connexion est toujours lancée par le <strong>client</strong> ; le serveur n'envoie
+  jamais de données avant que le client ne les demande ou ne les confirme.</li>
+<li>Les commandes sont du texte terminé par un saut de ligne. Il n'y a ni
+  salutation ni négociation de version : le premier message envoyé par le
+  client est déjà une commande.</li>
+<li>Quand une commande annonce une taille (<code>SIZE &lt;n&gt;</code>), un bloc binaire de
+  exactement ce nombre d'octets suit, sans remplissage ni en-tête
+  supplémentaire.</li>
+</ul>
+<h3 id="table-des-commandes">Table des commandes<a class="headerlink" href="#table-des-commandes" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Commande</th>
+<th>Sens</th>
+<th>Réponse correcte</th>
+<th>Erreurs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SEND &lt;fichier&gt; SIZE &lt;n&gt;</code></td>
+<td>Client → serveur</td>
+<td><code>SEND OK</code> (confirmation d'acceptation) et <code>SEND OK</code> (confirmation de réception)</td>
+<td><code>SEND ERR (invalid file name)</code>, <code>SEND ERR (file is too big)</code>, <code>SEND ERR (file already exists)</code>, <code>SEND ERR (upload not allowed)</code></td>
+</tr>
+<tr>
+<td><code>ZSEND &lt;fichier&gt; SIZE &lt;n&gt;</code></td>
+<td>Client → serveur, compressé</td>
+<td><code>ZSEND OK</code> (acceptation) et <code>ZSEND OK</code> (reçu)</td>
+<td><code>ZSEND ERR (invalid file name)</code>, <code>ZSEND ERR (file is too big)</code>, <code>ZSEND ERR (file already exists)</code>, <code>ZSEND ERR (upload not allowed)</code>, <code>ZSEND ERR</code> (échec de décompression)</td>
+</tr>
+<tr>
+<td><code>RECV &lt;fichier&gt;</code></td>
+<td>Client ← serveur</td>
+<td><code>RECV SIZE &lt;n&gt;</code>, puis le client répond <code>RECV OK</code> et le serveur envoie les données</td>
+<td><code>RECV ERR (file has an invalid file name)</code>, <code>RECV ERR (file does not exist)</code>, <code>SEND ERR (download not allowed)</code></td>
+</tr>
+<tr>
+<td><code>ZRECV &lt;fichier&gt;</code></td>
+<td>Client ← serveur, compressé</td>
+<td>identique à <code>RECV</code> avec le préfixe <code>ZRECV</code></td>
+<td><code>ZRECV ERR (file has an invalid file name)</code>, <code>ZRECV ERR (file does not exist)</code>, <code>SEND ERR (download not allowed)</code></td>
+</tr>
+<tr>
+<td><code>LS &lt;filtre&gt;</code></td>
+<td>Client ← serveur (mode non sécurisé)</td>
+<td><code>LS SIZE &lt;n&gt;</code>, le client répond <code>LS OK</code> et le serveur envoie la liste</td>
+<td><code>LS ERR</code> (filtre au nom invalide, ou à l'ouverture du répertoire)</td>
+</tr>
+<tr>
+<td><code>MV &lt;fichier&gt;</code></td>
+<td>Client ← serveur (mode non sécurisé)</td>
+<td><code>MV SIZE &lt;n&gt;</code>, le client répond <code>MV OK</code>, le serveur envoie le fichier et le supprime</td>
+<td><code>MV ERR</code> (nom invalide ou inexistant), <code>SEND ERR (download not allowed)</code> (non autorisé)</td>
+</tr>
+<tr>
+<td><code>PASS &lt;digest&gt;</code></td>
+<td>Client → serveur</td>
+<td><code>PASS OK</code></td>
+<td>le serveur ferme la connexion sans message si le mot de passe ne correspond pas</td>
+</tr>
+<tr>
+<td><code>QUIT</code></td>
+<td>Client → serveur</td>
+<td>ferme la connexion sans réponse</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Commande non reconnue</td>
+<td>—</td>
+<td>—</td>
+<td>le serveur enregistre <code>Unknown command '&lt;commande&gt;'</code> dans le journal et ferme la connexion, sans prévenir le client</td>
+</tr>
+</tbody>
+</table>
+<p>L'avis « téléchargement non autorisé » réutilise toujours la chaîne
+<code>SEND ERR (download not allowed)</code>, que l'opération soit <code>RECV</code>, <code>ZRECV</code> ou
+<code>MV</code> : les deux implémentations partagent cette particularité héritée du
+protocole, ce n'est pas une erreur de transcription.</p>
+<h3 id="envoi-de-fichiers-send">Envoi de fichiers (<code>SEND</code>)<a class="headerlink" href="#envoi-de-fichiers-send" title="Permanent link">¶</a></h3>
+<p>Le client annonce <code>SEND &lt;nom&gt; SIZE &lt;n&gt;</code>. Le serveur vérifie, dans cet ordre, si
+la destination accepte l'envoi (selon <code>download_only</code>), si le nom est valide, si
+la taille est comprise entre 1 octet et le maximum configuré, et si un fichier
+de ce nom existe déjà (<code>overwrite</code> désactivé). Un fichier de taille 0 est refusé
+avec le même message qu'un fichier trop gros (<code>SEND ERR (file is too big)</code>) :
+c'est le comportement normal du protocole, pas une particularité d'une
+implémentation. Après un transfert correct, le client peut envoyer un nouveau
+<code>SEND</code> (ou une autre commande) dans la même session ; la fermeture définitive
+est marquée par <code>QUIT</code>.</p>
+<div class="highlight"><pre><span></span><code>Client :  SEND &lt;rapport.xml&gt; SIZE 1024
+Serveur : SEND OK
+Client :  &lt;1024 octets de données&gt;
+Serveur : SEND OK
+Client :  QUIT
+</code></pre></div>
+<h3 id="reception-de-fichiers-recv">Réception de fichiers (<code>RECV</code>)<a class="headerlink" href="#reception-de-fichiers-recv" title="Permanent link">¶</a></h3>
+<p>Le client demande <code>RECV &lt;nom&gt;</code>. Si le fichier existe et que la destination
+accepte le téléchargement (selon <code>upload_only</code>), le serveur répond
+<code>RECV SIZE &lt;n&gt;</code> ; le client, qui connaît déjà la taille, peut refuser le
+téléchargement sans autre forme de procès (simplement, il ne poursuit pas la
+session avec la commande attendue). Si le client confirme avec <code>RECV OK</code>, le
+serveur envoie le bloc de données.</p>
+<div class="highlight"><pre><span></span><code>Client :  RECV &lt;rapport.xml&gt;
+Serveur : RECV SIZE 1024
+Client :  RECV OK
+Serveur : &lt;1024 octets de données&gt;
+</code></pre></div>
+<h3 id="compression-zsendzrecv">Compression (<code>ZSEND</code>/<code>ZRECV</code>)<a class="headerlink" href="#compression-zsendzrecv" title="Permanent link">¶</a></h3>
+<p><code>ZSEND</code> et <code>ZRECV</code> sont les variantes compressées de <code>SEND</code>/<code>RECV</code> : le bloc de
+données est un fichier ZIP à une seule entrée (Deflate) au lieu du contenu en
+clair. Elles s'activent avec l'option <code>-z</code> du client ; le reste de la séquence
+de commandes est identique.</p>
+<h3 id="operations-du-mode-non-securise-ls-mv">Opérations du mode non sécurisé (<code>LS</code>, <code>MV</code>)<a class="headerlink" href="#operations-du-mode-non-securise-ls-mv" title="Permanent link">¶</a></h3>
+<p><code>LS</code> (lister les fichiers qui correspondent à un filtre) et <code>MV</code> (télécharger
+un fichier puis le supprimer du serveur) ne fonctionnent que si le serveur a
+démarré avec l'option <code>-I</code>/<code>insecure</code>. Si le mode non sécurisé est désactivé —
+la valeur par défaut —, le serveur enregistre la tentative et ferme la
+connexion sans répondre à la commande.</p>
+<h3 id="authentification-par-mot-de-passe-pass">Authentification par mot de passe (<code>PASS</code>)<a class="headerlink" href="#authentification-par-mot-de-passe-pass" title="Permanent link">¶</a></h3>
+<p>Quand le serveur exige un mot de passe, <code>PASS</code> doit être la première commande de
+la session. Le client envoie, en hexadécimal, le MD5 du résumé MD5 binaire du
+mot de passe (un double MD5). Cela <strong>obscurcit le mot de passe, ne le protège
+pas</strong> : sur une connexion sans TLS, cela n'ajoute aucune sécurité réelle face à
+quelqu'un qui capture le trafic. Pour que l'authentification par mot de passe
+apporte quelque chose, elle doit passer par une connexion chiffrée.</p>
+<h3 id="chiffrement">Chiffrement<a class="headerlink" href="#chiffrement" title="Permanent link">¶</a></h3>
+<p>TLS enveloppe la connexion complète depuis le premier octet : il n'existe pas de
+phase en clair ni de <code>STARTTLS</code> ultérieur. Les deux extrémités doivent avoir TLS
+actif ; ce n'est pas négociable en cours de session.</p>
+<h3 id="gestion-des-erreurs">Gestion des erreurs<a class="headerlink" href="#gestion-des-erreurs" title="Permanent link">¶</a></h3>
+<p>Devant toute anomalie — commande inconnue, mot de passe incorrect, plus de
+données qu'annoncé, défaillance interne — le serveur ferme la connexion sans
+expliquer le motif au client. Le détail ne reste que dans le journal du serveur,
+s'il est actif.</p>
+<h3 id="noms-de-fichiers-et-taille-de-bloc">Noms de fichiers et taille de bloc<a class="headerlink" href="#noms-de-fichiers-et-taille-de-bloc" title="Permanent link">¶</a></h3>
+<p>Les noms de fichiers n'admettent pas les caractères <code>? [ ] / \ = + &lt; &gt; : ; ' , * ~</code>
+ni aucun chemin (seulement le nom simple). La taille de bloc de lecture et
+d'écriture réseau est de 1024 octets.</p>
+<h3 id="les-deux-proxys-de-tentacle">Les deux proxys de Tentacle<a class="headerlink" href="#les-deux-proxys-de-tentacle" title="Permanent link">¶</a></h3>
+<p>Il ne faut pas les confondre :</p>
+<ul>
+<li>Le <strong>serveur Tentacle en mode proxy</strong> (<code>-b</code>/<code>-g</code> ou <code>proxy_ip</code>/<code>proxy_port</code>
+  sur le serveur) : il renvoie la connexion complète vers un autre serveur
+  Tentacle, sans rien stocker. Il est expliqué à la section 3, « Mode proxy ».</li>
+<li>Le <strong>proxy HTTP du client</strong> (<code>-y utilisateur:motdepasse@adresse:port</code>) : le
+  client Tentacle ouvre la connexion à travers un proxy HTTP avec <code>CONNECT</code>,
+  avec authentification Basic facultative si un utilisateur et un mot de passe
+  sont indiqués. Il est expliqué à la section 2, « Proxy HTTP ».</li>
+</ul>
+<h2 id="2-le-client-tentacle">2. Le client Tentacle<a class="headerlink" href="#2-le-client-tentacle" title="Permanent link">¶</a></h2>
+<p>Syntaxe : <code>tentacle_client [options] [fichier] [fichier] ...</code>. Il faut au moins
+un fichier, sauf en mode réception (<code>-g</code>), où l'argument est le nom distant à
+télécharger.</p>
+<h3 id="options-de-ligne-de-commande">Options de ligne de commande<a class="headerlink" href="#options-de-ligne-de-commande" title="Permanent link">¶</a></h3>
+<p>Mêmes lettres dans les deux implémentations :</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Argument</th>
+<th>Ce qu'elle fait</th>
+<th>Par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td>adresse</td>
+<td>Adresse du serveur.</td>
+<td><code>127.0.0.1</code></td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td>adresse locale</td>
+<td>Adresse locale à laquelle lier la connexion sortante.</td>
+<td>non définie (choisie par le système)</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td>—</td>
+<td>Active TLS sans certificat client. Incompatible avec <code>-e</code>.</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-e</code></td>
+<td>certificat</td>
+<td>Fichier de certificat OpenSSL du client ; active TLS. Incompatible avec <code>-c</code>.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>CA</td>
+<td>Vérifie que le certificat du serveur est signé par cette CA. Exige <code>-e</code>.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-g</code></td>
+<td>—</td>
+<td>Mode réception : télécharge des fichiers depuis le serveur au lieu de les envoyer.</td>
+<td>désactivé (mode envoi)</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td>—</td>
+<td>Affiche l'aide.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-k</code></td>
+<td>clé</td>
+<td>Fichier de clé privée OpenSSL du client. Exige <code>-e</code>.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>port</td>
+<td>Port du serveur.</td>
+<td><code>41121</code></td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td>—</td>
+<td>Mode silencieux : n'affiche pas les messages d'erreur.</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>nombre</td>
+<td>Tentatives des opérations réseau. Minimum 1 : une valeur inférieure fait terminer le client sur une erreur de démarrage.</td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td>secondes</td>
+<td>Délai d'attente des opérations réseau. Minimum 1 : une valeur inférieure fait terminer le client sur une erreur de démarrage.</td>
+<td><code>1</code> s</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>—</td>
+<td>Mode détaillé (enregistre les événements du protocole).</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td>—</td>
+<td>Demande de façon interactive le mot de passe de la clé privée. N'a d'effet qu'avec <code>-e</code>.</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-x</code></td>
+<td>mot de passe</td>
+<td>Mot de passe du serveur (authentification <code>PASS</code>).</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>-y</code></td>
+<td><code>utilisateur:motdepasse@adresse:port</code></td>
+<td>Proxy HTTP pour la connexion (<code>CONNECT</code>, avec Basic si des identifiants sont indiqués).</td>
+<td>sans proxy</td>
+</tr>
+<tr>
+<td><code>-z</code></td>
+<td>—</td>
+<td>Compresse les données en transit (<code>ZSEND</code>/<code>ZRECV</code>).</td>
+<td>désactivé</td>
+</tr>
+</tbody>
+</table>
+<h3 id="regles-de-combinaison">Règles de combinaison<a class="headerlink" href="#regles-de-combinaison" title="Permanent link">¶</a></h3>
+<ul>
+<li><code>-c</code> et <code>-e</code> sont incompatibles entre elles (deux façons différentes
+  d'activer TLS : sans certificat propre ou avec un).</li>
+<li><code>-f</code> et <code>-k</code> exigent que <code>-e</code> soit présent ; sans certificat client, demander
+  une CA ou une clé n'a pas de sens. <code>-w</code> n'a d'effet qu'avec <code>-e</code>.</li>
+<li>IPv6 : pris en charge ; le client Perl a en plus besoin du module
+  <code>IO::Socket::INET6</code> installé.</li>
+</ul>
+<h3 id="proxy-http">Proxy HTTP<a class="headerlink" href="#proxy-http" title="Permanent link">¶</a></h3>
+<p><code>-y utilisateur:motdepasse@adresse:port</code> fait ouvrir au client la connexion vers
+le proxy avec un <code>CONNECT</code> vers le vrai serveur Tentacle ; si un utilisateur et
+un mot de passe sont indiqués, il ajoute l'en-tête
+<code>Proxy-Authorization: Basic</code>. L'utilisateur et le mot de passe sont facultatifs
+dans la chaîne.</p>
+<h3 id="codes-de-sortie">Codes de sortie<a class="headerlink" href="#codes-de-sortie" title="Permanent link">¶</a></h3>
+<p><code>0</code> si tous les transferts de la ligne de commande se sont bien terminés, <code>1</code> si
+l'un d'eux a échoué ou s'il y a eu une erreur.</p>
+<h3 id="utilisation-depuis-lendpoint-et-le-serveur-satellite">Utilisation depuis l'EndPoint et le serveur satellite<a class="headerlink" href="#utilisation-depuis-lendpoint-et-le-serveur-satellite" title="Permanent link">¶</a></h3>
+<p>L'EndPoint et le serveur satellite invoquent le client Tentacle au moyen de
+quatre jetons de leur fichier de configuration : <code>transfer_mode tentacle</code> (le
+mode de transfert), <code>server_ip</code> et <code>server_port</code> (destination) et <code>server_opts</code>
+(les options du client de cette section, telles quelles, par exemple
+<code>server_opts -v -r 5</code>). Pour le détail complet de ces jetons et de leurs
+équivalents de serveur secondaire, voir <a href="../9.1-referencia-completa-de-configuracion-del-endpoint/">9.1 · Référence complète de
+configuration de
+l'EndPoint</a>.</p>
+<h3 id="exemples-dutilisation">Exemples d'utilisation<a class="headerlink" href="#exemples-dutilisation" title="Permanent link">¶</a></h3>
+<p>Avec le serveur sur <code>192.168.1.1</code> et sans mot de passe sur la clé privée du
+client :</p>
+<p>Transfert simple, avec une taille maximale de fichier de 1 MB sur le serveur :</p>
+<div class="highlight"><pre><span></span><code>tentacle_server<span class="w"> </span>-m<span class="w"> </span><span class="m">1048576</span><span class="w"> </span>-s<span class="w"> </span>/tmp<span class="w"> </span>-v
+tentacle_client<span class="w"> </span>-a<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span>-v<span class="w"> </span>/home/user/myfile.dat
+</code></pre></div>
+<p>Avec authentification par mot de passe :</p>
+<div class="highlight"><pre><span></span><code>tentacle_server<span class="w"> </span>-x<span class="w"> </span>password<span class="w"> </span>-s<span class="w"> </span>/tmp<span class="w"> </span>-v
+tentacle_client<span class="w"> </span>-a<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span>-x<span class="w"> </span>password<span class="w"> </span>-v<span class="w"> </span>/home/user/myfile.dat
+</code></pre></div>
+<p>TLS sans certificat client :</p>
+<div class="highlight"><pre><span></span><code>tentacle_server<span class="w"> </span>-e<span class="w"> </span>cert.pem<span class="w"> </span>-k<span class="w"> </span>key.pem<span class="w"> </span>-w<span class="w"> </span>-s<span class="w"> </span>/tmp<span class="w"> </span>-v
+tentacle_client<span class="w"> </span>-a<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span>-c<span class="w"> </span>-v<span class="w"> </span>/home/user/myfile.dat
+</code></pre></div>
+<p>TLS avec certificat client et mot de passe :</p>
+<div class="highlight"><pre><span></span><code>tentacle_server<span class="w"> </span>-x<span class="w"> </span>password<span class="w"> </span>-e<span class="w"> </span>cert.pem<span class="w"> </span>-k<span class="w"> </span>key.pem<span class="w"> </span>-f<span class="w"> </span>cacert.pem<span class="w"> </span>-w<span class="w"> </span>-s<span class="w"> </span>/tmp<span class="w"> </span>-v
+tentacle_client<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-a<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-x<span class="w"> </span>password<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span>cert.pem<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-k<span class="w"> </span>key.pem<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>/home/user/myfile.dat
+</code></pre></div>
+<h2 id="3-le-serveur-tentacle">3. Le serveur Tentacle<a class="headerlink" href="#3-le-serveur-tentacle" title="Permanent link">¶</a></h2>
+<p>Syntaxe : <code>tentacle_server -s &lt;répertoire&gt; [options]</code>, ou bien
+<code>tentacle_server -F &lt;fichier&gt;</code> pour démarrer en lisant la configuration dans un
+fichier.</p>
+<h3 id="options-de-ligne-de-commande_1">Options de ligne de commande<a class="headerlink" href="#options-de-ligne-de-commande_1" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Jeton</th>
+<th>Ce qu'elle fait</th>
+<th>Par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td><code>addresses</code></td>
+<td>Adresses IPv4 sur lesquelles écouter, séparées par des virgules.</td>
+<td><code>0.0.0.0</code></td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td><code>proxy_ip</code></td>
+<td>Mode proxy : adresse du serveur Tentacle inaccessible vers lequel renvoyer.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td><code>max_connections</code></td>
+<td>Nombre maximal de connexions simultanées.</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>daemon</code></td>
+<td>Exécute le serveur comme démon. Non disponible sous Windows (voir « Windows », plus bas).</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-e</code></td>
+<td><code>ssl_cert</code></td>
+<td>Certificat OpenSSL du serveur ; active TLS.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td><code>ssl_ca</code></td>
+<td>CA avec laquelle vérifier le certificat du client.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-F</code></td>
+<td>—</td>
+<td>Chemin complet du fichier de configuration.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-g</code></td>
+<td><code>proxy_port</code></td>
+<td>Mode proxy : port du serveur Tentacle inaccessible.</td>
+<td><code>41121</code></td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td>—</td>
+<td>Affiche l'aide.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-I</code></td>
+<td><code>insecure</code></td>
+<td>Active le mode non sécurisé (<code>LS</code> et <code>MV</code>).</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>filters</code></td>
+<td>Filtres de répartition par sous-répertoire (<code>regexp:dir;regexp:dir…</code>).</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-k</code></td>
+<td><code>ssl_key</code></td>
+<td>Clé privée OpenSSL du serveur.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td><code>log_file</code></td>
+<td>Fichier où écrire le journal.</td>
+<td>sortie standard si non indiqué</td>
+</tr>
+<tr>
+<td><code>-m</code></td>
+<td><code>max_size</code></td>
+<td>Taille maximale de fichier, en octets.</td>
+<td><code>64000000</code></td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td><code>overwrite</code></td>
+<td>Autorise l'écrasement d'un fichier existant du même nom.</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td><code>port</code></td>
+<td>Port sur lequel écouter.</td>
+<td><code>41121</code></td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td><code>quiet</code></td>
+<td>N'affiche pas les messages d'erreur.</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td><code>retries</code></td>
+<td>Tentatives des opérations réseau. Minimum 1.</td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>directory</code></td>
+<td>Répertoire de stockage. Obligatoire sauf en mode proxy.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-S</code></td>
+<td>—</td>
+<td>Gère le service Windows (<code>install</code>|<code>uninstall</code>|<code>run</code>).</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td><code>timeout</code></td>
+<td>Délai d'attente des opérations réseau, en secondes. Minimum 1.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td><code>ssl_cipher</code></td>
+<td>Restreint les suites de chiffrement TLS 1.2 admises, avec des noms OpenSSL séparés par <code>:</code>.</td>
+<td>négociation normale</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td><code>verbose 1</code></td>
+<td>Mode détaillé : enregistre les erreurs.</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-V</code></td>
+<td><code>verbose 2</code></td>
+<td>Mode détaillé étendu : enregistre les erreurs et les avertissements informatifs.</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td>—</td>
+<td>Demande en ligne de commande le mot de passe de la clé privée. S'applique aux clés PEM chiffrées du format traditionnel.</td>
+<td>désactivé</td>
+</tr>
+<tr>
+<td><code>-x</code></td>
+<td><code>password</code></td>
+<td>Mot de passe du serveur (authentification <code>PASS</code>).</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>-z</code></td>
+<td><code>ssl_version</code></td>
+<td>Restreint la version de TLS admise à <code>TLSv1_2</code> ou <code>TLSv1_3</code>.</td>
+<td>négociation normale (TLS 1.2 minimum)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fichier-de-configuration">Fichier de configuration<a class="headerlink" href="#fichier-de-configuration" title="Permanent link">¶</a></h3>
+<p>Le format est l'habituel de la maison : une ligne par jeton avec la valeur après
+un espace, et <code>#</code> commente la ligne entière. Le chemin habituel du fichier est
+<code>/etc/tentacle/tentacle_server.conf</code>. La ligne de commande a la priorité sur le
+fichier quand la même option se répète aux deux endroits. Il n'y a pas de
+rechargement à chaud : un changement dans le fichier exige de redémarrer le
+service.</p>
+<p>Plusieurs jetons n'ont pas d'option de ligne de commande équivalente :</p>
+<ul>
+<li><code>block_size</code> : taille de bloc de lecture/écriture réseau, en octets (par
+  défaut, 1024 octets ; voir « Protocole », plus haut).</li>
+<li><code>download_only</code> et <code>upload_only</code> : répertoires, après application de
+  <code>filters</code>, depuis lesquels on peut seulement télécharger ou seulement
+  envoyer, respectivement, séparés par <code>;</code>. Ils sont détaillés dans « Filtres et
+  répertoires », plus bas.</li>
+</ul>
+<h3 id="modele-du-paquet-face-aux-valeurs-internes">Modèle du paquet face aux valeurs internes<a class="headerlink" href="#modele-du-paquet-face-aux-valeurs-internes" title="Permanent link">¶</a></h3>
+<p>Le modèle qu'installe le paquet (<code>tentacle_server.conf.new</code>) ne coïncide pas
+toujours avec la valeur par défaut qu'applique le binaire lui-même quand le
+jeton n'apparaît pas dans le fichier. Par exemple, le modèle active <code>daemon 1</code>
+alors que la valeur interne par défaut est <code>0</code> (désactivé). Les autres jetons du
+tableau précédent indiquent, dans la colonne « Par défaut », la valeur
+<strong>interne</strong> du binaire, non celle du modèle.</p>
+<h3 id="filtres-et-repertoires">Filtres et répertoires<a class="headerlink" href="#filtres-et-repertoires" title="Permanent link">¶</a></h3>
+<p><code>filters</code> (<code>-i</code>) répartit les fichiers entrants par sous-répertoire selon une
+expression régulière sur le nom ; la syntaxe est
+<code>regexp:sous-répertoire;regexp:sous-répertoire;…</code>. Un fichier dont le nom ne
+correspond à aucun filtre est enregistré directement dans le répertoire de
+stockage. Le modèle du serveur principal répartit, entre autres, les <code>.conf</code>
+vers <code>conf</code>, les <code>.md5</code> vers <code>md5</code>, les <code>.zip</code> vers <code>collections</code>, les <code>.lock</code>
+vers <code>trans</code>, les <code>.rcmd</code> vers <code>commands</code> et les paquets d'installation
+d'EndPoint (<code>.agent_setup.exe</code>, <code>.agent_setup.tar.gz</code>) vers <code>agent</code>. Sur ces
+mêmes sous-répertoires (déjà filtrés) agissent <code>download_only</code> (<code>-D</code>) et
+<code>upload_only</code> (<code>-U</code>), en restreignant ce qui peut être envoyé ou téléchargé dans
+chacun. Après mise à jour du paquet, il faut redémarrer le serveur pour qu'il
+prenne les nouveaux filtres apportés par la version.</p>
+<h3 id="service-systemd">Service systemd<a class="headerlink" href="#service-systemd" title="Permanent link">¶</a></h3>
+<p>Le service principal est <code>tentacle_serverd.service</code>, avec l'utilisateur
+<code>pandora</code>, qui lance <code>tentacle_server -F /etc/tentacle/tentacle_server.conf</code>
+avec un <code>ExecStartPre</code> de nettoyage (<code>clean_tentacle_serverd</code>, qui vide les
+temporaires du <code>TMPDIR</code> fixé dans <code>tentacle_server.env</code>) et deux fichiers
+d'environnement (<code>tentacle_server.env</code> avec <code>TMPDIR</code> et
+<code>tentacle_server_extra.env</code>, ce dernier libre pour des ajustements locaux). La
+relation entre ce service et les jetons <code>tentacle_service_cmd</code> /
+<code>tentacle_service_watchdog</code> du serveur principal se trouve dans <a href="../9.3-referencia-completa-de-configuracion-del-servidor/">9.3 ·
+Configuration distante, Tentacle et
+synchronisation</a>.</p>
+<h3 id="instance-rmm">Instance RMM<a class="headerlink" href="#instance-rmm" title="Permanent link">¶</a></h3>
+<p>RMM utilise sa propre instance de Tentacle, indépendante de celle du serveur
+principal : service <code>tentacle_rmm.service</code> (utilisateur <code>root</code>, port <code>41123</code>,
+<code>ExecStartPre</code> avec <code>clean_tentacle_rmm</code>), son propre fichier de configuration,
+son propre répertoire de stockage (<code>/var/spool/pandora/rmm_server</code>) et ses
+propres certificats TLS. Les filtres (<code>filters</code>) répartissent par extension les
+fichiers de RMM dans des sous-répertoires propres (<code>rmm</code>, <code>res</code>, <code>queue</code>,
+<code>keepalive</code>, <code>data</code>), et <code>download_only</code>/<code>upload_only</code> restreignent ces mêmes
+sous-répertoires : on ne peut télécharger que depuis <code>rmm</code>, <code>res</code> et <code>queue</code>, et
+on ne peut envoyer que vers <code>data</code> et <code>keepalive</code>. Le modèle apporte un mot de
+passe d'exemple : <strong>il doit être changé avant de mettre le service en
+production</strong>, et comme tout secret, il se référence depuis la configuration, il
+ne se copie jamais dans la documentation ni dans un dépôt.</p>
+<h3 id="mode-proxy">Mode proxy<a class="headerlink" href="#mode-proxy" title="Permanent link">¶</a></h3>
+<p>Avec <code>-b</code>/<code>proxy_ip</code> et <code>-g</code>/<code>proxy_port</code>, le serveur Tentacle n'agit pas comme
+un stockage : il renvoie brut, octet par octet, tout ce qui arrive de chaque
+client vers un autre serveur Tentacle (l'« inaccessible » du point de vue des
+clients). Il peut terminer TLS et l'authentification par mot de passe sur le
+tronçon client-proxy, avec un tronçon proxy-serveur différent (ou sans
+chiffrement). Le serveur satellite résout le même renvoi avec ses propres
+jetons, <code>proxy_tentacle_from</code>/<code>proxy_tentacle_to</code> ; voir <a href="../../parte-6/6.2-servidores-satelite/">6.2 · Serveurs
+satellites</a>.</p>
+<p>Cas pratique — des EndPoint derrière un proxy Tentacle avec TLS et mot de passe,
+de bout en bout : on vérifie d'abord chaque tronçon à la main et, si cela
+fonctionne, on passe à la configuration permanente.</p>
+<p>Tests manuels :</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Serveur réel</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>pandora<span class="w"> </span>tentacle_server<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-x<span class="w"> </span>password<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span>tentacle_cert<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-k<span class="w"> </span>tentacle_key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>ca_cert<span class="w"> </span>-s<span class="w"> </span>/tmp<span class="w"> </span>-v
+
+<span class="c1"># 2. Proxy</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>pandora<span class="w"> </span>tentacle_server<span class="w"> </span>-b<span class="w"> </span>ip_serveur<span class="w"> </span>-g<span class="w"> </span><span class="m">41124</span>
+
+<span class="c1"># 3. Client, contre le proxy</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>pandora<span class="w"> </span>tentacle_client<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-a<span class="w"> </span>ip_proxy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-x<span class="w"> </span>password<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span>tentacle_client_cert<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-k<span class="w"> </span>tentacle_client_key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>fichier
+</code></pre></div>
+<p>Configuration permanente, une fois l'envoi manuel vérifié :</p>
+<ol>
+<li>Serveur réel (<code>/etc/tentacle/tentacle_server.conf</code>) :</li>
+</ol>
+<div class="highlight"><pre><span></span><code>password password
+ssl_cert tentacle_cert
+ssl_key tentacle_key
+ssl_ca ca_cert
+</code></pre></div>
+<ol>
+<li>Proxy (son propre <code>/etc/tentacle/tentacle_server.conf</code>) :</li>
+</ol>
+<div class="highlight"><pre><span></span><code>proxy_ip ip_serveur
+proxy_port 41124
+</code></pre></div>
+<ol>
+<li>EndPoint (<code>pandora_agent.conf</code>), en pointant <code>server_ip</code> vers le proxy, non
+   vers le serveur réel :</li>
+</ol>
+<div class="highlight"><pre><span></span><code>server_opts -x password -e tentacle_client_cert -k tentacle_client_key
+server_ip ip_proxy
+</code></pre></div>
+<p>Chaque option de <code>server_opts</code> est indépendante : si, par exemple, le mot de
+passe n'est pas nécessaire, il suffit d'omettre <code>-x password</code> de la ligne.</p>
+<h3 id="securite-mot-de-passe-tls-et-combinaisons-de-certificats">Sécurité : mot de passe, TLS et combinaisons de certificats<a class="headerlink" href="#securite-mot-de-passe-tls-et-combinaisons-de-certificats" title="Permanent link">¶</a></h3>
+<p>Le mot de passe (<code>-x</code>/<code>password</code>) et TLS sont orthogonaux : ils peuvent se
+combiner ou s'utiliser séparément. Les quatre combinaisons de certificats
+possibles sont les suivantes ; toutes admettent l'ajout d'un mot de passe de la
+même façon.</p>
+<p><strong>1. Serveur avec certificat, client sans vérification</strong> (le client ne vérifie
+pas l'identité du serveur) :</p>
+<p>Test manuel :</p>
+<div class="highlight"><pre><span></span><code>tentacle_server<span class="w"> </span>-v<span class="w"> </span>-e<span class="w"> </span>tentacle_cert<span class="w"> </span>-k<span class="w"> </span>tentacle_key<span class="w"> </span>-s<span class="w"> </span>/tmp
+tentacle_client<span class="w"> </span>-v<span class="w"> </span>-c<span class="w"> </span>-a<span class="w"> </span>&lt;serveur&gt;<span class="w"> </span>fichier
+</code></pre></div>
+<p>Configuration permanente — serveur :</p>
+<div class="highlight"><pre><span></span><code>ssl_cert tentacle_cert
+ssl_key tentacle_key
+</code></pre></div>
+<p>Configuration permanente — EndPoint et serveur satellite :</p>
+<div class="highlight"><pre><span></span><code>server_opts -c
+</code></pre></div>
+<p><strong>2. Serveur avec certificat, client vérifiant contre une CA</strong> :</p>
+<p>Test manuel :</p>
+<div class="highlight"><pre><span></span><code>tentacle_server<span class="w"> </span>-v<span class="w"> </span>-e<span class="w"> </span>tentacle_cert<span class="w"> </span>-k<span class="w"> </span>tentacle_key<span class="w"> </span>-s<span class="w"> </span>/tmp
+tentacle_client<span class="w"> </span>-v<span class="w"> </span>-e<span class="w"> </span>tentacle_client_cert<span class="w"> </span>-f<span class="w"> </span>ca_cert<span class="w"> </span>-a<span class="w"> </span>&lt;serveur&gt;<span class="w"> </span>fichier
+</code></pre></div>
+<p>Configuration permanente — serveur :</p>
+<div class="highlight"><pre><span></span><code>ssl_cert tentacle_cert
+ssl_key tentacle_key
+</code></pre></div>
+<p>Configuration permanente — EndPoint et serveur satellite :</p>
+<div class="highlight"><pre><span></span><code>server_opts -e tentacle_client_cert -f ca_cert
+</code></pre></div>
+<p><strong>3. Serveur vérifiant le client contre une CA</strong> (certificat client sans CA
+propre côté client) :</p>
+<p>Test manuel :</p>
+<div class="highlight"><pre><span></span><code>tentacle_server<span class="w"> </span>-v<span class="w"> </span>-e<span class="w"> </span>tentacle_cert<span class="w"> </span>-k<span class="w"> </span>tentacle_key<span class="w"> </span>-f<span class="w"> </span>ca_cert<span class="w"> </span>-s<span class="w"> </span>/tmp
+tentacle_client<span class="w"> </span>-v<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span>tentacle_client_cert<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-k<span class="w"> </span>tentacle_client_key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-a<span class="w"> </span>&lt;serveur&gt;<span class="w"> </span>fichier
+</code></pre></div>
+<p>Configuration permanente — serveur :</p>
+<div class="highlight"><pre><span></span><code>ssl_cert tentacle_cert
+ssl_ca ca_cert
+ssl_key tentacle_key
+</code></pre></div>
+<p>Configuration permanente — EndPoint et serveur satellite :</p>
+<div class="highlight"><pre><span></span><code>server_opts -e tentacle_client_cert -k tentacle_client_key
+</code></pre></div>
+<p><strong>4. Vérification mutuelle</strong> (serveur et client vérifient le certificat de
+l'autre contre une CA) :</p>
+<p>Test manuel :</p>
+<div class="highlight"><pre><span></span><code>tentacle_server<span class="w"> </span>-v<span class="w"> </span>-e<span class="w"> </span>tentacle_cert<span class="w"> </span>-k<span class="w"> </span>tentacle_key<span class="w"> </span>-f<span class="w"> </span>ca_cert<span class="w"> </span>-s<span class="w"> </span>/tmp
+tentacle_client<span class="w"> </span>-v<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span>tentacle_client_cert<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-k<span class="w"> </span>tentacle_client_key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>ca_cert<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-a<span class="w"> </span>&lt;serveur&gt;<span class="w"> </span>fichier
+</code></pre></div>
+<p>Configuration permanente — serveur :</p>
+<div class="highlight"><pre><span></span><code>ssl_cert tentacle_cert
+ssl_ca ca_cert
+ssl_key tentacle_key
+</code></pre></div>
+<p>Configuration permanente — EndPoint et serveur satellite :</p>
+<div class="highlight"><pre><span></span><code>server_opts -e tentacle_client_cert -k tentacle_client_key -f ca_cert
+</code></pre></div>
+<p>Dans tous les cas, les chemins des certificats et des clés doivent être
+<strong>absolus</strong> dans les fichiers de configuration, et le paquet <code>IO::Socket::SSL</code>
+doit être installé pour utiliser TLS avec l'implémentation Perl. TLS exige, au
+minimum, la version 1.2.</p>
+<p>Pour la production, la combinaison recommandée est la 4 (vérification mutuelle),
+avec un mot de passe ajouté de façon facultative : c'est la seule des quatre où
+les deux extrémités vérifient l'identité de l'autre contre une CA.</p>
+<p><code>retries</code>/<code>timeout</code> (<code>-r</code>/<code>-t</code>) ne sont pas seulement des paramètres réseau : en
+limitant les tentatives et le délai d'attente de chaque connexion, ils rendent
+aussi plus difficile une attaque par force brute contre le mot de passe. Le
+journal du serveur (<code>-l</code>/<code>log_file</code>, avec le détail que donnent <code>-v</code>/<code>-V</code>) est,
+outre un outil de diagnostic, le journal d'audit des connexions.</p>
+<h3 id="guide-rapide-des-certificats-openssl">Guide rapide des certificats OpenSSL<a class="headerlink" href="#guide-rapide-des-certificats-openssl" title="Permanent link">¶</a></h3>
+<p>Pour générer les certificats qu'utilisent les exemples précédents.</p>
+<p>Créer une CA propre :</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>demoCA<span class="w"> </span>demoCA/newcerts<span class="w"> </span>demoCA/private
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-keyout<span class="w"> </span>cakey.pem<span class="w"> </span>-out<span class="w"> </span>cacert.pem
+mv<span class="w"> </span>cakey.pem<span class="w"> </span>demoCA/private/
+mv<span class="w"> </span>cacert.pem<span class="w"> </span>demoCA/
+</code></pre></div>
+<p>Demande de certificat et signature avec cette CA :</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-keyout<span class="w"> </span>tentaclekey.pem<span class="w"> </span>-out<span class="w"> </span>tentaclereq.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">360</span>
+cat<span class="w"> </span>tentaclereq.pem<span class="w"> </span>tentaclekey.pem<span class="w"> </span>&gt;<span class="w"> </span>tentaclenew.pem
+touch<span class="w"> </span>demoCA/index.txt
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"01"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>demoCA/serial
+openssl<span class="w"> </span>ca<span class="w"> </span>-out<span class="w"> </span>tentaclecert.pem<span class="w"> </span>-in<span class="w"> </span>tentaclenew.pem
+</code></pre></div>
+<p>Certificat autosigné, sans CA :</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-keyout<span class="w"> </span>tentaclekey.pem<span class="w"> </span>-out<span class="w"> </span>tentaclecert.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">360</span>
+</code></pre></div>
+<p>Clé RSA sans mot de passe (évite d'avoir à la saisir côté client) :</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>tentaclekey.pem
+</code></pre></div>
+<p>Exporter un certificat PEM vers DER (nécessaire sur certains systèmes) :</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-outform<span class="w"> </span>der<span class="w"> </span>-in<span class="w"> </span>tentaclecert.pem<span class="w"> </span>-out<span class="w"> </span>tentaclecert.der
+</code></pre></div>
+<h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">¶</a></h3>
+<p>Sous Windows, le serveur se gère comme un service avec
+<code>tentacle_server -S install|uninstall|run</code> ; l'option <code>-d</code> (démon Unix) n'est
+pas disponible sur cette plateforme.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

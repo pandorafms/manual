@@ -1,0 +1,5342 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-3/3.1-inventario/">
+      
+      
+        <link rel="prev" href="../../parte-2/2.20-configuracion-comun-de-los-modulos/">
+      
+      
+        <link rel="next" href="../3.2-control-remoto-con-rc/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-3/3.1-inventario/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-3/3.1-inventario/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1. Inventaire - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#inventaire" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Inventaire
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-3/3.1-inventario/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-3/3.1-inventario/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#ce-quest-linventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qu'est l'inventaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modules-dinventaire-le-catalogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules d'inventaire : le catalogue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventaire-local-avec-les-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventaire local avec les EndPoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inventaire local avec les EndPoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-modules-locaux-apparaissent-seuls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les modules locaux apparaissent seuls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-ses-propres-modules-locaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer ses propres modules locaux
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventaire-distant-creer-le-module-et-lassigner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventaire distant : créer le module et l'assigner
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inventaire distant : créer le module et l'assigner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creer-le-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer le module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-que-le-script-doit-renvoyer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que le script doit renvoyer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lassigner-a-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'assigner à l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consulter-les-donnees-dinventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consulter les données d'inventaire
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consulter les données d'inventaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#longlet-inventaire-de-lagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'onglet Inventaire de l'agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-vue-globale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La vue globale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-changements-generent-des-evenements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les changements génèrent des événements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differences-entre-versions-dinventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Différences entre versions d'inventaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alertes-dinventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alertes d'inventaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventaire-dans-les-rapports-et-les-politiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventaire dans les rapports et les politiques
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintenance-de-linventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance de l'inventaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#ce-quest-linventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qu'est l'inventaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modules-dinventaire-le-catalogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules d'inventaire : le catalogue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventaire-local-avec-les-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventaire local avec les EndPoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inventaire local avec les EndPoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-modules-locaux-apparaissent-seuls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les modules locaux apparaissent seuls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-ses-propres-modules-locaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer ses propres modules locaux
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventaire-distant-creer-le-module-et-lassigner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventaire distant : créer le module et l'assigner
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inventaire distant : créer le module et l'assigner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creer-le-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Créer le module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-que-le-script-doit-renvoyer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que le script doit renvoyer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lassigner-a-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'assigner à l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consulter-les-donnees-dinventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consulter les données d'inventaire
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consulter les données d'inventaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#longlet-inventaire-de-lagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'onglet Inventaire de l'agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-vue-globale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La vue globale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-changements-generent-des-evenements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les changements génèrent des événements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differences-entre-versions-dinventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Différences entre versions d'inventaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alertes-dinventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alertes d'inventaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventaire-dans-les-rapports-et-les-politiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventaire dans les rapports et les politiques
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintenance-de-linventaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance de l'inventaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="inventaire">Inventaire<a class="headerlink" href="#inventaire" title="Permanent link">¶</a></h1>
+<p>Il y a une question qui apparaît tôt ou tard dans tout service informatique,
+presque toujours au mauvais moment : « et nous, qu'est-ce que nous avons ? ». Pas
+ce qui est au vert ni quelle alerte s'est déclenchée ce matin, mais quelles
+machines existent, avec quel processeur, quel logiciel elles ont installé, qui y
+possède un compte et quels services elles lancent au démarrage. Y répondre à la
+main relève de l'archéologie : on ouvre une session ici, on regarde un <code>uname</code>
+là-bas et on prie pour que personne n'ait installé quelque chose qu'il ne fallait
+pas. L'<strong>inventaire</strong> de Pandora FMS existe pour ne pas avoir à faire cette
+archéologie : il collecte ces données tout seul, sur chaque équipement supervisé,
+et les laisse consultables et exportables.</p>
+<h2 id="ce-quest-linventaire">Ce qu'est l'inventaire<a class="headerlink" href="#ce-quest-linventaire" title="Permanent link">¶</a></h2>
+<p>L'inventaire est la partie de Pandora FMS qui répond à « qu'est-ce qu'il y a »,
+et non à « comment ça va ». C'est une distinction qu'il faut poser clairement dès
+le départ : un module de supervision a des seuils, des états et des alertes ; une
+donnée d'inventaire n'en a pas. Personne ne recevra un avis parce qu'un
+équipement a la version 1.2 d'une bibliothèque installée. L'inventaire est une
+photographie, et sa valeur tient à la possibilité de comparer des photographies :
+ce qui a changé depuis hier, quel logiciel est apparu, quel utilisateur a été
+créé sans que personne le sache.</p>
+<p>C'est pourquoi l'inventaire est <strong>indépendant de la supervision</strong>. Il est
+collecté à part, stocké à part et consulté à part, même s'il vit dans la même
+console et alimente les mêmes rapports. Un équipement peut être parfaitement
+supervisé et ne pas avoir une seule donnée d'inventaire, et l'inverse est vrai
+aussi.</p>
+<p>Les données peuvent être collectées par deux chemins :</p>
+<ul>
+<li><strong>De façon locale</strong>, avec l'EndPoint installé sur la machine. L'EndPoint exécute
+  les <em>plugins</em> d'inventaire et envoie le résultat.</li>
+<li><strong>De façon distante</strong>, avec les <strong>modules d'inventaire</strong> que le serveur de
+  Pandora FMS exécute contre une machine du réseau : <em>queries</em> WMI, commandes par
+  SSH ou n'importe quel <em>script</em> qui renvoie le format attendu.</li>
+</ul>
+<p>L'inventaire alimente des listes et des rapports : depuis une liste de logiciels
+installés sur toute la flotte jusqu'à un rapport de changements de configuration
+d'un équipement réseau. Cela est traité plus bas.</p>
+<h2 id="modules-dinventaire-le-catalogue">Modules d'inventaire : le catalogue<a class="headerlink" href="#modules-dinventaire-le-catalogue" title="Permanent link">¶</a></h2>
+<p>Tout commence par un <strong>module d'inventaire</strong>. C'est la pièce qui définit <em>ce qui</em>
+est collecté, et elle a trois données qui comptent : un <strong>nom</strong>, le <strong>système
+d'exploitation</strong> auquel il s'applique et une liste de <strong>champs</strong> séparés par des
+points-virgules. Quand le module collecte des données, chaque ligne du résultat
+est découpée selon ces champs et affichée sous forme de tableau. Si le format dit
+<code>Model;Size</code>, la console saura que la première colonne est le modèle et la
+seconde la taille.</p>
+<p>Pandora FMS fournit un catalogue de modules par défaut assez large, réparti par
+système d'exploitation. Voici les principaux :</p>
+<table>
+<thead>
+<tr>
+<th>Système d'exploitation</th>
+<th>Ce qui peut être inventorié</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Linux</strong></td>
+<td>Processeur, mémoire, cartes vidéo et réseau, disques, CD-ROM, logiciels installés, services de démarrage, systèmes de fichiers, processus, utilisateurs, adresses IP et routes</td>
+</tr>
+<tr>
+<td><strong>Windows</strong></td>
+<td>Tout ce qui précède, plus les moniteurs, la carte mère, les correctifs installés, les imprimantes, les services installés, les produits et clés Microsoft (MS-Products, product_ID, product_key)</td>
+</tr>
+<tr>
+<td><strong>Solaris</strong></td>
+<td>Processeur, mémoire, cartes réseau et logiciels</td>
+</tr>
+<tr>
+<td><strong>Cisco</strong></td>
+<td>Configuration de l'équipement, interfaces (par <em>script</em> local ou par SSH) et informations générales</td>
+</tr>
+<tr>
+<td><strong>Android</strong></td>
+<td>Logiciels installés</td>
+</tr>
+</tbody>
+</table>
+<p>Le catalogue est ce que la console propose ; ce que l'EndPoint collecte de
+lui-même et ce qui est demandé à distance est décrit dans les deux sections
+suivantes.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-modulos-lista.png" data-desc-position="bottom"><img alt="Liste des modules d'inventaire, avec une ligne par module et par système d'exploitation" src="../../../assets/img/parte-03/inventario-modulos-lista.png"></a></p>
+<p>Il y a un détail qui coûte plus d'une heure perdue et qu'il vaut la peine de dire
+à voix haute : <strong>le système d'exploitation du module doit correspondre à celui de
+l'EndPoint</strong>. Si un module est marqué Windows et que vous essayez de l'assigner à
+un EndPoint Linux, il n'apparaîtra pas dans la liste. Ce n'est pas une erreur de
+la console : le module est pensé pour un autre système.</p>
+<p>Où tout cela se gère : <strong>Gestion → Configuration → Modules d'inventaire</strong>.</p>
+<h2 id="inventaire-local-avec-les-endpoints">Inventaire local avec les EndPoints<a class="headerlink" href="#inventaire-local-avec-les-endpoints" title="Permanent link">¶</a></h2>
+<p>Le chemin local est le plus commode quand l'EndPoint est déjà installé : la
+machine se regarde elle-même et envoie le résultat. Il n'y a pas de port à ouvrir
+ni d'identifiants de qui que ce soit à stocker.</p>
+<h3 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">¶</a></h3>
+<p>Sous Linux, l'EndPoint embarque un <em>plugin</em> appelé <code>inventory</code>. Il s'active avec
+une ligne dans le fichier de configuration <code>pandora_agent.conf</code> :</p>
+<div class="highlight"><pre><span></span><code>module_plugin inventory 1 cpu ram video nic hd cdrom software init_services filesystem users route
+</code></pre></div>
+<p>La ligne se lit en trois parties. D'abord l'activation du module. Ensuite un
+nombre qui est <strong>tous les combien de jours</strong> il s'exécute : si l'on met <code>0</code>,
+l'inventaire est envoyé <strong>à chaque exécution de l'EndPoint</strong>. Et à la fin, la
+liste des objets à collecter. Si l'on ne laisse que le nombre, tout ce qui est
+disponible est collecté :</p>
+<div class="highlight"><pre><span></span><code>module_plugin inventory 1
+</code></pre></div>
+<p>Les objets que le <em>plugin</em> comprend sont : <code>cpu</code>, <code>ram</code>, <code>video</code>, <code>nic</code>, <code>hd</code>,
+<code>cdrom</code>, <code>software</code>, <code>init_services</code>, <code>filesystem</code>, <code>process</code>, <code>users</code>, <code>ip</code>,
+<code>route</code> et <code>kernel</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lshw</code> ou <code>hwinfo</code> installé</td>
+<td>Le <em>plugin</em> les utilise pour le matériel. Sans l'un des deux, seuls les logiciels, les services de démarrage, les systèmes de fichiers, les processus et les routes sont collectés</td>
+</tr>
+<tr>
+<td>Permissions root</td>
+<td>Certains objets (par exemple, la liste des utilisateurs ou le matériel) demandent des privilèges élevés</td>
+</tr>
+</tbody>
+</table>
+<p>Le <em>plugin</em> note sur la machine elle-même quand il s'est exécuté pour la dernière
+fois, de sorte que l'intervalle en jours est respecté même si l'EndPoint démarre
+plusieurs fois par jour.</p>
+<h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">¶</a></h3>
+<p>Sous Windows, l'inventaire local ne s'active pas avec une seule ligne, comme sous
+Linux. Ici, <strong>chaque objet d'inventaire est un module à part</strong>, et chaque module
+appelle son propre <em>script</em>. L'EndPoint fournit l'exemple dans le fichier de
+configuration (en commentaire) ; vous décommentez ce que vous voulez utiliser et
+vous redémarrez l'EndPoint. Chaque module a cette forme :</p>
+<div class="highlight"><pre><span></span><code>module_begin
+module_plugin cscript.exe //B //t:20 "%PROGRAMFILES%\Pandora_Agent\util\cpuinfo.vbs"
+module_end
+</code></pre></div>
+<p>Les <em>scripts</em> fournis par l'EndPoint Windows couvrent, chacun, un objet :</p>
+<table>
+<thead>
+<tr>
+<th>Objet</th>
+<th><em>Script</em> de l'EndPoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Processeur</td>
+<td><code>cpuinfo.vbs</code></td>
+</tr>
+<tr>
+<td>Mémoire</td>
+<td><code>raminfo.vbs</code></td>
+</tr>
+<tr>
+<td>Disques</td>
+<td><code>diskdrives.vbs</code></td>
+</tr>
+<tr>
+<td>CD-ROM</td>
+<td><code>cdromdrives.vbs</code></td>
+</tr>
+<tr>
+<td>Carte vidéo</td>
+<td><code>videocardinfo.vbs</code></td>
+</tr>
+<tr>
+<td>Cartes réseau</td>
+<td><code>ifaces.vbs</code></td>
+</tr>
+<tr>
+<td>Moniteurs</td>
+<td><code>monitors.vbs</code></td>
+</tr>
+<tr>
+<td>Imprimantes</td>
+<td><code>printers.vbs</code></td>
+</tr>
+<tr>
+<td>Logiciels installés</td>
+<td><code>software_installed.vbs</code></td>
+</tr>
+<tr>
+<td>Produits et KB Microsoft</td>
+<td><code>ms_products.exe</code></td>
+</tr>
+<tr>
+<td>Utilisateurs</td>
+<td><code>userslogged.vbs</code></td>
+</tr>
+<tr>
+<td>Clé et ID de produit</td>
+<td><code>productkey.vbs</code>, <code>productID.vbs</code></td>
+</tr>
+</tbody>
+</table>
+<p>Un détail à regarder avant de laisser les choses en l'état : l'exemple d'usine
+ajoute <code>module_absoluteinterval 7d</code> à chaque module, ce qui fait que l'inventaire
+s'exécute <strong>une fois tous les sept jours</strong>, indépendamment de l'intervalle de
+l'EndPoint. Si vous voulez que l'inventaire suive la fréquence normale de
+l'EndPoint, vous supprimez cette ligne. Un inventaire hebdomadaire devient vite
+obsolète.</p>
+<h3 id="les-modules-locaux-apparaissent-seuls">Les modules locaux apparaissent seuls<a class="headerlink" href="#les-modules-locaux-apparaissent-seuls" title="Permanent link">¶</a></h3>
+<p>Voici la différence pratique avec l'inventaire distant, et elle mérite d'être
+soulignée parce qu'elle épargne pas mal de travail : <strong>les modules locaux ne
+s'assignent pas à la main dans la console</strong>. Il suffit que le module existe dans
+le catalogue avec le bon système d'exploitation et que l'exécution soit définie
+dans le fichier de l'EndPoint. Quand la première donnée arrive, la console crée
+le module dans la fiche de l'agent et le laisse visible dans son onglet
+<strong>Inventaire</strong>.</p>
+<h3 id="creer-ses-propres-modules-locaux">Créer ses propres modules locaux<a class="headerlink" href="#creer-ses-propres-modules-locaux" title="Permanent link">¶</a></h3>
+<p>En plus de ceux qui viennent de série, vous pouvez créer vos propres modules
+d'inventaire pour Linux et Windows. La procédure est la même que pour le distant,
+avec deux exceptions : les champs <strong>Interpréteur</strong> et <strong>Code</strong> ne sont pas
+remplis, et il faut un <em>script</em> qui renvoie un XML de cette structure :</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;inventory&gt;</span>
+<span class="w">  </span><span class="nt">&lt;inventory_module&gt;</span>
+<span class="w">    </span><span class="nt">&lt;name&gt;</span>NOMBRE_DEL_MODULO<span class="nt">&lt;/name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;type&gt;</span>generic_data_string<span class="nt">&lt;/type&gt;</span>
+<span class="w">    </span><span class="nt">&lt;datalist&gt;</span>
+<span class="w">      </span><span class="nt">&lt;data&gt;</span>DATO1;DATO2;DATO3<span class="nt">&lt;/data&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/datalist&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/inventory_module&gt;</span>
+<span class="nt">&lt;/inventory&gt;</span>
+</code></pre></div>
+<p>Le nom doit être exactement celui qui a été donné au module dans la console, et
+chaque <code>&lt;data&gt;</code> est une ligne avec les champs séparés par <code>;</code> tels qu'ils ont été
+déclarés dans le <strong>Format</strong>.</p>
+<p>Le <em>script</em> se déclare dans <code>pandora_agent.conf</code> comme un <em>plugin</em> de plus :
+l'EndPoint exécute la commande et insère sa sortie telle quelle dans le XML qu'il
+envoie au serveur, si bien que le <em>script</em> doit seulement imprimer le bloc
+<code>&lt;inventory&gt;</code> sur la sortie standard. Sous Linux, un <em>script</em> shell et la ligne
+qui le lance se présentent ainsi :</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<span class="c1"># /etc/pandora/plugins/mi_inventario.sh</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"&lt;inventory&gt;"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"  &lt;inventory_module&gt;"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"    &lt;name&gt;MiInventario&lt;/name&gt;"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"    &lt;type&gt;generic_data_string&lt;/type&gt;"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"    &lt;datalist&gt;"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"      &lt;data&gt;uno;dos&lt;/data&gt;"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"      &lt;data&gt;tres;cuatro&lt;/data&gt;"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"    &lt;/datalist&gt;"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"  &lt;/inventory_module&gt;"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"&lt;/inventory&gt;"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code># pandora_agent.conf
+module_plugin /etc/pandora/plugins/mi_inventario.sh
+</code></pre></div>
+<p>Le répertoire de <em>plugins</em> de l'EndPoint (<code>/etc/pandora/plugins</code>) est dans le
+<code>PATH</code>, donc le <em>script</em> peut aussi être appelé par son nom
+(<code>module_plugin mi_inventario.sh</code>). Sous Windows, la ligne suit le même schéma
+que les modules de série, avec <code>module_begin</code> et <code>module_end</code>, et le <em>script</em>
+imprime le même XML :</p>
+<div class="highlight"><pre><span></span><code># pandora_agent.conf
+module_begin
+module_plugin cscript.exe //B //t:20 "%PROGRAMFILES%\Pandora_Agent\util\mi_inventario.vbs"
+module_end
+</code></pre></div>
+<p>Et l'avertissement d'ordre : <strong>il faut créer le module dans la console avant de
+redémarrer l'EndPoint</strong>, sinon la donnée arrivera et il n'y aura nulle part où la
+garder.</p>
+<h2 id="inventaire-distant-creer-le-module-et-lassigner">Inventaire distant : créer le module et l'assigner<a class="headerlink" href="#inventaire-distant-creer-le-module-et-lassigner" title="Permanent link">¶</a></h2>
+<p>Le chemin distant est celui que l'on utilise quand il n'y a pas d'EndPoint sur la
+machine : un équipement réseau, un serveur sur lequel on ne veut rien installer
+ou un équipement accessible uniquement par SSH. Ici, c'est le <strong>serveur</strong> de
+Pandora FMS qui travaille : il exécute le <em>script</em> du module contre la cible et
+garde le résultat.</p>
+<h3 id="creer-le-module">Créer le module<a class="headerlink" href="#creer-le-module" title="Permanent link">¶</a></h3>
+<p>Cela se fait dans <strong>Gestion → Configuration → Modules d'inventaire</strong>, avec le
+bouton <strong>Créer</strong>. Les champs du formulaire sont ceux-ci :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nom</strong></td>
+<td>Obligatoire ; l'identifiant du module</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Texte libre</td>
+</tr>
+<tr>
+<td><strong>SE</strong></td>
+<td>Obligatoire ; doit correspondre à celui de la cible</td>
+</tr>
+<tr>
+<td><strong>Interpréteur</strong></td>
+<td>L'interpréteur avec lequel le <em>script</em> est exécuté (Shell, Perl…). <strong>Il reste vide uniquement pour les modules locaux</strong></td>
+</tr>
+<tr>
+<td><strong>Format</strong></td>
+<td>Obligatoire ; les champs que le module renvoie, séparés par <code>;</code></td>
+</tr>
+<tr>
+<td><strong>Mode bloc</strong></td>
+<td>Interrupteur ; le résultat du module est traité comme un bloc unique (voir plus bas)</td>
+</tr>
+<tr>
+<td><strong>Mode script</strong></td>
+<td>Choix entre <strong>Mode script</strong> (on indique un <strong>Chemin du script</strong>) et <strong>Utiliser du code en ligne</strong> (on écrit le <strong>Code</strong> directement)</td>
+</tr>
+</tbody>
+</table>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-modulo-crear.png" data-desc-position="bottom"><img alt="Formulaire de création d'un module d'inventaire" src="../../../assets/img/parte-03/inventario-modulo-crear.png"></a></p>
+<p>L'avertissement classique, et il tient toujours : <strong>si le Format reste vide, le
+module n'est pas enregistré et ce qui a été écrit est perdu</strong>. C'est le champ que
+l'on oublie le plus et celui qui gêne le plus quand on l'oublie.</p>
+<h3 id="ce-que-le-script-doit-renvoyer">Ce que le script doit renvoyer<a class="headerlink" href="#ce-que-le-script-doit-renvoyer" title="Permanent link">¶</a></h3>
+<p>Voici la différence avec l'inventaire local, et il vaut mieux l'avoir claire
+parce que c'est elle qui fait échouer les premiers essais : le <em>script</em> distant
+<strong>ne renvoie pas un XML</strong>. Le XML avec <code>&lt;inventory&gt;</code> est l'affaire de l'EndPoint ;
+le module distant renvoie du <strong>texte brut</strong>, avec <strong>un enregistrement par ligne</strong>
+et les champs séparés par <code>;</code>, dans le même ordre que le <strong>Format</strong> du module. Le
+serveur garde cette sortie telle quelle et la console la peint comme un tableau,
+en utilisant le Format comme en-tête.</p>
+<p>Le <em>script</em> reçoit comme arguments la <strong>cible</strong> (la valeur du champ <em>Cible</em>) puis,
+soit les <strong>champs personnalisés</strong> dans l'ordre où ils ont été créés, soit
+l'<strong>utilisateur et le mot de passe</strong>. Avec cela, il interroge la machine distante
+et sort une ligne par élément.</p>
+<p>Un exemple minimal : un module avec <strong>Format</strong> <code>Campo1;Campo2</code>, <strong>Interpréteur</strong>
+<code>/bin/sh</code> et ce <strong>Code</strong> :</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<span class="c1"># $1 est la cible ; ensuite viennent les champs personnalisés ou l'utilisateur et le mot de passe</span>
+<span class="nv">destino</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+
+<span class="c1"># ... ici on interroge $destino ...</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"uno;dos"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"tres;cuatro"</span>
+</code></pre></div>
+<p>Cela laisse deux enregistrements, un par ligne, avec deux champs chacun. Un
+module réel fait exactement la même chose, sauf qu'il remplit chaque ligne avec
+ce que renvoie l'interrogation : le module de CPU Windows fourni par Pandora
+imprime une ligne par processeur avec <code>nombre;velocidad;descripción</code>, et celui de
+Cisco sort une seule ligne avec <code>IP;hardware;número de serie;IOS</code>.</p>
+<p>Si le module est en <strong>Mode bloc</strong>, la sortie n'est pas découpée en
+enregistrements : elle est stockée entière comme un bloc de texte unique, et
+c'est ce qui est ensuite comparé dans la vue des différences.</p>
+<h3 id="lassigner-a-lendpoint">L'assigner à l'EndPoint<a class="headerlink" href="#lassigner-a-lendpoint" title="Permanent link">¶</a></h3>
+<p>L'assignation se fait dans la fiche de l'agent, dans l'onglet <strong>Inventaire</strong>
+(Gestion → Ressources → Gérer les agents → agent → Inventaire). Le formulaire de
+création demande :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Module</strong></td>
+<td>Le module d'inventaire à ajouter ; seuls apparaissent ceux qui correspondent au SE de l'EndPoint</td>
+</tr>
+<tr>
+<td><strong>Intervalle</strong></td>
+<td>Tous les combien il s'exécute (par défaut, une heure)</td>
+</tr>
+<tr>
+<td><strong>Cible</strong></td>
+<td>IP ou nom de la machine dont l'inventaire est extrait</td>
+</tr>
+<tr>
+<td><strong>Utiliser des champs personnalisés</strong></td>
+<td>Remplace l'utilisateur et le mot de passe par des champs propres, avec un nom</td>
+</tr>
+<tr>
+<td><strong>Utilisateur</strong> et <strong>Mot de passe</strong></td>
+<td>Identifiants de la cible ; ils admettent les macros de champ personnalisé de l'EndPoint</td>
+</tr>
+</tbody>
+</table>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-agente-config.png" data-desc-position="bottom"><img alt="Onglet Inventaire de la configuration d'un agent, avec le formulaire de création et les modules assignés" src="../../../assets/img/parte-03/inventario-agente-config.png"></a></p>
+<p>Avec <strong>Utiliser des champs personnalisés</strong>, on crée des champs avec un nom, on
+leur donne une valeur et on coche <strong>C'est un mot de passe</strong> sur ceux qui doivent
+être stockés de façon obfusquée. Ces champs sont passés au <em>script</em> dans le même
+ordre qu'à leur création. Une fois le module assigné, le tableau de l'onglet
+permet de <strong>Forcer</strong> une exécution immédiate (utile pour ne pas attendre
+l'intervalle), de le modifier ou de le supprimer.</p>
+<p>En dessous, le serveur construit la commande avec l'interpréteur, le chemin du
+<em>script</em> ou le code en ligne, la cible et les identifiants (ou les champs
+personnalisés), et l'exécute avec un <strong>délai d'attente</strong> configurable. Si la
+commande échoue, l'inventaire de ce cycle n'est simplement pas mis à jour.</p>
+<h2 id="consulter-les-donnees-dinventaire">Consulter les données d'inventaire<a class="headerlink" href="#consulter-les-donnees-dinventaire" title="Permanent link">¶</a></h2>
+<p>Il y a deux façons de regarder l'inventaire, et chacune sert à une chose.</p>
+<h3 id="longlet-inventaire-de-lagent">L'onglet Inventaire de l'agent<a class="headerlink" href="#longlet-inventaire-de-lagent" title="Permanent link">¶</a></h3>
+<p>Dans la vue d'un agent, l'onglet <strong>Inventaire</strong> montre tous ses modules, l'un sous
+l'autre. En haut, il y a un sélecteur de <strong>Module</strong>, un sélecteur de <strong>Date</strong> (par
+défaut, <em>Maintenant</em>) et un champ de recherche. Chaque module est peint comme un
+tableau, avec le <strong>Format</strong> comme en-tête et un <strong>Total</strong> d'enregistrements en
+pied. C'est la vue pour regarder une machine précise tranquillement.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-agente-vista.png" data-desc-position="bottom"><img alt="Onglet Inventaire d'un agent, avec les modules collectés et leurs tableaux de données" src="../../../assets/img/parte-03/inventario-agente-vista.png"></a></p>
+<p>Le sélecteur de dates demande une explication, parce qu'il déroute la première
+fois. <strong>Une date n'apparaît que lorsqu'il y a eu des changements.</strong> Pandora FMS
+ne stocke de l'inventaire que lorsque la donnée change par rapport à la dernière
+fois, donc si un équipement est identique depuis une semaine, le sélecteur
+n'aura pas une entrée par jour. C'est une décision de conception, pas un défaut :
+stocker la même photo toutes les heures serait du bruit.</p>
+<h3 id="la-vue-globale">La vue globale<a class="headerlink" href="#la-vue-globale" title="Permanent link">¶</a></h3>
+<p>Dans <strong>Opération → Supervision → Inventaire</strong>, vous voyez l'inventaire de toute
+la flotte d'un coup. Les filtres sont le groupe (avec l'option d'inclure les
+sous-groupes), l'agent, le module, la recherche libre, le tri par agent, la date
+et l'état de l'agent.</p>
+<p>Par défaut, la vue est en mode <strong>Informations de base</strong>, qui montre une ligne par
+agent avec ses données générales : alias, IP, groupe, système d'exploitation,
+version, intervalle, dernier contact, champs personnalisés… Quand vous choisissez
+un module précis, le tableau change et montre les données de ce module, avec une
+colonne d'<strong>horodatage</strong> et une colonne d'<strong>agent</strong> pour savoir à qui appartient
+chaque ligne.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-vista-global.png" data-desc-position="bottom"><img alt="Vue globale de l'inventaire en mode Informations de base, une ligne par agent" src="../../../assets/img/parte-03/inventario-vista-global.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-vista-modulo.png" data-desc-position="bottom"><img alt="Vue globale de l'inventaire avec le module Routes sélectionné" src="../../../assets/img/parte-03/inventario-vista-modulo.png"></a></p>
+<p>Le bouton <strong>Exporter en CSV</strong> télécharge ce qui est filtré à ce moment-là, avec
+le séparateur CSV configuré dans la console.</p>
+<h3 id="les-changements-generent-des-evenements">Les changements génèrent des événements<a class="headerlink" href="#les-changements-generent-des-evenements" title="Permanent link">¶</a></h3>
+<p>Chaque fois que l'inventaire d'un module change, le serveur génère un <strong>événement
+de configuration</strong> avec les ajouts et les suppressions : quel enregistrement est
+apparu et lequel a disparu. C'est la matière première des rapports de changements,
+et aussi la raison pour laquelle un module très remuant (la liste des processus,
+par exemple) peut inonder la console d'événements. C'est à cela que sert la liste
+noire expliquée dans la section
+<a href="#maintenance-de-linventaire">maintenance de l'inventaire</a>.</p>
+<h2 id="differences-entre-versions-dinventaire">Différences entre versions d'inventaire<a class="headerlink" href="#differences-entre-versions-dinventaire" title="Permanent link">¶</a></h2>
+<p>Il y a des modules dont le résultat n'a aucun sens découpé en lignes. La
+configuration d'un équipement réseau, par exemple : c'est un bloc de texte et ce
+qui intéresse est de le comparer avec celui de l'exécution précédente, pas de le
+lire ligne à ligne comme un tableau.</p>
+<p>C'est à cela que sert le <strong>Mode bloc</strong>. En l'activant sur un module, son résultat
+est stocké entier comme un bloc de texte, et dans la vue de l'agent un bouton de
+<strong>vue des différences</strong> apparaît à côté du nom du module :</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-modo-bloqueo.png" data-desc-position="bottom"><img alt="Module en Mode bloc dans l'onglet Inventaire de l'agent, avec le bouton de vue des différences" src="../../../assets/img/parte-03/inventario-modo-bloqueo.png"></a></p>
+<p>Cette vue place les deux versions en deux colonnes et met en évidence ce qui a
+changé. C'est l'outil pour répondre à « quelqu'un a-t-il touché ce <em>routeur</em>
+depuis la semaine dernière ? ».</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-diferencias.png" data-desc-position="bottom"><img alt="Vue des différences comparant deux versions de l'inventaire d'un équipement" src="../../../assets/img/parte-03/inventario-diferencias.png"></a></p>
+<h2 id="alertes-dinventaire">Alertes d'inventaire<a class="headerlink" href="#alertes-dinventaire" title="Permanent link">¶</a></h2>
+<p>L'inventaire sert aussi à surveiller ce qui <em>ne devrait pas</em> être là. C'est à cela
+que servent les <strong>alertes d'inventaire</strong>, qui se configurent dans
+<strong>Gestion → Alertes → Alertes d'inventaire</strong>.</p>
+<p>L'idée est la même que celle du reste des
+<a href="../../parte-5/5.5-alertas-y-notificaciones/">Alertes et notifications</a>, avec une
+différence de fond : elles ne se déclenchent pas sur un module de supervision,
+mais sur le contenu de l'inventaire d'un groupe d'agents. Elles sont donc
+globales : elles s'appliquent à un groupe, pas agent par agent.</p>
+<p>Le formulaire a ces champs :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nom</strong> et <strong>Description</strong></td>
+<td>Identification de l'alerte</td>
+</tr>
+<tr>
+<td><strong>ACL de groupe</strong></td>
+<td>Visibilité de l'alerte</td>
+</tr>
+<tr>
+<td><strong>Modules d'inventaire</strong></td>
+<td>Le module dont le contenu est surveillé</td>
+</tr>
+<tr>
+<td><strong>Condition</strong></td>
+<td>Comment on décide si elle se déclenche : <strong>Correspondance</strong>, <strong>Liste noire</strong> ou <strong>Liste blanche</strong></td>
+</tr>
+<tr>
+<td><strong>Seuil de temps</strong></td>
+<td>Temps minimum entre deux déclenchements</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Ce qui s'exécute quand elle se déclenche</td>
+</tr>
+<tr>
+<td><strong>Groupes d'alertes</strong></td>
+<td>Les groupes d'agents sur lesquels elle est évaluée (la condition réelle)</td>
+</tr>
+<tr>
+<td><strong>Désactiver l'événement</strong></td>
+<td>Si activé, l'alerte ne génère pas en plus un événement</td>
+</tr>
+</tbody>
+</table>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-alerta-crear.png" data-desc-position="bottom"><img alt="Formulaire de création d'une alerte d'inventaire" src="../../../assets/img/parte-03/inventario-alerta-crear.png"></a></p>
+<p>Il faut bien distinguer <strong>ACL de groupe</strong> de <strong>Groupes d'alertes</strong>, parce que les
+deux parlent de groupes et ne veulent pas dire la même chose : le premier est qui
+peut voir l'alerte, le second est à quels agents elle s'applique. Une confusion
+ici laisse l'alerte sans effet ou la fait se déclencher là où il ne faut pas.</p>
+<p>Les trois conditions fonctionnent ainsi :</p>
+<ul>
+<li><strong>Correspondance</strong> (<em>Match</em>). On remplit les champs du module (par exemple, le
+  nom et la version d'un logiciel) et elle se déclenche quand une ligne de
+  l'inventaire correspond à tous. Les champs admettent des expressions
+  régulières, et un champ vide équivaut à « n'importe quelle valeur » (<code>.*</code>).
+  C'est la condition pour « prévenez-moi si cette version précise de ce programme
+  apparaît ».</li>
+<li><strong>Liste noire</strong> (<em>Black list</em>). On choisit un champ du module et on écrit une
+  liste de valeurs, une par ligne. Si l'inventaire en contient une, elle se
+  déclenche. C'est la condition pour « ceci ne devrait pas être installé ».</li>
+<li><strong>Liste blanche</strong> (<em>White list</em>). Pareil, mais à l'envers : la valeur de
+  l'inventaire <strong>doit être</strong> dans la liste, et si elle n'y est pas, elle se
+  déclenche. C'est la condition pour « seuls ceux-là sont autorisés ».</li>
+</ul>
+<p>Et <strong>Désactiver l'événement</strong> a son intérêt quand l'inventaire déclenche beaucoup
+d'alertes d'un coup : cela évite que chacune génère en plus un événement et
+laisse la console d'événements comme un sapin de Noël. L'alerte continue de se
+déclencher et d'exécuter son action ; ce que l'on épargne, c'est l'événement.</p>
+<p>Ces alertes sont le moyen de détecter des versions vulnérables d'un programme,
+des logiciels non autorisés ou des comptes d'utilisateur que personne ne devrait
+avoir.</p>
+<h2 id="inventaire-dans-les-rapports-et-les-politiques">Inventaire dans les rapports et les politiques<a class="headerlink" href="#inventaire-dans-les-rapports-et-les-politiques" title="Permanent link">¶</a></h2>
+<p>L'inventaire ne vit pas isolé : il alimente les rapports et il peut être déployé
+par des politiques.</p>
+<p>Dans les <strong>rapports</strong>, il y a quatre éléments qui tirent de l'inventaire :</p>
+<ul>
+<li><strong>Inventaire d'agents</strong>, la liste des agents avec leurs données générales.</li>
+<li><strong>Inventaire de modules</strong>, la liste des modules avec leurs données.</li>
+<li><strong>Inventaire</strong>, l'inventaire complet avec des filtres.</li>
+<li><strong>Inventaire de changements</strong>, les ajouts et suppressions enregistrés.</li>
+</ul>
+<p>La mécanique des modèles et des rapports est décrite dans
+<a href="../../parte-5/5.2-informes/">Rapports</a>.</p>
+<p>Et dans les <strong>politiques</strong>, les modules d'inventaire peuvent s'appliquer à des
+groupes d'agents comme s'applique un module de supervision, avec son intervalle.
+Dans l'onglet Inventaire de l'agent, les modules qui viennent d'une politique sont
+marqués d'une icône. Les politiques sont expliquées dans
+<a href="../../parte-2/2.10-politicas-de-monitorizacion/">Politiques de supervision</a>.</p>
+<h2 id="maintenance-de-linventaire">Maintenance de l'inventaire<a class="headerlink" href="#maintenance-de-linventaire" title="Permanent link">¶</a></h2>
+<p>Deux réglages qu'il vaut la peine de connaître pour que l'inventaire ne devienne
+pas un problème d'espace ou de bruit.</p>
+<p>Le premier est la <strong>suppression par ancienneté</strong>. Dans <strong>Gestion → Réglages →
+Configuration du système → Performance</strong> se trouve le champ <strong>Nombre maximal de
+jours avant la suppression des données d'inventaire</strong>, qui vaut <strong>21 jours</strong> par
+défaut. Passé ce délai, le serveur supprime progressivement l'historique
+d'inventaire le plus ancien. S'il faut le garder plus longtemps pour des audits,
+on augmente ; si l'on veut alléger la base de données, on diminue.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-purga.png" data-desc-position="bottom"><img alt="Réglage de la suppression des données d'inventaire dans la configuration de performance" src="../../../assets/img/parte-03/inventario-purga.png"></a></p>
+<p>Le second est la <strong>liste noire des changements</strong>. Il y a des modules dont le
+contenu change à chaque exécution (la liste des processus est l'exemple d'école)
+et qui, par conséquent, généreraient un événement de configuration chaque fois.
+Pour l'éviter, ces modules sont marqués dans une liste et leurs changements
+cessent de générer un événement.</p>
+<p>La liste se trouve dans <strong>Gestion → Réglages → Configuration du système →
+Configuration générale</strong>, dans l'onglet <strong>Comportement</strong>, à l'intérieur de la
+section <strong>Événements</strong>. C'est un sélecteur double : à gauche restent les modules
+qui sont <strong>hors de la liste noire</strong> et à droite ceux qui sont <strong>dans la liste
+noire</strong>, et on les fait passer d'un côté à l'autre avec les flèches.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-03/inventario-lista-negra.png" data-desc-position="bottom"><img alt="Liste noire des changements d'inventaire, dans l'onglet Comportement de la configuration générale" src="../../../assets/img/parte-03/inventario-lista-negra.png"></a></p>
+<p>D'usine, le processeur, les processus et le module de sécurité viennent déjà
+exclus, dans leurs versions Linux et Windows.</p>
+<p>Avec cela, l'inventaire est complet : il se collecte seul, se consulte d'un coup
+d'œil, avertit quand quelque chose ne colle pas et ne remplit pas la base de
+données plus que nécessaire. Ce qui est exactement ce que l'on demande à un outil
+qui répond à la question « qu'est-ce que nous avons ? ».</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

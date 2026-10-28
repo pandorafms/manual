@@ -1,0 +1,5291 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-4/4.1-grupos-perfiles-y-tags/">
+      
+      
+        <link rel="prev" href="../../parte-3/3.10-reconciliacion-de-datos/">
+      
+      
+        <link rel="next" href="../4.2-autenticacion-externa-y-centralizacion-de-accesos/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-4/4.1-grupos-perfiles-y-tags/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-4/4.1-grupos-perfiles-y-tags/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1. Groupes, utilisateurs, profils et tags - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#groupes-utilisateurs-profils-et-tags" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Groupes, utilisateurs, profils et tags
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-4/4.1-grupos-perfiles-y-tags/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-4/4.1-grupos-perfiles-y-tags/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#le-modele-de-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le modèle de permissions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#groupes-dagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groupes d'agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Groupes d'agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groupes-secondaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groupes secondaires
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-groupe-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le groupe « All »
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supprimer-un-groupe-est-irreversible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supprimer un groupe est irréversible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importer-des-groupes-depuis-un-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importer des groupes depuis un CSV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursion-de-groupes-dans-les-vues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Récursion de groupes dans les vues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilisateurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilisateurs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utilisateurs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notifications-push-du-navigateur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notifications push du navigateur
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profils
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assignation-des-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assignation des permissions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Assignation des permissions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hierarchie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hiérarchie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags-et-permissions-etendues-par-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tags et permissions étendues par tag
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tags et permissions étendues par tag">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ce-quest-un-tag-et-ou-il-sapplique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qu'est un tag et où il s'applique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissions-par-tag-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permissions par tag (ACL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limites-cout-et-visionneuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limites, coût et visionneuse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tags-dans-les-alertes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tags dans les alertes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#le-modele-de-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le modèle de permissions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#groupes-dagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groupes d'agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Groupes d'agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groupes-secondaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groupes secondaires
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-groupe-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le groupe « All »
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supprimer-un-groupe-est-irreversible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supprimer un groupe est irréversible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importer-des-groupes-depuis-un-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importer des groupes depuis un CSV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursion-de-groupes-dans-les-vues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Récursion de groupes dans les vues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilisateurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilisateurs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utilisateurs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notifications-push-du-navigateur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notifications push du navigateur
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profils
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assignation-des-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assignation des permissions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Assignation des permissions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hierarchie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hiérarchie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags-et-permissions-etendues-par-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tags et permissions étendues par tag
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tags et permissions étendues par tag">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ce-quest-un-tag-et-ou-il-sapplique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qu'est un tag et où il s'applique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permissions-par-tag-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permissions par tag (ACL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limites-cout-et-visionneuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limites, coût et visionneuse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tags-dans-les-alertes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tags dans les alertes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="groupes-utilisateurs-profils-et-tags">Groupes, utilisateurs, profils et tags<a class="headerlink" href="#groupes-utilisateurs-profils-et-tags" title="Permanent link">¶</a></h1>
+<p>La console web de Pandora est pensée pour que <strong>plusieurs utilisateurs
+travaillent sur la même installation sans se voir entre eux</strong>. C'est possible
+parce que le système de permissions est <em>multitenant</em> : un même serveur, la même
+base de données, et chacun ne voyant et ne touchant que ce qui lui revient.</p>
+<p>L'astuce n'a rien de mystérieux, mais elle repose sur deux pièces qu'il faut
+comprendre avant de créer le premier utilisateur : <strong>groupes</strong> et <strong>profils</strong>.</p>
+<p>Un <strong>groupe</strong> décide <em>ce que</em> voit un utilisateur. Un <strong>profil</strong> décide <em>ce
+qu'il peut faire</em> avec. La combinaison des deux, assignée à un utilisateur, est
+la permission. Et comme un même utilisateur peut avoir des profils différents
+dans des groupes différents, on peut aller du technicien qui ne regarde que son
+service jusqu'à l'administrateur qui voit tout.</p>
+<h2 id="le-modele-de-permissions">Le modèle de permissions<a class="headerlink" href="#le-modele-de-permissions" title="Permanent link">¶</a></h2>
+<p>Les <strong>groupes</strong> sont des ensembles d'éléments avec leurs propres règles et ils
+existent pour contrôler l'accès aux agents et à tout ce qui en dépend. La règle
+à avoir claire dès le départ : <strong>un agent appartient à un seul groupe</strong>, mais
+<strong>un utilisateur peut avoir accès à plusieurs groupes</strong>.</p>
+<p>À cette règle il y a une exception qu'il vaut mieux connaître tout de suite : un
+agent peut être, en plus, dans <strong>plusieurs groupes secondaires</strong> à la fois, et
+les utilisateurs de tous ces groupes le voient alors. Nous le détaillons un peu
+plus bas.</p>
+<p>Les <strong>profils</strong> définissent quelles opérations un utilisateur peut faire. C'est
+un ensemble de bits d'accès (voir, écrire, gérer les alertes, administrer…) qui
+s'assignent par groupe. Ainsi, le même utilisateur peut être en lecture seule
+dans le groupe « Production » et administrateur dans le groupe « Laboratoire »,
+ce qui est justement ce que demande un environnement multitenant bien monté.</p>
+<p>D'où l'avertissement qui a déjà valu plus d'une frayeur : <strong>un utilisateur sans
+aucun profil ni groupe ne peut pas se connecter</strong>. Ce n'est pas un défaut, c'est
+la conception. Avant de créer des utilisateurs, il vaut mieux avoir décidé les
+groupes et les profils, pas l'inverse.</p>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Groupes définis</td>
+<td>L'utilisateur a besoin d'au moins un groupe auquel accéder</td>
+</tr>
+<tr>
+<td>Profils définis</td>
+<td>L'utilisateur a besoin d'au moins un profil assigné dans ce groupe</td>
+</tr>
+<tr>
+<td>Utilisateur administrateur</td>
+<td>Un utilisateur marqué comme administrateur (<em>superadmin</em>) contourne l'ACL et a accès à tout</td>
+</tr>
+</tbody>
+</table>
+<h2 id="groupes-dagents">Groupes d'agents<a class="headerlink" href="#groupes-dagents" title="Permanent link">¶</a></h2>
+<p>Les groupes fonctionnent comme des <strong>conteneurs</strong> d'agents : un service, une
+entreprise, un site, un client. Ils sont la base du multitenant, parce qu'ils
+permettent une visibilité différenciée sur le même inventaire. Le menu se trouve
+dans <strong>Gestion → Ressources → Gérer les groupes</strong>.</p>
+<p>À la création d'un groupe (<strong>Créer un groupe</strong>), voici les champs qui comptent :</p>
+<ul>
+<li><strong>Nom.</strong> Si vous allez utiliser le groupe dans l'approvisionnement automatique
+  d'EndPoints, laissez-le sans espaces ni caractères bizarres. Ils sont pris en
+  charge, mais vous vous épargnez des ennuis.</li>
+<li><strong>Parent.</strong> Un groupe peut dépendre d'un autre. Les permissions peuvent se
+  propager aux enfants (voir <strong>Propager l'ACL</strong>, plus bas).</li>
+<li><strong>Mot de passe.</strong> Facultatif. Il restreint l'auto-création d'agents : seuls se
+  créent ceux qui apportent ce même mot de passe. Utile pour que personne
+  n'invente des agents dans un groupe qui ne lui revient pas. N'utilisez ni
+  espaces ni symboles.</li>
+<li><strong>Alertes.</strong> S'il est coché, les agents du groupe peuvent envoyer des alertes.
+  C'est l'interrupteur rapide pour couper les alertes d'un groupe entier.</li>
+<li><strong>Propager l'ACL.</strong> S'il est actif, les groupes enfants héritent des
+  permissions du parent. Le groupe <em>All</em> l'a activé par défaut.</li>
+<li><strong>ID personnalisé.</strong> Un identifiant propre pour l'intégrer à un système
+  externe (une CMDB, par exemple).</li>
+<li><strong>Contact</strong> et <strong>Autres.</strong> Informations de contact et notes, disponibles dans
+  les macros <code>_groupcontact_</code> et <code>_group_other_</code>.</li>
+<li><strong>Nombre maximal d'agents autorisés.</strong> Limite d'agents du groupe. Par défaut
+  <code>0</code>, ce qui signifie sans limite.</li>
+</ul>
+<p>Chaque groupe peut avoir son propre <strong>thème visuel</strong> dans <em>Configuration du
+groupe → Configuration de style</em>. Si un utilisateur appartient à plusieurs
+groupes avec un thème propre, la console applique celui du premier groupe autre
+que <em>All</em> qui en ait un configuré. Et le thème que l'utilisateur choisit
+lui-même dans ses préférences l'emporte sur celui du groupe.</p>
+<h3 id="groupes-secondaires">Groupes secondaires<a class="headerlink" href="#groupes-secondaires" title="Permanent link">¶</a></h3>
+<p>Un agent appartient à un groupe, oui, mais Pandora FMS admet qu'il appartienne
+<strong>en plus</strong> à d'autres groupes : ce sont les <strong>groupes secondaires</strong>. L'agent
+conserve son groupe principal et on lui ajoute les secondaires nécessaires.</p>
+<p>À quoi cela sert, avec le cas qui s'explique tout seul : un agent vit dans
+« Applications », mais l'équipe « Réseaux » a aussi besoin de le voir. Au lieu de
+dupliquer l'agent ou de tout mettre dans un groupe commun, on marque « Réseaux »
+comme groupe secondaire et les utilisateurs qui ont la permission dans
+« Réseaux » se mettent à voir cet agent comme ceux d'« Applications ». C'est la
+façon propre pour que <strong>deux utilisateurs avec des permissions différentes
+accèdent au même agent sans partager de groupe</strong>.</p>
+<p>Ils s'assignent dans la fiche de l'agent, dans le champ <strong>Groupes secondaires</strong>,
+sous <strong>Ressources → Gérer les agents</strong>. On peut aussi y toucher depuis les
+opérations en masse d'agents. Un détail qui évite la confusion : le groupe
+principal ne peut pas être répété comme secondaire ; le formulaire lui-même
+l'empêche.</p>
+<p>Ce qui change quand un agent a des groupes secondaires :</p>
+<ul>
+<li><strong>Visibilité.</strong> L'agent est visible pour qui a la permission dans son groupe
+  principal <strong>ou</strong> dans l'un de ses secondaires. La relation vaut pour tout ce
+  qui dépend de l'agent : modules, événements, alertes, traps SNMP, inventaire
+  et rapports.</li>
+<li><strong>Filtres.</strong> Dans les vues d'événements et d'alertes il y a une case,
+  <strong>Rechercher dans les groupes secondaires</strong>, pour que cette recherche tienne
+  compte des groupes secondaires. Si un utilisateur n'est lié à l'agent que par
+  un groupe secondaire et que cette case est décochée, il peut ne pas voir ses
+  informations. L'activer a un coût : elle oblige le serveur à croiser plus de
+  données.</li>
+</ul>
+<p>Trois avertissements qui épargnent des appels au support :</p>
+<ul>
+<li><strong>La <em>Tree view</em> peut afficher l'agent en double.</strong> Si un agent est dans
+  plusieurs groupes, il apparaît une fois par groupe. C'est normal, pas une
+  erreur.</li>
+<li><strong>Supprimer un groupe supprime ses liens comme secondaire.</strong> Si ce groupe
+  était marqué comme secondaire sur un agent, ces agents cessent d'y appartenir.</li>
+<li><strong>Cela a un coût en performances.</strong> C'est une fonction facultative : si aucun
+  agent n'utilise de groupes secondaires, la console s'épargne les croisements
+  supplémentaires. Dès qu'on l'utilise, beaucoup de listes et de compteurs
+  ajoutent du travail. Mieux vaut l'employer avec discernement, pas comme
+  substitut d'une bonne organisation des groupes.</li>
+</ul>
+<h3 id="le-groupe-all">Le groupe « All »<a class="headerlink" href="#le-groupe-all" title="Permanent link">¶</a></h3>
+<p>Le groupe <strong>All</strong> (« Tous ») n'existe pas comme tel dans la base de données :
+c'est un groupe <strong>contrôlé par le code</strong> avec l'identifiant réservé <code>0</code>. Selon
+le contexte il signifie <em>tous</em> les groupes ou <em>l'un quelconque</em> d'entre eux, et
+il sert à ne pas avoir à cocher les groupes un par un. C'est la pièce qui rend
+commode le fait de dire « cet utilisateur administre tout ».</p>
+<h3 id="supprimer-un-groupe-est-irreversible">Supprimer un groupe est irréversible<a class="headerlink" href="#supprimer-un-groupe-est-irreversible" title="Permanent link">¶</a></h3>
+<p>Ici il vaut mieux lire deux fois avant de cliquer. <strong>La suppression d'un groupe
+ne se défait pas.</strong> Et le pire : les agents qu'il contenait <strong>existent et
+fonctionnent toujours</strong>, mais ils cessent d'apparaître nulle part dans la
+console web. Ils restent orphelins.</p>
+<p>Pour les récupérer il faut les réassigner à un nouveau groupe depuis le CLI,
+avec une commande du style :</p>
+<div class="highlight"><pre><span></span><code>pandora_manage<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--update_agent<span class="w"> </span><span class="s2">"pandora.internals"</span><span class="w"> </span><span class="s2">"group_name"</span><span class="w"> </span><span class="s2">"New_group"</span><span class="w"> </span><span class="s2">"use_alias"</span>
+</code></pre></div>
+<p>Le groupe de destination <strong>ne doit comporter ni espaces ni symboles</strong>. Avant de
+supprimer un groupe, regardez combien d'agents il contient.</p>
+<h3 id="importer-des-groupes-depuis-un-csv">Importer des groupes depuis un CSV<a class="headerlink" href="#importer-des-groupes-depuis-un-csv" title="Permanent link">¶</a></h3>
+<p>S'il faut créer beaucoup de groupes d'un coup, on peut les importer depuis un
+fichier dans <strong>Gestion → Outils d'administration → Gestionnaire d'extensions →
+CSV import group</strong>. Le fichier porte les champs dans cet ordre et séparés par le
+caractère que vous choisissez (la virgule par défaut) :</p>
+<div class="highlight"><pre><span></span><code>Nom du groupe, icône, id du parent, propagation (1 ou 0)
+</code></pre></div>
+<p>On choisit le fichier avec <strong>Sélectionner un fichier</strong>, on règle le
+<strong>Séparateur</strong> et on clique sur <strong>Aller</strong>.</p>
+<h3 id="recursion-de-groupes-dans-les-vues">Récursion de groupes dans les vues<a class="headerlink" href="#recursion-de-groupes-dans-les-vues" title="Permanent link">¶</a></h3>
+<p><strong>Propager l'ACL</strong> et la <strong>récursion de groupes</strong> se ressemblent et ne sont pas
+la même chose. Propager l'ACL décide si les permissions descendent par l'arbre
+des groupes. La récursion est autre chose : c'est une case qui apparaît dans les
+filtres de beaucoup de vues (événements, rapports, politiques…) et qui fait que,
+en choisissant un groupe, la vue inclut aussi ses <strong>sous-groupes</strong>.</p>
+<p>Elle est commode quand vous filtrez par un groupe parent et voulez voir tout ce
+qui en dépend, mais elle n'est pas gratuite : la console elle-même prévient
+qu'elle peut affecter les performances. Activez-la quand vous en avez besoin,
+pas par habitude.</p>
+<h2 id="utilisateurs">Utilisateurs<a class="headerlink" href="#utilisateurs" title="Permanent link">¶</a></h2>
+<p>Les utilisateurs se gèrent dans <strong>Gestion → Profils → Gérer les utilisateurs</strong>.
+À la création ou à la modification d'un utilisateur, voici les champs qu'il vaut
+la peine de connaître :</p>
+<ul>
+<li><strong>Utilisateur administrateur.</strong> Un <em>superadmin</em> n'est pas régi par l'ACL
+  interne : il a accès à tout. L'utilisateur standard, lui, est régi par les
+  permissions qui lui sont assignées.</li>
+<li><strong>Login Error.</strong> S'il est coché, l'utilisateur ne peut entrer que par l'API,
+  pas de façon interactive par la console web.</li>
+<li><strong>Local user.</strong> Force l'authentification contre la base de données propre à
+  Pandora FMS. Il existe d'autres méthodes d'authentification (voir la Partie
+  04 · Authentification externe).</li>
+<li><strong>Session timeout based on.</strong> Activé par défaut. Ferme la session s'il n'y a
+  pas d'activité pendant le temps configuré.</li>
+<li><strong>Session timeout (mins).</strong> La valeur par défaut est <code>0</code> ; dans ce cas c'est la
+  valeur de la configuration générale d'authentification qui s'applique. Pour que
+  la session n'expire jamais on met <code>-1</code>. Attention : un écran ouvert avec
+  auto-rafraîchissement ne compte pas comme inactivité.</li>
+<li><strong>Language.</strong> La langue dans laquelle cet utilisateur verra la console. Par
+  défaut, celle du système.</li>
+<li><strong>Block size for pagination.</strong> Combien de lignes par page voit cet utilisateur.</li>
+<li><strong>Timezone.</strong> Le fuseau horaire avec lequel les données lui sont montrées.</li>
+<li><strong>Login allowed IP list.</strong> S'il est activé, il limite la connexion à une liste
+  d'adresses ou de plages séparées par des virgules. Le caractère générique <code>*</code>
+  autorise n'importe quelle adresse.</li>
+<li><strong>Homescreen.</strong> L'écran d'accueil de l'utilisateur à la connexion : par défaut,
+  une console visuelle, la liste d'événements, la vue de groupes, la vue
+  tactique, le détail des alertes ou un lien externe. Attention à ne pas lui
+  assigner comme accueil un tableau de bord d'un groupe qui n'est pas le sien :
+  il ne verra que les <em>dashboards</em> des groupes auxquels il appartient.</li>
+<li><strong>Profiles/Groups assigned to this user.</strong> Ici s'assignent les profils et les
+  groupes de l'utilisateur ; c'est ce qui lui donne réellement des permissions.</li>
+</ul>
+<p>Chaque utilisateur peut retoucher une partie de sa propre fiche dans <strong>Opération
+→ Espace de travail → Modifier mon utilisateur</strong>, mais <strong>pas</strong> ses permissions
+de groupe. Là se trouve aussi l'<strong>API Token</strong> pour s'authentifier par en-tête
+HTTP avec un <em>bearer token</em>.</p>
+<h3 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">¶</a></h3>
+<p>Pandora FMS dispose d'un système de notifications pour les utilisateurs, avec
+une gestion par groupes pour ne pas devenir fou à les administrer. Il se
+configure dans <strong>Gestion → Réglages → Configuration du système →
+Notifications</strong>, et il y a six catégories :</p>
+<ul>
+<li><strong>System status.</strong> Générées par le serveur Pandora FMS lui-même.</li>
+<li><strong>Message.</strong> Messages entre utilisateurs.</li>
+<li><strong>Pending task.</strong> Tâches en attente de fonctionnalités comme Discovery.</li>
+<li><strong>Advertisement.</strong> Avis et propositions de Pandora FMS.</li>
+<li><strong>Official communication.</strong> Communiqués officiels pour des affaires
+  extraordinaires.</li>
+<li><strong>Suggestions.</strong> Suggestions et conseils.</li>
+</ul>
+<p>L'interrupteur <strong>ENABLE USER CONFIGURATION</strong> décide, pour chaque catégorie, si
+les utilisateurs peuvent activer ou désactiver ces notifications dans
+<strong>Opération → Espace de travail → Configurer les notifications de
+l'utilisateur</strong>, aussi bien dans la console que par courriel.</p>
+<p>Deux règles qui expliquent presque toutes les surprises :</p>
+<ul>
+<li>Pour qu'elles arrivent par courriel, l'utilisateur doit avoir son adresse
+  configurée <strong>et</strong> le serveur doit savoir envoyer du courrier.</li>
+<li>Si un groupe entier est abonné à une catégorie, ses utilisateurs reçoivent ces
+  notifications de console et <strong>ne peuvent pas les désactiver</strong>, même si
+  l'interrupteur de configuration utilisateur est actif. L'appartenance au
+  groupe pèse plus que la préférence personnelle.</li>
+</ul>
+<p>Un <em>superadmin</em> finit dans <strong>toutes</strong> les catégories, qu'il le veuille ou non,
+<strong>quand il est créé ou modifié depuis la console web</strong>. Un <em>superadmin</em> créé ou
+modifié <strong>par CLI</strong> n'est pas ajouté au système de notifications : si quelqu'un
+« ne reçoit rien », commencez par regarder d'où le compte a été créé.</p>
+<h4 id="notifications-push-du-navigateur">Notifications push du navigateur<a class="headerlink" href="#notifications-push-du-navigateur" title="Permanent link">¶</a></h4>
+<p>En plus de celles de la console et du courriel, Pandora FMS peut lancer des
+<strong>notifications surgissantes vers le système d'exploitation</strong> par
+l'intermédiaire du navigateur avec lequel on a accédé à la console. Elles
+s'activent dans <strong>Gestion → Réglages → Configuration du système → Notifications
+→ Notifications push web</strong>.</p>
+<p>L'exigence qui fait échouer plus de la moitié des tentatives : <strong>il faut
+HTTPS</strong>. Si la console passe par HTTP, le navigateur lui-même rejette les
+notifications. Et même avec HTTPS, elles ne fonctionnent ni en mode navigation
+privée ni en mode invité de Chromium ou Chrome, ni si le profil du navigateur
+les a bloquées. Pandora FMS ne notifie que dans <strong>le profil de navigateur avec
+lequel on est entré</strong> dans la console, pas dans les autres.</p>
+<p>Quand on active l'interrupteur <strong>Activer les notifications push web</strong>, le
+navigateur demande à l'utilisateur s'il les autorise. Le bouton <strong>Envoyer une
+notification de test</strong> sert à vérifier que cela fonctionne, mais avec modération :
+le message arrive à <strong>toutes</strong> les souscriptions enregistrées, pas seulement à
+la vôtre. Chaque souscription stockée n'identifie pas son propriétaire.</p>
+<p>Si un utilisateur veut les retirer, il a plusieurs voies : nettoyer les données
+de navigation de ce profil, bloquer les notifications dans le profil, supprimer
+le profil (avec précaution, il emporte les autres sites) ou créer un profil
+nouveau et répondre <strong>Non</strong> quand la question est posée.</p>
+<h2 id="profils">Profils<a class="headerlink" href="#profils" title="Permanent link">¶</a></h2>
+<p>Les profils définissent ce qu'un utilisateur peut faire. Ils se gèrent dans
+<strong>Gestion → Profils → Gérer les profils</strong>. Cinq viennent d'usine et on peut en
+créer autant qu'il faut :</p>
+<table>
+<thead>
+<tr>
+<th>Profil</th>
+<th>De quoi il s'agit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Operator (Read)</strong></td>
+<td>Celui de la consultation seule : voir sans toucher</td>
+</tr>
+<tr>
+<td><strong>Operator (Write)</strong></td>
+<td>Celui de l'opération quotidienne : consultation et écriture</td>
+</tr>
+<tr>
+<td><strong>Chief Operator</strong></td>
+<td>Opération étendue</td>
+</tr>
+<tr>
+<td><strong>Group coordinator</strong></td>
+<td>Coordination de groupes, avec la gestion des groupes et des utilisateurs</td>
+</tr>
+<tr>
+<td><strong>Pandora Administrator</strong></td>
+<td>Administration complète de la plateforme</td>
+</tr>
+</tbody>
+</table>
+<p>Quel bit porte chacun, exactement, c'est le tableau ci-dessous : un profil n'est
+rien d'autre qu'une combinaison de ces bits.</p>
+<p>Un profil est une collection de <strong>bits d'accès</strong>. Voici ceux que le produit
+apporte et ce que chacun habilite :</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Ce qu'il permet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AR</strong></td>
+<td>Voir les données d'agent (toutes les vues), vue tactique, vue de groupes, voir les utilisateurs, console SNMP, <em>Tree view</em>, groupes d'extension et barre de recherche</td>
+</tr>
+<tr>
+<td><strong>AW</strong></td>
+<td>Vue de gestion d'agent, édition de l'agent et de son <code>.conf</code>, opérations en masse, création d'agent, duplication de configuration distante, voir et gérer les politiques, gérer les filtres</td>
+</tr>
+<tr>
+<td><strong>AD</strong></td>
+<td>Gérer les arrêts de service et désactiver un agent, un module ou une alerte</td>
+</tr>
+<tr>
+<td><strong>LW</strong></td>
+<td>Assigner des alertes déjà créées et gérer les alertes</td>
+</tr>
+<tr>
+<td><strong>LM</strong></td>
+<td>Définir et modifier des modèles et des actions d'alerte</td>
+</tr>
+<tr>
+<td><strong>LF</strong></td>
+<td>Forcer des alertes et forcer des vérifications de modules</td>
+</tr>
+<tr>
+<td><strong>UM</strong></td>
+<td>Gestion des utilisateurs</td>
+</tr>
+<tr>
+<td><strong>DM</strong></td>
+<td>Maintenance de la base de données</td>
+</tr>
+<tr>
+<td><strong>ER</strong></td>
+<td>Voir les événements</td>
+</tr>
+<tr>
+<td><strong>EW</strong></td>
+<td>Valider et commenter des événements, gérer les filtres et exécuter des réponses</td>
+</tr>
+<tr>
+<td><strong>EM</strong></td>
+<td>Supprimer des événements, changer de propriétaire et rouvrir des événements</td>
+</tr>
+<tr>
+<td><strong>RR</strong></td>
+<td>Voir les rapports et les graphiques, appliquer des modèles de rapport et voir les <em>Cronjobs</em></td>
+</tr>
+<tr>
+<td><strong>RW</strong></td>
+<td>Créer des consoles visuelles, des rapports et des graphiques combinés ; voir, éditer, exécuter et créer des <em>Cronjobs</em></td>
+</tr>
+<tr>
+<td><strong>RM</strong></td>
+<td>Créer des modèles de rapport ; voir, éditer, exécuter, créer et supprimer des <em>Cronjobs</em></td>
+</tr>
+<tr>
+<td><strong>MR</strong></td>
+<td>Voir les cartes réseau</td>
+</tr>
+<tr>
+<td><strong>MW</strong></td>
+<td>Éditer les cartes réseau et supprimer les siennes</td>
+</tr>
+<tr>
+<td><strong>MM</strong></td>
+<td>Supprimer n'importe quelle carte réseau</td>
+</tr>
+<tr>
+<td><strong>VR</strong></td>
+<td>Voir les consoles visuelles</td>
+</tr>
+<tr>
+<td><strong>VW</strong></td>
+<td>Éditer les consoles visuelles et supprimer les siennes ou n'importe laquelle</td>
+</tr>
+<tr>
+<td><strong>VM</strong></td>
+<td>Gérer les consoles visuelles</td>
+</tr>
+<tr>
+<td><strong>NR</strong></td>
+<td>Voir les données de NCM</td>
+</tr>
+<tr>
+<td><strong>NW</strong></td>
+<td>Exploiter NCM</td>
+</tr>
+<tr>
+<td><strong>NM</strong></td>
+<td>Administrer NCM</td>
+</tr>
+<tr>
+<td><strong>PM</strong></td>
+<td>Administration de Pandora : gérer les réponses, les colonnes d'événements, l'<em>update manager</em>, les modules d'inventaire, les modules, la console SNMP, les profils, les serveurs, l'audit, le <em>setup</em>, les extensions et toute sorte de <em>Cronjobs</em></td>
+</tr>
+<tr>
+<td><strong>GW</strong></td>
+<td>Gestion de groupes : un utilisateur non <em>superadmin</em> ne peut éditer que le groupe de son profil, et les enfants si le groupe a <strong>Propager l'ACL</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Il existe en plus des combinaisons qui activent des fonctions concrètes :
+<strong>EW + IW</strong> permet de créer une incidence depuis un événement, et <strong>LM + AR</strong> ou
+<strong>AW + LW</strong> permettent de valider des alertes.</p>
+<p>Un avertissement qui épargne des discussions : <strong>les <em>superadmin</em> sont exemptés
+de l'ACL</strong>, même s'ils ont le profil d'administrateur assigné. L'ACL ne lie que
+les autres.</p>
+<h2 id="assignation-des-permissions">Assignation des permissions<a class="headerlink" href="#assignation-des-permissions" title="Permanent link">¶</a></h2>
+<p>Les permissions se donnent depuis l'édition de l'utilisateur, en assignant
+<strong>groupes et profils</strong> dans la fiche. Et ici il vaut mieux avoir présentes les
+règles de cohabitation entre administrateurs et gestionnaires d'utilisateurs
+(permission <strong>UM</strong>), parce qu'elles sont à l'origine de la moitié des questions :</p>
+<ul>
+<li>Un gestionnaire avec <strong>UM</strong> dans le groupe <em>All</em> peut gérer n'importe quel
+  utilisateur, quel que soit son groupe.</li>
+<li>Un gestionnaire ne voit et n'édite que les profils et les groupes <strong>des
+  utilisateurs qu'il peut voir</strong>, c'est-à-dire des groupes qu'il gère avec UM.</li>
+<li>Un gestionnaire <strong>sans</strong> UM sur un groupe ne peut même pas voir quels
+  utilisateurs appartiennent à ce groupe.</li>
+<li>Un gestionnaire <strong>ne peut pas retirer l'UM</strong> à un autre utilisateur qui a les
+  mêmes permissions sur le même groupe. Seul un administrateur y touche.</li>
+<li>Un administrateur, lui, peut créer d'autres administrateurs et gérer n'importe
+  qui.</li>
+</ul>
+<p>Quand on va supprimer la dernière relation profil/groupe d'un utilisateur qui
+va en plus être supprimé, la console avertit avant. Cela vaut la peine de lire
+l'avertissement.</p>
+<h3 id="hierarchie">Hiérarchie<a class="headerlink" href="#hierarchie" title="Permanent link">¶</a></h3>
+<p>La propagation des permissions aux groupes enfants se contrôle avec <strong>Propager
+l'ACL</strong> dans le groupe parent. Si vous voulez la couper pour un utilisateur
+concret, à l'assignation de la permission on coche <strong>No hierarchy</strong> et l'ACL ne
+descend pas par l'arbre.</p>
+<p>La hiérarchie de groupes est indépendante des <strong>groupes secondaires</strong>, qui sont
+autre chose et sont expliqués dans « Groupes secondaires ».</p>
+<h2 id="tags-et-permissions-etendues-par-tag">Tags et permissions étendues par tag<a class="headerlink" href="#tags-et-permissions-etendues-par-tag" title="Permanent link">¶</a></h2>
+<p>Groupes et profils donnent des permissions « en bloc » : un groupe entier, un
+profil complet. Pour affiner davantage il y a les <strong>tags de modules</strong>. Avec eux
+on peut décider qu'un utilisateur voie certains modules et pas d'autres <strong>à
+l'intérieur du même groupe</strong>, ce que les permissions par groupe n'atteignent
+justement pas.</p>
+<h3 id="ce-quest-un-tag-et-ou-il-sapplique">Ce qu'est un tag et où il s'applique<a class="headerlink" href="#ce-quest-un-tag-et-ou-il-sapplique" title="Permanent link">¶</a></h3>
+<p>Un tag est une marque nommée qui se définit une fois et se réutilise. Ils se
+créent dans <strong>Gestion → Ressources → Tags de modules</strong>, et l'écran demande :</p>
+<ul>
+<li><strong>Nom.</strong> L'identifiant du tag. Il n'admet pas de virgules.</li>
+<li><strong>Description.</strong></li>
+<li><strong>URL.</strong> Un lien d'aide qui doit exister avant de le mettre.</li>
+<li><strong>Courriel</strong> et <strong>Téléphone.</strong> Données de contact utilisées ensuite dans les
+  alertes associées au tag (voir plus bas).</li>
+</ul>
+<p>Le listage des tags montre, pour chacun, combien de <strong>modules</strong> et combien de
+<strong>modules de politique</strong> le portent. Les gérer exige un profil d'administration ;
+dans un Command Center en <strong>mode centralisé</strong>, l'information est en lecture seule
+et s'administre depuis le Command Center lui-même.</p>
+<p>Et une nuance qui épargne des recherches inutiles : <strong>les tags s'assignent à des
+modules, pas à des agents ni à des groupes.</strong> On les met (et on les retire) dans
+la fiche du module, dans la section de catégorisation, champ <strong>Tags</strong>. Comme un
+module de politique peut aussi en porter, les tags voyagent avec la politique et
+s'appliquent à tous les agents qui la reçoivent. Il existe en plus une opération
+en masse pour taguer des modules et des modules de politique d'un coup. Un
+module peut porter plusieurs tags.</p>
+<h3 id="permissions-par-tag-acl">Permissions par tag (ACL)<a class="headerlink" href="#permissions-par-tag-acl" title="Permanent link">¶</a></h3>
+<p>Ici est la finesse. Dans l'assignation de profil et de groupe de l'utilisateur
+il y a un sélecteur de <strong>Tags</strong>, à côté du groupe et du profil. La règle est
+simple :</p>
+<ul>
+<li>Si on le laisse <strong>vide</strong>, l'utilisateur voit <strong>tous</strong> les modules de ce groupe.</li>
+<li>Si on remplit un ou plusieurs tags, l'utilisateur ne voit <strong>que les modules
+  qui portent ces tags</strong> à l'intérieur de ce groupe.</li>
+</ul>
+<p>La restriction est <strong>par combinaison de profil, de groupe et de tags</strong> : le même
+utilisateur peut voir certains modules dans un groupe et d'autres différents
+dans un autre. Les tags <strong>complètent</strong> l'accès par groupes, ils ne le remplacent
+pas : le groupe et le profil restent nécessaires.</p>
+<p>Deux avertissements qui valent leur pesant d'or :</p>
+<ul>
+<li><strong>Un profil sans tags ouvre tout.</strong> Si l'utilisateur a plusieurs profils sur
+  un même groupe et que <strong>l'un quelconque</strong> d'entre eux ne restreint pas par
+  tags, l'utilisateur voit tous les modules. La restriction la plus permissive
+  gagne.</li>
+<li><strong>Les tags se propagent avec le groupe.</strong> Si le groupe a <strong>Propager l'ACL</strong>
+  activé, la restriction par tags descend aussi vers les groupes enfants.</li>
+</ul>
+<h3 id="limites-cout-et-visionneuse">Limites, coût et visionneuse<a class="headerlink" href="#limites-cout-et-visionneuse" title="Permanent link">¶</a></h3>
+<p>Le mode de sécurité basé sur les tags <strong>a un coût en performances</strong> : il oblige
+à croiser les modules avec les tags à chaque requête. Il est pensé pour donner
+accès à des <strong>portions réduites</strong> d'information, il ne convient donc pas de
+dépasser <strong>deux ou trois tags</strong> par combinaison d'utilisateur, de profil et de
+groupe. Pour segmenter sérieusement, le raisonnable, ce sont les groupes ; les
+tags sont le scalpel, pas la massue.</p>
+<p>Et une nuance qui évite les malentendus : dans certaines vues globales (vue
+tactique, vue de groupe, comptages de l'arbre) les totaux montrent <strong>tous</strong> les
+modules, pas seulement ceux que l'utilisateur voit par ses tags.</p>
+<p>Pour explorer la supervision par tag il y a la <strong>Visionneuse de tags</strong> (<em>Tag
+view</em>), disponible dans les installations Enterprise, dans <strong>Supervision →
+Vues</strong>.</p>
+<h3 id="tags-dans-les-alertes">Tags dans les alertes<a class="headerlink" href="#tags-dans-les-alertes" title="Permanent link">¶</a></h3>
+<p>Comme un tag garde un courriel et un téléphone, les alertes peuvent utiliser ces
+données du module qui le porte. Elles sont utiles quand l'avis doit arriver à
+qui s'occupe réellement de ce système, pas toujours à la même boîte :</p>
+<ul>
+<li><code>_moduletags_</code> et <code>_name_tag_</code> remplacent les <strong>noms</strong> des tags du module.</li>
+<li><code>_email_tag_</code> remplace les <strong>courriels</strong> des tags du module.</li>
+<li><code>_phone_tag_</code> remplace les <strong>téléphones</strong> des tags du module.</li>
+</ul>
+<p>C'est-à-dire : taguer un module n'affine pas seulement les permissions, cela
+peut aussi dire qui prévenir quand ce module se détraque.</p>
+<p>Pour le contrôle fin par pages et par menus, au-delà des groupes, des profils et
+des tags, il y a le système d'ACL avancée, traité dans la Partie 04 · Sécurité
+et visibilité avancées.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

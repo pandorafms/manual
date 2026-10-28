@@ -1,0 +1,5367 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/">
+      
+      
+        <link rel="prev" href="../6.3-command-center/">
+      
+      
+        <link rel="next" href="../6.5-base-de-datos-de-historico/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>4. Distribution et installation automatique des agents - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#distribution-et-installation-automatique-des-agents" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4. Distribution et installation automatique des agents
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction-ce-quil-resout-et-quand-lutiliser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction : ce qu'il résout et quand l'utiliser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comment-cela-fonctionne-de-la-cible-a-lendpoint-installe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment cela fonctionne : de la cible à l'EndPoint installé
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prérequis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-depot-dendpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le dépôt d'EndPoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identifiants-et-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifiants et permissions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trouver-des-cibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trouver des cibles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trouver des cibles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analyser-un-ou-plusieurs-reseaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyser un ou plusieurs réseaux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajouter-une-cible-a-la-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ajouter une cible à la main
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#charger-des-cibles-depuis-un-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Charger des cibles depuis un CSV
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployer-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Déployer l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suivi-cibles-etats-et-taches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suivi : cibles, états et tâches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-et-problemes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic et problèmes courants
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securite-et-bonnes-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sécurité et bonnes pratiques
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-avec-les-autres-formes-dinstallation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relation avec les autres formes d'installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction-ce-quil-resout-et-quand-lutiliser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction : ce qu'il résout et quand l'utiliser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comment-cela-fonctionne-de-la-cible-a-lendpoint-installe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment cela fonctionne : de la cible à l'EndPoint installé
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prérequis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-depot-dendpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le dépôt d'EndPoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identifiants-et-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifiants et permissions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trouver-des-cibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trouver des cibles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trouver des cibles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#analyser-un-ou-plusieurs-reseaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyser un ou plusieurs réseaux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajouter-une-cible-a-la-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ajouter une cible à la main
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#charger-des-cibles-depuis-un-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Charger des cibles depuis un CSV
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployer-lendpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Déployer l'EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suivi-cibles-etats-et-taches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suivi : cibles, états et tâches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-et-problemes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic et problèmes courants
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securite-et-bonnes-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sécurité et bonnes pratiques
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-avec-les-autres-formes-dinstallation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relation avec les autres formes d'installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="distribution-et-installation-automatique-des-agents">Distribution et installation automatique des agents<a class="headerlink" href="#distribution-et-installation-automatique-des-agents" title="Permanent link">¶</a></h1>
+<p>Installer un EndPoint sur une machine, c'est un moment de travail. L'installer
+sur cinquante, c'est une après-midi. L'installer sur deux cents, avec des
+systèmes d'exploitation différents et des mots de passe que personne n'a notés,
+fait partie de ces tâches que l'on repousse jusqu'à ce qu'il n'y ait plus d'autre
+choix. Le <strong>centre de déploiement</strong> de Pandora FMS existe pour cela : vous lui
+donnez une liste de cibles, un identifiant et une version de l'EndPoint, et il se
+charge de faire en sorte que la cible se connecte, télécharge l'installateur,
+l'exécute et laisse l'agent rapporter. Sans passer machine par machine et sans
+copier vingt fois le même installateur.</p>
+<p>L'idée se comprend mieux si on la dit à l'envers de ce qu'elle paraît. Le centre
+de déploiement <strong>ne pousse rien</strong> : il ne lance pas un installateur contre la
+machine depuis le serveur. Ce qu'il fait, c'est ordonner à la cible de
+télécharger l'installateur depuis un serveur Tentacle et de l'exécuter
+elle-même. C'est une différence mince dans l'explication et énorme dans la
+pratique, parce qu'elle conditionne tout le réseau : la cible doit pouvoir
+joindre le Tentacle, et non l'inverse. Tout le reste (l'analyse, l'identifiant,
+l'état de la cible) tourne autour de cette connexion.</p>
+<p>Dans le laboratoire de ce chapitre, on a déployé des EndPoints sur trois machines
+réelles : Rocky Linux 9, Ubuntu 22.04 et Windows 11. Les trois ont fini par
+rapporter à la console. Les détails, et quelques nuances, sont dans les pages qui
+suivent.</p>
+<h2 id="introduction-ce-quil-resout-et-quand-lutiliser">Introduction : ce qu'il résout et quand l'utiliser<a class="headerlink" href="#introduction-ce-quil-resout-et-quand-lutiliser" title="Permanent link">¶</a></h2>
+<p>Le centre de déploiement est l'écran depuis lequel on distribue des EndPoints à
+des machines déjà localisées ou localisables sur le réseau. Dans la console, il
+se trouve dans <strong>Gestion → Discovery → Host et appareils → Déploiement
+d'EndPoint</strong>, et la page s'intitule <strong>Centre de déploiement</strong>. Il réunit en un
+seul endroit les quatre pièces que l'on manipulait autrefois à la main :
+l'<strong>installateur</strong> (le dépôt d'EndPoints), l'<strong>identifiant</strong> avec lequel on
+accède à la machine, la <strong>liste de cibles</strong> et la <strong>tâche</strong> qui exécute le
+déploiement. Ce qui consistait à copier l'installateur et à entrer sur chaque
+machine devient une ligne par machine et un bouton.</p>
+<p>Il sert quand plusieurs machines remplissent trois conditions : on peut y entrer
+par SSH ou par WinRM, elles peuvent joindre un serveur Tentacle de Pandora FMS et
+elles partagent une version d'EndPoint que vous voulez laisser installée. C'est le
+cas typique d'un groupe de serveurs Linux, d'un ensemble de postes Windows ou d'un
+réseau d'agence avec un serveur Discovery proche. Il sert aussi à réinstaller un
+EndPoint resté à moitié fait, toujours avec les précautions décrites dans
+<a href="#deployer-lendpoint">Déployer l'EndPoint</a>.</p>
+<p>Il ne sert pas à tout. Si la machine n'a ni SSH ni WinRM, le centre ne peut pas y
+entrer et il faudra l'installer à la main ou avec l'installateur en ligne de
+<a href="../../parte-1/1.1-instalacion/">1.1 (Installation)</a>. Si le réseau empêche la cible
+de joindre le Tentacle, le déploiement échouera même si l'identifiant est
+correct : le problème ne sera pas l'authentification, il sera le retour. Et s'il
+n'y a qu'une machine, ou deux, le détour par la console peut être plus long que
+d'exécuter l'installateur une fois.</p>
+<p>Il ne faut pas non plus le confondre avec le reste des pièces qui l'entourent. Le
+centre <strong>installe l'EndPoint</strong>, il ne configure pas la supervision : les modules,
+les politiques et les alertes arrivent ensuite, par les voies de
+<a href="../../parte-2/2.1-monitorizacion-con-endpoints/">2.1 (Supervision avec EndPoints)</a>
+et
+<a href="../../parte-2/2.10-politicas-de-monitorizacion/">2.10 (Politiques de supervision)</a>.
+Et il ne remplace pas la découverte de réseaux de
+<a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/">2.4 (Découverte de réseaux avec Host et appareils)</a> :
+la découverte trouve des machines ; le centre de déploiement leur installe
+l'EndPoint quand vous savez déjà lesquelles c'est.</p>
+<h2 id="comment-cela-fonctionne-de-la-cible-a-lendpoint-installe">Comment cela fonctionne : de la cible à l'EndPoint installé<a class="headerlink" href="#comment-cela-fonctionne-de-la-cible-a-lendpoint-installe" title="Permanent link">¶</a></h2>
+<p>Le parcours compte six étapes et il vaut la peine de les garder en tête, parce
+que chacune laisse une trace différente quand quelque chose échoue.</p>
+<ol>
+<li><strong>La cible est enregistrée.</strong> La console conserve son adresse, la méthode
+   d'accès (SSH, WinRM ou Secure WinRM), le port, l'identifiant, la version
+   d'EndPoint que l'on veut installer, l'adresse et le port du Tentacle et un
+   dossier temporaire. La cible, elle, ne sait encore rien.</li>
+<li><strong>Une tâche de déploiement est créée.</strong> Quand vous appuyez sur le bouton de
+   déploiement, la console crée une tâche avec la liste des cibles
+   sélectionnées. La tâche reste activée et avec un intervalle manuel : elle ne
+   se répète pas seule à intervalles réguliers, elle s'exécute quand son tour
+   arrive.</li>
+<li><strong>C'est le serveur Discovery qui l'exécute.</strong> Le serveur de découverte prend
+   la tâche et, pour chaque cible, lance l'utilitaire de déploiement. Si le
+   serveur Discovery est distant, c'est lui qui doit joindre les cibles ; la
+   console ne fait qu'ordonner.</li>
+<li><strong>La connexion s'ouvre.</strong> L'utilitaire entre par SSH ou par WinRM avec
+   l'identifiant enregistré, vérifie qu'il peut exécuter une commande et, si
+   c'est le cas, poursuit.</li>
+<li><strong>La cible télécharge l'installateur.</strong> Voici le retournement : la cible ouvre
+   une connexion TCP vers le Tentacle, à l'adresse et au port configurés, et
+   demande le fichier par son nom. Le Tentacle le sert depuis le répertoire des
+   agents. C'est un téléchargement, pas un envoi.</li>
+<li><strong>Il s'installe et démarre.</strong> L'installateur place l'EndPoint à sa place,
+   configure l'adresse du serveur, active la configuration à distance et démarre
+   le service. À partir de là, l'EndPoint commence à rapporter comme n'importe
+   quel autre agent.</li>
+</ol>
+<pre class="mermaid"><code>flowchart LR
+    CONSOLA["Console web&lt;br/&gt;centre de déploiement"]
+    TAREA["Tâche de déploiement"]
+    DISCOVERY["Serveur Discovery"]
+    OBJETIVO["Cible&lt;br/&gt;Linux ou Windows"]
+    TENTACLE["Serveur Tentacle&lt;br/&gt;installateurs d'EndPoint"]
+    AGENTE["EndPoint installé"]
+
+    CONSOLA --&gt;|"crée la tâche avec les cibles"| TAREA
+    TAREA --&gt; DISCOVERY
+    DISCOVERY --&gt;|"SSH 22 ou WinRM 5985/5986"| OBJETIVO
+    OBJETIVO --&gt;|"demande l'installateur (pull)"| TENTACLE
+    TENTACLE --&gt;|"sert le fichier"| OBJETIVO
+    OBJETIVO --&gt;|"exécute l'installateur"| AGENTE
+    AGENTE --&gt;|"rapporte au serveur"| DISCOVERY</code></pre>
+<p>Le serveur Discovery traite les cibles <strong>une par une dans une même tâche</strong>. Il
+n'y a pas de déploiement parallèle qui répartisse la charge entre dix machines :
+il y a une file et une cible à la fois. Il n'y a pas non plus de nouvelles
+tentatives automatiques. Si une cible échoue, l'erreur est notée et l'on passe à
+la suivante ; réessayer est votre décision, avec le bouton qui force la tâche ou
+en en créant une autre. Le temps maximal par cible vient du dépôt : l'écran
+propose 500 secondes et le serveur coupe l'exécution quand il est épuisé. Une
+cible qui reste bloquée ne bloque pas la file pour toujours, mais elle peut
+mettre un bon moment à se libérer.</p>
+<p>Il y a une conséquence qu'il vaut mieux comprendre dès le début : <strong>« déployé »
+signifie que l'installateur a terminé, pas que l'EndPoint rapporte déjà</strong>. La
+marque de succès est posée quand l'utilitaire de déploiement se termine sans
+erreur ; le premier contact de l'agent peut arriver quelques secondes ou quelques
+minutes après. <a href="#suivi-cibles-etats-et-taches">Suivi : cibles, états et tâches</a>
+explique comment distinguer l'un de l'autre.</p>
+<h2 id="prerequis">Prérequis<a class="headerlink" href="#prerequis" title="Permanent link">¶</a></h2>
+<p>Avant d'ajouter la première cible, il faut préparer quatre choses : l'accès aux
+machines, le serveur Tentacle, l'identifiant et le dépôt. Si l'une manque, le
+déploiement ne commence pas ou échoue au pire moment.</p>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accès par SSH sous Linux</td>
+<td>Port <code>22</code> ouvert et authentification par mot de passe. L'utilitaire utilise le mot de passe de l'identifiant ; il n'admet pas de clé privée. L'utilisateur doit pouvoir exécuter l'installateur en root, car l'installateur Linux l'exige</td>
+</tr>
+<tr>
+<td>Accès par WinRM sous Windows</td>
+<td>WinRM ou Secure WinRM activé, PowerShell disponible et un utilisateur administrateur local. Ports par défaut <code>5985</code> (WinRM) et <code>5986</code> (Secure WinRM)</td>
+</tr>
+<tr>
+<td>Serveur Tentacle joignable</td>
+<td>La cible doit pouvoir ouvrir une connexion TCP au port <code>41121</code> du serveur Tentacle. C'est la cible qui lance la connexion, pas le serveur</td>
+</tr>
+<tr>
+<td>Filtres du Tentacle</td>
+<td>Le Tentacle doit servir les installateurs du dépôt. Les filtres <code>.agent_setup.tar.gz</code> et <code>.agent_setup.exe</code> sont nécessaires dans le répertoire <code>agent</code>, et le service doit être redémarré après leur modification</td>
+</tr>
+<tr>
+<td>Identifiant personnalisé</td>
+<td>Un identifiant de type <em>personnalisé</em> avec utilisateur et mot de passe, enregistré dans le gestionnaire d'identifiants. C'est son nom qui est conservé dans la cible</td>
+</tr>
+<tr>
+<td>Dépôt avec installateurs</td>
+<td>Au moins un installateur par système d'exploitation et par architecture, chargé dans le dépôt d'EndPoints et synchronisé avec le répertoire des agents du serveur</td>
+</tr>
+<tr>
+<td>Profil PM</td>
+<td>Le centre de déploiement et son entrée de menu exigent le profil <strong>PM</strong>. Le lien vers le gestionnaire d'identifiants exige en plus <strong>UM</strong></td>
+</tr>
+<tr>
+<td>Utilitaire de balayage réseau sur le serveur Discovery</td>
+<td>Uniquement pour l'analyse des réseaux. Sans lui, l'analyse ne peut pas découvrir d'hôtes</td>
+</tr>
+<tr>
+<td>Réseau de gestion</td>
+<td>Le serveur Discovery doit joindre les ports de déploiement des cibles, et les cibles le Tentacle. Ouvrir le 41121 sur le serveur vers la cible ne sert à rien : la connexion va dans l'autre sens</td>
+</tr>
+</tbody>
+</table>
+<p>Le détail de l'accès à Windows n'est pas un ornement : WinRM est désactivé par
+défaut dans beaucoup d'installations et, si le réseau est marqué comme public, le
+pare-feu bloque le port même quand le service est démarré. Le guide d'activation
+de WinRM reste le point de départ. Au laboratoire, le Windows 11 a eu besoin
+d'activer l'écouteur et d'ajouter une règle de pare-feu pour le réseau de
+gestion ; sans cela, le port apparaissait fermé depuis le serveur.</p>
+<p>Sur l'<strong>utilisateur Linux</strong> : l'installateur vérifie qu'il s'exécute en root et
+abandonne sinon. L'utilitaire n'utilise pas <code>sudo</code> et n'élève pas les privilèges
+de lui-même, l'identifiant doit donc être celui de root ou d'un compte qui
+possède déjà les privilèges de root dans la session. Si la machine a SSH mais
+n'autorise pas root par mot de passe, le centre de déploiement n'est pas la voie ;
+il faudra installer à la main ou changer la politique d'accès.</p>
+<p>Sur <strong>Secure WinRM</strong> : il utilise HTTPS et valide le certificat du serveur. Un
+certificat auto-signé ou expiré fera échouer la connexion ; pour essayer dans un
+laboratoire, il est souvent plus rapide de commencer par WinRM sur <code>5985</code> et de
+réserver Secure WinRM au moment où le certificat est en règle.</p>
+<div class="admonition warning">
+<p class="admonition-title">Le Tentacle n'est pas optionnel</p>
+<p>Le centre de déploiement ne transporte pas l'installateur dans la connexion
+SSH ou WinRM. La cible le télécharge depuis le Tentacle. Si la cible ne
+joint pas le Tentacle, le déploiement échoue avec une erreur de connexion
+même si l'identifiant est correct. C'est l'échec le plus fréquent lors du
+premier essai sur un réseau segmenté.</p>
+</div>
+<h2 id="le-depot-dendpoints">Le dépôt d'EndPoints<a class="headerlink" href="#le-depot-dendpoints" title="Permanent link">¶</a></h2>
+<p>Le dépôt est le garde-manger du déploiement. Il se trouve dans <strong>Configuration →
+Dépôt d'EndPoints</strong> et conserve les installateurs qui sont ensuite servis aux
+cibles. Chaque entrée est une combinaison de système d'exploitation,
+d'architecture et de version ; il n'y a pas d'entrée « générique » qui vaille
+pour tout.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Ce que l'on y met</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OS</td>
+<td><code>Linux</code> ou <code>Windows</code>. Ce sont les deux systèmes que le centre de déploiement sait installer</td>
+</tr>
+<tr>
+<td>Architecture</td>
+<td><code>x64</code> ou <code>x86</code></td>
+</tr>
+<tr>
+<td>Version</td>
+<td>La version de l'EndPoint, jusqu'à 10 caractères. C'est celle qui s'affiche dans la liste des cibles et celle qui est conservée comme version installée</td>
+</tr>
+<tr>
+<td>Transfer timeout</td>
+<td>Temps maximal, en secondes, accordé au téléchargement et à l'installation de cet installateur. L'écran propose 500</td>
+</tr>
+<tr>
+<td>Installation file</td>
+<td>Le paquet de l'EndPoint. Pour Linux, un <code>.tar.gz</code> ; pour Windows, un <code>.exe</code></td>
+</tr>
+</tbody>
+</table>
+<p>À l'enregistrement, la console copie le fichier dans son magasin et le
+synchronise avec le répertoire des agents du serveur, d'où l'installateur est
+servi. Il ne faut pas renommer les fichiers à la main ni les déplacer.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/despliegue-repositorio.png" data-desc-position="bottom"><img alt="Liste du dépôt d'EndPoints avec une version Linux et une version Windows" src="../../../assets/img/parte-06/despliegue-repositorio.png"></a></p>
+<p>L'ajout comporte trois décisions qui comptent :</p>
+<ul>
+<li><strong>La version ne peut pas se répéter pour le même système et la même
+  architecture.</strong> Si une entrée existe déjà avec cette combinaison, la console
+  refuse l'ajout. Pour la changer, on modifie l'entrée existante (seulement le
+  délai de transfert) ou on la supprime et on la recharge.</li>
+<li><strong>Le type de fichier est validé au chargement.</strong> La console n'accepte qu'un
+  <code>.tar.gz</code> pour Linux et un <code>.exe</code> pour Windows ; si l'on charge autre chose,
+  elle répond par une erreur de fichier d'installation non valide.</li>
+<li><strong>La synchronisation fait partie de l'ajout.</strong> Il ne suffit pas que le fichier
+  soit dans le dépôt : il doit être dans le répertoire des agents du Tentacle.
+  L'ajout le fait pour vous ; l'icône d'actualisation de la liste resynchronise
+  une entrée existante si la copie du répertoire des agents s'est perdue ou a été
+  mise à jour.</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/despliegue-repositorio-alta.png" data-desc-position="bottom"><img alt="Ajout d'une nouvelle version de l'EndPoint au dépôt" src="../../../assets/img/parte-06/despliegue-repositorio-alta.png"></a></p>
+<p>Les installateurs s'obtiennent aux mêmes sources que celles décrites dans
+<a href="../../parte-1/1.1-instalacion/">1.1 (Installation)</a>. L'installateur en ligne et le
+dépôt ne sont pas la même chose : le premier télécharge le paquet depuis les
+serveurs de Pandora FMS et l'installe sur la machine ; le second conserve le
+paquet que vous chargez pour que le centre de déploiement le serve par Tentacle.
+Si vous mettez à jour la version des EndPoints, chargez le nouvel installateur
+dans le dépôt avant de changer la version souhaitée des cibles.</p>
+<h2 id="identifiants-et-permissions">Identifiants et permissions<a class="headerlink" href="#identifiants-et-permissions" title="Permanent link">¶</a></h2>
+<p>Le centre de déploiement ne conserve ni utilisateurs ni mots de passe dans la
+cible. Il conserve le <strong>nom</strong> d'un identifiant du gestionnaire et le récupère au
+moment de déployer. Cette indirection a un avantage évident : quand le mot de
+passe des machines change, il est mis à jour une fois dans le gestionnaire et les
+cibles utilisent le nouveau au déploiement suivant. Elle a aussi une conséquence :
+si vous supprimez l'identifiant, les cibles qui l'utilisaient ne peuvent plus se
+déployer et il faut leur en attribuer un autre.</p>
+<p>L'identifiant dont ce chapitre a besoin est de type <strong>personnalisé</strong> : un nom, un
+utilisateur et un mot de passe. Ce nom est celui que l'on choisit dans le
+formulaire d'ajout de cible et celui que l'on écrit dans le CSV ; l'utilisateur et
+le mot de passe ne sont pas copiés dans la cible. Dans le gestionnaire,
+l'identifiant appartient à un groupe, et ce groupe décide qui le voit. Le détail
+des types, des groupes et du chiffrement est dans
+<a href="../../parte-2/2.2-gestor-de-credenciales/">2.2 (Gestionnaire d'identifiants)</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Chiffrement des identifiants</p>
+<p>Si le chiffrement n'est pas activé, l'écran du gestionnaire avertit que les
+identifiants sont conservés sans chiffrement. Un magasin de mots de passe en
+clair est un cadeau pour qui obtient une copie des données.</p>
+</div>
+<p>Quant aux permissions, le centre de déploiement est un écran d'administration :
+l'entrée de menu et la page exigent le profil <strong>PM</strong>. Le lien vers le gestionnaire
+d'identifiants n'apparaît qu'avec <strong>UM</strong> ; si vous ne l'avez pas, vous pouvez
+utiliser un identifiant déjà créé, mais pas en créer un nouveau depuis là. Le
+groupe choisi à la création de la tâche de déploiement décide de sa visibilité
+dans la liste des tâches, comme pour toute autre tâche de Discovery.</p>
+<h2 id="trouver-des-cibles">Trouver des cibles<a class="headerlink" href="#trouver-des-cibles" title="Permanent link">¶</a></h2>
+<p>Il y a trois façons de remplir la liste de cibles : analyser un réseau, en
+ajouter une à la main ou charger un CSV. Les trois aboutissent au même endroit,
+la liste de cibles, et les trois conservent la même information. La différence est
+dans le travail que vous voulez faire et celui que vous voulez laisser à la
+console.</p>
+<p>Avant de déployer, il vaut mieux savoir quelles cibles sont <strong>valides</strong>. La
+console ne propose dans <strong>Cibles disponibles</strong> que celles qui ont un identifiant
+et une version d'EndPoint attribués. Une cible sans identifiant, ou avec une
+version qui n'existe plus dans le dépôt, n'apparaît pas. Ce n'est pas un caprice :
+sans ces deux pièces, le déploiement ne peut pas commencer.</p>
+<h3 id="analyser-un-ou-plusieurs-reseaux">Analyser un ou plusieurs réseaux<a class="headerlink" href="#analyser-un-ou-plusieurs-reseaux" title="Permanent link">¶</a></h3>
+<p>L'analyse est la voie commode quand vous ne savez pas exactement ce qu'il y a sur
+le réseau. On lui donne un ou plusieurs réseaux avec leur masque, un serveur
+Discovery, une version souhaitée et un ou plusieurs identifiants, et elle fait le
+sale travail : elle lance un balayage du réseau, garde les hôtes vivants et, pour
+chacun de ceux qui ne sont pas déjà une cible, essaie de se connecter.</p>
+<p>L'essai de connexion parcourt trois méthodes dans cet ordre : <strong>SSH sur le 22</strong>,
+<strong>WinRM sur le 5985</strong> et <strong>Secure WinRM sur le 5986</strong>. Pour chaque méthode, il
+essaie tous les identifiants sélectionnés. La première combinaison qui réussit à
+exécuter une commande est celle qui est conservée : la cible est enregistrée avec
+cette méthode, ce port et le dossier temporaire correspondant. Si aucune ne
+fonctionne, l'hôte est écarté et l'on passe au suivant.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/despliegue-escanear-red.png" data-desc-position="bottom"><img alt="Formulaire d'analyse de cibles avec un réseau, une version et deux identifiants" src="../../../assets/img/parte-06/despliegue-escanear-red.png"></a></p>
+<p>Trois détails évitent des ennuis :</p>
+<ul>
+<li><strong>L'analyse ne déploie pas.</strong> Elle ne fait qu'ajouter des cibles à la liste.
+  Quand elle se termine, il faut encore les sélectionner et lancer le
+  déploiement. La tâche d'analyse apparaît dans la liste des tâches avec sa
+  progression et son résumé des hôtes vivants et connectés.</li>
+<li><strong>L'analyse ne touche pas aux cibles existantes.</strong> Si un hôte est déjà dans la
+  liste, elle le saute. Cela évite les doublons, mais cela signifie aussi qu'une
+  cible avec un mauvais identifiant ne se corrige pas toute seule : il faut la
+  modifier ou la supprimer et relancer l'analyse.</li>
+<li><strong>La première méthode qui fonctionne commande.</strong> Un Windows avec OpenSSH
+  activé peut accepter SSH et rester avec la méthode SSH ; le déploiement
+  utilisera alors la procédure Linux, qui ne convient pas à une machine Windows.
+  Si les machines mélangent les systèmes, vérifiez la méthode choisie par
+  l'analyse avant de déployer.</li>
+</ul>
+<p>L'analyse peut prendre du temps. Le balayage parcourt le réseau et, pour chaque
+hôte vivant, essaie trois méthodes par identifiant ; sur un grand réseau avec
+plusieurs identifiants, la tâche peut passer des minutes à travailler. La
+progression se voit dans la liste des tâches, et le résumé final indique combien
+d'hôtes ont été trouvés et combien ont accepté la connexion.</p>
+<h3 id="ajouter-une-cible-a-la-main">Ajouter une cible à la main<a class="headerlink" href="#ajouter-une-cible-a-la-main" title="Permanent link">¶</a></h3>
+<p>L'ajout manuel sert quand vous connaissez déjà l'adresse, la méthode et
+l'identifiant. Il est plus rapide qu'une analyse et plus précis : il n'y a pas
+d'interprétation qui vaille.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Ce qu'il signifie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP de la cible</td>
+<td>Adresse de la machine qui va recevoir l'EndPoint</td>
+</tr>
+<tr>
+<td>Méthode de déploiement</td>
+<td><code>SSH</code>, <code>WinRM</code> ou <code>Secure WinRM</code>. En changeant de méthode, la console ajuste le port et le dossier temporaire aux valeurs de la méthode</td>
+</tr>
+<tr>
+<td>Port de déploiement</td>
+<td>Port de connexion. <code>22</code> pour SSH, <code>5985</code> pour WinRM, <code>5986</code> pour Secure WinRM. Il peut être changé si le service écoute ailleurs</td>
+</tr>
+<tr>
+<td>Version d'EndPoint souhaitée</td>
+<td>Version du dépôt qui va être installée</td>
+</tr>
+<tr>
+<td>Identifiants</td>
+<td>Identifiant personnalisé avec lequel on accède à la machine</td>
+</tr>
+<tr>
+<td>IP du serveur Tentacle</td>
+<td>Adresse du serveur Tentacle que la cible utilisera pour télécharger l'installateur et, ensuite, pour rapporter</td>
+</tr>
+<tr>
+<td>Port du serveur Tentacle</td>
+<td>Port du Tentacle. Par défaut, <code>41121</code></td>
+</tr>
+<tr>
+<td>Dossier temporaire de déploiement</td>
+<td>Dossier temporaire où l'installateur est téléchargé et décompressé. <code>/tmp</code> sous Linux, <code>C:\Windows\Temp</code> sous Windows</td>
+</tr>
+</tbody>
+</table>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/despliegue-anadir-objetivo.png" data-desc-position="bottom"><img alt="Ajout manuel d'une cible Linux par SSH" src="../../../assets/img/parte-06/despliegue-anadir-objetivo.png"></a></p>
+<p>Le champ où l'on se trompe le plus est l'<strong>IP du serveur Tentacle</strong>. La console
+propose l'adresse qu'elle voit elle-même, qui dans une installation normale est
+celle du serveur, mais dans un environnement avec des conteneurs ou du NAT peut
+être une adresse interne que la cible n'atteint pas. Il faut mettre l'adresse que
+la cible peut atteindre, pas celle que la console croit avoir. Si la cible est sur
+un autre réseau, cette adresse sera celle de l'interface du serveur sur ce réseau,
+pas celle de <code>localhost</code>.</p>
+<p>L'autre décision est le <strong>dossier temporaire</strong>. Sous Linux, <code>/tmp</code> suffit
+souvent ; sous Windows, <code>C:\Windows\Temp</code> est la valeur par défaut. L'installateur
+y est téléchargé, exécuté puis supprimé ; si l'utilisateur n'a pas de droits
+d'écriture dans ce dossier, le déploiement échoue avant de commencer.</p>
+<p>La console valide le minimum : qu'il y ait une IP, un identifiant, une version et
+un protocole. Elle ne vérifie ni le format de l'IP ni la plage du port. Si l'IP
+existe déjà, elle répond par un avis de cible déjà définie et ne crée pas de
+doublon ; pour la changer, on modifie la cible existante.</p>
+<h3 id="charger-des-cibles-depuis-un-csv">Charger des cibles depuis un CSV<a class="headerlink" href="#charger-des-cibles-depuis-un-csv" title="Permanent link">¶</a></h3>
+<p>Le CSV est la voie pour enregistrer beaucoup de cibles d'un coup. Le format est
+celui qu'affiche l'écran lui-même :</p>
+<div class="highlight"><pre><span></span><code>IP; Protocol; Target port; Target EndPoint version; Credential identifier; Tentacle server ip; Tentacle server port; Temp folder
+</code></pre></div>
+<p>Le séparateur se choisit dans le formulaire : <code>,</code>, <code>;</code>, <code>:</code>, <code>.</code> ou <code>#</code> ; par
+défaut, <code>;</code>. La première ligne <strong>n'est pas un en-tête</strong> : toutes les lignes sont
+traitées comme des cibles. Si vous copiez l'en-tête ci-dessus dans le fichier, la
+console essaiera d'enregistrer une cible appelée « IP » et échouera.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/despliegue-cargar-csv.png" data-desc-position="bottom"><img alt="Chargement de cibles depuis un fichier CSV" src="../../../assets/img/parte-06/despliegue-cargar-csv.png"></a></p>
+<p>Deux valeurs s'écrivent autrement qu'elles n'en ont l'air :</p>
+<ul>
+<li><strong>Target EndPoint version</strong> est l'<strong>identifiant numérique</strong> du dépôt, pas la
+  chaîne de version. Si dans la liste des cibles vous voyez
+  <code>8.0.2608 - Linux - x64</code>, il faut mettre dans le CSV l'identifiant de cette
+  entrée (par exemple <code>1</code>), pas le texte. La console vérifie que cet identifiant
+  existe et refuse la ligne sinon.</li>
+<li><strong>Protocol</strong> accepte <code>SSH</code>, <code>HTTP</code> ou <code>HTTPS</code>. <code>HTTP</code> est WinRM et <code>HTTPS</code> est
+  Secure WinRM ; n'écrivez pas « WinRM » ni « Secure WinRM » dans le CSV, car la
+  console ne les reconnaît pas comme protocole.</li>
+</ul>
+<p>Si l'IP existe déjà, la ligne <strong>met à jour</strong> la cible ; sinon, elle l'<strong>insère</strong>.
+Les champs vides sont remplis avec la valeur précédente de la cible, si elle
+existe, ou avec les valeurs par défaut : le port de déploiement selon le
+protocole, l'adresse du serveur de console pour le Tentacle, <code>41121</code> pour le port
+et <code>/tmp</code> ou <code>C:\Windows\Temp</code> pour le dossier temporaire. Le rapport final
+indique combien de lignes ont été traitées, combien ont été ajoutées et quelles
+erreurs se sont produites ; les erreurs se comptent par ligne, le fichier entier
+n'est pas abandonné.</p>
+<div class="admonition tip">
+<p class="admonition-title">Un petit CSV d'abord</p>
+<p>Avant de charger deux cents cibles, chargez-en deux. Vérifiez que
+l'identifiant de version et le nom de l'identifiant sont corrects et que le
+séparateur est celui que vous avez choisi. Un CSV mal séparé n'échoue pas de
+manière évidente : il génère une liste d'erreurs par ligne qu'il faut lire une
+à une.</p>
+</div>
+<h2 id="deployer-lendpoint">Déployer l'EndPoint<a class="headerlink" href="#deployer-lendpoint" title="Permanent link">¶</a></h2>
+<p>Avec les cibles dans la liste, le déploiement est l'étape courte. On appuie sur
+<strong>Déployer l'EndPoint sur les cibles</strong>, on choisit un nom de tâche, un groupe, le
+serveur Discovery qui va l'exécuter et les cibles. La console ne propose que les
+cibles qui ont un identifiant et une version ; les autres n'apparaissent pas dans
+<strong>Cibles disponibles</strong>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/despliegue-desplegar.png" data-desc-position="bottom"><img alt="Sélection de cibles pour une tâche de déploiement" src="../../../assets/img/parte-06/despliegue-desplegar.png"></a></p>
+<p>À la validation, la console crée une tâche de déploiement activée, avec un
+intervalle manuel et le groupe choisi. La tâche s'exécute en arrière-plan. Il
+n'est pas nécessaire de rester devant l'écran : vous pouvez fermer et revenir plus
+tard ; la progression et le résultat restent dans la liste des tâches et dans la
+liste des cibles.</p>
+<p>Pour chaque cible, l'utilitaire fait ce qui suit :</p>
+<ol>
+<li>Vérifie que la cible n'est pas déjà en plein déploiement. Si c'est le cas, il
+   la saute.</li>
+<li>Marque la cible comme « en cours de déploiement ».</li>
+<li>Récupère l'identifiant.</li>
+<li>Localise l'installateur dans le dépôt.</li>
+<li>Prépare l'ordre de déploiement et le lance avec un temps maximal.</li>
+<li>Si l'utilitaire se termine bien, il marque la cible comme déployée, conserve
+   la version installée et efface l'erreur précédente. S'il échoue, il marque la
+   cible comme non déployée et conserve la sortie de l'erreur. Si le temps
+   s'épuise, il conserve « Deployment timeout after N seconds ».</li>
+</ol>
+<p>Sous Linux, l'utilitaire télécharge le <code>.tar.gz</code> dans le dossier temporaire, le
+décompresse, ajuste la configuration de l'EndPoint et exécute l'installateur en
+mode non assisté. Si la machine avait déjà un EndPoint, il <strong>conserve sa
+configuration existante</strong> et ne réécrit ni l'adresse du serveur ni le port. Sous
+Windows, il télécharge le <code>.exe</code>, arrête le service s'il existe déjà, l'exécute en
+mode silencieux avec l'adresse du serveur et la configuration à distance activée,
+ajoute le port si ce n'est pas celui par défaut et démarre le service. S'il
+existait déjà une configuration, elle est <strong>conservée</strong> : dans une réinstallation,
+l'adresse du serveur et l'état de la configuration à distance ne sont pas
+réécrits, et le port n'est ajouté que s'il diffère de celui par défaut. L'adresse
+et la configuration à distance indiquées au déploiement s'appliquent quand
+l'EndPoint s'installe pour la première fois.</p>
+<div class="admonition warning">
+<p class="admonition-title">Ce que signifie exactement « déployé »</p>
+<p>Le centre marque la cible comme déployée quand l'utilitaire de déploiement
+se termine, pas quand l'EndPoint a déjà contacté le serveur. Le premier
+contact de l'agent peut arriver quelques secondes ou quelques minutes après.
+Si l'agent n'apparaît pas dans la console, vérifiez la connectivité et le
+journal de l'EndPoint.</p>
+</div>
+<p>Dans la console, on voit l'alias de l'agent, qui par défaut est le nom de la
+machine. Si vous voulez changer la façon dont il apparaît, modifiez l'alias.</p>
+<p>Une réinstallation n'est pas un effacement suivi d'une installation propre. Sous
+Linux, si la machine avait déjà un EndPoint, l'installateur conserve sa
+configuration et n'applique pas la nouvelle adresse du Tentacle. C'est bien pour
+ne pas perdre de modules ni de réglages, mais c'est un piège si ce que vous
+vouliez était de déplacer l'agent vers un autre serveur : la cible continuera de
+pointer vers le serveur précédent. Pour changer de serveur, il faut modifier la
+configuration de l'EndPoint sur la machine ou le désinstaller avant de déployer à
+nouveau.</p>
+<h2 id="suivi-cibles-etats-et-taches">Suivi : cibles, états et tâches<a class="headerlink" href="#suivi-cibles-etats-et-taches" title="Permanent link">¶</a></h2>
+<p>La liste des cibles est le tableau de bord du déploiement. Chaque ligne est une
+machine, et chaque donnée raconte une partie de son histoire.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Ce qu'il montre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP de la cible</td>
+<td>Adresse de la cible. Si l'agent existe déjà dans la console, l'IP est un lien vers sa fiche</td>
+</tr>
+<tr>
+<td>Méthode de déploiement</td>
+<td>SSH, WinRM ou Secure WinRM</td>
+</tr>
+<tr>
+<td>IP du serveur Tentacle</td>
+<td>Adresse du Tentacle qu'utilise la cible</td>
+</tr>
+<tr>
+<td>Version d'EndPoint souhaitée</td>
+<td>Version que l'on veut installer</td>
+</tr>
+<tr>
+<td>Dernière version d'EndPoint déployée</td>
+<td>Dernière version installée correctement, avec son système et son architecture</td>
+</tr>
+<tr>
+<td>Dernier déploiement réussi</td>
+<td>Combien de temps s'est écoulé depuis le dernier déploiement réussi</td>
+</tr>
+<tr>
+<td>Dernière erreur de déploiement</td>
+<td>Sortie de la dernière erreur, s'il y en a eu une</td>
+</tr>
+<tr>
+<td>État</td>
+<td>Indicateur de couleur avec son infobulle</td>
+</tr>
+<tr>
+<td>Options</td>
+<td>Modifier ou supprimer la cible</td>
+</tr>
+</tbody>
+</table>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/despliegue-centro-objetivos.png" data-desc-position="bottom"><img alt="Liste de cibles avec trois EndPoints déployés correctement" src="../../../assets/img/parte-06/despliegue-centro-objetivos.png"></a></p>
+<p>L'état se lit par la couleur et par l'infobulle, pas par une étiquette écrite dans
+la cellule. Une cible <strong>non déployée</strong> apparaît en bleu ; une cible <strong>déployée
+correctement</strong>, en vert ; une cible <strong>en échec</strong>, en rouge. Pendant le
+déploiement, la rubrique du dernier déploiement affiche le texte « Déploiement en
+cours » et une icône de déverrouillage, et l'état reste en bleu. Cette icône est
+la sortie de secours : si le processus est resté bloqué, le déverrouillage libère
+la marque, laisse la trace du déverrouillage manuel dans l'erreur et permet de
+réessayer ; la ligne apparaît comme en échec jusqu'au déploiement réussi suivant.
+Cela n'annule pas le processus en cours sur le serveur ; cela libère seulement la
+marque.</p>
+<p>Les filtres du haut permettent de chercher par IP, méthode, version, IP du
+Tentacle et état. Ils sont utiles quand la liste grandit, mais il vaut mieux
+savoir que le filtre par état « Déployé » n'est pas fiable sur cet écran. Pour
+savoir si une cible précise va bien, l'état et la dernière erreur sont plus
+fiables que ce filtre.</p>
+<p>Les tâches vivent dans <strong>Discovery → Liste des tâches → Tâches Host et
+appareils</strong>. Chaque déploiement apparaît comme une tâche de déploiement, avec son
+état, sa progression et son heure de mise à jour.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-06/despliegue-tareas.png" data-desc-position="bottom"><img alt="Liste des tâches de Discovery avec trois déploiements terminés" src="../../../assets/img/parte-06/despliegue-tareas.png"></a></p>
+<p>Les opérations de la tâche sont celles habituelles de Discovery, avec des
+nuances :</p>
+<ul>
+<li><strong>Forcer</strong> réexécute la tâche avec les mêmes cibles. C'est la façon de
+  réessayer un déploiement qui a échoué sans créer de tâche nouvelle.</li>
+<li><strong>Modifier</strong> ouvre le formulaire de déploiement si la tâche a des cibles, ou
+  celui de l'analyse s'il s'agit d'une tâche de réseau. Il permet de changer le
+  nom, le groupe, le serveur et les cibles.</li>
+<li><strong>Activer/Désactiver</strong> active ou désactive la tâche. Une tâche désactivée ne
+  s'exécute pas, mais elle n'est pas supprimée.</li>
+<li><strong>Supprimer</strong> élimine la tâche. Cela ne désinstalle pas l'EndPoint des cibles et
+  ne supprime pas les cibles de la liste ; cela supprime seulement la tâche.</li>
+</ul>
+<p>Si vous avez utilisé l'analyse pour remplir la liste, la tâche d'analyse et celle
+de déploiement sont distinctes. La première ne fait qu'ajouter des cibles ; la
+seconde les installe. Ne mélangez pas leurs résultats : le fait que l'analyse se
+termine bien ne signifie pas que l'EndPoint est installé.</p>
+<h2 id="diagnostic-et-problemes-courants">Diagnostic et problèmes courants<a class="headerlink" href="#diagnostic-et-problemes-courants" title="Permanent link">¶</a></h2>
+<p>Quand un déploiement échoue, il y a trois endroits où regarder, dans cet ordre :
+la <strong>dernière erreur</strong> de la cible dans la liste, le <strong>journal du serveur</strong> et le
+<strong>journal de l'EndPoint</strong> sur la machine elle-même. La dernière erreur donne
+souvent l'indice ; le journal du serveur ajoute le contexte de la tâche ; celui
+de l'EndPoint dit si l'EndPoint a réussi à démarrer.</p>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Cause probable</th>
+<th>Que faire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>La cible n'apparaît pas dans <strong>Cibles disponibles</strong></td>
+<td>Il lui manque l'identifiant ou la version ; ou l'identifiant ou la version ont été supprimés</td>
+<td>Modifiez la cible et attribuez les deux ; vérifiez que la version est toujours dans le dépôt</td>
+</tr>
+<tr>
+<td>L'authentification échoue ou la connexion est refusée</td>
+<td>Utilisateur ou mot de passe incorrects, ou la méthode n'est pas celle qu'attend la machine</td>
+<td>Essayez l'identifiant à la main par SSH ou WinRM ; vérifiez la méthode et le port</td>
+</tr>
+<tr>
+<td><code>No route to host</code> en se connectant au Tentacle</td>
+<td>La cible n'atteint ni l'IP ni le port configurés</td>
+<td>Corrigez l'IP du Tentacle dans la cible ; vérifiez le port <code>41121</code> et le pare-feu</td>
+</tr>
+<tr>
+<td>Avis indiquant qu'il n'a pas été possible de se connecter au Tentacle</td>
+<td>Le Tentacle n'est pas démarré, n'écoute pas à cette adresse ou le filtre ne sert pas le fichier</td>
+<td>Vérifiez le service Tentacle, l'adresse et les filtres d'installateurs</td>
+</tr>
+<tr>
+<td>L'analyse trouve l'hôte mais ne l'ajoute pas</td>
+<td>Aucun identifiant ne fonctionne, ou l'hôte existe déjà avec un autre identifiant</td>
+<td>Essayez les identifiants à la main ; supprimez l'ancienne cible si vous voulez que l'analyse la recrée</td>
+</tr>
+<tr>
+<td>Le CSV refuse une ligne parce que la version n'existe pas</td>
+<td>On a mis la chaîne de version au lieu de l'identifiant du dépôt</td>
+<td>Utilisez l'identifiant numérique de l'entrée du dépôt</td>
+</tr>
+<tr>
+<td>Le CSV refuse une ligne parce que l'identifiant n'existe pas</td>
+<td>Le nom de l'identifiant ne correspond pas exactement</td>
+<td>Copiez le nom depuis le gestionnaire, sans espaces ni changement de casse</td>
+</tr>
+<tr>
+<td>La cible reste en « Déploiement en cours »</td>
+<td>Le processus a été interrompu ou le serveur n'a pas libéré la marque</td>
+<td>Utilisez le déverrouillage de la cible et relancez le déploiement</td>
+</tr>
+<tr>
+<td>L'installation épuise le temps maximal</td>
+<td>Le téléchargement ou l'installation ont pris plus que le délai de transfert</td>
+<td>Augmentez le délai dans le dépôt ou vérifiez le réseau et la taille de l'installateur</td>
+</tr>
+<tr>
+<td>L'agent n'apparaît pas dans la console</td>
+<td>L'EndPoint n'a pas démarré, n'atteint pas le serveur ou le nom a changé</td>
+<td>Vérifiez le service, l'adresse et le port du serveur configurés dans l'EndPoint, la connectivité et le journal de l'EndPoint</td>
+</tr>
+</tbody>
+</table>
+<p>L'erreur de Tentacle est la plus facile à diagnostiquer et la plus facile à
+éviter. Au laboratoire, une cible dont l'IP du Tentacle avait été changée pour une
+adresse inexistante a échoué avec une erreur de connexion (<code>No route to host</code>) et
+un avis indiquant qu'il n'avait pas été possible de se connecter au Tentacle.
+L'identifiant était correct et la connexion SSH fonctionnait ; ce qui ne
+fonctionnait pas était le retour vers le Tentacle. Si l'erreur mentionne le
+Tentacle, ne perdez pas de temps avec le mot de passe : le problème est dans le
+réseau ou dans l'adresse.</p>
+<p>Sous Linux, la cible a besoin d'un shell avec les utilitaires habituels de
+compression et de gestion de services ; sur un système minimal, le téléchargement
+peut échouer même si SSH fonctionne. Sous Windows, elle a besoin de PowerShell et
+du service de l'EndPoint ; l'installateur est un <code>.exe</code> silencieux.</p>
+<p>Pour le diagnostic général du serveur et de l'agent,
+<a href="../../parte-9/9.13-troubleshooting-con-pandora/">9.13 (Dépannage avec Pandora)</a>
+rassemble les vérifications qui vont au-delà de ce chapitre.</p>
+<h2 id="securite-et-bonnes-pratiques">Sécurité et bonnes pratiques<a class="headerlink" href="#securite-et-bonnes-pratiques" title="Permanent link">¶</a></h2>
+<p>Le centre de déploiement déplace des identifiants, installe des logiciels et
+démarre des services. Ce n'est pas un écran à laisser ouvert à n'importe qui, et
+le réseau sur lequel il s'utilise devrait être traité comme un réseau
+d'administration.</p>
+<p>Du côté des connexions, il vaut mieux savoir ce que le centre de déploiement fait
+et ce qu'il ne fait pas :</p>
+<ul>
+<li><strong>SSH</strong> accepte la clé d'hôte qu'il trouve et ne la vérifie pas contre une liste
+  de confiance. Il utilise l'authentification par mot de passe, pas par clé
+  privée. Sur un réseau de gestion maîtrisé, c'est acceptable ; sur un réseau
+  ouvert, c'est un risque d'interception.</li>
+<li><strong>WinRM</strong> utilise NTLM. <strong>Secure WinRM</strong> ajoute TLS et valide le certificat du
+  serveur ; si le certificat n'est pas de confiance, la connexion échoue. Pour la
+  production, Secure WinRM avec un certificat en règle est l'option raisonnable.</li>
+<li><strong>Tentacle</strong> sert les installateurs sans mot de passe ni chiffrement par
+  défaut. Le trafic circule en clair. Si le réseau n'est pas de confiance,
+  configurez les options de sécurité de Tentacle décrites dans
+  <a href="../../parte-9/9.4-referencia-completa-de-tentacle/">9.4 (Référence complète de Tentacle)</a>.</li>
+<li><strong>Les identifiants</strong> sont conservés chiffrés si le chiffrement est activé ;
+  sinon, ils sont conservés en clair et l'écran le signale.</li>
+<li><strong>Le dossier temporaire</strong> sert à télécharger et exécuter l'installateur.
+  L'utilitaire supprime l'installateur à la fin, mais tant que le déploiement
+  dure, le fichier est là. Sur une machine partagée, utilisez un dossier aux
+  permissions restreintes.</li>
+</ul>
+<p>Les bonnes pratiques sont celles de tout déploiement massif : essayer d'abord sur
+une cible pilote, ne pas lancer deux cents déploiements à la fois sans en avoir vu
+un fonctionner, garder dans le dépôt la version que vous voulez installer,
+vérifier la méthode choisie par l'analyse et ne pas utiliser le même identifiant
+root pour toutes les machines si vous pouvez l'éviter. Le centre de déploiement ne
+vous impose rien de tout cela ; il vous le facilite seulement si vous le faites.</p>
+<h2 id="relation-avec-les-autres-formes-dinstallation">Relation avec les autres formes d'installation<a class="headerlink" href="#relation-avec-les-autres-formes-dinstallation" title="Permanent link">¶</a></h2>
+<p>Le centre de déploiement est une pièce de plus du puzzle. Le choix dépend du
+nombre de machines, de leur accès à internet et du fait qu'elles soient déjà
+localisées.</p>
+<table>
+<thead>
+<tr>
+<th>Voie</th>
+<th>Quand l'utiliser</th>
+<th>Où elle est expliquée</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Installateur en ligne</td>
+<td>Une ou peu de machines avec accès à internet et une IP de serveur connue</td>
+<td><a href="../../parte-1/1.1-instalacion/">1.1 (Installation)</a></td>
+</tr>
+<tr>
+<td>Installation manuelle</td>
+<td>Machines sans réseau de gestion, sans SSH/WinRM ou avec des exigences particulières</td>
+<td><a href="../../parte-1/1.1-instalacion/">1.1 (Installation)</a></td>
+</tr>
+<tr>
+<td>Centre de déploiement</td>
+<td>Plusieurs machines accessibles par SSH/WinRM et un Tentacle commun</td>
+<td>Ce chapitre</td>
+</tr>
+<tr>
+<td>Auto-approvisionnement</td>
+<td>Machines qui s'enregistrent seules avec une configuration prédéfinie</td>
+<td><a href="../6.6-mecanismos-de-autoprovision/">6.6 (Mécanismes d'auto-approvisionnement)</a></td>
+</tr>
+<tr>
+<td>Découverte avec politiques</td>
+<td>Machines déjà supervisées auxquelles on applique une configuration de façon massive</td>
+<td><a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/">2.3 (Supervision et découverte automatique avec Discovery)</a> et <a href="../../parte-2/2.10-politicas-de-monitorizacion/">2.10 (Politiques de supervision)</a></td>
+</tr>
+</tbody>
+</table>
+<p>Le centre de déploiement laisse l'EndPoint installé. Qu'il rapporte, avec quels
+modules et quelles alertes, est une autre conversation : elle commence dans
+<a href="../../parte-2/2.1-monitorizacion-con-endpoints/">2.1 (Supervision avec EndPoints)</a>.
+Installer l'agent est le début, pas la fin.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

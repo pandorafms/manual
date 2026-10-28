@@ -1,0 +1,5907 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-9/9.3-referencia-completa-de-configuracion-del-servidor/">
+      
+      
+        <link rel="prev" href="../9.2-referencia-completa-de-configuracion-de-la-consola/">
+      
+      
+        <link rel="next" href="../9.4-referencia-completa-de-tentacle/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>3. Référence complète de configuration du serveur - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reference-complete-de-configuration-du-serveur" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3. Référence complète de configuration du serveur
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chemins-identite-et-connexion-a-la-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chemins, identité et connexion à la base de données
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-activation-des-serveurs-et-nombre-de-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Activation des serveurs et nombre de threads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-reseau-snmp-et-wmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Réseau, SNMP et WMI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-serveur-de-donnees-et-traitement-des-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Serveur de données et traitement des XML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-configuration-distante-tentacle-et-synchronisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Configuration distante, Tentacle et synchronisation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-alertes-et-evenements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Alertes et événements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-journaux-et-audit-du-serveur-lui-meme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Journaux et audit du serveur lui-même
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-performances-et-reglage-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Performances et réglage général
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-haute-disponibilite-et-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Haute disponibilité et cluster
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-securite-et-chiffrement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Sécurité et chiffrement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-courrier-sortant-alertes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Courrier sortant (alertes)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-blocs-de-serveurs-supplementaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Blocs de serveurs supplémentaires
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-command-center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Command Center
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-autres-chemins-et-utilitaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Autres chemins et utilitaires
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-chemins-identite-et-connexion-a-la-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Chemins, identité et connexion à la base de données
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-activation-des-serveurs-et-nombre-de-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Activation des serveurs et nombre de threads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-reseau-snmp-et-wmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Réseau, SNMP et WMI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-serveur-de-donnees-et-traitement-des-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Serveur de données et traitement des XML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-configuration-distante-tentacle-et-synchronisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Configuration distante, Tentacle et synchronisation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-alertes-et-evenements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Alertes et événements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-journaux-et-audit-du-serveur-lui-meme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Journaux et audit du serveur lui-même
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-performances-et-reglage-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Performances et réglage général
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-haute-disponibilite-et-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Haute disponibilité et cluster
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-securite-et-chiffrement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Sécurité et chiffrement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-courrier-sortant-alertes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Courrier sortant (alertes)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-blocs-de-serveurs-supplementaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Blocs de serveurs supplémentaires
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-command-center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Command Center
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-autres-chemins-et-utilitaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Autres chemins et utilitaires
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="reference-complete-de-configuration-du-serveur">Référence complète de configuration du serveur<a class="headerlink" href="#reference-complete-de-configuration-du-serveur" title="Permanent link">¶</a></h1>
+<blockquote>
+<p>Référence technique brute de <code>pandora_server.conf</code> : tous les jetons que
+reconnaît le serveur, avec leur valeur par défaut réelle. Elle se consulte,
+elle ne se lit pas d'un bout à l'autre ; tout autre chapitre renvoie ici
+quand il doit se référer à un paramètre du serveur.</p>
+</blockquote>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
+<p><code>pandora_server.conf</code> est l'unique fichier de configuration du serveur
+Pandora FMS. Son chemin est configurable à l'installation ; par défaut,
+<code>/etc/pandora/pandora_server.conf</code>. Le format est celui de la maison : un jeton
+par ligne, la valeur après un espace, et <code>#</code> pour commenter une ligne entière ou
+pour laisser un jeton d'exemple désactivé.</p>
+<p>Une modification du fichier ne s'applique pas à chaud : il faut redémarrer le
+service.</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>pandora_server
+</code></pre></div>
+<p>L'exception est la configuration distante : avec <code>remote_config 1</code> (voir
+« Configuration distante, Tentacle et synchronisation », plus bas), le fichier
+entier peut être modifié depuis la console web. Le serveur vérifie
+régulièrement s'il y a des changements ; quand il en trouve, il génère un
+événement de redémarrage, recharge la configuration et redémarre de lui-même.</p>
+<p>Les jetons propres aux serveurs satellite (<code>pandora_satellite.conf</code>) ne
+figurent pas dans cette référence : ils ont leur propre chapitre,
+<a href="../../parte-6/6.2-servidores-satelite/">6.2 · Serveurs satellite</a>, qui renvoie
+ici pour ce qu'ils partagent avec le serveur principal.</p>
+<p>La « valeur par défaut » de chaque table est celle que le serveur applique
+lui-même quand le jeton n'apparaît pas dans le fichier. Le modèle d'exemple
+fourni avec le paquet (<code>pandora_server.conf.new</code>) ne coïncide pas toujours avec
+cette valeur : quand il en diffère de façon significative, la table l'indique
+explicitement, jamais comme s'il s'agissait de « la » valeur par défaut.</p>
+<h2 id="1-chemins-identite-et-connexion-a-la-base-de-donnees">1. Chemins, identité et connexion à la base de données<a class="headerlink" href="#1-chemins-identite-et-connexion-a-la-base-de-donnees" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+<th>Remarques</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>incomingdir</code></td>
+<td>Répertoire où arrivent les paquets de données des EndPoints.</td>
+<td><code>/var/spool/pandora/data_in</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>log_file</code></td>
+<td>Journal principal du serveur.</td>
+<td><code>/var/log/pandora_server.log</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>errorlog_file</code></td>
+<td>Journal auxiliaire des erreurs en mode démon.</td>
+<td><code>/var/log/pandora_server.error</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>snmp_logfile</code></td>
+<td>Journal de la console SNMP, généré par <code>snmptrapd</code>.</td>
+<td><code>/var/log/pandora_snmptrap.log</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>max_log_size</code></td>
+<td>Taille maximale du journal avant rotation vers <code>.log.0</code>.</td>
+<td><code>1048576</code> (1 Mo)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>max_log_generation</code></td>
+<td>Nombre de générations de journal tourné conservées (1-9).</td>
+<td><code>1</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>daemon</code></td>
+<td>Exécute le serveur en arrière-plan.</td>
+<td><code>0</code></td>
+<td>S'active aussi en ligne de commande avec <code>-D</code></td>
+</tr>
+<tr>
+<td><code>servername</code></td>
+<td>Nom de ce serveur.</td>
+<td><em>hostname</em> de la machine</td>
+<td>Il convient de le fixer si le hostname peut changer</td>
+</tr>
+<tr>
+<td><code>user</code> / <code>group</code></td>
+<td>Utilisateur/groupe propriétaire des fichiers générés par le serveur.</td>
+<td><code>pandora</code> / <code>apache</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>umask</code></td>
+<td>Masque appliqué à la création de fichiers.</td>
+<td><code>0007</code></td>
+<td>N'apparaît pas dans le modèle ; ajoutez-le si vous en avez besoin</td>
+</tr>
+<tr>
+<td><code>dbengine</code></td>
+<td>Moteur de base de données.</td>
+<td><code>mysql</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>dbhost</code></td>
+<td>Hôte ou IP de la base de données.</td>
+<td><code>localhost</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>dbport</code></td>
+<td>Port de la base de données.</td>
+<td>selon le moteur (MySQL : <code>3306</code>)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>dbname</code></td>
+<td>Nom de la base de données.</td>
+<td><code>pandora</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>dbuser</code> / <code>dbpass</code></td>
+<td>Identifiants de la base de données.</td>
+<td><code>pandora</code> / <code>pandora</code></td>
+<td>Doivent coïncider avec ceux de <code>include/config.php</code> de la console</td>
+</tr>
+<tr>
+<td><code>dbssl</code></td>
+<td>Active TLS sur la connexion à la base de données.</td>
+<td><code>0</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>dbsslcapath</code> / <code>dbsslcafile</code></td>
+<td>Chemin/fichier de l'autorité de certification pour TLS.</td>
+<td>vide</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>dbsslserverkey</code> / <code>dbsslservercert</code></td>
+<td>Clé/certificat client pour TLS.</td>
+<td>vide</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>verify_mysql_ssl_cert</code></td>
+<td>Vérifie le certificat du serveur MySQL.</td>
+<td><code>0</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>verbosity</code></td>
+<td>Niveau de détail du journal, de <code>0</code> à <code>10</code>.</td>
+<td><code>0</code></td>
+<td>Aussi avec <code>-v</code>/<code>-d</code> en ligne de commande</td>
+</tr>
+<tr>
+<td><code>pandora_master</code> (<code>master</code>)</td>
+<td>Priorité pour être serveur maître : plus la valeur est élevée, plus la priorité est grande ; <code>0</code> signifie qu'il n'est jamais maître.</td>
+<td><code>1</code></td>
+<td>Les ex æquo sont départagés au hasard</td>
+</tr>
+<tr>
+<td><code>pandora_check</code></td>
+<td>Obsolète depuis la version 2.0.</td>
+<td><code>0</code></td>
+<td>Ne pas utiliser</td>
+</tr>
+<tr>
+<td><code>basepath</code></td>
+<td>Chemin d'installation de base, pour compatibilité historique.</td>
+<td>chemin d'installation</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-activation-des-serveurs-et-nombre-de-threads">2. Activation des serveurs et nombre de threads<a class="headerlink" href="#2-activation-des-serveurs-et-nombre-de-threads" title="Permanent link">¶</a></h2>
+<p>Chaque serveur interne a un interrupteur (<code>0</code>/<code>1</code>) et, le cas échéant, un nombre
+de threads propre. « Par défaut » est, comme dans le reste de ce chapitre, la
+valeur que le serveur assume lui-même quand le jeton n'apparaît pas dans le
+fichier ; le modèle de l'installation (<code>pandora_server.conf.new</code>) peut apporter
+une valeur différente pour ce même jeton. Par exemple, <code>discoveryserver</code> est
+activé dans le modèle alors que la valeur interne par défaut est <code>0</code>, et
+inversement, <code>snmpconsole</code> est désactivé dans le modèle alors que la valeur
+interne par défaut est <code>1</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Serveur</th>
+<th>Jeton d'activation</th>
+<th>Par défaut</th>
+<th>Jeton de threads</th>
+<th>Par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Données (XML)</td>
+<td><code>dataserver</code></td>
+<td><code>1</code></td>
+<td><code>dataserver_threads</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td>Réseau (TCP, commandes distantes, WMI ; ICMP et SNMP si celui à hautes performances est désactivé)</td>
+<td><code>networkserver</code></td>
+<td><code>1</code></td>
+<td><code>network_threads</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td>Réseau à hautes performances (ICMP avec <code>fping</code> et SNMP avec <code>pandorafsnmp</code>, par lots)</td>
+<td><code>networkhpserver</code></td>
+<td><code>1</code></td>
+<td><code>networkhpserver_threads</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td>Console SNMP</td>
+<td><code>snmpconsole</code></td>
+<td><code>1</code></td>
+<td><code>snmpconsole_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>SNMP (hérité : ne démarre plus de serveur propre ; active seulement la vérification que <code>snmptrapd</code> continue de recevoir des traps)</td>
+<td><code>snmpserver</code></td>
+<td><code>0</code></td>
+<td><code>snmp_threads</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td>ICMP (hérité : sans effet ; l'exécute le serveur réseau à hautes performances)</td>
+<td><code>icmpserver</code></td>
+<td><code>0</code></td>
+<td><code>icmp_threads</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td>WMI (hérité : sans effet ; l'exécute le serveur réseau)</td>
+<td><code>wmiserver</code></td>
+<td><code>1</code></td>
+<td><code>wmi_threads</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td>Plugin (hérité : sans effet ; l'exécute le serveur Heavy)</td>
+<td><code>pluginserver</code></td>
+<td><code>1</code></td>
+<td><code>plugin_threads</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td>Discovery</td>
+<td><code>discoveryserver</code></td>
+<td><code>0</code></td>
+<td><code>discovery_threads</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td>Prédiction (hérité : sans effet ; l'exécute le serveur réseau)</td>
+<td><code>predictionserver</code></td>
+<td><code>1</code></td>
+<td><code>prediction_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Exportation (hérité : sans effet ; l'exécute le serveur Heavy)</td>
+<td><code>exportserver</code></td>
+<td><code>1</code></td>
+<td><code>export_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Inventaire (hérité : sans effet ; l'exécute le serveur Heavy)</td>
+<td><code>inventoryserver</code></td>
+<td><code>1</code></td>
+<td><code>inventory_threads</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td>Web (hérité : sans effet ; l'exécute le serveur réseau)</td>
+<td><code>webserver</code></td>
+<td><code>1</code></td>
+<td><code>web_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Événements</td>
+<td><code>eventserver</code></td>
+<td><code>0</code></td>
+<td><code>eventserver_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Journal (alertes de journal)</td>
+<td><code>logserver</code></td>
+<td><code>0</code></td>
+<td><code>logserver_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Alertes</td>
+<td><code>alertserver</code></td>
+<td><code>0</code></td>
+<td><code>alertserver_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Syslog</td>
+<td><code>syslogserver</code></td>
+<td><code>0</code></td>
+<td><code>syslog_threads</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td>WUX (navigation synthétique)</td>
+<td><code>wuxserver</code></td>
+<td><code>0</code></td>
+<td>sans threads propres</td>
+<td>—</td>
+</tr>
+<tr>
+<td>RMM</td>
+<td><code>rmmserver</code></td>
+<td><code>0</code></td>
+<td><code>rmmserver_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>NCM (hérité : sans effet ; l'exécute le serveur Heavy)</td>
+<td><code>ncmserver</code></td>
+<td><code>0</code></td>
+<td><code>ncmserver_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Netflow</td>
+<td><code>netflowserver</code></td>
+<td><code>0</code></td>
+<td><code>netflowserver_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Recon (ce n'est pas un serveur propre : interrupteur alternatif du Discovery Server, il suffit que <code>reconserver</code> ou <code>discoveryserver</code> soient à <code>1</code> ; <code>recon_threads</code> a bien un effet, on utilise le plus grand entre cette valeur et <code>discovery_threads</code>)</td>
+<td><code>reconserver</code></td>
+<td>sans valeur par défaut dans le code (se comporte comme désactivé s'il n'apparaît pas)</td>
+<td><code>recon_threads</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td>Provisionnement</td>
+<td><code>provisioningserver</code></td>
+<td><code>1</code></td>
+<td><code>provisioningserver_threads</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>MADE (détection d'anomalies)</td>
+<td><code>madeserver</code></td>
+<td><code>0</code></td>
+<td><code>madeserver_threads</code></td>
+<td>sans valeur dans le code ; le modèle apporte <code>2</code> (voir « Blocs de serveurs supplémentaires »)</td>
+</tr>
+<tr>
+<td>SIEM</td>
+<td><code>siemserver</code></td>
+<td><code>0</code></td>
+<td><code>siemserver_threads</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td>Événements SIEM</td>
+<td><code>siemevents</code></td>
+<td><code>0</code></td>
+<td><code>siemevents_threads</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td>Heavy (plugins distants, inventaire distant, NCM et exportation)</td>
+<td><code>heavyserver</code></td>
+<td><code>1</code></td>
+<td><code>heavyserver_threads</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td>Synchronisation (Tentacle/HA)</td>
+<td><code>syncserver</code></td>
+<td><code>0</code></td>
+<td>sans threads propres</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>La raison de cette répartition (pourquoi tant de serveurs propres ont disparu et
+ce que fait aujourd'hui chaque serveur réel) se trouve dans
+<a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/">Compatibilité et migration vers la nouvelle architecture de
+serveurs</a>.</p>
+<h2 id="3-reseau-snmp-et-wmi">3. Réseau, SNMP et WMI<a class="headerlink" href="#3-reseau-snmp-et-wmi" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>network_timeout</code> (<code>networktimeout</code>)</td>
+<td>Délai d'attente réseau pour les agents de type réseau.</td>
+<td><code>5</code> s</td>
+</tr>
+<tr>
+<td><code>icmp_checks</code></td>
+<td>Nombre de tentatives de ping par module <code>icmp_proc</code>.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>icmp_packets</code></td>
+<td>Nombre de paquets ICMP par tentative.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>tcp_checks</code> / <code>tcp_timeout</code></td>
+<td>Nouvelles tentatives et délai d'attente des vérifications TCP.</td>
+<td><code>1</code> / <code>20</code> s</td>
+</tr>
+<tr>
+<td><code>snmp_checks</code> / <code>snmp_timeout</code></td>
+<td>Nouvelles tentatives et délai d'attente des requêtes SNMP.</td>
+<td><code>1</code> / <code>8</code> s</td>
+</tr>
+<tr>
+<td><code>snmp_proc_deadresponse</code></td>
+<td>En l'absence de réponse SNMP, le module PROC passe à l'état critique.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>snmpget</code></td>
+<td>Chemin du binaire <code>snmpget</code>.</td>
+<td><code>/usr/bin/snmpget</code></td>
+</tr>
+<tr>
+<td><code>snmp_trapd</code></td>
+<td>Chemin du binaire <code>snmptrapd</code>.</td>
+<td><code>/usr/sbin/snmptrapd</code></td>
+</tr>
+<tr>
+<td><code>braa</code></td>
+<td>Binaire à hautes performances pour SNMP v1/v2c. Dans la configuration par défaut, il pointe vers <code>pandorafsnmp</code>, qui traite toutes les versions ; <code>/usr/bin/braa</code> reste comme alternative héritée.</td>
+<td><code>/usr/bin/pandorafsnmp</code> dans le modèle (si le jeton n'apparaît pas, le code utilise <code>/usr/bin/braa</code>)</td>
+</tr>
+<tr>
+<td><code>braa_retries</code></td>
+<td>Nouvelles tentatives avant de passer le module au serveur réseau.</td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>fsnmp</code></td>
+<td>Binaire à hautes performances pour SNMP v3.</td>
+<td><code>/usr/bin/pandorafsnmp</code></td>
+</tr>
+<tr>
+<td><code>snmp_ignore_authfailure</code></td>
+<td>Ignore les traps <code>authenticationFailure</code>.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>snmp_pdu_address</code></td>
+<td>Utilise l'adresse d'origine du PDU au lieu de <code>agent-addr</code>.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>translate_variable_bindings</code></td>
+<td>Traduit les <em>variable bindings</em> lors du traitement des traps.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>translate_enterprise_strings</code></td>
+<td>Traduit les chaînes <em>enterprise</em> (au sens SNMP du terme, un OID de fabricant) lors du traitement des traps.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>snmpconsole_lock</code> / <code>snmpconsole_period</code> / <code>snmpconsole_threshold</code></td>
+<td>Réglages de lecture du journal de traps.</td>
+<td><code>0</code> / <code>0</code> / <code>0</code></td>
+</tr>
+<tr>
+<td><code>snmp_storm_protection</code> / <code>snmp_storm_timeout</code> / <code>snmp_storm_silence_period</code></td>
+<td>Protection contre les orages de traps.</td>
+<td><code>0</code> / <code>600</code> s / <code>0</code></td>
+</tr>
+<tr>
+<td><code>snmp_delay</code></td>
+<td>Délai entre deux lectures SNMP.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>snmp_extlog</code></td>
+<td>Journal SNMP étendu.</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>snmp_forward_trap</code> et le reste des jetons <code>snmp_forward_*</code> (<code>ip</code>, <code>community</code>, <code>version</code>, <code>secName</code>, <code>secLevel</code>, <code>authProtocol</code>, <code>authPassword</code>, <code>privProtocol</code>, <code>privPassword</code>, <code>engineid</code>)</td>
+<td>Réacheminement des traps SNMP vers une autre destination.</td>
+<td><code>snmp_forward_trap=0</code> ; <code>community=public</code>, <code>version=2</code> ; le reste, vide</td>
+</tr>
+<tr>
+<td><code>wmi_client</code></td>
+<td>Binaire client WMI.</td>
+<td><code>pandorawmic</code></td>
+</tr>
+<tr>
+<td><code>wmi_timeout</code></td>
+<td>Délai d'attente des requêtes WMI.</td>
+<td><code>5</code> s (<code>7</code> s dans le modèle)</td>
+</tr>
+<tr>
+<td><code>mssql_driver</code></td>
+<td><em>Driver</em> ODBC de Microsoft SQL Server utilisé par Discovery.</td>
+<td>sans valeur par défaut</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-serveur-de-donnees-et-traitement-des-xml">4. Serveur de données et traitement des XML<a class="headerlink" href="#4-serveur-de-donnees-et-traitement-des-xml" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>block_size</code></td>
+<td>Modules par bloc dans les serveurs producteur/consommateur.</td>
+<td><code>15</code></td>
+</tr>
+<tr>
+<td><code>max_queue_files</code></td>
+<td>Si le répertoire d'entrée dépasse ce nombre de fichiers, la lecture est sautée dans ce cycle.</td>
+<td><code>500</code></td>
+</tr>
+<tr>
+<td><code>dataserver_smart_queue</code></td>
+<td>File intelligente : elle donne la priorité aux données nouvelles sur le XML déjà en mémoire tampon.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>dataserver_post_delete</code></td>
+<td>Retarde la suppression du XML jusqu'à la fin de son traitement.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>dataserver_lifo</code></td>
+<td>Traite les XML en pile (LIFO) au lieu d'une file (FIFO).</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>autocreate</code></td>
+<td>Crée automatiquement des agents depuis le serveur de données.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>autocreate_group</code></td>
+<td>Groupe par défaut (par id) pour les agents créés automatiquement.</td>
+<td><code>-1</code></td>
+</tr>
+<tr>
+<td><code>autocreate_group_force</code></td>
+<td>Force le groupe précédent même si l'agent en spécifie déjà un dans son XML.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>autocreate_group_name</code></td>
+<td>Identique à <code>autocreate_group</code>, mais par nom de groupe au lieu de l'id.</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>update_parent</code></td>
+<td>Met à jour l'agent parent à partir du XML.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>too_many_xml</code></td>
+<td>Génère un événement si plus de XML que ce nombre s'accumulent dans la file (<code>0</code> désactive l'avertissement).</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>use_xml_timestamp</code></td>
+<td>Utilise l'horodatage porté par le XML lui-même.</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-configuration-distante-tentacle-et-synchronisation">5. Configuration distante, Tentacle et synchronisation<a class="headerlink" href="#5-configuration-distante-tentacle-et-synchronisation" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>remote_config</code></td>
+<td>Permet de configurer ce serveur depuis la console web.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>remote_config_address</code> / <code>remote_config_port</code></td>
+<td>Destination du fichier de configuration distante.</td>
+<td><code>localhost</code> / <code>41121</code></td>
+</tr>
+<tr>
+<td><code>remote_config_opts</code></td>
+<td>Options supplémentaires pour le client Tentacle lors de l'envoi de la configuration distante.</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>transactional_pool</code></td>
+<td>Répertoire de la file transactionnelle.</td>
+<td><code>&lt;incomingdir&gt;/trans</code></td>
+</tr>
+<tr>
+<td><code>tentacle_service_cmd</code></td>
+<td>Commande pour gérer le service Tentacle.</td>
+<td><code>service tentacle_serverd</code></td>
+</tr>
+<tr>
+<td><code>tentacle_service_watchdog</code></td>
+<td>Surveillance du service Tentacle.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>pandora_service_cmd</code></td>
+<td>Commande pour gérer le service du serveur lui-même.</td>
+<td><code>service pandora_server</code></td>
+</tr>
+<tr>
+<td><code>syncserver</code></td>
+<td>Active le serveur de synchronisation (HA/Tentacle).</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>sync_address</code> / <code>sync_port</code></td>
+<td>Destination de la synchronisation.</td>
+<td>vide / <code>41121</code></td>
+</tr>
+<tr>
+<td><code>sync_block_size</code></td>
+<td>Taille de bloc de la synchronisation.</td>
+<td><code>65535</code></td>
+</tr>
+<tr>
+<td><code>sync_ca</code> / <code>sync_cert</code> / <code>sync_key</code></td>
+<td>Certificats TLS de la synchronisation.</td>
+<td>vides</td>
+</tr>
+<tr>
+<td><code>sync_retries</code> / <code>sync_timeout</code></td>
+<td>Nouvelles tentatives et délai d'attente de la synchronisation.</td>
+<td><code>2</code> / <code>5</code> s</td>
+</tr>
+</tbody>
+</table>
+<p>Ces jetons configurent le serveur de synchronisation, pas le client Tentacle
+lui-même. Pour le reste des options propres au binaire Tentacle (serveur et
+client), voir <a href="../9.4-referencia-completa-de-tentacle/">9.4 · Référence complète de
+Tentacle</a>.</p>
+<h2 id="6-alertes-et-evenements">6. Alertes et événements<a class="headerlink" href="#6-alertes-et-evenements" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>global_alert_timeout</code></td>
+<td>Durée maximale d'exécution d'une alerte.</td>
+<td><code>15</code> s</td>
+</tr>
+<tr>
+<td><code>alertserver_warn</code></td>
+<td>Avertissement si l'exécution des alertes est retardée de plus de N secondes.</td>
+<td><code>180</code></td>
+</tr>
+<tr>
+<td><code>alertserver_queue</code></td>
+<td>Met les alertes en file pour le serveur d'alertes au lieu de les exécuter à la volée.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>event_window</code></td>
+<td>Fenêtre d'événements prise en compte par les alertes de type événement.</td>
+<td><code>3600</code> s</td>
+</tr>
+<tr>
+<td><code>log_window</code></td>
+<td>Fenêtre d'événements prise en compte par les alertes de type journal.</td>
+<td><code>3600</code> s</td>
+</tr>
+<tr>
+<td><code>event_auto_validation</code></td>
+<td>Un événement nouveau valide automatiquement les précédents du même module.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>event_inhibit_alerts</code></td>
+<td>Ne déclenche pas d'alerte si le dernier événement du module est encore en cours.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>event_expiry_time</code> / <code>event_expiry_window</code></td>
+<td>Expiration des événements et fenêtre d'expiration.</td>
+<td><code>0</code> / <code>86400</code> s</td>
+</tr>
+<tr>
+<td><code>event_server_cache_ttl</code></td>
+<td>TTL du cache de groupes utilisé par les alertes d'événement.</td>
+<td><code>10</code> s</td>
+</tr>
+<tr>
+<td><code>event_file</code></td>
+<td>Fichier facultatif où sont aussi écrits les événements générés.</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>unknown_events</code></td>
+<td>Génère un événement quand un module passe à l'état inconnu.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>unknown_interval</code></td>
+<td>Multiple de l'intervalle du module qui doit s'écouler avant de le marquer comme inconnu.</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>unknown_updates</code></td>
+<td>Met à jour périodiquement les modules déjà inconnus, et pas une seule fois.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>unknown_block_size</code></td>
+<td>Modules par bloc traités par le thread dédié à évaluer le passage à l'état inconnu.</td>
+<td><code>1000</code></td>
+</tr>
+<tr>
+<td><code>alert_recovery</code></td>
+<td>Génère aussi un événement (et déclenche l'action de récupération) quand une alerte cesse d'être remplie, et pas seulement quand elle se déclenche.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>alert_threshold</code></td>
+<td>Durée minimale, en secondes, entre deux exécutions de la même alerte.</td>
+<td><code>60</code></td>
+</tr>
+<tr>
+<td><code>graph_precision</code></td>
+<td>Précision (nombre de décimales) des valeurs affichées dans les graphiques générés par le serveur.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>dynamic_updates</code> / <code>dynamic_warning</code> / <code>dynamic_constant</code></td>
+<td>Paramètres du recalcul des seuils dynamiques.</td>
+<td><code>5</code> / <code>25</code> / <code>10</code></td>
+</tr>
+<tr>
+<td><code>claim_back_snmp_modules</code></td>
+<td>Le serveur SNMP à hautes performances récupère des modules lors de l'exécution de <code>pandora_db</code>.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>async_recovery</code></td>
+<td>Les modules asynchrones sans donnée sur deux intervalles reviennent à l'état normal.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>warmup_alert_on</code> / <code>warmup_alert_interval</code></td>
+<td>Ne génère pas d'alertes d'état pendant les N secondes qui suivent le démarrage.</td>
+<td><code>0</code> / <code>0</code></td>
+</tr>
+<tr>
+<td><code>warmup_event_on</code> / <code>warmup_event_interval</code></td>
+<td>Identique au précédent, pour les événements de changement d'état.</td>
+<td><code>0</code> / <code>0</code></td>
+</tr>
+<tr>
+<td><code>warmup_unknown_on</code> / <code>warmup_unknown_interval</code></td>
+<td>Identique au précédent, pour le passage à inconnu et le <em>keepalive</em>.</td>
+<td><code>1</code> / <code>300</code> s</td>
+</tr>
+<tr>
+<td><code>text_going_up_critical</code>, <code>text_going_up_warning</code>, <code>text_going_down_warning</code>, <code>text_going_down_normal</code>, <code>text_going_unknown</code></td>
+<td>Modèles de texte des événements de changement d'état ; ils admettent les macros <code>_module_</code> et <code>_data_</code>.</td>
+<td>textes par défaut en anglais, fixés dans le code</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-journaux-et-audit-du-serveur-lui-meme">7. Journaux et audit du serveur lui-même<a class="headerlink" href="#7-journaux-et-audit-du-serveur-lui-meme" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>thread_log</code></td>
+<td>Enregistre sur disque l'état des threads ; uniquement pour le débogage.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>syslog_file</code></td>
+<td>Fichier d'entrée que lit le serveur Syslog.</td>
+<td><code>/var/log/messages</code></td>
+</tr>
+<tr>
+<td><code>syslog_max</code></td>
+<td>Nombre maximal de lignes en file par exécution du producteur Syslog.</td>
+<td><code>65535</code></td>
+</tr>
+<tr>
+<td><code>syslog_blacklist</code> / <code>syslog_whitelist</code></td>
+<td>Filtres d'origine du serveur Syslog.</td>
+<td>sans valeur</td>
+</tr>
+<tr>
+<td><code>log_collector_chunck_size</code></td>
+<td>Nombre maximal de journaux par requête dans le collecteur de journaux / SIEM.</td>
+<td><code>500</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-performances-et-reglage-general">8. Performances et réglage général<a class="headerlink" href="#8-performances-et-reglage-general" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>server_threshold</code></td>
+<td>Durée de la boucle principale du serveur, en secondes.</td>
+<td><code>30</code> (<code>5</code> s dans le modèle)</td>
+</tr>
+<tr>
+<td><code>keepalive</code></td>
+<td><em>Keepalive</em> du serveur.</td>
+<td><code>60</code> s</td>
+</tr>
+<tr>
+<td><code>multiprocess</code></td>
+<td>Exécute chaque serveur interne dans un processus séparé.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>restart</code> / <code>auto_restart</code> / <code>restart_delay</code></td>
+<td>Redémarrage automatique périodique du serveur.</td>
+<td><code>0</code> / <code>0</code> / <code>60</code> s</td>
+</tr>
+<tr>
+<td><code>self_monitoring</code> / <code>self_monitoring_interval</code> / <code>self_monitoring_agent_name</code></td>
+<td>Auto-supervision intégrée du serveur lui-même.</td>
+<td><code>0</code> / <code>60</code> s / <code>pandora.internals</code></td>
+</tr>
+<tr>
+<td><code>web_timeout</code></td>
+<td>Délai d'attente par défaut des modules web.</td>
+<td><code>60</code> s</td>
+</tr>
+<tr>
+<td><code>web_engine</code></td>
+<td>Moteur de vérification web (<code>curl</code> ou <code>lwp</code>).</td>
+<td><code>curl</code></td>
+</tr>
+<tr>
+<td><code>plugin_timeout</code></td>
+<td>Délai d'attente de l'exécution d'un plugin.</td>
+<td><code>5</code> s</td>
+</tr>
+<tr>
+<td><code>rcmd_timeout</code> / <code>rcmd_timeout_bin</code></td>
+<td>Délai d'attente des commandes distantes et outil utilisé pour l'imposer.</td>
+<td><code>10</code> s / <code>/usr/bin/timeout</code></td>
+</tr>
+<tr>
+<td><code>plugin_exec</code></td>
+<td>Outil utilisé pour imposer le délai d'attente des plugins.</td>
+<td><code>/usr/bin/timeout</code></td>
+</tr>
+<tr>
+<td><code>critical_on_error</code></td>
+<td>Si l'exécution d'une vérification échoue (pas la vérification elle-même), le module passe à critique au lieu de inconnu.</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-haute-disponibilite-et-cluster">9. Haute disponibilité et cluster<a class="headerlink" href="#9-haute-disponibilite-et-cluster" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ha_file</code></td>
+<td>Fichier d'état de la haute disponibilité.</td>
+<td>sans valeur</td>
+</tr>
+<tr>
+<td><code>ha_pid_file</code></td>
+<td>Fichier de PID du processus de haute disponibilité.</td>
+<td>sans valeur par défaut documentée</td>
+</tr>
+<tr>
+<td><code>ha_hosts_file</code></td>
+<td>Fichier avec les nœuds du cluster.</td>
+<td><code>/var/spool/pandora/data_in/conf/pandora_ha_hosts.conf</code></td>
+</tr>
+<tr>
+<td><code>ha_hosts</code></td>
+<td>Liste de nœuds, alternative à <code>ha_hosts_file</code>.</td>
+<td>sans valeur</td>
+</tr>
+<tr>
+<td><code>ha_connect_retries</code> / <code>ha_connect_delay</code></td>
+<td>Nouvelles tentatives et délai de connexion aux bases de données de haute disponibilité.</td>
+<td><code>2</code> / <code>1</code> s</td>
+</tr>
+<tr>
+<td><code>ha_dbuser</code> / <code>ha_dbpass</code></td>
+<td>Identifiants de la base de données de haute disponibilité ; s'ils sont omis, ils prennent ceux de <code>dbuser</code>/<code>dbpass</code>.</td>
+<td>sans valeur propre</td>
+</tr>
+<tr>
+<td><code>ha_sshuser</code> / <code>ha_sshport</code></td>
+<td>Utilisateur et port SSH utilisés par le <em>watchdog</em> de haute disponibilité.</td>
+<td><code>pandora</code> / <code>22</code></td>
+</tr>
+<tr>
+<td><code>ha_interval</code></td>
+<td>Intervalle du <em>watchdog</em> de haute disponibilité. Il est lu par l'outil de haute disponibilité <code>pandora_ha.pl</code>.</td>
+<td><code>10</code> s</td>
+</tr>
+<tr>
+<td><code>ha_resync</code></td>
+<td>Script de resynchronisation du nœud esclave.</td>
+<td><code>/usr/share/pandora_server/util/pandora_ha_resync_slave.sh</code></td>
+</tr>
+<tr>
+<td><code>ha_resync_log</code></td>
+<td>Journal de la resynchronisation.</td>
+<td><code>/var/log/pandora/pandora_ha_resync.log</code></td>
+</tr>
+<tr>
+<td><code>ha_resync_sleep</code></td>
+<td>Attente entre deux tentatives de resynchronisation.</td>
+<td><code>10</code> s</td>
+</tr>
+<tr>
+<td><code>ha_max_splitbrain_retries</code></td>
+<td>Nouvelles tentatives avant de déclarer un <em>split-brain</em>.</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>repl_dbuser</code> / <code>repl_dbpass</code></td>
+<td>Identifiants de réplication de base de données ; s'ils sont omis, ils prennent ceux de <code>dbuser</code>/<code>dbpass</code>.</td>
+<td>sans valeur propre</td>
+</tr>
+<tr>
+<td><code>pandora_master</code></td>
+<td>Priorité de maître ; voir « Chemins, identité et connexion à la base de données ».</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<p>Voir aussi <a href="../../parte-6/6.10-alta-disponibilidad-ha/">6.10 · Haute disponibilité
+(HA)</a> pour l'architecture et la
+procédure complète de déploiement d'un cluster.</p>
+<h2 id="10-securite-et-chiffrement">10. Sécurité et chiffrement<a class="headerlink" href="#10-securite-et-chiffrement" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>encryption_passphrase</code></td>
+<td>Phrase dont est dérivée la clé de chiffrement de la base de données.</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>ssl_verify</code></td>
+<td>Vérifie les certificats SSL ; le désactiver n'a de sens qu'avec des certificats auto-signés.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>console_api_pass</code></td>
+<td>Mot de passe de l'API de la console, pour les intégrations du serveur avec la console.</td>
+<td>sans valeur</td>
+</tr>
+<tr>
+<td><code>console_user</code> / <code>console_pass</code></td>
+<td>Identifiants de console utilisés par certaines intégrations du serveur.</td>
+<td>sans valeur</td>
+</tr>
+<tr>
+<td><code>checksum</code></td>
+<td>Vérification d'intégrité à usage interne.</td>
+<td>sans valeur par défaut documentée</td>
+</tr>
+</tbody>
+</table>
+<p>Voir <a href="../9.5-cifrado-de-la-base-de-datos/">9.5 · Chiffrement de la base de
+données</a> pour la procédure complète
+d'activation et de gestion du chiffrement.</p>
+<h2 id="11-courrier-sortant-alertes">11. Courrier sortant (alertes)<a class="headerlink" href="#11-courrier-sortant-alertes" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mta_address</code> / <code>mta_port</code></td>
+<td>Serveur et port SMTP.</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>mta_user</code> / <code>mta_pass</code></td>
+<td>Identifiants SMTP.</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>mta_auth</code></td>
+<td>Méthode d'authentification SMTP.</td>
+<td><code>none</code></td>
+</tr>
+<tr>
+<td><code>mta_encryption</code></td>
+<td>Chiffrement de la connexion SMTP (<code>none</code>, <code>ssl</code>, <code>starttls</code>).</td>
+<td><code>none</code></td>
+</tr>
+<tr>
+<td><code>mta_from</code></td>
+<td>Expéditeur des courriels d'alerte.</td>
+<td><code>pandora@localhost</code></td>
+</tr>
+<tr>
+<td><code>mta_timeout</code></td>
+<td>Délai d'attente de la connexion SMTP.</td>
+<td><code>10</code> s</td>
+</tr>
+<tr>
+<td><code>mta_local</code></td>
+<td>Utilise le MTA local de la machine au lieu de se connecter à un serveur distant.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>mail_in_separate</code></td>
+<td>Envoie un courriel par destinataire au lieu d'un seul partagé.</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>mail_subject_encoding</code></td>
+<td>Encodage de l'objet du courriel.</td>
+<td><code>MIME-Header</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="12-blocs-de-serveurs-supplementaires">12. Blocs de serveurs supplémentaires<a class="headerlink" href="#12-blocs-de-serveurs-supplementaires" title="Permanent link">¶</a></h2>
+<p>Ces serveurs ont leur interrupteur et leurs threads dans la table de la section
+« Activation des serveurs et nombre de threads » ; les jetons de cette table
+sont ceux propres à chaque bloc, en plus de cet interrupteur :</p>
+<table>
+<thead>
+<tr>
+<th>Bloc</th>
+<th>Jetons propres</th>
+<th>Remarques</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NCM</td>
+<td><code>ncm_ssh_utility</code></td>
+<td>Utilitaire SSH qui évite les problèmes de <code>Net::SSH::Expect</code> dans les environnements avec threads.</td>
+</tr>
+<tr>
+<td>RMM</td>
+<td><code>rmmdir</code>, <code>agent_deployer_utility</code></td>
+<td>Répertoire d'échange avec les agents RMM ; utilitaire de déploiement d'EndPoints par SSH/WinRM.</td>
+</tr>
+<tr>
+<td>WUX (navigation synthétique)</td>
+<td><code>wux_host</code>, <code>wux_port</code>, <code>wux_browser</code>, <code>wux_webagent_timeout</code>, <code>clean_wux_sessions</code></td>
+<td>Utilise Selenium Grid comme moteur ; le port par défaut est <code>4444</code>.</td>
+</tr>
+<tr>
+<td>Netflow</td>
+<td><code>pandora_netflow_server_conf</code>, <code>pandora_netflow_server_address</code>, <code>pandora_netflow_server_port</code></td>
+<td>Le reste de la configuration de Netflow se gère depuis la console web, pas dans ce fichier.</td>
+</tr>
+<tr>
+<td>SIEM / collecteur de journaux</td>
+<td><code>siem_max_timeframe</code>, <code>siem_decoders</code>, <code>siem_events_rules</code>, <code>siem_max_hits_logs</code></td>
+<td>Le reste (connexion au moteur de recherche) se gère depuis la console web.</td>
+</tr>
+<tr>
+<td>MADE (détection d'anomalies)</td>
+<td><code>madeserver_autofit</code>, <code>madeserver_backend</code>, <code>madeserver_interval</code>, <code>madeserver_max_history</code>, <code>madeserver_min_train</code>, <code>madeserver_path</code>, <code>madeserver_sensitivity</code>, <code>madeserver_threads</code></td>
+<td>Ils n'apparaissent pas dans le modèle comme reconnus par l'analyseur général du serveur : documentés tels que le modèle les décrit, en attente de vérification par l'équipe.</td>
+</tr>
+<tr>
+<td>Provisionnement</td>
+<td><code>provisioning_cache_interval</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Auto-provisionnement des agents</td>
+<td><code>autoconfigure_agents</code>, <code>autoconfigure_agents_threshold</code></td>
+<td>Les utilise le serveur de données lors du traitement du XML qu'envoie un EndPoint, pas Discovery ; voir <a href="../../parte-6/6.6-mecanismos-de-autoprovision/">Mécanismes d'auto-provisionnement</a>.</td>
+</tr>
+<tr>
+<td>GIS</td>
+<td><code>activate_gis</code>, <code>location_error</code>, <code>recon_location_scatter_radius</code>, <code>recon_reverse_geolocation_file</code>, <code>google_maps_description</code>, <code>openstreetmaps_description</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13-command-center">13. Command Center<a class="headerlink" href="#13-command-center" title="Permanent link">¶</a></h2>
+<p><code>pandora_server.conf</code> n'a pas de bloc de jetons propre au Command Center : la
+relation entre un serveur et le Command Center se gère au niveau de la console
+(enregistrement du nœud, synchronisation des politiques) et de la base de
+données, pas dans le fichier de configuration du serveur.</p>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>node_metaconsole</code></td>
+<td>Indique si la base de données vers laquelle pointe ce serveur est celle d'un nœud géré par un Command Center. Ce n'est pas une option à modifier à la main dans le fichier.</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<p>Voir <a href="../../parte-6/6.3-command-center/">6.3 · Command Center</a> pour la procédure
+d'enregistrement et de gestion des nœuds.</p>
+<h2 id="14-autres-chemins-et-utilitaires">14. Autres chemins et utilitaires<a class="headerlink" href="#14-autres-chemins-et-utilitaires" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jeton</th>
+<th>Ce qu'il fait</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nmap</code></td>
+<td>Chemin du binaire Nmap, utilisé pour l'empreinte du système d'exploitation et le balayage de ports.</td>
+<td><code>/usr/bin/nmap</code></td>
+</tr>
+<tr>
+<td><code>nmap_timing_template</code></td>
+<td>Agressivité de Nmap (1-5).</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>recon_timing_template</code></td>
+<td>Identique au précédent, pour le serveur satellite et Recon.</td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>fping</code></td>
+<td>Chemin du binaire <code>fping</code>.</td>
+<td><code>/usr/sbin/fping</code></td>
+</tr>
+<tr>
+<td><code>java</code></td>
+<td>Chemin du binaire Java.</td>
+<td><code>/usr/bin/java</code></td>
+</tr>
+<tr>
+<td><code>winexe</code></td>
+<td>Exécution distante sous Windows.</td>
+<td><code>/usr/bin/pandora_winexe</code></td>
+</tr>
+<tr>
+<td><code>psexec</code> / <code>plink</code></td>
+<td>Outils d'exécution et de connexion distantes sous Windows.</td>
+<td>chemins par défaut dans <code>C:\PandoraFMS\Pandora_Server\bin\</code></td>
+</tr>
+<tr>
+<td><code>ssh_launcher</code></td>
+<td>Extra utilisé par les modules distants par SSH.</td>
+<td><code>/usr/bin/ssh_launcher</code></td>
+</tr>
+<tr>
+<td><code>sap_utils</code></td>
+<td>Scripts de <em>discovery</em> de SAP.</td>
+<td><code>/usr/share/pandora_server/util/recon_scripts/SAP</code></td>
+</tr>
+<tr>
+<td><code>sap_artica_test</code></td>
+<td>Mode de test des scripts SAP.</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>enc_dir</code></td>
+<td>Répertoire de fichiers <code>.enc</code> supplémentaires pour l'analyseur de XML.</td>
+<td>vide</td>
+</tr>
+<tr>
+<td><code>temporal</code></td>
+<td>Répertoire temporaire du serveur.</td>
+<td><code>/tmp</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

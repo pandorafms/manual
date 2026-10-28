@@ -1,0 +1,6406 @@
+<!DOCTYPE html><html lang="fr" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation produit de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/fr/parte-2/2.6-monitorizacion-de-redes/">
+      
+      
+        <link rel="prev" href="../2.5-tareas-de-consola/">
+      
+      
+        <link rel="next" href="../2.7-monitorizacion-de-traps-snmp/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-2/2.6-monitorizacion-de-redes/" hreflang="es">
+        
+          <link rel="alternate" href="../../../en/parte-2/2.6-monitorizacion-de-redes/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>6. Supervision des réseaux - Pandora FMS — Documentation produit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#supervision-des-reseaux" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construction.</strong> Cette documentation est encore en cours
+      de rédaction : le contenu peut être incomplet ou changer sans préavis.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Vous consultez une version qui n'est pas celle en vigueur (une version
+    antérieure à la dernière publiée).
+    <a href="../../../..">
+      <strong>Aller à la dernière version publiée.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-header__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentation produit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6. Supervision des réseaux
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode sombre" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passer en mode sombre" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Passer en mode clair" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passer en mode clair" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-2/2.6-monitorizacion-de-redes/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../en/parte-2/2.6-monitorizacion-de-redes/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Documentation produit" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentation produit" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentation produit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 01. Démarrage rapide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 01. Démarrage rapide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction et architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Politique de versions et de support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Mises à jour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 02. Supervision avec Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Supervision avec des EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestionnaire d'identifiants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision et découverte automatique avec Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Découverte réseau avec Host et appareils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tâches de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des réseaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#supervision-distante-de-quoi-il-sagit-et-quand-lutiliser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision distante : de quoi il s'agit et quand l'utiliser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#premiers-pas-creer-un-module-reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Premiers pas : créer un module réseau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Premiers pas : créer un module réseau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proprietes-avancees-communes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propriétés avancées communes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composants-reseau-ne-pas-partir-de-zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composants réseau : ne pas partir de zéro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macros-dans-les-champs-du-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Macros dans les champs du module
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disponibilite-et-latence-avec-icmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disponibilité et latence avec ICMP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services-avec-tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services avec TCP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supervision-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision SNMP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supervision SNMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snmp-en-cinq-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP en cinq minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assistant-dinterfaces-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assistant d'interfaces SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assistant-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assistant SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigateur-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigateur SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestionnaire-de-mib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestionnaire de MIB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmp-depuis-un-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP depuis un EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-sans-agent-wmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows sans agent : WMI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commandes-distantes-ssh-et-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commandes distantes : SSH et Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commandes distantes : SSH et Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exigences-de-pare-feu-sous-windows-pour-la-supervision-sans-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences de pare-feu sous Windows pour la supervision sans agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins-distants-de-serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins distants de serveur
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plugins distants de serveur">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#macros-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Macros des plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins-dusine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins d'usine
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supervision-des-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision des routes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executer-des-assistants-et-des-tests-depuis-un-serveur-distant-exec-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exécuter des assistants et des tests depuis un serveur distant (Exec Server)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-des-types-de-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Référence des types de module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-reglage-fin-et-diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance, réglage fin et diagnostic
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision des traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Supervision du trafic avec NetFlow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Politiques de supervision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Supervision des applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Supervision des conteneurs et des orchestrateurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Supervision de l'expérience utilisateur (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Supervision des environnements Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Supervision des environnements virtualisés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Supervision IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Supervision des API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Collecte et supervision des logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuration commune des modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 03. Gestion des actifs et automatisation IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventaire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Contrôle à distance avec RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribution automatique de logiciels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Exécution à distance de scripts et de commandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Mise à jour corrective des systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestion de configuration des équipements réseau (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestion des IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Arrêts planifiés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégration des actifs avec l'ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Réconciliation des données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 04. Gestion des utilisateurs et des permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groupes, utilisateurs, profils et tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Authentification externe et centralisation des accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Sécurité et visibilité avancées (ACL avancée)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Bonnes pratiques de noms et de tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 05. Apporter de la valeur à la supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Tableaux de bord
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Rapports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Supervision métier et de services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console d'événements centralisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertes et notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consoles visuelles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Cartes topologiques du réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestion des incidents / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Analyse prédictive / IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Cartes SIG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 06. Évolutivité et environnements complexes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architectures distribuées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveurs satellites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribution et installation automatique des agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de données d'historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mécanismes d'auto-approvisionnement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Exportation de données vers des serveurs externes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Optimisation de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Haute disponibilité (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 07. Sécurité et supervision
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 07. Sécurité et supervision
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Architecture de sécurité de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Analyse des vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Durcissement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Supervision de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Audit interne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Intégrations dynamiques d'IoC (MISP) et création de règles propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Conformité : NIS2, ISO 27001 et ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuration sécurisée
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction et installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Automatisation des tâches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. À détailler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 09. Autres aspects avancés de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Référence complète de configuration de l'EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence complète de configuration de la console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Référence complète de configuration du serveur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Référence complète de Tentacle (serveur et client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Chiffrement de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Supervision des clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Création de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Création de plugins locaux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Création de plugins distants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Création d'extensions de console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Intégration et automatisation. Webhooks et API REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Découverte automatique avancée (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Dépannage avec Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Analyse volumétrique et conceptions pour la haute capacité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Aide-mémoire des commandes rapides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 10. Base de données
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 10. Base de données
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Schéma de la base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Référence des tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 11. Annexes techniques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 11. Annexes techniques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Mise à jour des versions de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossaire des termes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilité et migration vers la nouvelle architecture de serveurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Étendre les assistants SNMP et WMI avec des composants propres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Partie 12. Questions fréquentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qu'est-ce que cette FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Serveur et base de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents et systèmes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Console web et licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertes et événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Rapports, logs et courrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Grands environnements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatisation et plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Opérations massives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#supervision-distante-de-quoi-il-sagit-et-quand-lutiliser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision distante : de quoi il s'agit et quand l'utiliser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#premiers-pas-creer-un-module-reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Premiers pas : créer un module réseau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Premiers pas : créer un module réseau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proprietes-avancees-communes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propriétés avancées communes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composants-reseau-ne-pas-partir-de-zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composants réseau : ne pas partir de zéro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macros-dans-les-champs-du-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Macros dans les champs du module
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disponibilite-et-latence-avec-icmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disponibilité et latence avec ICMP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services-avec-tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services avec TCP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supervision-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision SNMP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supervision SNMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snmp-en-cinq-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP en cinq minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assistant-dinterfaces-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assistant d'interfaces SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assistant-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assistant SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigateur-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigateur SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules SNMP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestionnaire-de-mib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestionnaire de MIB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmp-depuis-un-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP depuis un EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-sans-agent-wmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows sans agent : WMI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commandes-distantes-ssh-et-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commandes distantes : SSH et Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commandes distantes : SSH et Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exigences-de-pare-feu-sous-windows-pour-la-supervision-sans-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exigences de pare-feu sous Windows pour la supervision sans agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins-distants-de-serveur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins distants de serveur
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plugins distants de serveur">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#macros-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Macros des plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins-dusine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins d'usine
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supervision-des-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervision des routes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executer-des-assistants-et-des-tests-depuis-un-serveur-distant-exec-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exécuter des assistants et des tests depuis un serveur distant (Exec Server)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-des-types-de-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Référence des types de module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-reglage-fin-et-diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance, réglage fin et diagnostic
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="supervision-des-reseaux">Supervision des réseaux<a class="headerlink" href="#supervision-des-reseaux" title="Permanent link">¶</a></h1>
+<p>La supervision distante est l'autre moitié du métier : tout ce qu'un
+<a href="../2.1-monitorizacion-con-endpoints/">EndPoint</a> ne peut pas vous raconter parce
+qu'il ne vit pas dans la machine, mais qui se vérifie depuis l'extérieur — un
+routeur, un switch, une imprimante, un onduleur — ou qu'il convient de vérifier
+depuis l'extérieur même lorsque l'équipement dispose de son propre agent, comme
+la disponibilité réelle d'un service vue depuis le réseau. Ce chapitre couvre
+ICMP, TCP, SNMP, WMI, les commandes distantes et l'usage des plugins distants de
+serveur : tout ce qu'un serveur Pandora FMS fait de l'autre côté du réseau, sans
+rien installer à la destination. Les avis que les équipements envoient de leur
+propre chef, les traps SNMP, ont leur propre chapitre : <a href="../2.7-monitorizacion-de-traps-snmp/">Supervision des traps
+SNMP</a>.</p>
+<h2 id="supervision-distante-de-quoi-il-sagit-et-quand-lutiliser">Supervision distante : de quoi il s'agit et quand l'utiliser<a class="headerlink" href="#supervision-distante-de-quoi-il-sagit-et-quand-lutiliser" title="Permanent link">¶</a></h2>
+<p>Vérifier un équipement depuis l'extérieur n'exige pas de le toucher : il suffit
+qu'il réponde à une requête réseau — un ping, une connexion TCP, une requête
+SNMP ou WMI, une commande par SSH — et qu'un serveur Pandora FMS ait une
+visibilité réseau jusqu'à lui. C'est le seul chemin possible pour un dispositif
+qui n'admet pas de logiciel propre (un routeur, un switch, une imprimante, un
+onduleur) et une alternative raisonnable pour un serveur qui l'admet, quand ce
+qui intéresse est ce que voit le réseau et non ce que voit le système
+d'exploitation lui-même.</p>
+<p>Pas besoin d'EndPoint pour avoir un agent. Un agent logique peut être créé
+directement depuis la console web, sans fichier de configuration derrière, et
+recevoir des modules réseau : c'est ce que fait par exemple
+<a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/">Discovery</a> lorsqu'il
+analyse un réseau. Si un module laisse vide son champ d'adresse de destination,
+il utilise l'adresse IP de l'agent lui-même ; ainsi un agent sans EndPoint peut
+porter tous ses modules sans répéter l'IP dans chacun.</p>
+<table>
+<thead>
+<tr>
+<th>Vérification</th>
+<th>Serveur qui l'exécute</th>
+<th>Jeton qui l'active</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ICMP (disponibilité et latence)</td>
+<td>Serveur réseau haute performance, par lots avec <code>fping</code></td>
+<td><a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>networkhpserver</code></a></td>
+</tr>
+<tr>
+<td>SNMP</td>
+<td>Serveur réseau haute performance, par lots avec <code>pandorafsnmp</code> (v1, v2c et v3)</td>
+<td><a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>networkhpserver</code></a></td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Serveur réseau</td>
+<td><a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>networkserver</code></a></td>
+</tr>
+<tr>
+<td>Commandes distantes</td>
+<td>Serveur réseau</td>
+<td><a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>networkserver</code></a></td>
+</tr>
+<tr>
+<td>WMI</td>
+<td>Serveur réseau, avec le client <code>pandorawmic</code></td>
+<td><a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>networkserver</code></a></td>
+</tr>
+<tr>
+<td>Plugins distants</td>
+<td>Serveur Heavy</td>
+<td><a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>heavyserver</code></a></td>
+</tr>
+</tbody>
+</table>
+<p>Les trois sont activés d'usine et se répartissent le travail tout seuls : avec le
+serveur réseau haute performance en marche, le serveur réseau laisse ICMP et SNMP
+entre ses mains et garde le reste. Si celui de haute performance est désactivé,
+le serveur réseau reprend ICMP (avec le <code>ping</code> du système) et SNMP (avec
+<code>snmpget</code>, requête par requête). Le détail de cette répartition se trouve dans
+<a href="#performance-reglage-fin-et-diagnostic">Performance, réglage fin et
+diagnostic</a>.</p>
+<p>Lorsque le réseau à vérifier n'est visible depuis aucun serveur central — un site
+sans route directe, un réseau isolé —, un <a href="../../parte-6/6.2-servidores-satelite/">serveur
+satellite</a> fait exactement le même travail
+depuis l'intérieur de ce réseau et livre les données comme s'il s'agissait d'un
+serveur de plus.</p>
+<div class="admonition example">
+<p class="admonition-title">Un routeur sans EndPoint</p>
+<p>Un agent « router-core » est créé avec l'adresse <code>192.168.10.1</code>, sans rien
+installer dessus. À partir de là, on lui ajoute des modules réseau — ICMP
+pour savoir s'il répond, SNMP pour lire ses interfaces — exactement comme à
+n'importe quel autre agent.</p>
+</div>
+<h2 id="premiers-pas-creer-un-module-reseau">Premiers pas : créer un module réseau<a class="headerlink" href="#premiers-pas-creer-un-module-reseau" title="Permanent link">¶</a></h2>
+<p>Un module réseau se crée depuis la fiche de l'agent, dans l'onglet <strong>Modules</strong>
+(Modules), avec le bouton <strong>Créer</strong> (Create) → <strong>Créer un module réseau</strong>
+(Create network module). Le formulaire demande d'abord le type :</p>
+<table>
+<thead>
+<tr>
+<th>Famille</th>
+<th>À quoi elle sert</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ICMP</td>
+<td>Disponibilité et latence du réseau</td>
+<td><a href="#disponibilite-et-latence-avec-icmp">Disponibilité et latence avec ICMP</a></td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Ports et services réseau</td>
+<td><a href="#services-avec-tcp">Services avec TCP</a></td>
+</tr>
+<tr>
+<td>SNMP</td>
+<td>Équipements avec agent SNMP (routeurs, switches, onduleurs…)</td>
+<td><a href="#supervision-snmp">Supervision SNMP</a></td>
+</tr>
+<tr>
+<td>Commande distante</td>
+<td>Commandes par SSH ou Windows distant</td>
+<td><a href="#commandes-distantes-ssh-et-windows">Commandes distantes : SSH et Windows</a></td>
+</tr>
+<tr>
+<td>WMI</td>
+<td>Équipements Windows sans EndPoint</td>
+<td><a href="#windows-sans-agent-wmi">Windows sans agent : WMI</a></td>
+</tr>
+<tr>
+<td>Plugin</td>
+<td>Vérifications empaquetées dans un script</td>
+<td><a href="#plugins-distants-de-serveur">Plugins distants de serveur</a></td>
+</tr>
+</tbody>
+</table>
+<p>Le tableau complet des types internes, avec ce que renvoie chacun et comment son
+état s'interprète, se trouve dans <a href="#reference-des-types-de-module">Référence des types de
+module</a> ; chaque section de ce chapitre renvoie à
+sa ligne.</p>
+<p>Tous les modules réseau partagent ces champs, avec leur valeur par défaut :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Valeur par défaut</th>
+<th>Ce qu'il fait</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adresse IP cible (Target IP)</td>
+<td>vide (<code>auto</code>)</td>
+<td>Laissé vide, il utilise l'IP de l'agent. Il accepte les macros <code>_agentname_</code> et <code>_agentalias_</code> lorsque le nom ou l'alias de l'agent se résout en une IP valide.</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>vide (<code>161</code> en SNMP, <code>22</code> dans les commandes distantes par SSH)</td>
+<td>Port de destination, lorsque la vérification en a besoin.</td>
+</tr>
+<tr>
+<td>Intervalle</td>
+<td>300 s</td>
+<td>Fréquence de répétition de la vérification.</td>
+</tr>
+<tr>
+<td>Seuil d'avertissement (min./max.)</td>
+<td>0 / 0</td>
+<td>Plage qui place le module en état d'avertissement.</td>
+</tr>
+<tr>
+<td>Seuil critique (min./max.)</td>
+<td>0 / 0</td>
+<td>Plage qui place le module en état critique.</td>
+</tr>
+<tr>
+<td>Délai d'attente</td>
+<td>0 (utilise celui du serveur)</td>
+<td>Temps maximum avant de considérer la vérification comme échouée.</td>
+</tr>
+<tr>
+<td>Tentatives</td>
+<td>0</td>
+<td>Essais supplémentaires avant d'écarter la donnée.</td>
+</tr>
+<tr>
+<td>Seuil FF (flapping)</td>
+<td>0 (désactivé)</td>
+<td>Nombre de changements d'état consécutifs à voir avant de les considérer comme réels ; voir l'exemple plus bas.</td>
+</tr>
+<tr>
+<td>Instructions pour l'état inconnu</td>
+<td>vide</td>
+<td>Texte que voit l'opérateur lorsque le module tombe en état inconnu.</td>
+</tr>
+<tr>
+<td>Minimum / maximum</td>
+<td>0 / 0</td>
+<td>Toute donnée hors de cette plage est écartée comme invalide.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Ping et latence vers le routeur, avec seuils</p>
+<p>Sur l'agent « router-core » (<code>192.168.10.1</code>), deux modules réseau :</p>
+<ul>
+<li><strong>Disponible</strong> (<code>remote_icmp_proc</code>) : sans autre configuration que
+  l'adresse IP cible, il suffit à savoir si le routeur répond.</li>
+<li><strong>Latence</strong> (<code>remote_icmp</code>) : même cible, avec un avertissement à partir
+  de <code>100</code> ms et un critique à partir de <code>300</code> ms.</li>
+</ul>
+<p>Dès que le serveur réseau exécute le module, l'état de l'agent passe de
+« Sans données » à normal et la première valeur apparaît dans sa vue ;
+c'est le signe que le module est bien configuré.</p>
+</div>
+<h3 id="proprietes-avancees-communes">Propriétés avancées communes<a class="headerlink" href="#proprietes-avancees-communes" title="Permanent link">¶</a></h3>
+<p>Ces onglets de l'éditeur apparaissent dans tous les modules réseau,
+indépendamment du type. Le formulaire complet, avec seuils, état inconnu,
+intervalles et données, est expliqué dans
+<a href="../2.20-configuracion-comun-de-los-modulos/">2.20, Configuration commune des modules</a> :</p>
+<ul>
+<li><strong>ID personnalisé</strong> (Custom ID, onglet <em>Catégorisation</em>) : un identifiant
+  libre pour relier le module à un système externe, comme une CMDB.</li>
+<li><strong>Post-traitement</strong> (Post process, onglet <em>Données</em>) : multiplie la donnée
+  reçue par le facteur indiqué, avant de l'enregistrer. Il sert par exemple à
+  convertir des octets en bits : un module qui lit des octets par seconde avec
+  un post-traitement de <code>8</code> enregistre déjà la donnée en bits par seconde.</li>
+<li><strong>Exportation</strong> (Export target, onglet <em>Données</em>) : envoie aussi la donnée
+  vers un serveur d'exportation.</li>
+<li><strong>Catégorie</strong> (Category, onglet <em>Catégorisation</em>) : regroupement utilisé par
+  le Command Center.</li>
+<li><strong>Cron</strong> (onglet <em>Intervalles</em>) : si <strong>Cron depuis</strong> (Cron from) est activé,
+  le module cesse de s'exécuter par intervalle et ne s'exécute plus que lorsque
+  la date et l'heure courantes correspondent à l'expression configurée.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Exécuter un module seulement la nuit</p>
+<p>Un module avec <strong>Cron depuis</strong> configuré sur <code>0 2 * * *</code> s'exécute une fois
+par jour, à deux heures du matin, au lieu de toutes les 300 secondes.</p>
+</div>
+<p>Le <strong>seuil FF</strong> (de <em>flapping</em>, clignotement) empêche une alerte de se
+déclencher pour un changement d'état isolé : il exige de voir le même nombre de
+changements d'état consécutifs avant de les considérer comme réels.</p>
+<div class="admonition example">
+<p class="admonition-title">Éviter un faux saut dû au flapping</p>
+<p>Un lien WAN instable passe de normal à critique et revient à normal
+plusieurs fois en quelques minutes. Avec un seuil FF de <code>3</code>, le module ne
+change pas d'état — et ne déclenche pas d'alertes — avant d'avoir vu trois
+lectures consécutives du même signe ; le clignotement cesse de générer du
+bruit.</p>
+</div>
+<h3 id="composants-reseau-ne-pas-partir-de-zero">Composants réseau : ne pas partir de zéro<a class="headerlink" href="#composants-reseau-ne-pas-partir-de-zero" title="Permanent link">¶</a></h3>
+<p>Un <strong>composant réseau</strong> est un module préfabriqué : la même configuration d'un
+module réseau, enregistrée comme modèle pour ne pas la remplir à chaque fois.
+Dans l'éditeur d'un module nouveau, le champ <strong>En utilisant le composant
+réseau</strong> (Using network component) permet d'en choisir un au lieu de remplir le
+formulaire à la main ; l'option manuelle (<code>--Configuration manuelle--</code>) reste
+disponible pour n'en utiliser aucun.</p>
+<p>L'installation apporte des composants regroupés par fabricant et technologie :
+MIB de Cisco, systèmes UNIX, Microsoft Windows, WMI, bases de données, et ainsi
+de suite avec le reste des groupes inclus d'usine.</p>
+<div class="admonition example">
+<p class="admonition-title">Appliquer Host Alive et Host Latency depuis des composants</p>
+<p>À la création d'un module nouveau, sélectionner le composant <strong>Host Alive</strong>
+(groupe <em>Network Management</em>) crée le même module ICMP booléen qui serait
+configuré à la main ; <strong>Host Latency</strong>, du même groupe, fait de même avec la
+latence. C'est la façon la plus rapide de laisser un agent sans EndPoint
+avec le minimum couvert. De fait, le formulaire de création d'agent apporte
+lui-même une case à cocher, cochée par défaut, qui crée ces deux modules
+(Host Alive et Host Latency) automatiquement dès que l'agent est créé, sans
+passer par l'éditeur de modules.</p>
+</div>
+<p>Créer un composant propre est aussi simple que configurer un module réseau
+quelconque et l'enregistrer comme composant au lieu de l'appliquer directement à
+un agent, depuis <strong>Gestion → Modules → Composants réseau</strong>. À partir de là, il
+peut s'appliquer à n'importe quel agent, s'inclure dans une <a href="../2.10-politicas-de-monitorizacion/">politique de
+supervision</a> ou laisser
+<a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/">Discovery</a> l'appliquer
+en masse pendant une analyse.</p>
+<h3 id="macros-dans-les-champs-du-module">Macros dans les champs du module<a class="headerlink" href="#macros-dans-les-champs-du-module" title="Permanent link">¶</a></h3>
+<p>Certains champs des modules distants acceptent des macros que le serveur
+remplace par des données de l'agent chaque fois qu'il exécute le module. Cela
+évite d'écrire la même donnée à la main sur chaque agent, et c'est ce qui permet
+qu'un composant réseau ou un module de politique serve de la même façon à des
+agents aux données différentes. Le cas typique est la communauté SNMP : si
+chaque équipement a la sienne, elle est enregistrée dans un champ personnalisé
+de l'agent et le module utilise la macro au lieu de la communauté.</p>
+<p>Les champs qui acceptent des macros sont ceux-ci :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Modules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adresse IP cible</td>
+<td>ICMP, TCP et SNMP</td>
+</tr>
+<tr>
+<td>Communauté SNMP</td>
+<td>SNMP v1 et v2c</td>
+</tr>
+<tr>
+<td>Utilisateur, mot de passe d'authentification et mot de passe de confidentialité</td>
+<td>SNMP v3</td>
+</tr>
+<tr>
+<td>Utilisateur et mot de passe</td>
+<td>WMI et inventaire distant par WMI</td>
+</tr>
+</tbody>
+</table>
+<p>Ces macros peuvent s'utiliser dans ces champs :</p>
+<table>
+<thead>
+<tr>
+<th>Macro</th>
+<th>Remplacée par</th>
+<th>Où</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_agentcustomfield_N_</code></td>
+<td>Valeur du champ personnalisé de l'agent dont l'identifiant est N</td>
+<td>Tous les champs du tableau précédent</td>
+</tr>
+<tr>
+<td><code>_addressn_N_</code></td>
+<td>Adresse IP numéro N de l'agent, adresses triées</td>
+<td>Tous les champs du tableau précédent</td>
+</tr>
+<tr>
+<td><code>_agent_</code>, <code>_agentalias_</code></td>
+<td>Alias de l'agent</td>
+<td>Adresse IP cible</td>
+</tr>
+<tr>
+<td><code>_agentname_</code></td>
+<td>Nom de l'agent</td>
+<td>Adresse IP cible</td>
+</tr>
+</tbody>
+</table>
+<p>La macro n'est remplacée que si la valeur du champ <strong>commence par elle</strong> : une
+valeur comme <code>_agentcustomfield_3_</code> fonctionne ;
+<code>comunidad_agentcustomfield_3_</code> est envoyée telle quelle. Les champs
+personnalisés se créent dans <strong>Gestion → Ressources → Champs personnalisés</strong>.
+L'identifiant qui apparaît dans cette liste est le N de la macro. La valeur se
+remplit sur chaque agent.</p>
+<div class="admonition example">
+<p class="admonition-title">Une communauté SNMP différente par équipement</p>
+<p>On crée le champ personnalisé « Communauté SNMP », qui reçoit l'identifiant
+<code>4</code>, et on le remplit sur chaque agent avec sa communauté (<code>sw-core-ro</code>,
+<code>sw-planta2-ro</code>…). Un composant réseau SNMP avec <strong>Communauté SNMP</strong>
+<code>_agentcustomfield_4_</code> s'applique ensuite à tous les switches, directement
+ou au moyen d'une politique : chaque module interroge avec la communauté de
+son propre agent.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Surveiller la deuxième IP d'un équipement</p>
+<p>Sur un serveur avec deux interfaces créées dans l'agent, un module ICMP
+avec <strong>Adresse IP cible</strong> <code>_addressn_2_</code> vérifie la deuxième adresse.
+L'ordre est celui des adresses triées, pas l'ordre dans lequel elles ont été
+ajoutées.</p>
+</div>
+<p>Les plugins distants ont leur propre jeu de macros, plus large ; il est expliqué
+dans <a href="#macros-des-plugins">Macros des plugins</a>.</p>
+<h2 id="disponibilite-et-latence-avec-icmp">Disponibilité et latence avec ICMP<a class="headerlink" href="#disponibilite-et-latence-avec-icmp" title="Permanent link">¶</a></h2>
+<p>ICMP est la vérification la plus élémentaire et compte deux types :
+<strong>Disponible</strong> (<code>remote_icmp_proc</code>), qui renvoie si l'IP répond ou non, et
+<strong>Latence</strong> (<code>remote_icmp</code>), qui renvoie le temps de réponse en millisecondes
+(voir <a href="#reference-des-types-de-module">Référence des types de module</a>). Le
+serveur réseau haute performance mesure avec <code>fping</code>, en regroupant dans un seul
+appel toutes les destinations en attente (s'il est désactivé, c'est le serveur
+réseau qui le fait avec le <code>ping</code> du système) : il lance autant de paquets par
+essai et autant de tentatives que l'indiquent les jetons
+<a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>icmp_packets</code></a>
+et
+<a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>icmp_checks</code></a>,
+avec le délai d'attente de
+<a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>network_timeout</code></a>.
+Sans réponse dans ces limites, le module de disponibilité passe en état critique
+et celui de latence reste sans donnée.</p>
+<div class="admonition example">
+<p class="admonition-title">Disponibilité d'une imprimante</p>
+<p>Un module <strong>Disponible</strong> sur <code>192.168.10.50</code> : sans autre réglage que
+l'adresse IP cible, il avertit dès que l'imprimante cesse de répondre au
+ping, sans qu'il faille rien lui installer.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Latence d'un lien WAN</p>
+<p>Un module <strong>Latence</strong> sur l'IP du routeur distant, avec un avertissement à
+<code>100</code> ms et un critique à <code>300</code> ms : un lien qui commence à se dégrader se
+voit venir avant de tomber complètement.</p>
+</div>
+<p>Pour quelque chose de plus fin que la latence — par exemple, le pourcentage de
+paquets perdus au lieu du seul temps d'aller-retour —, il y a le plugin de perte
+de paquets que l'installation apporte (voir <a href="#plugins-distants-de-serveur">Plugins distants de
+serveur</a>).</p>
+<h2 id="services-avec-tcp">Services avec TCP<a class="headerlink" href="#services-avec-tcp" title="Permanent link">¶</a></h2>
+<p>TCP vérifie un service par son port, avec quatre types : <strong>port ouvert</strong>
+(<code>remote_tcp_proc</code>, booléen), <strong>numérique</strong> (<code>remote_tcp</code>), <strong>texte</strong>
+(<code>remote_tcp_string</code>) et <strong>incrémental</strong> (<code>remote_tcp_inc</code>) ; ce que renvoie
+chacun, dans <a href="#reference-des-types-de-module">Référence des types de module</a>.
+Deux champs font le travail :</p>
+<ul>
+<li><strong>Envoyer TCP</strong> (TCP Send) : ce qui est envoyé au port. Plusieurs étapes d'une
+  conversation se séparent par <code>|</code> ; la séquence <code>^M</code> est remplacée par un
+  retour chariot réel.</li>
+<li><strong>Recevoir TCP</strong> (TCP Receive) : ce qui est attendu en retour, comparé <strong>sans
+  distinguer majuscules et minuscules</strong>. Il est obligatoire dans les types texte
+  et incrémental ; dans celui de port ouvert, seulement s'il est rempli.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Port ouvert</p>
+<p>Un module de type <strong>port ouvert</strong> sur le port <code>443</code>, sans <strong>Envoyer TCP</strong> ni
+<strong>Recevoir TCP</strong> : il suffit que le port accepte la connexion pour marquer
+l'état normal.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">En-tête d'un serveur web</p>
+<p><strong>Envoyer TCP</strong> : <code>GET / HTTP/1.0^M^M</code>. <strong>Recevoir TCP</strong> : <code>200 OK</code>. Le
+module passe à normal dès que la réponse contient cette chaîne, que le
+serveur la renvoie en majuscules ou en minuscules.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Conversation SMTP en trois étapes</p>
+<p><strong>Envoyer TCP</strong> : <code>HELO midominio.com^M|MAIL FROM: &lt;a@midominio.com&gt;^M|RCPT TO: &lt;b@destino.com&gt;^M</code>.
+<strong>Recevoir TCP</strong> : <code>250|250|250</code>. Chaque étape est envoyée et vérifiée avant
+de passer à la suivante.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Bannière SSH</p>
+<p>Port <code>22</code>, sans <strong>Envoyer TCP</strong>, et <strong>Recevoir TCP</strong> avec le texte <code>SSH-2.0</code>
+pour confirmer la version de protocole que le serveur annonce à la
+connexion.</p>
+</div>
+<p>Les tentatives et le délai d'attente se règlent comme dans n'importe quel module
+réseau, avec les valeurs par défaut du serveur dans <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/"><code>tcp_checks</code> et
+<code>tcp_timeout</code></a>.</p>
+<h2 id="supervision-snmp">Supervision SNMP<a class="headerlink" href="#supervision-snmp" title="Permanent link">¶</a></h2>
+<h3 id="snmp-en-cinq-minutes">SNMP en cinq minutes<a class="headerlink" href="#snmp-en-cinq-minutes" title="Permanent link">¶</a></h3>
+<p>Pour superviser un équipement par SNMP, il faut que son agent SNMP soit activé
+et que Pandora FMS sache comment lui parler : quelle version de protocole (v1,
+v2c avec communauté de lecture ; v3 avec utilisateur, authentification et
+confidentialité) et quel OID lire. Un <strong>OID</strong> (<em>Object IDentifier</em>) est l'adresse
+d'une donnée précise dans l'équipement — température, CPU, état d'une
+interface — ; il peut s'écrire sous sa forme numérique (<code>.1.3.6.1.2.1.1.5.0</code>) ou,
+si le serveur a chargé la <strong>MIB</strong> qui le décrit, sous sa forme textuelle
+(<code>sysName.0</code>). Chaque OID supervisé est un module réseau distinct.</p>
+<table>
+<thead>
+<tr>
+<th>OID</th>
+<th>Ce qu'il est</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.1.3.6.1.2.1.1.3.0</code> (<code>sysUpTime</code>)</td>
+<td>Temps depuis lequel l'équipement est allumé</td>
+</tr>
+<tr>
+<td><code>.1.3.6.1.2.1.1.5.0</code> (<code>sysName</code>)</td>
+<td>Nom configuré de l'équipement</td>
+</tr>
+<tr>
+<td><code>.1.3.6.1.2.1.2.2.1.8</code> (<code>ifOperStatus</code>)</td>
+<td>État opérationnel d'une interface</td>
+</tr>
+<tr>
+<td><code>.1.3.6.1.2.1.2.2.1.10</code> (<code>ifInOctets</code>)</td>
+<td>Octets d'entrée par interface (compteur de 32 bits)</td>
+</tr>
+<tr>
+<td><code>.1.3.6.1.2.1.31.1.1.1.6</code> (<code>ifHCInOctets</code>)</td>
+<td>Idem, dans sa version 64 bits pour les liens rapides</td>
+</tr>
+</tbody>
+</table>
+<p>Lorsque l'OID est textuel, le serveur le traduit en numérique avec les MIB qu'il
+a chargées (voir <a href="#gestionnaire-de-mib">Gestionnaire de MIB</a>) ; sans la MIB
+adéquate, le navigateur et les modules ne peuvent travailler qu'avec le nombre.</p>
+<p>La façon recommandée de créer des modules SNMP est l'un des deux assistants de
+la fiche de l'agent : ils explorent l'équipement par SNMP et proposent les
+modules déjà configurés, sans chercher un seul OID à la main. Créer les modules
+SNMP un par un, plus loin dans cette section, reste réservé aux cas qu'un
+assistant ne couvre pas : un OID isolé qui n'apparaît dans aucun modèle, une MIB
+propre au fabricant, ou le réglage fin d'un module déjà créé.</p>
+<h3 id="assistant-dinterfaces-snmp">Assistant d'interfaces SNMP<a class="headerlink" href="#assistant-dinterfaces-snmp" title="Permanent link">¶</a></h3>
+<p>Dans la fiche de l'agent, onglet <strong>Assistant d'interfaces SNMP</strong>. C'est le
+raccourci pour les switches et les routeurs : au lieu de créer un module par
+interface et par grandeur à la main, il parcourt la branche <code>IF-MIB::interfaces</code>
+de l'équipement et propose tous les modules d'un coup.</p>
+<p>La première étape demande la connexion SNMP — le même formulaire que celui
+qu'utilise l'assistant SNMP de la section suivante — :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Valeur par défaut</th>
+<th>Ce qu'il fait</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adresse IP cible</td>
+<td>vide</td>
+<td>Adresse de l'équipement à explorer. C'est un champ de texte libre : <strong>il n'accepte pas les macros d'agent</strong> <code>_agentname_</code> ni <code>_agentalias_</code>, il faut écrire une IP réelle même si l'agent en a déjà une associée.</td>
+</tr>
+<tr>
+<td>Port</td>
+<td><code>161</code></td>
+<td>Port SNMP de l'équipement.</td>
+</tr>
+<tr>
+<td>Serveur pour exécuter la commande</td>
+<td>Console locale</td>
+<td>Quel serveur Pandora FMS fait la requête SNMP réelle. Il ne faut le changer que lorsque la console n'a pas de route directe vers l'équipement : voir <a href="#executer-des-assistants-et-des-tests-depuis-un-serveur-distant-exec-server">Exécuter des assistants et des tests depuis un serveur distant (Exec Server)</a>.</td>
+</tr>
+<tr>
+<td>Importer depuis le magasin d'identifiants</td>
+<td>—</td>
+<td>S'il existe un jeu SNMP enregistré dans le <a href="../2.2-gestor-de-credenciales/">gestionnaire d'identifiants</a> visible pour l'utilisateur, il apparaît ici ; en le choisissant, il remplit seul le reste des champs.</td>
+</tr>
+<tr>
+<td>Version SNMP</td>
+<td><code>2c</code></td>
+<td><code>1</code>, <code>2c</code> ou <code>3</code>. En choisissant <code>3</code>, le formulaire d'authentification ci-dessous apparaît.</td>
+</tr>
+<tr>
+<td>Communauté SNMP</td>
+<td><code>public</code></td>
+<td>Communauté de lecture, pour v1 et v2c.</td>
+</tr>
+</tbody>
+</table>
+<p>Avec la version <code>3</code>, le formulaire ajoute les champs habituels de SNMPv3 : niveau
+de sécurité (sans authentification ni confidentialité, avec authentification
+sans confidentialité, ou avec les deux), utilisateur, méthode et mot de passe
+d'authentification (MD5, SHA, SHA256 ou SHA512) et méthode et mot de passe de
+confidentialité (DES, AES, AES192 ou AES256) — les mêmes que dans <a href="#modules-snmp">Modules
+SNMP</a>.</p>
+<p>Une fois la requête terminée, l'assistant décide une seule fois, pour tout
+l'équipement, s'il travaille avec des compteurs de trafic de 32 ou de 64 bits :
+si l'équipement répond sur la branche de compteurs haute capacité (pensée pour
+les liens rapides), il l'utilise pour toutes ses interfaces ; sinon, il garde les
+compteurs classiques de 32 bits. Le résultat se présente sous forme de bloc
+repliable par interface, avec un interrupteur qui l'inclut ou l'exclut en
+entier ; seules les interfaces opérationnellement et administrativement actives
+viennent déjà activées, pour ne pas remplir l'agent de modules morts à cause de
+ports sans rien de connecté. Au-dessus des blocs se trouve une barre de filtre
+avec recherche de texte libre par nom ou description d'interface, deux
+interrupteurs pour ne garder que celles qui sont opérationnellement ou
+administrativement actives, et un interrupteur pour sélectionner d'un coup toutes
+les interfaces qui passent le filtre. Dans chaque bloc, un autre interrupteur
+coche ou décoche tous ses modules à la fois, et chaque module peut être activé ou
+désactivé séparément et arriver avec ses seuils d'avertissement et critique déjà
+modifiés avant de créer quoi que ce soit. Un bloc spécial, au début de la liste,
+applique le même ensemble de modules à toutes les interfaces sélectionnées d'un
+coup, sans répéter la sélection interface par interface.</p>
+<p>Pour chaque interface qui reste cochée, l'assistant propose :</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Ce qu'il mesure</th>
+<th>Seuil</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>État opérationnel</td>
+<td>Si l'interface est active, tombée, en test…</td>
+<td>Cela dépend de l'<strong>état administratif</strong> de l'interface : si elle est administrativement active, le seuil critique attend qu'elle le soit aussi opérationnellement (il avertit ou échoue sinon) ; si elle est administrativement éteinte, le seuil s'inverse pour ne pas avertir d'une chose attendue ; si elle est en test, il utilise un troisième jeu de plages.</td>
+</tr>
+<tr>
+<td>Octets d'entrée / sortie</td>
+<td>Trafic en octets par seconde</td>
+<td>Incrémental, sans seuil par défaut</td>
+</tr>
+<tr>
+<td>Paquets unicast d'entrée / sortie</td>
+<td>Paquets par seconde</td>
+<td>Incrémental, sans seuil par défaut</td>
+</tr>
+<tr>
+<td>Paquets multicast et broadcast d'entrée / sortie (seulement avec des compteurs 64 bits)</td>
+<td>Paquets par seconde</td>
+<td>Incrémental, sans seuil par défaut</td>
+</tr>
+<tr>
+<td>Erreurs CRC</td>
+<td>Trames écartées pour erreur de trame</td>
+<td>Incrémental, sans seuil par défaut</td>
+</tr>
+<tr>
+<td>Bande passante, usage d'entrée, usage de sortie</td>
+<td>Pourcentage de la capacité du lien en usage, calculé à partir du trafic et de la vitesse de l'interface</td>
+<td>Le module agrégé de bande passante apporte un <code>85</code> % comme seuil critique par défaut ; ceux d'usage d'entrée et de sortie séparément, sans seuil</td>
+</tr>
+</tbody>
+</table>
+<p>Les trois modules de pourcentage d'usage ne lisent pas un OID directement : un
+plugin interne les calcule à partir du trafic et de la vitesse nominale de
+l'interface, ils comptent donc comme des modules de type plugin dans l'agent,
+même si l'assistant les présente comme le reste. Sur les équipements Cisco
+reconnus par leur PEN, l'assistant ajoute en plus un module d'incohérence de
+duplex par interface, lorsque l'équipement expose cette donnée.</p>
+<p>Quels modules de ce tableau viennent déjà cochés par défaut, sans rien toucher,
+se décide dans <strong>Réglages → Configuration du système → Performance</strong>, onglet
+<strong>Assistant d'interfaces</strong> (voir <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/">9.2 · Référence complète de configuration de la
+console</a>) :
+c'est un interrupteur par module, valable pour tous les agents.</p>
+<p>Avant de créer, l'assistant passe la liste en revue et marque en gris, avec un
+avertissement, les modules qui existent déjà dans l'agent (ou dans la politique,
+si l'on en édite une) sous le même nom ; il n'empêche pas de continuer, mais il
+avertit pour ne pas dupliquer sans s'en apercevoir. Les modules créés se
+comportent ensuite comme n'importe quel module SNMP : on les édite, on change
+leur seuil ou on leur ajoute une alerte comme à un module fait à la main.</p>
+<div class="admonition example">
+<p class="admonition-title">Un switch de 24 ports, seulement les interfaces actives et leur trafic</p>
+<p>Adresse IP cible <code>192.168.10.2</code>, version <code>2c</code>, communauté <code>public</code>. Après le
+parcours SNMP, on ne laisse cochées que les interfaces dont l'état
+opérationnel est actif (le filtre <strong>OperStatus UP</strong> aide à le vérifier d'un
+coup d'œil) et, parmi les modules que chacune propose, seulement <strong>État
+opérationnel</strong> et les octets d'entrée et de sortie : la disponibilité et le
+trafic de chaque port en usage, sans erreurs ni paquets qu'un switch
+d'accès a rarement besoin de surveiller.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Un routeur en SNMPv3 depuis le magasin d'identifiants</p>
+<p>Adresse IP cible, celle du routeur ; version <code>3</code>. Au lieu d'écrire
+utilisateur et mots de passe à la main, on choisit le jeu déjà enregistré
+dans le gestionnaire d'identifiants avec le niveau de sécurité <code>authPriv</code>,
+l'authentification <code>SHA</code> et la confidentialité <code>AES</code> : l'assistant remplit
+seul le reste du formulaire et fait l'exploration avec ces identifiants.</p>
+</div>
+<h3 id="assistant-snmp">Assistant SNMP<a class="headerlink" href="#assistant-snmp" title="Permanent link">¶</a></h3>
+<p>Dans la fiche de l'agent, onglet <strong>Assistant SNMP</strong>. Contrairement au précédent,
+cet assistant supervise l'équipement dans son ensemble, pas seulement ses
+interfaces, et partage le même formulaire de connexion que la section précédente
+(adresse IP cible sans macros d'agent, port, serveur pour exécuter la commande,
+import depuis le magasin d'identifiants, version et communauté ou identifiants
+v3).</p>
+<p>Une fois la connexion établie, l'assistant identifie le fabricant de l'équipement
+par son <strong>PEN</strong> (<em>Private Enterprise Number</em>, l'identifiant que chaque fabricant
+enregistre auprès de l'IANA dans la branche d'identification de l'équipement). Si
+le PEN n'est pas enregistré dans Pandora FMS, l'assistant le dit et ne propose
+rien : il faut
+<a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/">l'enregistrer</a>
+ou, si cela n'intéresse pas, créer les modules à la main depuis <a href="#modules-snmp">Modules
+SNMP</a>. S'il le reconnaît, il offre la bibliothèque de modules déjà
+préparés pour ce fabricant — plus ceux qui valent pour tout équipement —
+regroupés en blocs selon ce qu'ils mesurent : CPU, mémoire, disques, stockage, et
+ainsi de suite avec le reste. Chaque bloc s'active ou se désactive d'un coup avec
+son propre interrupteur, et chaque module d'un bloc peut être coché ou décoché
+séparément, avec ses seuils d'avertissement et critique déjà modifiables avant de
+créer quoi que ce soit ; un indicateur à côté de chaque bloc avertit du nombre de
+ses modules sélectionnés.</p>
+<p>Cet assistant crée deux classes de modules :</p>
+<ul>
+<li><strong>À OID fixe</strong> : ils lisent directement un OID de la MIB du fabricant — CPU,
+  mémoire, capteurs… —, comme un module SNMP créé à la main.</li>
+<li><strong>Calculés par plugin</strong> : pour des données qui ne sortent pas d'un seul OID —
+  un pourcentage de disque utilisé, de la mémoire libre exprimée en
+  pourcentage… —, l'assistant s'appuie sur un plugin distant nommé
+  <code>snmp_remote.pl</code>. Si ce plugin n'est pas enregistré dans l'installation (voir
+  <a href="#plugins-distants-de-serveur">Plugins distants de serveur</a>), ces modules
+  restent désactivés dans l'assistant même si le fabricant est bien reconnu.</li>
+</ul>
+<p>Comme dans l'assistant d'interfaces, avant de créer, les modules qui existent
+déjà dans l'agent ou qui se répètent sous le même nom dans la sélection
+elle-même sont marqués en gris, sans que cela empêche de continuer.</p>
+<p>Le catalogue de fabricants et de composants qu'utilise cet assistant n'est pas
+fermé : il peut s'étendre avec de nouveaux fabricants et avec des composants
+propres, à OID fixe ou dynamique, lus directement ou calculés par un plugin —
+voir <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/">Étendre les assistants SNMP et WMI avec des composants
+propres</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Un serveur Linux avec net-snmp</p>
+<p>Sur un serveur avec l'agent <code>net-snmp</code> installé, l'assistant reconnaît le
+PEN de Net-SNMP/UCD et propose des modules de CPU, de mémoire et d'espace
+disque prêts à cocher et à créer, sans chercher un seul OID à la main.</p>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-asistente.png" data-desc-position="bottom"><img alt="Assistant SNMP regroupant les modules détectés en blocs" src="../../../assets/img/parte-02/redes-snmp-asistente.png"></a></p>
+<div class="admonition example">
+<p class="admonition-title">Un serveur Windows avec le service SNMP</p>
+<p>Sur un serveur Windows avec le service SNMP activé et une communauté de
+lecture configurée, on répète la même connexion (version <code>2c</code>, communauté de
+l'équipement) : si l'assistant reconnaît le PEN que déclare le service, il
+offre comme sous Linux les blocs de modules déjà préparés ; s'il ne le
+reconnaît pas, il avertit que le PEN n'est pas enregistré et ce qui convient
+est de documenter l'équipement avec <a href="#modules-snmp">Modules SNMP</a> ou de
+l'enregistrer à la main.</p>
+</div>
+<h3 id="navigateur-snmp">Navigateur SNMP<a class="headerlink" href="#navigateur-snmp" title="Permanent link">¶</a></h3>
+<p>Pour les cas où l'on ne sait pas quel OID il faut : le <strong>Navigateur SNMP</strong> (SNMP
+Browser) parcourt l'arbre complet de l'équipement, ou seulement une branche
+précise si l'on veut raccourcir l'exploration, et permet de chercher une chaîne
+de texte avec mise en évidence des correspondances. Sur tout OID trouvé, il y a
+des actions directes : créer un composant réseau, un module d'agent ou un module
+de politique, sans quitter le navigateur.</p>
+<div class="admonition example">
+<p class="admonition-title">Chercher la température d'un switch</p>
+<p>On cherche « temperature » dans l'arbre déjà exploré du switch, on localise
+l'OID correspondant au capteur et on crée le module d'agent directement
+depuis le résultat, avec <strong>Créer un module d'agent</strong>.</p>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-navegador-crear-modulos.png" data-desc-position="bottom"><img alt="Arbre du navigateur SNMP avec l'action « Créer un module d'agent »" src="../../../assets/img/parte-02/redes-snmp-navegador-crear-modulos.png"></a></p>
+<h3 id="modules-snmp">Modules SNMP<a class="headerlink" href="#modules-snmp" title="Permanent link">¶</a></h3>
+<p>Pour ce qu'aucun assistant ne couvre : un OID isolé sans modèle, une MIB propre
+au fabricant ou le réglage fin d'un module déjà créé. Quatre types :
+<strong>numérique</strong> (<code>remote_snmp</code>), <strong>état</strong> (<code>remote_snmp_proc</code>), <strong>texte</strong>
+(<code>remote_snmp_string</code>) et <strong>incrémental</strong> (<code>remote_snmp_inc</code>, pour les
+compteurs : voir <a href="#reference-des-types-de-module">Référence des types de
+module</a>). Champs propres, avec leur valeur par
+défaut :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Valeur par défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Port</td>
+<td><code>161</code></td>
+</tr>
+<tr>
+<td>OID</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Version</td>
+<td><code>2c</code></td>
+</tr>
+<tr>
+<td>Communauté (v1/v2c)</td>
+<td>vide ; <code>public</code> dans les assistants</td>
+</tr>
+<tr>
+<td>Niveau de sécurité (v3)</td>
+<td><code>noAuthNoPriv</code></td>
+</tr>
+<tr>
+<td>Utilisateur (v3)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Méthode d'authentification (v3)</td>
+<td>MD5, SHA, SHA256 ou SHA512 ; <code>MD5</code> par défaut (la console exige un minimum de 8 caractères dans le mot de passe)</td>
+</tr>
+<tr>
+<td>Méthode de confidentialité (v3)</td>
+<td>DES, AES, AES192 ou AES256 ; <code>DES</code> par défaut</td>
+</tr>
+</tbody>
+</table>
+<p>Le champ <strong>Identifiants</strong> permet de choisir un jeu enregistré dans le
+<a href="../2.2-gestor-de-credenciales/">gestionnaire d'identifiants</a> au lieu d'écrire
+communauté ou utilisateur à la main. À côté du champ OID, le bouton <strong>Exploration
+SNMP</strong> (SNMP browse) ouvre le même navigateur que la section précédente sans
+quitter l'éditeur du module.</p>
+<div class="admonition example">
+<p class="admonition-title">Uptime par v2c</p>
+<p>OID <code>.1.3.6.1.2.1.1.3.0</code>, version <code>2c</code>, communauté <code>public</code> : module
+numérique avec le temps d'activité de l'équipement, en centièmes de seconde.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">CPU d'un équipement avec un OID du fabricant</p>
+<p>Un switch expose sa charge CPU dans un OID propre, hors de MIB-II (par
+exemple, <code>.1.3.6.1.4.1.9.9.109.1.1.1.1.7.1</code> sur les équipements Cisco).
+Module numérique avec cet OID, version <code>2c</code> et la communauté du dispositif.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Module v3 authPriv avec SHA et AES</p>
+<p>Version <code>3</code>, niveau de sécurité <code>authPriv</code>, utilisateur <code>pandora_ro</code>,
+authentification <code>SHA</code> avec son mot de passe, confidentialité <code>AES</code> avec le
+sien : le plus haut niveau de sécurité SNMP que propose le formulaire.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Trafic d'une interface en incrémental</p>
+<p>OID <code>.1.3.6.1.2.1.31.1.1.1.6.1</code> (<code>ifHCInOctets</code> de l'interface 1), type
+<strong>incrémental</strong>. Le compteur SNMP croît sans arrêt tant que l'équipement est
+allumé ; Pandora FMS enregistre la différence entre deux lectures divisée
+par le temps écoulé, c'est-à-dire un <strong>taux</strong> (octets par seconde), pas la
+valeur brute du compteur.</p>
+</div>
+<h3 id="gestionnaire-de-mib">Gestionnaire de MIB<a class="headerlink" href="#gestionnaire-de-mib" title="Permanent link">¶</a></h3>
+<p>Les MIB décrivent ce que signifie chaque OID d'un fabricant ; sans la MIB
+correspondante chargée, un OID ne se voit que sous sa forme numérique. Le
+<strong>Gestionnaire de MIB</strong> (MIB uploader) permet de téléverser celles du fabricant,
+au format <code>.mib</code> ou <code>.zip</code>, et les laisse disponibles pour traduire les OID dans
+le navigateur, dans les modules et dans les traps.</p>
+<div class="admonition example">
+<p class="admonition-title">Charger la MIB d'un onduleur</p>
+<p>On téléverse le fichier <code>.mib</code> que fournit le fabricant de l'onduleur ; à
+partir de là, ses OID apparaissent traduits dans le navigateur et l'on peut
+utiliser les traps de ce même fabricant déjà identifiés par leur nom.</p>
+</div>
+<h3 id="snmp-depuis-un-endpoint">SNMP depuis un EndPoint<a class="headerlink" href="#snmp-depuis-un-endpoint" title="Permanent link">¶</a></h3>
+<p>Cela a du sens lorsque l'équipement SNMP n'est joignable que depuis l'intérieur
+d'un réseau auquel seul un EndPoint accède, et non le serveur central. L'EndPoint
+Windows dispose d'une directive native pour cela :</p>
+<div class="highlight"><pre><span></span><code>module_snmpget
+module_snmp_version 2c
+module_snmp_community public
+module_snmp_agent 192.168.10.1
+module_snmp_oid .1.3.6.1.2.1.1.3.0
+</code></pre></div>
+<p>(les identifiants SNMPv3 s'indiquent dans les options avancées du module
+lui-même, sans sous-jeton dédié par champ).</p>
+<p>Les EndPoints Go et Perl n'ont pas de directive SNMP propre : ils s'appuient sur
+<code>module_exec</code> pour appeler le <code>snmpget</code> du système, comme pour toute autre
+commande externe.</p>
+<div class="admonition example">
+<p class="admonition-title">Le même OID, depuis chaque EndPoint</p>
+<p>Windows :
+</p><div class="highlight"><pre><span></span><code>module_snmpget
+module_snmp_version 2c
+module_snmp_community public
+module_snmp_agent 192.168.10.1
+module_snmp_oid .1.3.6.1.2.1.1.3.0
+</code></pre></div>
+Go ou Perl :
+<div class="highlight"><pre><span></span><code>module_exec snmpget -v 2c -c public 192.168.10.1 .1.3.6.1.2.1.1.3.0
+</code></pre></div><p></p>
+</div>
+<p>Voir <a href="../2.1-monitorizacion-con-endpoints/">2.1 · Supervision avec des EndPoints</a>
+pour le reste des directives du fichier de configuration local.</p>
+<p>Tout ce qui précède est du polling : Pandora FMS interroge et l'équipement
+répond. Pour l'inverse — l'équipement avertit au moment où quelque chose se
+passe —, il y a les traps, qui sont reçus, filtrés, traduits et convertis en
+alertes comme expliqué dans <a href="../2.7-monitorizacion-de-traps-snmp/">Supervision des traps
+SNMP</a>.</p>
+<h2 id="windows-sans-agent-wmi">Windows sans agent : WMI<a class="headerlink" href="#windows-sans-agent-wmi" title="Permanent link">¶</a></h2>
+<p>WMI permet de lire des informations d'un équipement Windows sans lui installer
+d'EndPoint, à condition que l'accès distant à WMI soit activé sur la destination.
+Le module WMI s'appuie sur le client <code>pandorawmic</code>, que le serveur réseau lance
+avec les identifiants indiqués — enregistrés dans le <a href="../2.2-gestor-de-credenciales/">gestionnaire
+d'identifiants</a> ou écrits à la main — contre
+l'équipement de destination. Ses cinq types (numérique, état, texte et
+incrémentaux) sont dans <a href="#reference-des-types-de-module">Référence des types de
+module</a>.</p>
+<p>Champs propres du module :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Ce qu'il est</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP</td>
+<td>Équipement Windows de destination</td>
+</tr>
+<tr>
+<td>Identifiant WMI</td>
+<td>Du gestionnaire d'identifiants, ou utilisateur et mot de passe séparés</td>
+</tr>
+<tr>
+<td>Espace de noms (Namespace)</td>
+<td>Espace WMI où vit la classe interrogée ; vide par défaut</td>
+</tr>
+<tr>
+<td>Requête WMI (WMI Query)</td>
+<td>La requête en <strong>WQL</strong>, le dialecte de WMI proche de SQL</td>
+</tr>
+<tr>
+<td>Champ numéro (Field number)</td>
+<td>Quelle colonne de la réponse utiliser, si la requête en renvoie plusieurs</td>
+</tr>
+<tr>
+<td>Chaîne clé (Key string)</td>
+<td>Facultatif : s'il est rempli, le module renvoie <code>1</code> ou <code>0</code> selon que la réponse contient cette chaîne, au lieu de la chaîne elle-même</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Espace libre sur C:</p>
+<p>Espace de noms <code>root\cimv2</code>, requête
+<code>SELECT FreeSpace FROM Win32_LogicalDisk WHERE DeviceID='C:'</code>, champ numéro
+<code>0</code> : renvoie l'espace libre du disque en octets.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Service Spooler en marche</p>
+<p>Requête <code>SELECT State FROM Win32_Service WHERE Name='Spooler'</code>, chaîne clé
+<code>Running</code> : le module renvoie <code>1</code> tant que le service est actif et <code>0</code> dès
+qu'il s'arrête.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Requête WQL propre</p>
+<p>N'importe quelle classe WMI de l'équipement peut s'interroger de la même
+façon, en ajustant le numéro de champ à la colonne qui intéresse dans la
+réponse — par exemple, <code>SELECT Name, Status FROM Win32_PnPEntity</code> avec le
+champ numéro <code>1</code> pour ne garder que l'état.</p>
+</div>
+<p>L'<strong>Assistant WMI</strong>, dans la fiche de l'agent, regroupe les requêtes les plus
+courantes en modèles prêts à cocher : services (booléen, actif ou arrêté),
+processus, espace disque et composants WMI enregistrés — le même mécanisme de
+composants qu'en SNMP, mais pour WMI —, sans écrire une seule requête WQL à la
+main. Ce catalogue de composants WMI peut aussi s'étendre avec des requêtes
+propres, comme celui de l'assistant SNMP : voir <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/">Étendre les assistants SNMP et
+WMI avec des composants
+propres</a>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-wmi-asistente-bloques.png" data-desc-position="bottom"><img alt="Blocs de modèles de l'assistant WMI : mémoire, processus, alimentation, CPU, services et disques" src="../../../assets/img/parte-02/redes-wmi-asistente-bloques.png"></a></p>
+<p>Pour que l'équipement Windows de destination réponde à WMI, il faut que son
+pare-feu laisse passer les connexions entrantes correspondantes (voir
+<a href="#exigences-de-pare-feu-sous-windows-pour-la-supervision-sans-agent">exigences de pare-feu sous
+Windows</a>).</p>
+<h2 id="commandes-distantes-ssh-et-windows">Commandes distantes : SSH et Windows<a class="headerlink" href="#commandes-distantes-ssh-et-windows" title="Permanent link">¶</a></h2>
+<p>Un module de commande distante exécute une commande sur l'équipement de
+destination et recueille sa sortie (types numérique, état, texte et incrémental :
+voir <a href="#reference-des-types-de-module">Référence des types de module</a>), avec trois
+méthodes de connexion : <strong>Hérité</strong> (utilise le système d'exploitation configuré
+dans l'agent lui-même), <strong>SSH</strong> pour Linux et <strong>Contrôle distant de Windows</strong>
+(WinRM) pour Windows. Dans les trois cas, la commande se connecte avec un
+identifiant du <a href="../2.2-gestor-de-credenciales/">gestionnaire d'identifiants</a> — du
+type identifiant générique — et le champ <strong>Commande</strong>, entre guillemets simples
+quand il le faut (les guillemets doubles s'échappent avec <code>\"</code>).</p>
+<p>L'assistant de la fiche de l'agent apporte trois modèles prêts : usage disque,
+état d'un processus et état d'un service.</p>
+<div class="admonition example">
+<p class="admonition-title">Usage disque par SSH</p>
+<p>Méthode SSH, identifiant de l'équipement Linux, commande :
+</p><div class="highlight"><pre><span></span><code>df -h / | tail -1 | awk '{print $5}' | tr -d '%'
+</code></pre></div>
+renvoie le pourcentage d'usage du disque racine comme valeur numérique.<p></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Processus nginx en marche</p>
+<p>Méthode SSH, commande :
+</p><div class="highlight"><pre><span></span><code>pgrep -c nginx
+</code></pre></div>
+Un module booléen qui renvoie <code>0</code> s'il n'y a aucun processus <code>nginx</code> en
+cours, et un nombre plus grand s'il y en a.<p></p>
+</div>
+<p>Le <strong>Contrôle distant de Windows</strong> (WinRM) a besoin, comme WMI, que le pare-feu
+de l'équipement de destination laisse passer les connexions entrantes
+correspondantes (voir <a href="#exigences-de-pare-feu-sous-windows-pour-la-supervision-sans-agent">exigences de pare-feu sous
+Windows</a>
+plus bas).</p>
+<h3 id="exigences-de-pare-feu-sous-windows-pour-la-supervision-sans-agent">Exigences de pare-feu sous Windows pour la supervision sans agent<a class="headerlink" href="#exigences-de-pare-feu-sous-windows-pour-la-supervision-sans-agent" title="Permanent link">¶</a></h3>
+<p>Tant WMI que le contrôle distant de Windows ont besoin que le pare-feu de
+l'équipement de destination ait activé ces règles d'entrée :</p>
+<table>
+<thead>
+<tr>
+<th>Exigence</th>
+<th>Détail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partage de fichiers et d'imprimantes (SMB)</td>
+<td>Règle <strong>File and Printer Sharing (SMB-In)</strong></td>
+</tr>
+<tr>
+<td>RPC (mappeur de points de terminaison)</td>
+<td>Règle <strong>File and Printer Sharing (Spooler Service - RPC-EPMAP)</strong></td>
+</tr>
+<tr>
+<td>WMI</td>
+<td>Règle <strong>Windows Management Instrumentation (WMI-In)</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Sans ces trois règles actives, l'équipement refuse la connexion même si les
+identifiants et la requête ou la commande sont corrects.</p>
+<h2 id="plugins-distants-de-serveur">Plugins distants de serveur<a class="headerlink" href="#plugins-distants-de-serveur" title="Permanent link">¶</a></h2>
+<p>Un <strong>plugin distant</strong> est un script ou un exécutable que le serveur Heavy lance
+avec des paramètres et dont il recueille une unique valeur — numérique, booléenne
+ou de texte — ; le type de donnée est décidé par le module (voir <a href="#reference-des-types-de-module">Référence des
+types de module</a>). Il en existe deux classes :
+<strong>standard</strong>, qui ne renvoie que la valeur, et <strong>Nagios</strong>, qui, outre un code
+d'erreur, peut renvoyer une chaîne descriptive. L'installation en apporte
+plusieurs enregistrés d'usine et l'administrateur peut enregistrer ceux dont il a
+besoin depuis <strong>Gestion → Serveurs → Plugins</strong>.</p>
+<p>Lors de l'enregistrement d'un plugin, on indique son type, le <strong>temps maximum</strong>
+d'exécution — 15 s au départ — et les macros de champ (<code>_field1_</code>, <code>_field2_</code>…)
+que celui qui l'applique à un module utilisera, chacune avec sa description, son
+texte d'aide, sa valeur par défaut et s'il faut la masquer dans le formulaire
+(pour les mots de passe et les données sensibles). Le délai d'attente effectif
+d'un plugin concret est le <strong>plus court</strong> entre celui configuré sur le serveur et
+celui propre au plugin ; si aucun des deux n'est valide, on utilise 15 s en
+dernier recours.</p>
+<p>Dès qu'un plugin est utilisé par un module ou un composant, l'éditeur bloque ses
+<strong>Paramètres du plugin</strong> et ses macros de champ : on ne peut plus en ajouter, en
+retirer ni en modifier, pour ne pas casser les modules qui en dépendent déjà.
+Pour changer les paramètres, il faut d'abord cesser d'utiliser le plugin dans
+tous ses modules et composants.</p>
+<h3 id="macros-des-plugins">Macros des plugins<a class="headerlink" href="#macros-des-plugins" title="Permanent link">¶</a></h3>
+<p>Les macros sont ce qui rend un plugin réutilisable : la commande est enregistrée
+une seule fois avec des trous, et chaque module qui l'utilise remplit ces trous
+avec ses propres valeurs. Il y a trois familles : les macros de champ, que
+définit celui qui enregistre le plugin ; celles de l'agent et du module, que pose
+le serveur ; et celles qui restent disponibles pour les alertes du module.</p>
+<p><strong>Macros de champ.</strong> Dans <strong>Paramètres du plugin</strong>, on écrit la ligne de
+paramètres telle que l'attend le script, avec <code>_field1_</code>, <code>_field2_</code>… à la place
+de chaque valeur. Dans <strong>Macros des paramètres</strong>, chacune est décrite :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>À quoi il sert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Description</td>
+<td>Libellé du champ dans le formulaire du module</td>
+</tr>
+<tr>
+<td>Valeur par défaut</td>
+<td>Valeur avec laquelle le champ apparaît rempli à la création du module</td>
+</tr>
+<tr>
+<td>Aide</td>
+<td>Texte d'aide affiché à côté du champ</td>
+</tr>
+<tr>
+<td>Masquer la valeur</td>
+<td>Le champ s'affiche comme un mot de passe (points) et la valeur est enregistrée chiffrée</td>
+</tr>
+</tbody>
+</table>
+<p>L'<strong>Aperçu de la commande</strong> montre la ligne complète avec les valeurs par défaut
+substituées, utile pour vérifier l'enregistrement avant de sauvegarder. À la
+création d'un module de type plugin et au choix de ce plugin, le formulaire
+montre un champ par macro, avec sa description, son aide et sa valeur par défaut.
+Les valeurs masquées ne sont déchiffrées qu'au moment de lancer le plugin.</p>
+<div class="admonition example">
+<p class="admonition-title">Plugin propre avec utilisateur et mot de passe</p>
+<p>Un script qui interroge l'état d'une application s'enregistre avec ces
+<strong>Paramètres du plugin</strong> :
+</p><div class="highlight"><pre><span></span><code>-H _field1_ -u _field2_ -p _field3_
+</code></pre></div>
+et trois macros : <code>_field1_</code> avec la description « Serveur », <code>_field2_</code>
+avec la description « Utilisateur » et la valeur par défaut <code>monitor</code>, et
+<code>_field3_</code> avec la description « Mot de passe » et <strong>Masquer la valeur</strong>
+coché. Dans le module, on remplit <code>192.168.10.20</code>, <code>monitor</code> et le mot de
+passe, qui s'affiche en points ; le serveur exécute le script avec
+<code>-H 192.168.10.20 -u monitor -p &lt;mot de passe&gt;</code>.<p></p>
+</div>
+<p><strong>Macros de l'agent et du module.</strong> Outre celles de champ, la ligne de paramètres
+admet ces macros (plus que les champs des autres modules distants, voir <a href="#macros-dans-les-champs-du-module">Macros
+dans les champs du module</a>), que le serveur
+remplace chaque fois qu'il exécute le plugin :</p>
+<table>
+<thead>
+<tr>
+<th>Macro</th>
+<th>Remplacée par</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_agent_</code>, <code>_agentalias_</code></td>
+<td>Alias de l'agent</td>
+</tr>
+<tr>
+<td><code>_agentname_</code></td>
+<td>Nom de l'agent</td>
+</tr>
+<tr>
+<td><code>_agentdescription_</code></td>
+<td>Description de l'agent</td>
+</tr>
+<tr>
+<td><code>_agentgroup_</code></td>
+<td>Nom du groupe de l'agent</td>
+</tr>
+<tr>
+<td><code>_agentstatus_</code></td>
+<td>État de l'agent</td>
+</tr>
+<tr>
+<td><code>_address_</code></td>
+<td>Adresse IP principale de l'agent</td>
+</tr>
+<tr>
+<td><code>_addressn_N_</code></td>
+<td>Adresse IP numéro N de l'agent, adresses triées (<code>_addressn_2_</code> est la deuxième)</td>
+</tr>
+<tr>
+<td><code>_agentcustomfield_N_</code></td>
+<td>Valeur du champ personnalisé de l'agent dont l'identifiant est N</td>
+</tr>
+<tr>
+<td><code>_module_</code></td>
+<td>Nom du module</td>
+</tr>
+<tr>
+<td><code>_moduledescription_</code></td>
+<td>Description du module</td>
+</tr>
+<tr>
+<td><code>_modulegroup_</code></td>
+<td>Groupe du module</td>
+</tr>
+<tr>
+<td><code>_modulestatus_</code></td>
+<td>État du module</td>
+</tr>
+<tr>
+<td><code>_moduletags_</code>, <code>_name_tag_</code></td>
+<td>Tags du module</td>
+</tr>
+<tr>
+<td><code>_email_tag_</code>, <code>_phone_tag_</code></td>
+<td>Courriels et téléphones associés aux tags du module</td>
+</tr>
+<tr>
+<td><code>_interval_</code></td>
+<td>Intervalle du module, ou celui de l'agent si le module n'en a pas</td>
+</tr>
+<tr>
+<td><code>_target_ip_</code>, <code>_target_port_</code></td>
+<td>IP et port de destination configurés dans le module</td>
+</tr>
+<tr>
+<td><code>_policy_</code></td>
+<td>Nom de la politique dont provient le module, si c'est le cas</td>
+</tr>
+<tr>
+<td><code>_id_agent_</code>, <code>_id_module_</code>, <code>_id_group_</code></td>
+<td>Identifiants numériques de l'agent, du module et du groupe</td>
+</tr>
+</tbody>
+</table>
+<p>Le serveur remplace d'abord les macros de champ, puis celles-ci, si bien que la
+valeur d'une macro de champ peut être à son tour l'une d'elles. C'est la façon
+qu'a un même module de servir pour beaucoup d'agents : avec <code>_address_</code> comme
+valeur, chaque agent vérifie sa propre IP.</p>
+<div class="admonition example">
+<p class="admonition-title">Un module de plugin pour tous les agents d'une politique</p>
+<p>Dans le plugin <strong>DNS Plugin</strong>, le champ <strong>DNS Server to check</strong> se remplit
+avec <code>_address_</code> au lieu d'une IP fixe. Appliqué au moyen d'une <a href="../2.10-politicas-de-monitorizacion/">politique de
+supervision</a> aux agents de tous les
+serveurs DNS de l'entreprise, chaque module interroge l'IP de son propre
+agent, sans toucher un seul module à la main.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Champ personnalisé comme paramètre</p>
+<p>Si les agents ont un champ personnalisé avec le port d'administration de
+chaque équipement (identifiant <code>3</code>), le paramètre <code>-p _agentcustomfield_3_</code>
+passe au plugin le port de chaque agent.</p>
+</div>
+<p><strong>Macros pour les alertes.</strong> Dans les alertes d'un module de plugin restent
+disponibles <code>_plugin_param1_</code>, <code>_plugin_param2_</code>… avec la valeur de chaque macro
+de champ, et <code>_plugin_param1_desc_</code>, <code>_plugin_param2_desc_</code>… avec sa description.
+Elles servent à ce que l'avis dise contre quoi la vérification a été exécutée
+sans répéter les données dans le texte de l'alerte. Une macro avec <strong>Masquer la
+valeur</strong> est aussi remplacée ici, et en clair : il ne convient pas d'utiliser
+dans le texte d'une alerte la macro d'un mot de passe.</p>
+<div class="admonition example">
+<p class="admonition-title">Alerte qui dit quel serveur a échoué</p>
+<p>Avec le plugin du premier exemple, le texte de l'alerte
+<code>Échec sur _plugin_param1_desc_ _plugin_param1_ (_module_)</code> arrive comme
+« Échec sur Serveur 192.168.10.20 (État application) ».</p>
+</div>
+<h3 id="plugins-dusine">Plugins d'usine<a class="headerlink" href="#plugins-dusine" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Plugin d'usine</th>
+<th>À quoi il sert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DNS Plugin</td>
+<td>Résout un nom de domaine contre un serveur DNS indiqué</td>
+</tr>
+<tr>
+<td>UDP port check</td>
+<td>Vérifie si un port UDP répond</td>
+</tr>
+<tr>
+<td>SMTP Check</td>
+<td>Vérifie un serveur de messagerie sortant</td>
+</tr>
+<tr>
+<td>MySQL Plugin</td>
+<td>Exécute une requête contre un serveur MySQL</td>
+</tr>
+<tr>
+<td>Packet Loss</td>
+<td>Pourcentage de paquets perdus vers une destination</td>
+</tr>
+<tr>
+<td>Check certificate validity</td>
+<td>Validité et expiration d'un certificat</td>
+</tr>
+<tr>
+<td>SSL Verification</td>
+<td>Vérification de connexion SSL/TLS</td>
+</tr>
+<tr>
+<td>IPMI Plugin</td>
+<td>Lecture de capteurs IPMI (voir <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/">9.12 · Découverte automatique avancée, IPMI, etc.</a>)</td>
+</tr>
+<tr>
+<td>SNMP distant</td>
+<td>Utilisé en interne par l'<a href="#assistant-snmp">assistant SNMP</a> pour les modules calculés</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Résolution DNS contre 8.8.8.8</p>
+<p>Plugin <strong>DNS Plugin</strong> avec ses champs remplis ainsi : <strong>Target IP</strong>
+<code>192.168.10.30</code> (l'IP que le domaine doit renvoyer), <strong>Domain to check</strong>
+<code>midominio.com</code> et <strong>DNS Server to check</strong> <code>8.8.8.8</code>. Le module vérifie que
+<code>midominio.com</code> se résout en cette IP lorsqu'on interroge ce serveur DNS.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Vérifier un serveur SMTP</p>
+<p>Plugin <strong>SMTP Check</strong> pointant sur le port 25 du serveur de messagerie :
+module booléen qui échoue si le serveur cesse d'accepter les connexions
+SMTP.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Port UDP ouvert</p>
+<p>Plugin <strong>UDP port check</strong> avec l'IP et le port UDP du service à vérifier
+(par exemple, un serveur NTP sur le <code>123/udp</code>).</p>
+</div>
+<p>Créer un plugin propre, au lieu d'utiliser ceux d'usine, est expliqué dans
+<a href="../../parte-9/9.9-creacion-de-plugins-remotos/">9.9 · Création de plugins
+distants</a>.</p>
+<h2 id="supervision-des-routes">Supervision des routes<a class="headerlink" href="#supervision-des-routes" title="Permanent link">¶</a></h2>
+<p>L'analyseur de routes trace le chemin réseau jusqu'à une destination et avertit
+s'il change, ce que ni ICMP ni TCP ne font par eux-mêmes : il ne suffit pas de
+savoir que la destination répond, mais par où passe le trafic pour l'atteindre.
+Il s'appuie sur le plugin <code>route_parser</code> de l'EndPoint d'origine, qui combine
+ping et traceroute :</p>
+<div class="highlight"><pre><span></span><code>route_parser -t &lt;adresse_destination&gt;
+</code></pre></div>
+<p>Il exige un EndPoint au point d'origine de la route et une atteinte par ICMP
+jusqu'à la destination. Il se crée depuis l'onglet de plugins de la fiche de
+l'agent, comme n'importe quel autre plugin local, et une fois activé il génère
+une visualisation avec chaque saut de la route et le temps jusqu'à lui.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-rutas-plugin.png" data-desc-position="bottom"><img alt="Création du plugin route_parser dans l'onglet de plugins de l'agent" src="../../../assets/img/parte-02/redes-rutas-plugin.png"></a></p>
+<div class="admonition example">
+<p class="admonition-title">Route vers un site distant</p>
+<p>Sur l'EndPoint du siège central, <code>route_parser -t 172.16.0.2</code> (l'IP d'un
+équipement du site distant) laisse voir, saut par saut, par quels routeurs
+passe le trafic entre les deux sites et avertit si cette route change.</p>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-rutas-visualizacion.png" data-desc-position="bottom"><img alt="Visualisation de la route, avec le temps jusqu'à chaque saut" src="../../../assets/img/parte-02/redes-rutas-visualizacion.png"></a></p>
+<h2 id="executer-des-assistants-et-des-tests-depuis-un-serveur-distant-exec-server">Exécuter des assistants et des tests depuis un serveur distant (Exec Server)<a class="headerlink" href="#executer-des-assistants-et-des-tests-depuis-un-serveur-distant-exec-server" title="Permanent link">¶</a></h2>
+<p>Lorsque la console n'a pas de route directe vers un réseau, parce qu'il est
+derrière un pare-feu ou sur un autre segment, les assistants SNMP et le
+navigateur SNMP peuvent s'exécuter depuis un autre serveur qui l'atteint, par
+exemple le <a href="../../parte-6/6.2-servidores-satelite/">serveur satellite</a> d'un site
+distant. Il se choisit dans le champ <strong>Serveur pour exécuter la commande</strong> de
+l'assistant. Comment préparer ce serveur et quelles exigences il a est expliqué
+dans <a href="../../parte-6/6.2-servidores-satelite/">Serveurs satellite</a>.</p>
+<h2 id="reference-des-types-de-module">Référence des types de module<a class="headerlink" href="#reference-des-types-de-module" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Type interne</th>
+<th>Famille</th>
+<th>Renvoie</th>
+<th>À quoi il sert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>remote_icmp_proc</code></td>
+<td>ICMP</td>
+<td>Booléen</td>
+<td>Disponibilité par ping</td>
+</tr>
+<tr>
+<td><code>remote_icmp</code></td>
+<td>ICMP</td>
+<td>Numérique</td>
+<td>Latence en millisecondes</td>
+</tr>
+<tr>
+<td><code>remote_tcp</code></td>
+<td>TCP</td>
+<td>Numérique</td>
+<td>Temps de connexion au port</td>
+</tr>
+<tr>
+<td><code>remote_tcp_proc</code></td>
+<td>TCP</td>
+<td>Booléen</td>
+<td>Port ouvert ou fermé</td>
+</tr>
+<tr>
+<td><code>remote_tcp_string</code></td>
+<td>TCP</td>
+<td>Texte</td>
+<td>Réponse textuelle d'un service</td>
+</tr>
+<tr>
+<td><code>remote_tcp_inc</code></td>
+<td>TCP</td>
+<td>Incrémental</td>
+<td>Compteur lu par TCP</td>
+</tr>
+<tr>
+<td><code>remote_snmp</code></td>
+<td>SNMP</td>
+<td>Numérique</td>
+<td>Valeur d'un OID</td>
+</tr>
+<tr>
+<td><code>remote_snmp_inc</code></td>
+<td>SNMP</td>
+<td>Incrémental</td>
+<td>Compteur SNMP (trafic, paquets…)</td>
+</tr>
+<tr>
+<td><code>remote_snmp_string</code></td>
+<td>SNMP</td>
+<td>Texte</td>
+<td>OID de type chaîne</td>
+</tr>
+<tr>
+<td><code>remote_snmp_proc</code></td>
+<td>SNMP</td>
+<td>Booléen</td>
+<td>État dérivé d'un OID</td>
+</tr>
+<tr>
+<td><code>remote_cmd</code></td>
+<td>Commande distante</td>
+<td>Numérique</td>
+<td>Sortie numérique d'une commande</td>
+</tr>
+<tr>
+<td><code>remote_cmd_proc</code></td>
+<td>Commande distante</td>
+<td>Booléen</td>
+<td>Succès ou échec d'une commande</td>
+</tr>
+<tr>
+<td><code>remote_cmd_string</code></td>
+<td>Commande distante</td>
+<td>Texte</td>
+<td>Sortie textuelle d'une commande</td>
+</tr>
+<tr>
+<td><code>remote_cmd_inc</code></td>
+<td>Commande distante</td>
+<td>Incrémental</td>
+<td>Compteur lu par commande</td>
+</tr>
+<tr>
+<td><code>wmi_generic_data</code></td>
+<td>WMI</td>
+<td>Numérique</td>
+<td>Valeur numérique d'une requête WQL</td>
+</tr>
+<tr>
+<td><code>wmi_generic_proc</code></td>
+<td>WMI</td>
+<td>Booléen</td>
+<td>Résultat booléen d'une requête WQL</td>
+</tr>
+<tr>
+<td><code>wmi_generic_data_string</code></td>
+<td>WMI</td>
+<td>Texte</td>
+<td>Chaîne renvoyée par une requête WQL</td>
+</tr>
+<tr>
+<td><code>wmi_generic_data_inc</code></td>
+<td>WMI</td>
+<td>Incrémental</td>
+<td>Compteur lu par WMI</td>
+</tr>
+<tr>
+<td><code>wmi_generic_data_inc_abs</code></td>
+<td>WMI</td>
+<td>Incrémental absolu</td>
+<td>Différence entre deux lectures d'un compteur WMI</td>
+</tr>
+<tr>
+<td><code>generic_data</code></td>
+<td>Plugin</td>
+<td>Numérique</td>
+<td>Valeur numérique renvoyée par le plugin</td>
+</tr>
+<tr>
+<td><code>generic_proc</code></td>
+<td>Plugin</td>
+<td>Booléen</td>
+<td>Résultat correct ou en échec du plugin</td>
+</tr>
+<tr>
+<td><code>generic_data_string</code></td>
+<td>Plugin</td>
+<td>Texte</td>
+<td>Chaîne renvoyée par le plugin</td>
+</tr>
+<tr>
+<td><code>generic_data_inc</code></td>
+<td>Plugin</td>
+<td>Incrémental</td>
+<td>Compteur renvoyé par le plugin, comme taux</td>
+</tr>
+<tr>
+<td><code>generic_data_inc_abs</code></td>
+<td>Plugin</td>
+<td>Incrémental absolu</td>
+<td>Compteur renvoyé par le plugin, comme différence</td>
+</tr>
+</tbody>
+</table>
+<p>Un module de <strong>plugin</strong> n'a pas de famille de types propre : il utilise les types
+génériques du tableau et c'est celui qui crée le module qui choisit celui qui
+correspond à ce que renvoie le plugin.</p>
+<p>Les types <strong>booléens</strong> (suffixe <code>_proc</code>) s'interprètent avec la même règle dans
+tous les cas : <code>1</code> est un état correct (normal) et <code>0</code> un état critique. Les
+<strong>incrémentaux</strong> enregistrent un <strong>taux par seconde</strong> : la différence entre deux
+lectures divisée par le temps écoulé entre elles, pas la valeur brute du
+compteur. Les <strong>incrémentaux absolus</strong> (suffixe <code>_inc_abs</code>) enregistrent la
+différence entre deux lectures, sans diviser par le temps. Dans les deux cas, la
+première lecture ne sert que de référence : le serveur l'écarte et le module
+n'affiche aucune donnée avant la deuxième.</p>
+<h2 id="performance-reglage-fin-et-diagnostic">Performance, réglage fin et diagnostic<a class="headerlink" href="#performance-reglage-fin-et-diagnostic" title="Permanent link">¶</a></h2>
+<p>La supervision distante est répartie entre trois serveurs, activés d'usine : le
+<strong>serveur réseau haute performance</strong> (ICMP et SNMP par lots), le <strong>serveur
+réseau</strong> (TCP, commandes distantes et WMI, et les modules SNMP qui échouent de
+façon répétée) et le <strong>serveur Heavy</strong> (plugins distants). Ce que fait chacun et
+comment ils se répartissent le travail est expliqué dans <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/">Compatibilité et
+migration vers la nouvelle architecture de
+serveurs</a>.
+Chacun a son propre nombre de threads, qui est la première chose à augmenter
+lorsqu'un type de vérification commence à arriver en retard. Les threads, les
+tentatives, les délais d'attente et les chemins des binaires sont dans <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/">9.3 ·
+Référence complète de configuration du
+serveur</a>.</p>
+<p>Ports qu'il faut avoir ouverts depuis le serveur Pandora FMS jusqu'aux
+équipements supervisés :</p>
+<table>
+<thead>
+<tr>
+<th>Vérification</th>
+<th>Port / protocole</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ICMP</td>
+<td>Protocole ICMP (sans port)</td>
+</tr>
+<tr>
+<td>SNMP get</td>
+<td><code>161/udp</code></td>
+</tr>
+<tr>
+<td>WMI</td>
+<td>Ceux qu'utilise le WMI distant lui-même sur l'équipement Windows de destination</td>
+</tr>
+<tr>
+<td>SSH (commandes distantes)</td>
+<td><code>22/tcp</code>, sauf si un autre est configuré</td>
+</tr>
+</tbody>
+</table>
+<p>Les traps SNMP vont dans le sens inverse, de l'équipement vers le serveur, par le
+<code>162/udp</code> (voir <a href="../2.7-monitorizacion-de-traps-snmp/">Supervision des traps
+SNMP</a>).</p>
+<p>Lorsqu'un module distant reste en inconnu, la première chose à faire est de
+répéter la même vérification à la main depuis le serveur Pandora FMS, pas depuis
+le poste de l'administrateur, avec les mêmes identifiants :</p>
+<div class="highlight"><pre><span></span><code>snmpget -v 2c -c public 192.168.10.1 .1.3.6.1.2.1.1.3.0
+</code></pre></div>
+<p>Le diagnostic complet (logs, vérifications par type de module et causes
+habituelles) se trouve dans <a href="../../parte-9/9.13-troubleshooting-con-pandora/">9.13 · Dépannage avec
+Pandora</a>. Le dimensionnement des
+threads et des serveurs pour de gros volumes est dans <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/">9.14 · Analyse de
+volumétrie et conceptions pour une haute
+capacité</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
