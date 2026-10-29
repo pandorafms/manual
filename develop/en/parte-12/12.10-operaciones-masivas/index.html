@@ -62,6 +62,26 @@
 
     
     
+  
+  <script>
+  (function () {
+    // Material loads the index with XMLHttpRequest, not fetch, so the request
+    // is rewritten at open() time.
+    var shared = "search/search_index.json";
+    var lang = document.documentElement.lang || "es";
+    var scoped = "search/search_index." + lang + ".json";
+    var open = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url) {
+      if (url && String(url).indexOf(shared) !== -1) {
+        var args = Array.prototype.slice.call(arguments);
+        args[1] = String(url).replace(shared, scoped);
+        return open.apply(this, args);
+      }
+      return open.apply(this, arguments);
+    };
+  })();
+  </script>
+
   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }

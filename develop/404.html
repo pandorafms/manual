@@ -61,6 +61,26 @@
 
     
     
+  
+  <script>
+  (function () {
+    // Material loads the index with XMLHttpRequest, not fetch, so the request
+    // is rewritten at open() time.
+    var shared = "search/search_index.json";
+    var lang = document.documentElement.lang || "es";
+    var scoped = "search/search_index." + lang + ".json";
+    var open = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url) {
+      if (url && String(url).indexOf(shared) !== -1) {
+        var args = Array.prototype.slice.call(arguments);
+        args[1] = String(url).replace(shared, scoped);
+        return open.apply(this, args);
+      }
+      return open.apply(this, arguments);
+    };
+  })();
+  </script>
+
   </head>
   
   
