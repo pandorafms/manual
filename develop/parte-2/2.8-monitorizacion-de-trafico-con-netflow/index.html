@@ -3886,6 +3886,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4025,6 +4029,62 @@
     
   
     4. Ampliar los asistentes SNMP y WMI con componentes propios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a5-configuracion-de-fprobe-para-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Configuración de fprobe para Netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a6-actualizacion-de-la-lts-777-a-la-800/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Actualización de la LTS 777 a la 800
   
 
     
@@ -4761,17 +4821,10 @@ sintaxis para activar la exportación.</p>
 interfaz en modo promiscuo o de un puerto espejo; <code>pmacct</code> cubre el mismo
 caso, aunque en un despliegue con Pandora FMS se considera experimental.
 Una vez en marcha, <code>nfdump -R &lt;ruta&gt;</code> sobre los ficheros de captura confirma
-que los flujos van llegando, sin pasar por la consola.</p>
-<div class="admonition example">
-<p class="admonition-title">Sonda fprobe en Ubuntu</p>
-<p>En una máquina Ubuntu con visibilidad del tráfico de la red
-<code>192.168.10.0/24</code> (por ejemplo, colgada de un puerto espejo del switch de
-esa red), <code>fprobe</code> exporta hacia el servidor de Pandora FMS:
-</p><div class="highlight"><pre><span></span><code>fprobe -i eth0 192.168.10.5:9995
-</code></pre></div>
-A partir de ahí, el colector <code>nfcapd</code> del servidor recibe los flujos de
-esa red igual que si vinieran de un router con NetFlow nativo.<p></p>
-</div>
+que los flujos van llegando, sin pasar por la consola. Para elegir la
+interfaz, configurar el destino y verificar por separado sonda y colector,
+consulte el <a href="../../anexos/a5-configuracion-de-fprobe-para-netflow/">anexo A5 · Configuración de fprobe para
+Netflow</a>.</p>
 <h2 id="activar-y-configurar-netflow-y-sflow-en-la-consola">Activar y configurar Netflow y sFlow en la consola<a class="headerlink" href="#activar-y-configurar-netflow-y-sflow-en-la-consola" title="Permanent link">¶</a></h2>
 <p>Netflow y sFlow se activan por separado, cada uno con su interruptor, en
 <strong>Ajustes → Configuración del sistema → Configuración general</strong>, pestaña
@@ -4795,14 +4848,16 @@ directorio base donde viven los subdirectorios de datos de ambos protocolos.</p>
   <code>30</code> o <code>60</code> minutos, con el aviso de que cambiarlo exige reiniciar el
   servidor— y vida máxima de los ficheros.</li>
 <li><strong>Sflow</strong> (solo visible con sFlow activado). Los mismos campos que Netflow,
-  con el demonio <code>sfcapd</code> y su propio puerto, pero sin el aviso de reinicio en
-  el intervalo.</li>
+  con el demonio <code>sfcapd</code> y su propio puerto, con una diferencia: el intervalo
+  de rotación no es un selector sino un campo de texto libre, en segundos
+  (<code>3600</code> de fábrica), y no lleva el aviso de reinicio.</li>
 <li><strong>Remoto.</strong> Activar consulta remota por SSH, host, puerto y usuario remoto;
   se explica en detalle en <a href="#datos-de-netflow-en-otro-equipo-nfdump-remoto">Datos de Netflow en otro equipo: nfdump
   remoto</a>. Con la consulta
   remota activada, el mismo indicador de estado de la pestaña Básica añade una
   segunda línea con si esa conexión remota es alcanzable.</li>
 </ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/netflow-configuracion-basica.png" data-desc-position="bottom"><img alt="Pestaña Básica de la configuración de Netflow, con el indicador de que el servicio de consultas está en marcha (interfaz en inglés)" src="../../assets/img/parte-02/netflow-configuracion-basica.png"></a></p>
 <p>Al guardar cualquier cambio en la página de configuración de Netflow, es el
 propio servidor de Pandora FMS quien nota que la configuración cambió —lo
 revisa cada cinco segundos— y regenera el fichero de configuración del
@@ -4949,6 +5004,7 @@ las mismas pestañas de filtro básico y avanzado que el resto de vistas, con la
 posibilidad de guardar el filtro usado o cargar uno ya guardado. El resultado
 se puede exportar a CSV, y cada IP de la tabla lleva un enlace directo a una
 consulta whois, sin salir del explorador.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/netflow-explorador.png" data-desc-position="bottom"><img alt="Explorador de Netflow: tarjetas de totales, gráfico de los mayores receptores y tabla por IP (interfaz en inglés)" src="../../assets/img/parte-02/netflow-explorador.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">Los mayores emisores del último día</p>
 <p>«Datos a mostrar» en <strong>Top talkers</strong>, «Resultados a mostrar» en <code>10</code>,
@@ -4968,6 +5024,7 @@ existían en versiones anteriores de esta vista (tabla de datos, Top-N de
 conexiones, fuentes, aplicaciones y protocolos) se han movido a la <a href="#vista-superior">Vista
 superior</a>. El filtro usado se puede guardar o actualizar sin
 salir de la vista.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/netflow-vista-en-vivo.png" data-desc-position="bottom"><img alt="Vista en vivo de Netflow: periodo, resolución, valores máximos y agregación, tarjetas de totales, gráfico y tabla, con los cuatro tipos de gráfica arriba a la derecha (interfaz en inglés)" src="../../assets/img/parte-02/netflow-vista-en-vivo.png"></a></p>
 <p>La pestaña avanzada de esta vista incluye además «Dirección IP de origen de
 Netflow», campo que no está disponible al editar un filtro guardado desde
 Gestión. Permite limitar los flujos por la IP del exportador (router o
@@ -4998,6 +5055,7 @@ conexiones que en versiones anteriores estaba en la vista en vivo). Los
 porcentajes de un Top-N no tienen por qué sumar 100. Se puede elegir el
 periodo, pero esta pantalla no permite aplicar un filtro de IP, puerto o
 expresión avanzada.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/netflow-vista-superior.png" data-desc-position="bottom"><img alt="Vista superior de Netflow, desglose por aplicaciones con selector de periodo (interfaz en inglés)" src="../../assets/img/parte-02/netflow-vista-superior.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">Qué aplicación consume más ancho de banda esta semana</p>
 <p>Desglose «Aplicaciones» y periodo la última semana: la tabla ordena las
@@ -5012,6 +5070,7 @@ periodo y el filtro avanzado aplicado. Aquí se pueden elegir emisores o
 receptores, el número de resultados y guardar filtros propios del mapa.
 No muestra países ni geolocaliza los nodos, aunque haya una base GeoIP
 configurada.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/netflow-mapa-uso-red.png" data-desc-position="bottom"><img alt="Mapa de uso de red: nodos y conexiones entre ellos según el tráfico observado (interfaz en inglés)" src="../../assets/img/parte-02/netflow-mapa-uso-red.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">Ver de un vistazo las conexiones salientes de una red</p>
 <p>Con «Datos a mostrar» en <strong>Top talkers</strong>, <code>10</code> resultados y filtro
@@ -5025,6 +5084,7 @@ Netflow». Con el servidor de Netflow habilitado (<code>netflowserver 1</code>) 
 creación automática de agentes habilitada, se crea el agente
 <code>Netflow_&lt;nombre del filtro&gt;</code> y se incorporan tres módulos; si el agente ya
 existe, se reutiliza:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/netflow-filtro-monitorizacion.png" data-desc-position="bottom"><img alt="Editor de filtros de Netflow con la monitorización activada: intervalo, tráfico máximo y umbrales crítico y de advertencia (interfaz en inglés)" src="../../assets/img/parte-02/netflow-filtro-monitorizacion.png"></a></p>
 <table>
 <thead>
 <tr>
