@@ -13,7 +13,7 @@
         <link rel="prev" href="../2.19-recoleccion-y-monitorizacion-de-logs/">
       
       
-        <link rel="next" href="../../parte-3/3.1-inventario/">
+        <link rel="next" href="../2.21-configuracion-comun-de-los-agentes/">
       
       
         
@@ -581,6 +581,8 @@
   
     
     
+      
+        
       
         
       
@@ -1380,6 +1382,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.21-configuracion-comun-de-los-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Configuración común de los agentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4573,7 +4603,7 @@
 
 <h1 id="configuracion-comun-de-los-modulos">Configuración común de los módulos<a class="headerlink" href="#configuracion-comun-de-los-modulos" title="Permanent link">¶</a></h1>
 <p>Un módulo es una medida concreta de un agente: «cuánta CPU usa», «responde el puerto 443», «cuántos pedidos esperan en la cola». Lo que cambia entre un módulo y otro es <strong>cómo se obtiene el dato</strong> (un comando en el EndPoint, un <code>ping</code> desde el servidor, una consulta SNMP, una petición a una API) y eso se explica en el capítulo de cada tecnología. Lo que no cambia, o cambia poco, es todo lo demás: cada cuánto se mide, qué valores se consideran normales, qué pasa cuando el dato no llega, cuánto se guarda y cómo se organiza. Ese «todo lo demás» es un único formulario, el mismo para casi todos los tipos, y este capítulo lo explica una vez para no repetirlo en los diecinueve anteriores.</p>
-<p>Se llega a él desde <strong>Gestionar agentes</strong> (<em>Manage agents</em>), con el botón <strong>Módulos</strong> del agente y <strong>Crear módulo</strong>, o editando un módulo existente. Una política (ver <a href="../2.10-politicas-de-monitorizacion/">2.10, Políticas de monitorización</a>) usa el mismo formulario para definir módulos que luego reparte entre agentes.</p>
+<p>La pareja de este capítulo para el agente es <a href="../2.21-configuracion-comun-de-los-agentes/">2.21, Configuración común de los agentes</a>. Se llega al formulario del módulo desde <strong>Gestionar agentes</strong> (<em>Manage agents</em>), con el botón <strong>Módulos</strong> del agente y <strong>Crear módulo</strong>, o editando un módulo existente. Una política (ver <a href="../2.10-politicas-de-monitorizacion/">2.10, Políticas de monitorización</a>) usa el mismo formulario para definir módulos que luego reparte entre agentes.</p>
 <p>El formulario se divide en ocho pestañas:</p>
 <table>
 <thead>
@@ -4887,7 +4917,7 @@
 <ul>
 <li><strong>Protección en cascada de servicios</strong> (<em>Cascade Protection Services</em>), en <strong>Umbrales</strong>: si el módulo forma parte de un servicio, las alertas solo saltan en el nivel más alto del árbol donde se cumplan las condiciones, y no en todos a la vez.</li>
 <li><strong>Instrucciones de crítico, advertencia y desconocido</strong>, en <strong>Información</strong>: qué debe hacer quien reciba el aviso. Es el sitio para el «reinicia el servicio X, y si no, llama a Y».</li>
-<li><strong>Macros</strong>: variables propias del módulo, con nombres del estilo <code>_nombre_</code>, que se pueden usar en las alertas.</li>
+<li><strong>Macros</strong>: variables propias del módulo, con nombres del estilo <code>_nombre_</code>, que se pueden usar en las alertas. Para conseguir lo mismo a nivel de agente se usan los campos personalizados del agente y la macro <code>_agentcustomfield_N_</code> (ver <a href="../2.21-configuracion-comun-de-los-agentes/#campos-personalizados-del-agente">2.21</a>).</li>
 <li><strong>Relaciones entre módulos</strong> (directa o de conmutación por error): permiten sustituir un módulo por otro en el cálculo de SLA.</li>
 <li><strong>Importar desde el almacén de credenciales</strong>: en los tipos que lo permiten, rellena los campos con una credencial guardada (ver <a href="../2.2-gestor-de-credenciales/">2.2, Gestor de credenciales</a>). Solo copia los datos al formulario; el módulo no queda enlazado a la credencial.</li>
 </ul>

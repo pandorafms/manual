@@ -28,6 +28,27 @@
   margin: 2rem auto;
 }
 
+/* Iconos de menú (21-24 px) que el manual coloca junto al nombre de una opción
+   de la consola. Van en línea con el texto, no como bloque: el tamaño natural
+   del original se respeta y no se amplía. */
+.md-typeset img.icono-en-linea {
+  display: inline;
+  margin: 0 0.2rem;
+  vertical-align: -0.2em;
+  height: 1.4em;
+  width: auto;
+}
+
+/* La tabla de contenidos de la derecha puede ser muy larga: este capítulo tiene
+   más de cuarenta entradas. Sin tope de altura se sale de la pantalla y no hay
+   forma de llegar a lo que queda por debajo, así que se le da su propio scroll. */
+@media screen and (min-width: 60em) {
+  .md-sidebar--secondary .md-sidebar__scrollwrap {
+    max-height: calc(100vh - 2.4rem);
+    overflow-y: auto;
+  }
+}
+
 /* Tablas de referencia: que el nombre del token no se parta en varias líneas
    y que las columnas de compatibilidad ocupen lo mínimo. */
 .md-typeset table:not([class]) code {
@@ -62,7 +83,7 @@
 /* Capturas de pantalla: ancho de presentación contenido para que no dominen
    la página, sin forzar el fondo claro que se aplica a los diagramas. */
 .md-typeset img.captura {
-  max-width: min(100%, 600px);
+  max-width: min(100%, 900px);
 }
 
 /* Diagramas con fondo transparente: en modo oscuro se les da un fondo claro

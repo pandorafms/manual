@@ -1,0 +1,6109 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Pandora FMS product documentation">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/en/parte-2/2.21-configuracion-comun-de-los-agentes/">
+      
+      
+        <link rel="prev" href="../2.20-configuracion-comun-de-los-modulos/">
+      
+      
+        <link rel="next" href="../../parte-3/3.1-inventario/">
+      
+      
+        
+          <link rel="alternate" href="../../../parte-2/2.21-configuracion-comun-de-los-agentes/" hreflang="es">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../../fr/parte-2/2.21-configuracion-comun-de-los-agentes/" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>21. Common agent configuration - Pandora FMS — Product documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <script>
+  (function () {
+    // Material loads the index with XMLHttpRequest, not fetch, so the request
+    // is rewritten at open() time.
+    var shared = "search/search_index.json";
+    var lang = document.documentElement.lang || "es";
+    var scoped = "search/search_index." + lang + ".json";
+    var open = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url) {
+      if (url && String(url).indexOf(shared) !== -1) {
+        var args = Array.prototype.slice.call(arguments);
+        args[1] = String(url).replace(shared, scoped);
+        return open.apply(this, args);
+      }
+      return open.apply(this, arguments);
+    };
+  })();
+  </script>
+
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#common-agent-configuration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>Under construction.</strong> This documentation is still being
+      written: content may be incomplete or change without notice.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    You are viewing a version that is not the current one (a version older than
+    the last published one).
+    <a href="../../../..">
+      <strong>Go to the latest published version.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="Pandora FMS — Product documentation" class="md-header__button md-logo" aria-label="Pandora FMS — Product documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Product documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              21. Common agent configuration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../parte-2/2.21-configuracion-comun-de-los-agentes/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../fr/parte-2/2.21-configuracion-comun-de-los-agentes/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Pandora FMS — Product documentation" class="md-nav__button md-logo" aria-label="Pandora FMS — Product documentation" data-md-component="logo">
+      
+  <img src="../../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Product documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 01. Quick start
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 01. Quick start
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introduction and architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Version and support policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licensing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 02. Monitoring with Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 02. Monitoring with Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Monitoring with EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Credential manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Automatic monitoring and discovery with Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Network discovery with Host &amp; Devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Console tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Network monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. SNMP trap monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Netflow traffic monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Monitoring policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Bulk operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Application monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Container and orchestrator monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. User experience (UX) monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Cloud environment monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Virtualized environment monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. IoT monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. API monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Log collection and monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Common module configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Common agent configuration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Common agent configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#the-tabs-of-the-agent-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The tabs of the agent view
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The tabs of the agent view">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-three-dot-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three-dot menu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-main-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Main tab
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Main tab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-status-and-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent status and labels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-module-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The module list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-agent-edit-tabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The agent edit tabs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-edit-form-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The edit form: Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-edit-form-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The edit form: Advanced
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The edit form: Advanced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secondary-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secondary groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safe-operation-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe operation mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parent-agent-and-cascade-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parent agent and cascade protection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabled-quiet-and-ignore-unknown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disabled, quiet and ignore unknown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-edit-form-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The edit form: Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-module-edit-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The module edit view
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The module edit view">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-module-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The module table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actions-on-a-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actions on a module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actions-on-several-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actions on several modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-custom-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent custom fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent custom fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a field
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filling-in-the-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filling in the values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-they-are-displayed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How they are displayed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaring-them-from-the-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declaring them from the EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-them-in-macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using them in macros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other uses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-changes-by-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What changes by context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-and-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking and troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 03. IT asset management and automation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 03. IT asset management and automation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Remote control with RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Automatic software distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Remote script and command execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. System patching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Network configuration management (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. IP address management (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Planned downtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Asset integration with ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.10-reconciliacion-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Data reconciliation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 04. User and permission management
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 04. User and permission management
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Groups, users, profiles and tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. External authentication and centralized access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Advanced security and visibility (advanced ACL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Naming and tagging best practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 05. Getting value from monitoring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 05. Getting value from monitoring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Dashboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Business and service monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Centralized event console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alerts and notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Visual consoles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Network topology maps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Incident management / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.9-analisis-predictivo-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Predictive analysis / AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.10-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Capacity planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-5/5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. GIS maps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 06. Scalability and complex environments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 06. Scalability and complex environments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Distributed architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Satellite servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Automatic agent distribution and installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Historical database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Self-provisioning mechanisms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-exportacion-de-datos-a-servidores-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Data export to external servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Database optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Backup and restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.10-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. High availability (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 07. Security and monitoring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 07. Security and monitoring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Pandora security architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Vulnerability analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Hardening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Security monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Internal audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Dynamic IoC integrations (MISP) and custom rule creation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Compliance: NIS2, ISO 27001 and ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Secure configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction and installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Task automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-a-detallar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. To be detailed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 09. Other advanced aspects of Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 09. Other advanced aspects of Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Full EndPoint configuration reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Full console configuration reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Full server configuration reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Full Tentacle reference (server and client)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Database encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Cluster monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Creating discovery plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Creating local plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Creating remote plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Creating console extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.11-integracion-y-automatizacion-webhooks-y-api-rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Integration and automation. Webhooks and REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Advanced automatic discovery (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Troubleshooting with Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Volume analysis and high-capacity design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.15-cheat-sheet-de-comandos-rapidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Quick command cheat sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10. Database
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 10. Database
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Database schema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Table reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11. Technical appendices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 11. Technical appendices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Upgrading PHP versions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glossary of terms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibility and migration to the new server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Extending the SNMP and WMI wizards with custom components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a5-configuracion-de-fprobe-para-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Configuring fprobe for Netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a6-actualizacion-de-la-lts-777-a-la-800/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Upgrading from LTS 777 to 800
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12. Frequently asked questions (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 12. Frequently asked questions (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. What is this FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Server and database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agents and systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Web console and licences
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Modules and network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alerts and events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Reports, logs and email
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Large environments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automation and plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Bulk operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#the-tabs-of-the-agent-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The tabs of the agent view
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The tabs of the agent view">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-three-dot-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three-dot menu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-main-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Main tab
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Main tab">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-status-and-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent status and labels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-module-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The module list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-agent-edit-tabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The agent edit tabs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-edit-form-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The edit form: Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-edit-form-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The edit form: Advanced
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The edit form: Advanced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secondary-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secondary groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safe-operation-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe operation mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parent-agent-and-cascade-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parent agent and cascade protection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabled-quiet-and-ignore-unknown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disabled, quiet and ignore unknown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-edit-form-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The edit form: Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-module-edit-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The module edit view
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The module edit view">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-module-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The module table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actions-on-a-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actions on a module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actions-on-several-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actions on several modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-custom-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent custom fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent custom fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a field
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filling-in-the-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filling in the values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-they-are-displayed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How they are displayed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaring-them-from-the-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declaring them from the EndPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-them-in-macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using them in macros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other uses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-changes-by-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What changes by context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-and-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking and troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="common-agent-configuration">Common agent configuration<a class="headerlink" href="#common-agent-configuration" title="Permanent link">¶</a></h1>
+<p>An agent is the unit Pandora FMS uses to organize what it watches: a host, a network device or a service that groups modules, belongs to a group and has a status of its own. What changes from one agent to another is what is monitored on it, and that is explained in the chapter of each technology. What does not change is the <strong>agent sheet</strong>: the view where it is consulted and the form where it is configured. This chapter explains it once, as <a href="../2.20-configuracion-comun-de-los-modulos/">2.20, Common module configuration</a> does for the module form, so the rest of the chapters can link here instead of repeating it.</p>
+<p>The sheet has two halves:</p>
+<ul>
+<li><strong>The agent view</strong>, with a tab bar (<em>Main</em>, <em>Alerts</em>, <em>Custom fields</em>…) and, in the main tab, the agent status and the list of its modules.</li>
+<li><strong>The edit form</strong>, reached with the <strong>Manage</strong> tab of the view or from <strong>Manage agents</strong>, with three or four inner tabs: <strong>Overview</strong>, <strong>Advanced</strong>, <strong>Monitoring</strong> and <strong>Custom fields</strong>.</li>
+</ul>
+<p>The sheet is shown to anyone with read or write permission on any group of the agent, whether primary or secondary (see <a href="../../parte-4/4.1-grupos-perfiles-y-tags/#secondary-groups">4.1, Secondary groups</a>). Editing it requires write permission. In <a href="../2.11-operaciones-masivas/">bulk operations</a> the same form is reused with locks, and in the Command Center the <strong>Monitoring</strong> and <strong>Custom fields</strong> tabs are not available.</p>
+<h2 id="the-tabs-of-the-agent-view">The tabs of the agent view<a class="headerlink" href="#the-tabs-of-the-agent-view" title="Permanent link">¶</a></h2>
+<p>In the header of the view the tabs are icons, and the label of each one appears when the cursor is over it. The tab bar is not the same for every agent. Some tabs are always there; others only appear if the agent has something to show in them. When an expected tab is missing, it is almost always because its condition is not met.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-vista-barra-pestanas.png" data-desc-position="bottom"><img alt="Icon bar with the tabs of an agent view" src="../../../assets/img/parte-02/agente-vista-barra-pestanas.png"></a></p>
+<p><strong>Tabs that are always present</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Main</strong></td>
+<td>General status, contact, events, alerts, modules and custom fields. It is the default tab. See <a href="#the-main-tab">The Main tab</a>.</td>
+</tr>
+<tr>
+<td><strong>Alerts</strong></td>
+<td>The agent's alerts and their status.</td>
+</tr>
+<tr>
+<td><strong>Custom fields</strong></td>
+<td>The values of the agent's custom fields. See <a href="#agent-custom-fields">Agent custom fields</a>.</td>
+</tr>
+<tr>
+<td><strong>Graphs</strong></td>
+<td>Graphs of the agent's modules.</td>
+</tr>
+<tr>
+<td><strong>External Tools</strong></td>
+<td>External tools configured for the agent.</td>
+</tr>
+<tr>
+<td><strong>Traps view</strong></td>
+<td>SNMP traps filtered by this agent. See <a href="../2.7-monitorizacion-de-traps-snmp/">2.7</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Alerts</strong> tab open, as an example of a tab in the bar:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-vista-alertas.png" data-desc-position="bottom"><img alt="Agent view tab bar with the Alerts tab open, listing the agent's alerts and their status" src="../../../assets/img/parte-02/agente-vista-alertas.png"></a></p>
+<p><strong>Tabs that depend on a condition</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>Appears when…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manage</strong></td>
+<td>The user has write permission on any group of the agent.</td>
+</tr>
+<tr>
+<td><strong>Interfaces</strong></td>
+<td>The agent has SNMP interface modules. See <a href="../2.6-monitorizacion-de-redes/">2.6</a>.</td>
+</tr>
+<tr>
+<td><strong>Inventory</strong></td>
+<td>There is inventory data for the agent. See <a href="../../parte-3/3.1-inventario/#the-agents-inventory-tab">3.1</a>.</td>
+</tr>
+<tr>
+<td><strong>GIS data</strong></td>
+<td>GIS is enabled in the console. See <a href="../../parte-5/5.11-mapas-gis/#agent-view-and-gis-data">5.11</a>.</td>
+</tr>
+<tr>
+<td><strong>Issues</strong></td>
+<td>The ITSM integration is enabled and the agent has tickets. See <a href="../../parte-5/5.8-gestion-de-incidencias-itsm/">5.8</a>.</td>
+</tr>
+<tr>
+<td><strong>URL address</strong></td>
+<td>The agent has a URL address configured (the field of the same name, in <strong>Advanced</strong>).</td>
+</tr>
+<tr>
+<td><strong>Log viewer</strong></td>
+<td>Log collection is active and the agent has sources. See <a href="../2.19-recoleccion-y-monitorizacion-de-logs/#log-source-in-the-agent-view">2.19</a>.</td>
+</tr>
+<tr>
+<td><strong>Pandora RC</strong></td>
+<td>The custom field that holds the Pandora RC key is configured and the agent has a value in it. See <a href="../../parte-3/3.2-control-remoto-con-rc/">3.2</a>.</td>
+</tr>
+<tr>
+<td><strong>SAP view</strong></td>
+<td>The agent is a SAP agent.</td>
+</tr>
+<tr>
+<td><strong>Security hardening</strong></td>
+<td>The agent has security inventory data.</td>
+</tr>
+<tr>
+<td><strong>Vulnerabilities</strong></td>
+<td>Vulnerability analysis is active (on the agent or globally) and vulnerabilities have been found.</td>
+</tr>
+<tr>
+<td><strong>View RMM</strong></td>
+<td>The agent is an RMM agent.</td>
+</tr>
+<tr>
+<td><strong>WUX Console</strong></td>
+<td>The agent has web user experience modules. See <a href="../2.14-monitorizacion-de-experiencia-de-usuario-ux/">2.14</a>.</td>
+</tr>
+<tr>
+<td><strong>URL Route Analyzer</strong></td>
+<td>The agent has a route steps module.</td>
+</tr>
+<tr>
+<td><strong>Network config manager</strong></td>
+<td>The user has NCM read permission, configuration management is enabled on the server and on the agent, and the agent has an IP address. See <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/">3.6</a>.</td>
+</tr>
+<tr>
+<td><strong>Policies</strong></td>
+<td>Policies exist. See <a href="../2.10-politicas-de-monitorizacion/">2.10</a>.</td>
+</tr>
+<tr>
+<td><strong>Collection</strong></td>
+<td>Collections exist. See <a href="../2.9-colecciones/">2.9</a>.</td>
+</tr>
+<tr>
+<td><strong>Audit info view</strong></td>
+<td>The user has platform management permission.</td>
+</tr>
+<tr>
+<td>Extension tabs</td>
+<td>Each installed extension, according to its own permissions (for example, the VMware and RHEV managers).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-three-dot-menu">The three-dot menu<a class="headerlink" href="#the-three-dot-menu" title="Permanent link">¶</a></h3>
+<p>At the end of the bar there is a three-dot icon. Clicking it opens a menu with the tabs available for the agent, like the bar but with the label written out, so there is no need to hover over each icon. In the agent view, the management tabs (<strong>Modules</strong>, <strong>Alerts</strong> and <strong>Policies</strong>) hang under <strong>Manage</strong>. The edit bar has the same menu.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-menu-tres-puntos.png" data-desc-position="bottom"><img alt="Three-dot drop-down menu of an agent view, with the label of each tab" src="../../../assets/img/parte-02/agente-menu-tres-puntos.png"></a></p>
+<p>What is shown is decided by the <strong>Tabs menu</strong> setting, under <strong>Management → Settings → System Settings → Visual styles</strong>, <strong>Behaviour</strong> tab (see <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/#4-visual-styles">9.2</a>). It is a console-wide setting: it affects every screen with tabs and every user.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Show both (tabs and menu)</strong></td>
+<td>The icon bar and the three-dot menu. This is the default.</td>
+</tr>
+<tr>
+<td><strong>Show only icons</strong></td>
+<td>Only the icon bar; the three-dot icon disappears.</td>
+</tr>
+<tr>
+<td><strong>Show only menu</strong></td>
+<td>Only the three-dot menu; of the bar, only the active tab remains.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">A module's data, from the module</p>
+<p>A module's data view (received data, main or historical database, from now or by range) has no tab of its own. It is opened from the module's links in the <strong>Main</strong> list.</p>
+</div>
+<h2 id="the-main-tab">The Main tab<a class="headerlink" href="#the-main-tab" title="Permanent link">¶</a></h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-vista-principal.png" data-desc-position="bottom"><img alt="Main tab of an agent: general data, status, events, alerts, custom fields and module list" src="../../../assets/img/parte-02/agente-vista-principal.png"></a></p>
+<p>The <strong>Main</strong> tab gathers, from top to bottom:</p>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>What it contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>General overview</strong></td>
+<td>Name, group, IP addresses, operating system version, agent version, description, and whether remote configuration, remote control and logs are enabled.</td>
+</tr>
+<tr>
+<td><strong>Contact</strong></td>
+<td>Interval, last contact (local and remote), next contact with its progress bar, and last status change.</td>
+</tr>
+<tr>
+<td>Actions</td>
+<td><strong>Refresh data</strong> and <strong>Force checks</strong>, the latter with permission to do so.</td>
+</tr>
+<tr>
+<td>Status bar</td>
+<td>Number and percentage of normal, warning, critical, unknown and not initialized modules.</td>
+</tr>
+<tr>
+<td>Events</td>
+<td>Active events, events from the last 8 and 24 hours, and the last event.</td>
+</tr>
+<tr>
+<td>Alerts</td>
+<td>Alerts currently fired and active alerts.</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Results of security monitoring, vulnerabilities, hardening and file integrity. Only shown if there is data.</td>
+</tr>
+<tr>
+<td><strong>Custom fields</strong></td>
+<td>The fields marked to be shown in the main view.</td>
+</tr>
+<tr>
+<td><strong>Modules</strong></td>
+<td>The agent's module list, with their status and data. See <a href="#the-module-list">The module list</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>The event counts in this block do not filter by the user's event permissions, although the events subtab does require them. If a count does not match what the user sees in the events console, that is the reason.</p>
+<h3 id="agent-status-and-labels">Agent status and labels<a class="headerlink" href="#agent-status-and-labels" title="Permanent link">¶</a></h3>
+<p>The agent status comes from the statuses of its modules. It is <strong>Not initialised</strong> if all modules are, or there are none; otherwise it is <strong>Critical</strong> if any module is, then <strong>Warning</strong>, then <strong>Unknown</strong> and, if none applies, <strong>Normal</strong>. A module becomes unknown when twice its interval passes without receiving data, unless the agent or the module has <strong>Ignore unknown</strong> enabled.</p>
+<p>Next to the name, labels may appear that explain why the agent is not behaving as expected. If several apply, the first one in this list is shown:</p>
+<ol>
+<li><strong>Disabled</strong>, if the agent is in disabled mode.</li>
+<li><strong>Quiet</strong>, if it is in quiet mode.</li>
+<li><strong>Event Storm protection</strong>, if the server has throttled the agent's event generation.</li>
+<li><strong>In scheduled downtime</strong>, if a scheduled downtime is active (see <a href="../../parte-3/3.8-paradas-planificadas/">3.8</a>).</li>
+</ol>
+<h3 id="the-module-list">The module list<a class="headerlink" href="#the-module-list" title="Permanent link">¶</a></h3>
+<p>Below the summary, the <strong>Modules</strong> subtab lists the agent's modules. It can be filtered by status (all, critical, alert fired, normal, not normal, warning, unknown), by name and by <strong>Module group</strong>, and it has a <strong>Hierarchy mode</strong> that shows the modules as a tree according to their relationships. The columns are: source policy, type, name, module group, description, status, last status change, thresholds, data, last contact, graphs and actions. "Not initialised" is counted in the status bar but is not a filter. What each module setting means is in <a href="../2.20-configuracion-comun-de-los-modulos/">2.20</a>.</p>
+<p>The bar also has the <strong>Events</strong> (with event read permission, see <a href="../../parte-5/5.4-consola-de-eventos-centralizada/">5.4</a>), <strong>Alerts</strong>, <strong>Logs</strong> (if collection is active) and <strong>Interfaces</strong> (if there are interface modules).</p>
+<h2 id="the-agent-edit-tabs">The agent edit tabs<a class="headerlink" href="#the-agent-edit-tabs" title="Permanent link">¶</a></h2>
+<p>The edit view (<strong>Management → Resources → Manage agents</strong> and the agent) has its own tab bar, different from the one in the view. The tabs are icons too, with the label shown on hover, and their number depends on the user's permission and on what the agent has.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-edicion-barra-pestanas.png" data-desc-position="bottom"><img alt="Icon bar with the tabs of an agent edit view" src="../../../assets/img/parte-02/agente-edicion-barra-pestanas.png"></a></p>
+<p>With permission to disable agents but without write permission, the bar is reduced to <strong>View</strong>, <strong>Modules</strong> and <strong>Alerts</strong>. With write permission the rest appears, according to these conditions:</p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>What it does</th>
+<th>Appears when…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>View</strong></td>
+<td>Goes back to the agent view.</td>
+<td>Always.</td>
+</tr>
+<tr>
+<td><strong>Setup</strong></td>
+<td>The agent edit form. See <a href="#the-edit-form-overview">The edit form</a>.</td>
+<td>Write permission.</td>
+</tr>
+<tr>
+<td><strong>Remote configuration</strong></td>
+<td>Edits the agent's remote configuration file. See <a href="../2.1-monitorizacion-con-endpoints/#remote-configuration-from-the-web-console">2.1</a>.</td>
+<td>The agent has remote configuration and the file is writable.</td>
+</tr>
+<tr>
+<td><strong>Remote satellite configuration</strong></td>
+<td>Edits the remote configuration of a satellite.</td>
+<td>The agent has a remote satellite configuration.</td>
+</tr>
+<tr>
+<td><strong>Modules</strong></td>
+<td>The agent's module table. See <a href="#the-module-edit-view">The module edit view</a>.</td>
+<td>Always.</td>
+</tr>
+<tr>
+<td><strong>Network config manager</strong></td>
+<td>Management of the network device configuration. See <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/">3.6</a>.</td>
+<td>The user has NCM permission, the NCM server is enabled and the agent has an IP address.</td>
+</tr>
+<tr>
+<td><strong>Alerts</strong></td>
+<td>Assigns alerts to the agent's modules. See <a href="../../parte-5/5.5-alertas-y-notificaciones/">5.5</a>.</td>
+<td>Always.</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Security monitoring settings of the agent: hardening, vulnerability scanning and file integrity. Needs remote configuration and agent version 774 or higher.</td>
+<td>Write permission.</td>
+</tr>
+<tr>
+<td><strong>Inventory</strong></td>
+<td>The agent's inventory modules. See <a href="../../parte-3/3.1-inventario/">3.1</a>.</td>
+<td>Write permission.</td>
+</tr>
+<tr>
+<td><strong>Plugins</strong></td>
+<td>The agent's plugins.</td>
+<td>The agent has remote configuration.</td>
+</tr>
+<tr>
+<td><strong>Module log collection</strong></td>
+<td>Log collection tied to modules. See <a href="../2.19-recoleccion-y-monitorizacion-de-logs/">2.19</a>.</td>
+<td>The agent has remote configuration.</td>
+</tr>
+<tr>
+<td><strong>Manage policy</strong></td>
+<td>The policies applied to the agent. See <a href="../2.10-politicas-de-monitorizacion/">2.10</a>.</td>
+<td>Policies are available.</td>
+</tr>
+<tr>
+<td><strong>Collection</strong></td>
+<td>The file collections of the agent. See <a href="../2.9-colecciones/">2.9</a>.</td>
+<td>Collections are available.</td>
+</tr>
+<tr>
+<td><strong>GIS data</strong></td>
+<td>The agent's position on the map. See <a href="../../parte-5/5.11-mapas-gis/">5.11</a>.</td>
+<td>Write permission.</td>
+</tr>
+<tr>
+<td><strong>Agent wizard</strong></td>
+<td>Opens three wizards that create modules from what the agent discovers: <strong>SNMP Wizard</strong>, <strong>SNMP Interfaces wizard</strong> and <strong>WMI Wizard</strong>. See <a href="../2.6-monitorizacion-de-redes/">2.6</a>.</td>
+<td>Write permission.</td>
+</tr>
+<tr>
+<td><strong>Incidents</strong></td>
+<td>The incidents associated with the agent.</td>
+<td>The agent has incidents.</td>
+</tr>
+<tr>
+<td>Extension tabs</td>
+<td>Each extension that adds a tab of its own to the edit view.</td>
+<td>According to the extension's permissions.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-edit-form-overview">The edit form: Overview<a class="headerlink" href="#the-edit-form-overview" title="Permanent link">¶</a></h2>
+<p>The <strong>Overview</strong> tab holds the agent's identity and how it relates to the server.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-formulario-descripcion-general.png" data-desc-position="bottom"><img alt="Agent edit form, Overview tab, with identity, primary group and QR code" src="../../../assets/img/parte-02/agente-formulario-descripcion-general.png"></a></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agent name</strong></td>
+<td>Internal, unique identifier. With <strong>Use alias as name</strong> disabled, the console generates it. Changing it after the agent is created warns about the risk of duplicates: two agents with the same name get mixed up on the server. It is not shown in the interface.</td>
+</tr>
+<tr>
+<td><strong>Agent alias</strong></td>
+<td>Visible name. It can be repeated; a duplicate alias is only rejected if <strong>Use alias as name</strong> is active.</td>
+</tr>
+<tr>
+<td><strong>Use alias as name</strong></td>
+<td>Only exists when creating the agent. By default it takes the value of the global setting.</td>
+</tr>
+<tr>
+<td><strong>QR custom ID</strong></td>
+<td>The agent's own identifier, available as the <code>_agentcustomid_</code> macro. The characters <code>/ \ | % # &amp; $</code> and HTML tags are removed.</td>
+</tr>
+<tr>
+<td><strong>IP Address</strong></td>
+<td>The agent's IP. The format is validated and, if another agent already uses it, confirmation is requested before saving.</td>
+</tr>
+<tr>
+<td><strong>Check availability</strong></td>
+<td>Checks whether the address responds.</td>
+</tr>
+<tr>
+<td><strong>Lock IP address</strong></td>
+<td>Prevents the IP from being updated automatically when the EndPoint reports a different one.</td>
+</tr>
+<tr>
+<td><strong>IP Address list</strong> and <strong>Delete selected IPs</strong></td>
+<td>Manage the agent's additional addresses.</td>
+</tr>
+<tr>
+<td><strong>Primary group</strong></td>
+<td>Required. It is locked if the user has no permission on it or if the group has reached its agent limit.</td>
+</tr>
+<tr>
+<td><strong>Interval</strong></td>
+<td>How often the agent contacts the server. It is also the reference for unknown: after twice that time without data, the modules become unknown. By default, the global value or 300 seconds; the console warns below 5 minutes.</td>
+</tr>
+<tr>
+<td><strong>Description</strong>, <strong>OS</strong> and <strong>OS version</strong></td>
+<td>Free text and selector.</td>
+</tr>
+<tr>
+<td><strong>Add default monitoring</strong></td>
+<td>Only exists when creating the agent and is enabled by default: it adds the <em>Host Alive</em> and <em>Host Latency</em> modules.</td>
+</tr>
+<tr>
+<td><strong>Server</strong></td>
+<td>Preferred server for the agent's remote tasks: <strong>None</strong>, <strong>Autobalance</strong> or a specific one. With <strong>None</strong>, the agent's remote modules do not run.</td>
+</tr>
+<tr>
+<td><strong>Enable auto High Availability</strong></td>
+<td>Enabled by default.</td>
+</tr>
+<tr>
+<td><strong>Satellite server</strong></td>
+<td>Read-only; shows the assigned satellite, if any.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Two agents with the same alias</p>
+<p>Two branches have a host called "checkout-server". With <strong>Use alias as name</strong> disabled, both agents can have that alias without conflict, because each gets a different internal name. With the setting enabled, the console rejects the second one.</p>
+</div>
+<h2 id="the-edit-form-advanced">The edit form: Advanced<a class="headerlink" href="#the-edit-form-advanced" title="Permanent link">¶</a></h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-formulario-avanzado.png" data-desc-position="bottom"><img alt="Advanced tab of the agent form, with secondary groups, module definition and hierarchy and behavior options" src="../../../assets/img/parte-02/agente-formulario-avanzado.png"></a></p>
+<p>The <strong>Advanced</strong> tab decides how the server treats the agent. It is split into three blocks: <strong>Identity</strong>, <strong>Hierarchy &amp; behavior</strong> and <strong>Configuration &amp; appearance</strong>. It has the most side effects, so it is worth reading what each option does.</p>
+<h3 id="secondary-groups">Secondary groups<a class="headerlink" href="#secondary-groups" title="Permanent link">¶</a></h3>
+<p><strong>Secondary groups</strong> gives users from other groups access to the agent without duplicating it. The primary group cannot also be a secondary one. See <a href="../../parte-4/4.1-grupos-perfiles-y-tags/#secondary-groups">4.1</a>.</p>
+<h3 id="module-definition">Module definition<a class="headerlink" href="#module-definition" title="Permanent link">¶</a></h3>
+<p><strong>Module definition</strong> sets what the server does with the data that arrives in the EndPoint's XML:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>New modules</th>
+<th>Agent data in the XML</th>
+<th>Disables itself</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Learning mode</strong> (the default)</td>
+<td>Creates them automatically.</td>
+<td>Overwrites interval, address, versions, time zone and parent.</td>
+<td>No.</td>
+</tr>
+<tr>
+<td><strong>Normal mode</strong></td>
+<td>Ignores modules that are not declared in the console.</td>
+<td>Does <strong>not</strong> overwrite interval, operating system version, EndPoint version, time zone or parent agent.</td>
+<td>No.</td>
+</tr>
+<tr>
+<td><strong>Autodisable mode</strong></td>
+<td>Creates them automatically.</td>
+<td>Same as learning mode.</td>
+<td>The agent disables itself when all its modules are unknown and re-enables itself as soon as data arrives.</td>
+</tr>
+</tbody>
+</table>
+<p>Normal mode has an effect that cannot be deduced from its name: besides not creating modules, it freezes the agent's data. If you change the EndPoint's interval and the console still shows the old one, check this field.</p>
+<h3 id="safe-operation-mode">Safe operation mode<a class="headerlink" href="#safe-operation-mode" title="Permanent link">¶</a></h3>
+<p><strong>Safe operation mode</strong> disables the other modules of an agent when a specific one becomes critical. The checkbox only enables the selector; what is saved is the chosen module. If the chosen module becomes critical, the server disables the rest of the agent's modules and re-enables them when it recovers, refreshing their timestamps so they do not become unknown. With the value <strong>Any</strong> the server does nothing: a module has to be chosen.</p>
+<h3 id="parent-agent-and-cascade-protection">Parent agent and cascade protection<a class="headerlink" href="#parent-agent-and-cascade-protection" title="Permanent link">¶</a></h3>
+<p><strong>Parent agent</strong> establishes the hierarchy between agents (for example, the switch a server hangs from). It is searched by name and autocomplete starts at two characters.</p>
+<p><strong>Cascade protection</strong> is configured on the child and prevents an alert storm when the parent goes down. When active, the server inhibits the child agent's alerts if the parent, or any of its ancestors (up to 1024 levels), has a fired alert whose template has <strong>critical</strong> priority. Two clarifications:</p>
+<ul>
+<li>It looks at <strong>fired alerts</strong>, not at the module status. A module in critical whose alert has not fired (because of an occurrence threshold, for example) does not trigger the protection.</li>
+<li><strong>Cascade protection modules</strong> narrows it: with <strong>Any</strong>, any critical alert of the parent is enough; with a specific module, only that module's alerts count.</li>
+</ul>
+<p><strong>Cascade protection services</strong> is independent: it only acts if the service has its own cascade protection enabled. See <a href="../../parte-5/5.3-monitorizacion-de-negocio-y-servicios/">5.3</a> and, for the per-module equivalent, <a href="../2.20-configuracion-comun-de-los-modulos/#organizing-modules">2.20</a>. Alerts are explained in <a href="../../parte-5/5.5-alertas-y-notificaciones/">5.5</a>.</p>
+<h3 id="disabled-quiet-and-ignore-unknown">Disabled, quiet and ignore unknown<a class="headerlink" href="#disabled-quiet-and-ignore-unknown" title="Permanent link">¶</a></h3>
+<p>Three switches that look alike and do not do the same thing:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Data</th>
+<th>Alerts and events</th>
+<th>What else happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Disabled mode</strong></td>
+<td>Not processed.</td>
+<td>Not generated.</td>
+<td>Excluded from the unknown calculation. When saving with the mode active, all the agent's fired alerts are acknowledged, and the agent is put on hold in its remote configuration. In many listings it does not even appear.</td>
+</tr>
+<tr>
+<td><strong>Quiet</strong></td>
+<td>Still processed.</td>
+<td>Alerts are not executed and events are not generated.</td>
+<td>The <strong>Main</strong> tab shows "(Quiet)" next to the name.</td>
+</tr>
+<tr>
+<td><strong>Ignore unknown</strong></td>
+<td>Still processed.</td>
+<td>Work normally.</td>
+<td>The server does not mark the agent's modules as unknown for lack of data: they keep their last status. By default it takes the global value.</td>
+</tr>
+</tbody>
+</table>
+<p>If the reason is a stop with an end date, a <a href="../../parte-3/3.8-paradas-planificadas/">scheduled downtime</a> is a better choice: it returns to its previous state on its own and leaves a record in reports and SLA.</p>
+<h3 id="other-settings">Other settings<a class="headerlink" href="#other-settings" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Update new GIS data</strong>: enabled on creation. See <a href="../../parte-5/5.11-mapas-gis/">5.11</a>.</li>
+<li><strong>RMM</strong>: appears only with remote configuration and a Linux, Windows or Mac operating system; it activates the RMM agent with the default values of the EndPoint's configuration file. See <a href="../../parte-3/3.2-control-remoto-con-rc/">3.2</a>.</li>
+<li><strong>Agent icon</strong>: the agent's icon in maps and views.</li>
+<li><strong>URL Address</strong>: source of the <strong>URL address</strong> tab of the view.</li>
+<li><strong>Remote configuration</strong>: if the agent has remote configuration, it shows its fingerprint and a link to delete it. See <a href="../2.1-monitorizacion-con-endpoints/#remote-configuration-from-the-web-console">2.1</a>.</li>
+</ul>
+<h2 id="the-edit-form-monitoring">The edit form: Monitoring<a class="headerlink" href="#the-edit-form-monitoring" title="Permanent link">¶</a></h2>
+<p>The <strong>Monitoring</strong> tab switches EndPoint features on and off by writing to its remote configuration:</p>
+<table>
+<thead>
+<tr>
+<th>Switch</th>
+<th>What it enables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Security vulnerabilities</strong></td>
+<td>Vulnerability analysis.</td>
+</tr>
+<tr>
+<td><strong>Security hardening</strong></td>
+<td>Hardening checks.</td>
+</tr>
+<tr>
+<td><strong>Security monitoring</strong></td>
+<td>Security monitoring.</td>
+</tr>
+<tr>
+<td><strong>Log collection</strong></td>
+<td>Log collection. See <a href="../2.19-recoleccion-y-monitorizacion-de-logs/">2.19</a>.</td>
+</tr>
+<tr>
+<td><strong>Hardware monitoring</strong></td>
+<td>Hardware inventory.</td>
+</tr>
+<tr>
+<td><em>Software monitoring</em></td>
+<td>Software inventory.</td>
+</tr>
+<tr>
+<td><strong>Inventory</strong></td>
+<td>Inventory modules. See <a href="../../parte-3/3.1-inventario/">3.1</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>For the tab to appear, the agent must have remote configuration, a Windows, Linux or Mac operating system and version 774 or later. It does not exist in bulk operations or in the Command Center.</p>
+<h2 id="the-module-edit-view">The module edit view<a class="headerlink" href="#the-module-edit-view" title="Permanent link">¶</a></h2>
+<p>Besides the form, editing an agent has a dedicated view for its modules. It is opened from the modules icon in the bar of the edit view (<strong>Management → Resources → Manage agents</strong>, the agent, and the <strong>Modules</strong> icon). It brings together the agent's module list, its filters and the actions on them. The configuration of each module (basic data, thresholds, interval) is explained in <a href="../2.20-configuracion-comun-de-los-modulos/">2.20</a>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-edicion-modulos.png" data-desc-position="bottom"><img alt="Module edit view of an agent, with the module table, the filters and the action buttons" src="../../../assets/img/parte-02/agente-edicion-modulos.png"></a></p>
+<h3 id="the-module-table">The module table<a class="headerlink" href="#the-module-table" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Checkbox</td>
+<td>Selects the module for actions on several modules. Only with write permission on the agent.</td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td>The module name, which opens its edit form. Disabled modules are shown in italics. It may carry icons: quiet module (<em>Quiet</em>), module in a scheduled downtime, and name conflict between the agent and the satellite, when the module is defined with the same name in the agent configuration file and in the satellite one.</td>
+</tr>
+<tr>
+<td><strong>Module group</strong></td>
+<td>The module's group or <em>None</em>.</td>
+</tr>
+<tr>
+<td><strong>P</strong> (<em>Policy</em>)</td>
+<td>If the module comes from a policy, an icon that links to it and that tells adopted modules from unlinked ones. It only appears with policies available and write permission. See <a href="../2.10-politicas-de-monitorizacion/">2.10</a>.</td>
+</tr>
+<tr>
+<td><strong>S</strong> (<em>Server</em>)</td>
+<td>The icon of the server that runs the module. A module with no data received adds a <strong>Non initialized module</strong> mark.</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>The icon of the module type.</td>
+</tr>
+<tr>
+<td><strong>Interval</strong></td>
+<td>The module's interval or, if it has none of its own, the agent's.</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>The description, truncated.</td>
+</tr>
+<tr>
+<td><strong>Status</strong></td>
+<td>The current status as a colour block; hovering over it shows the detail. With an interval below 300 seconds, a warning reminds that the unknown status requires 300 seconds or more.</td>
+</tr>
+<tr>
+<td><strong>Warn</strong></td>
+<td>The module's warning and critical thresholds.</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>The row's action icons (see below).</td>
+</tr>
+</tbody>
+</table>
+<p>With <strong>Show in hierarchy mode</strong> enabled, child modules appear indented under their parent module and sorting by columns is disabled. If the page cuts a branch, the module's ancestors are shown so the context is not lost.</p>
+<h3 id="filters">Filters<a class="headerlink" href="#filters" title="Permanent link">¶</a></h3>
+<p>The <strong>Filters</strong> button opens a panel with these criteria, which are combined:</p>
+<table>
+<thead>
+<tr>
+<th>Filter</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Search</strong></td>
+<td>Filters by module name.</td>
+</tr>
+<tr>
+<td><strong>Status</strong></td>
+<td>All, <strong>Normal</strong>, <strong>Warning</strong>, <strong>Critical</strong>, <strong>Unknown</strong> or <strong>Not initialised</strong>.</td>
+</tr>
+<tr>
+<td><strong>Module group</strong></td>
+<td>All, <strong>Not assigned</strong> or a specific group.</td>
+</tr>
+<tr>
+<td><strong>Show in hierarchy mode</strong></td>
+<td>Groups child modules under their parent. Not offered when editing the modules of a policy.</td>
+</tr>
+<tr>
+<td><strong>Enabled/Disabled</strong></td>
+<td>All, enabled only or disabled only.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="actions-on-a-module">Actions on a module<a class="headerlink" href="#actions-on-a-module" title="Permanent link">¶</a></h3>
+<p>The icons in the <strong>Action</strong> column depend on the permission and on the module type:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>What it does</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Disable module</strong> / <strong>Enable module</strong></td>
+<td>Pauses or reactivates the module.</td>
+<td>Anyone who can see the list.</td>
+</tr>
+<tr>
+<td><strong>Duplicate</strong></td>
+<td>Creates a copy of the module in the same agent.</td>
+<td>Write permission. Not offered on web analysis modules.</td>
+</tr>
+<tr>
+<td><strong>Normalize</strong></td>
+<td>Deletes the stored data that exceeds the average of the last year by 30 %, to remove erroneous peaks. It is a destructive, irreversible operation. If there is no data to delete, it says so.</td>
+<td>Write permission and a numeric data module; otherwise the icon appears disabled.</td>
+</tr>
+<tr>
+<td><strong>Create network component</strong></td>
+<td>Turns the module into a reusable network component.</td>
+<td>Administrator and a network module; otherwise the icon appears disabled.</td>
+</tr>
+<tr>
+<td><strong>Delete</strong></td>
+<td>Removes the module. If it has child modules, the confirmation lists them, because they are deleted too.</td>
+<td>Write permission.</td>
+</tr>
+</tbody>
+</table>
+<p>Users who only have the permission to disable agents see the list and can enable and disable modules, but cannot select, create, duplicate, normalize or delete them.</p>
+<h3 id="creating-a-module">Creating a module<a class="headerlink" href="#creating-a-module" title="Permanent link">¶</a></h3>
+<p>The <strong>Create module</strong> button opens a dialog to choose the type of the new module. Once chosen, the form for that type opens.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-crear-modulo.png" data-desc-position="bottom"><img alt="Module creation dialog with the module type selector" src="../../../assets/img/parte-02/agente-crear-modulo.png"></a></p>
+<p>The available types depend on the servers present in the system:</p>
+<table>
+<thead>
+<tr>
+<th>Available when…</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Always.</td>
+<td><strong>Endpoint module</strong></td>
+</tr>
+<tr>
+<td>There is at least one network server.</td>
+<td><strong>Network ICMP module</strong>, <strong>Network TCP module</strong>, <strong>SNMP module</strong>, <strong>WMI module</strong>, <strong>Remote execution module</strong>, <strong>Web module</strong>, <strong>Prediction module</strong>, <strong>API retrieve module</strong> and <strong>API custom module</strong></td>
+</tr>
+<tr>
+<td>There is at least one plugin server.</td>
+<td><strong>Plugin module</strong></td>
+</tr>
+<tr>
+<td>There is at least one WUX server.</td>
+<td><strong>UX module</strong></td>
+</tr>
+<tr>
+<td>The agent has a remote satellite configuration. See below.</td>
+<td><strong>Satellite types</strong></td>
+</tr>
+</tbody>
+</table>
+<p>There are six satellite types. They are run by the satellite, not by a server, and are only offered if the agent has a remote satellite configuration (<strong>Remote satellite configuration</strong> tab, in <a href="#the-agent-edit-tabs">The agent edit tabs</a>). How each one is configured is in <a href="../../parte-6/6.2-servidores-satelite/#satellite-modules">Satellite modules</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What it checks</th>
+<th>See</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Satellite ICMP module</strong></td>
+<td>Connectivity by ping.</td>
+<td><a href="../../parte-6/6.2-servidores-satelite/#icmp-and-tcp">ICMP and TCP</a></td>
+</tr>
+<tr>
+<td><strong>Satellite TCP module</strong></td>
+<td>A TCP port.</td>
+<td><a href="../../parte-6/6.2-servidores-satelite/#icmp-and-tcp">ICMP and TCP</a></td>
+</tr>
+<tr>
+<td><strong>Satellite SNMP module</strong></td>
+<td>An OID over SNMP.</td>
+<td><a href="../../parte-6/6.2-servidores-satelite/#snmpv1-and-snmpv2">SNMPv1 and SNMPv2</a>, <a href="../../parte-6/6.2-servidores-satelite/#snmpv3">SNMPv3</a></td>
+</tr>
+<tr>
+<td><strong>Satellite WMI module</strong></td>
+<td>A WMI query.</td>
+<td><a href="../../parte-6/6.2-servidores-satelite/#wmi">WMI</a></td>
+</tr>
+<tr>
+<td><strong>Satellite SSH module</strong></td>
+<td>A command over SSH.</td>
+<td><a href="../../parte-6/6.2-servidores-satelite/#ssh">SSH</a></td>
+</tr>
+<tr>
+<td><strong>Satellite Exec module</strong></td>
+<td>A command on the satellite itself.</td>
+<td><a href="../../parte-6/6.2-servidores-satelite/#remote-execution">Remote execution</a></td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Go to Marketplace</strong> button opens the catalogue of modules and plugins.</p>
+<h3 id="actions-on-several-modules">Actions on several modules<a class="headerlink" href="#actions-on-several-modules" title="Permanent link">¶</a></h3>
+<p>With modules checked, the bottom bar offers an action selector and the <strong>Execute action</strong> button:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Disable selected modules</strong></td>
+<td>Pauses the checked modules.</td>
+</tr>
+<tr>
+<td><strong>Enable selected modules</strong></td>
+<td>Reactivates the checked modules.</td>
+</tr>
+<tr>
+<td><strong>Delete selected modules</strong></td>
+<td>Removes the checked modules and, before each one, its children.</td>
+</tr>
+<tr>
+<td><strong>Force to normal selected modules</strong></td>
+<td>Administrators only. Forces the normal status of each module. Changing the status by hand can alter reports and SLAs, and is recorded in the audit log.</td>
+</tr>
+</tbody>
+</table>
+<p>When finished, the console states whether the operation was applied to all modules or to how many of them (for example, "Applied to 3/5 modules"). To apply an action to many agents at once, see <a href="../2.11-operaciones-masivas/">2.11</a>.</p>
+<h2 id="agent-custom-fields">Agent custom fields<a class="headerlink" href="#agent-custom-fields" title="Permanent link">¶</a></h2>
+<p>Custom fields are your own metadata added to all agents: the owner, the customer, the location, the inventory reference, the host's SNMP community. They are created once, filled in per agent, and can then be shown, filtered, searched and used in macros. For the agent, they are what custom macros are for the module (see <a href="../2.20-configuracion-comun-de-los-modulos/#organizing-modules">2.20</a>).</p>
+<h3 id="creating-a-field">Creating a field<a class="headerlink" href="#creating-a-field" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-gestor-campos-personalizados.png" data-desc-position="bottom"><img alt="Agent custom field manager, with each field's ID, name and whether it is displayed up front" src="../../../assets/img/parte-02/agente-gestor-campos-personalizados.png"></a></p>
+<p>Fields are created in <strong>Management → Resources → Custom fields</strong> (<em>Agent custom field manager</em>), with <strong>Create field</strong>. Only administrators can access this manager.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-crear-campo-personalizado.png" data-desc-position="bottom"><img alt="Create form for a custom field, with the name and the type switches" src="../../../assets/img/parte-02/agente-crear-campo-personalizado.png"></a></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Name</strong></td>
+<td>Required and unique. The EndPoint identifies the field by this name.</td>
+</tr>
+<tr>
+<td><strong>Display up front</strong></td>
+<td>The field is visible in the <strong>Main</strong> and <strong>Custom fields</strong> tabs for users without write permission on the agent. Without it, only those who can edit the agent see it.</td>
+</tr>
+<tr>
+<td><strong>Password type</strong></td>
+<td>The value is typed in a password field and shown as dots or asterisks. It is only saved when changed.</td>
+</tr>
+<tr>
+<td><strong>Enabled combo</strong> and <strong>Combo values</strong></td>
+<td>The value is chosen from a list; the values are separated by commas.</td>
+</tr>
+<tr>
+<td><strong>Link type</strong></td>
+<td>The value carries a text and a URL (<strong>Link text</strong> and <strong>Link URL</strong>). If the URL has no scheme, <code>http://</code> is prepended.</td>
+</tr>
+</tbody>
+</table>
+<p>The four types are therefore text, list, password and link. <strong>Combo</strong> and <strong>Password</strong> are mutually exclusive: to switch from one to the other, the combo values must be emptied first. A user who is not an administrator cannot change a field's type.</p>
+<p>The manager's listing shows each field's <strong>ID</strong>. That number is needed for macros, so write it down.</p>
+<h3 id="filling-in-the-values">Filling in the values<a class="headerlink" href="#filling-in-the-values" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-formulario-campos-personalizados.png" data-desc-position="bottom"><img alt="Custom fields tab of the agent form, with one value per field" src="../../../assets/img/parte-02/agente-formulario-campos-personalizados.png"></a></p>
+<p>Values are filled in per agent in the <strong>Custom fields</strong> tab of the edit form, or for many agents at once with <a href="../2.11-operaciones-masivas/#edit-agents">bulk editing</a>. Even though only an administrator creates the fields, <strong>any user with write permission on the agent can edit their values</strong>.</p>
+<h3 id="how-they-are-displayed">How they are displayed<a class="headerlink" href="#how-they-are-displayed" title="Permanent link">¶</a></h3>
+<ul>
+<li>In the <strong>Custom fields</strong> box of <strong>Main</strong>, only the fields with <strong>Display up front</strong> appear, never password-type ones, and empty ones are omitted. Values accept BBCode and links open in a new tab.</li>
+<li>In the <strong>Custom fields</strong> tab, whoever has write permission on the agent sees all the fields; everyone else sees only those marked for the main view. Passwords are shown as dots.</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/agente-vista-campos-personalizados.png" data-desc-position="bottom"><img alt="Custom fields tab of the agent view, with each field's value and whether it is shown on the main view" src="../../../assets/img/parte-02/agente-vista-campos-personalizados.png"></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Links are not rendered as links in the tab</p>
+<p>In the <strong>Custom fields</strong> tab, a link-type field is not shown as a link: the raw value (text and URL together) may be visible. The link works in the <strong>Main</strong> box. If you need it to be clickable for everyone, mark the field with <strong>Display up front</strong>.</p>
+</div>
+<h3 id="declaring-them-from-the-endpoint">Declaring them from the EndPoint<a class="headerlink" href="#declaring-them-from-the-endpoint" title="Permanent link">¶</a></h3>
+<p>The EndPoint can send the field values in its configuration file, with the tokens <code>custom_fieldN_name</code> and <code>custom_fieldN_value</code>, where <code>N</code> is a sequential number within the file (1, 2, 3…):</p>
+<div class="highlight"><pre><span></span><code>custom_field1_name Owner
+custom_field1_value Network team
+custom_field2_name Documentation
+custom_field2_value ["Server manual","https://intranet.example.com/srv01"]
+</code></pre></div>
+<p>The server looks up the field by its name and creates or updates the agent's value, both at registration and on every update. Three consequences:</p>
+<ul>
+<li><strong>The EndPoint never creates fields.</strong> If the name does not exist in the console, the value is discarded and only a trace is left in the server log.</li>
+<li><strong>The type is not validated.</strong> The server stores the value as it arrives: it does not check whether the field is a password, list or link. A link value must already travel as the <code>["text","url"]</code> pair, as in the example.</li>
+<li><strong>With remote configuration active, the value can also be edited from the console.</strong> See <a href="../2.1-monitorizacion-con-endpoints/#remote-configuration-from-the-web-console">2.1</a>.</li>
+</ul>
+<p>The number <code>N</code> in the file is <strong>not</strong> the field's ID in the manager.</p>
+<h3 id="using-them-in-macros">Using them in macros<a class="headerlink" href="#using-them-in-macros" title="Permanent link">¶</a></h3>
+<p>The <code>_agentcustomfield_N_</code> macro is replaced by the value of the agent's custom field in:</p>
+<ul>
+<li>Alert actions and templates (see <a href="../../parte-5/5.5-alertas-y-notificaciones/">5.5</a>).</li>
+<li>The parameters of network, SNMP, WMI, ICMP, plugin and inventory modules (see <a href="../2.6-monitorizacion-de-redes/#macros-in-the-module-fields">2.6</a>).</li>
+</ul>
+<p>Three rules that prevent the most common mistakes:</p>
+<ul>
+<li><strong><code>N</code> is the field's ID in the manager</strong>, not the order in the EndPoint file. A field with ID <code>4</code> is used as <code>_agentcustomfield_4_</code>.</li>
+<li><strong>The macro does not mask passwords.</strong> If a password-type field is used in an alert or a command, its value appears in clear text in the result. Anyone who can read the result can read the password.</li>
+<li>Outside the context of a module, the macro is replaced by an empty string.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Owner in the alert email</p>
+<p>The "Owner" field is created and receives ID <code>11</code>, and it is filled in on each agent with the responsible team. The email alert action uses <code>_agentcustomfield_11_</code> in the recipient field or in the message body: each alert reaches the right people without creating one action per team.</p>
+</div>
+<h3 id="other-uses">Other uses<a class="headerlink" href="#other-uses" title="Permanent link">¶</a></h3>
+<ul>
+<li>Filtering the agent list by custom field (password ones are not offered), and saving the filter.</li>
+<li><strong>Monitoring → Custom fields</strong> menu, with a view of the values per agent.</li>
+<li>Global search (except passwords), the event extended detail, reports and the agent and module Top N widgets.</li>
+<li><strong>Pandora RC</strong>: the custom field whose value is the Pandora RC key (see <a href="../../parte-3/3.2-control-remoto-con-rc/">3.2</a>).</li>
+<li>API: creating a field and getting its ID. In API v1 there is no operation to write the values.</li>
+<li>Policies: they do not manage the agent's custom fields.</li>
+</ul>
+<h2 id="what-changes-by-context">What changes by context<a class="headerlink" href="#what-changes-by-context" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>What changes in the sheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bulk operations</strong></td>
+<td>The form is reused with one lock per field (only what is checked is changed) and the <strong>Monitoring</strong> tab is hidden. Custom fields can be edited in batch. See <a href="../2.11-operaciones-masivas/">2.11</a>.</td>
+</tr>
+<tr>
+<td><strong>Command Center</strong></td>
+<td>No <strong>Monitoring</strong> or <strong>Custom fields</strong> tabs.</td>
+</tr>
+<tr>
+<td><strong>Policy</strong></td>
+<td>A policy's modules are distributed per agent (see <a href="../2.10-politicas-de-monitorizacion/">2.10</a>); the agent sheet does not manage custom fields from policies.</td>
+</tr>
+<tr>
+<td><strong>Without remote configuration</strong></td>
+<td>No <strong>Monitoring</strong> tab and no <strong>RMM</strong> option.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="checking-and-troubleshooting">Checking and troubleshooting<a class="headerlink" href="#checking-and-troubleshooting" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Probable cause</th>
+<th>What to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A tab of the view is missing</td>
+<td>Its condition is not met.</td>
+<td>The table in <a href="#the-tabs-of-the-agent-view">The tabs of the agent view</a> and the user's permissions.</td>
+</tr>
+<tr>
+<td>The console rejects the alias</td>
+<td><strong>Use alias as name</strong> is active and the alias already exists.</td>
+<td>The setting at agent creation.</td>
+</tr>
+<tr>
+<td>I changed the EndPoint's interval and the console shows the old one</td>
+<td>The agent is in <strong>Normal mode</strong>.</td>
+<td><strong>Module definition</strong> in <strong>Advanced</strong>.</td>
+</tr>
+<tr>
+<td>The agent disables itself and comes back</td>
+<td><strong>Autodisable mode</strong>: all its modules were unknown.</td>
+<td><strong>Module definition</strong> and the arrival of data.</td>
+</tr>
+<tr>
+<td>A module with an alert generates no notifications</td>
+<td>Agent in <strong>Quiet</strong> mode, the parent's cascade protection, or a scheduled downtime.</td>
+<td>The labels in the <strong>Main</strong> tab and the parent's fired alerts.</td>
+</tr>
+<tr>
+<td>An agent's alerts were acknowledged on their own</td>
+<td>It was saved with <strong>Disabled mode</strong> active.</td>
+<td>The agent's history.</td>
+</tr>
+<tr>
+<td>An agent's modules disable themselves</td>
+<td><strong>Safe operation mode</strong>: the chosen module became critical.</td>
+<td>The module selected in <strong>Advanced</strong>.</td>
+</tr>
+<tr>
+<td>A value from the EndPoint does not appear in the field</td>
+<td>The field name does not exist in the console.</td>
+<td><strong>Management → Resources → Custom fields</strong> and the name in <code>custom_fieldN_name</code>.</td>
+</tr>
+<tr>
+<td>The <code>_agentcustomfield_N_</code> macro returns a different value</td>
+<td><code>N</code> is the file order and not the field's ID.</td>
+<td>The <strong>ID</strong> in the fields manager.</td>
+</tr>
+<tr>
+<td>A link field looks like plain text</td>
+<td>The <strong>Custom fields</strong> tab does not render them as links.</td>
+<td>The <strong>Custom fields</strong> box in <strong>Main</strong>.</td>
+</tr>
+<tr>
+<td>A password appears in an alert email</td>
+<td>The macro does not mask the password type.</td>
+<td>Remove the macro from the actions or do not use a password field.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

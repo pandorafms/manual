@@ -13,7 +13,7 @@
         <link rel="prev" href="../2.19-recoleccion-y-monitorizacion-de-logs/">
       
       
-        <link rel="next" href="../../parte-3/3.1-inventario/">
+        <link rel="next" href="../2.21-configuracion-comun-de-los-agentes/">
       
       
         
@@ -580,6 +580,8 @@
   
     
     
+      
+        
       
         
       
@@ -1379,6 +1381,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.21-configuracion-comun-de-los-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Common agent configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4572,7 +4602,7 @@
 
 <h1 id="common-module-configuration">Common module configuration<a class="headerlink" href="#common-module-configuration" title="Permanent link">¶</a></h1>
 <p>A module is a specific measurement of an agent: "how much CPU it uses", "does port 443 answer", "how many orders are waiting in the queue". What changes from one module to another is <strong>how the data is obtained</strong> (a command on the EndPoint, a <code>ping</code> from the server, an SNMP query, an API request), and that is explained in the chapter of each technology. What does not change, or changes little, is everything else: how often it is measured, which values count as normal, what happens when the data does not arrive, how much is stored and how it is organized. That "everything else" is a single form, the same for almost every type, and this chapter explains it once so it is not repeated in the nineteen previous ones.</p>
-<p>You reach it from <strong>Manage agents</strong>, with the agent's <strong>Modules</strong> button and <strong>Create module</strong>, or by editing an existing module. A policy (see <a href="../2.10-politicas-de-monitorizacion/">2.10, Monitoring policies</a>) uses the same form to define modules that it then spreads across agents.</p>
+<p>The agent counterpart of this chapter is <a href="../2.21-configuracion-comun-de-los-agentes/">2.21, Common agent configuration</a>. You reach the module form from <strong>Manage agents</strong>, with the agent's <strong>Modules</strong> button and <strong>Create module</strong>, or by editing an existing module. A policy (see <a href="../2.10-politicas-de-monitorizacion/">2.10, Monitoring policies</a>) uses the same form to define modules that it then spreads across agents.</p>
 <p>The form is split into eight tabs:</p>
 <table>
 <thead>
@@ -4886,7 +4916,7 @@
 <ul>
 <li><strong>Cascade Protection Services</strong>, in <strong>Thresholds</strong>: if the module is part of a service, alerts only fire at the highest level of the tree where the conditions are met, not at all levels at once.</li>
 <li><strong>Critical, warning and unknown instructions</strong>, in <strong>Information</strong>: what the person receiving the alert should do. This is the place for "restart service X, and if that fails, call Y".</li>
-<li><strong>Macros</strong>: variables of the module itself, with names like <code>_name_</code>, that can be used in alerts.</li>
+<li><strong>Macros</strong>: variables of the module itself, with names like <code>_name_</code>, that can be used in alerts. To get the same at agent level, use the agent custom fields and the <code>_agentcustomfield_N_</code> macro (see <a href="../2.21-configuracion-comun-de-los-agentes/#agent-custom-fields">2.21</a>).</li>
 <li><strong>Module relations</strong> (direct or failover): allow one module to replace another in the SLA calculation.</li>
 <li><strong>Import from credential store</strong>: in the types that support it, fills the fields from a stored credential (see <a href="../2.2-gestor-de-credenciales/">2.2, Credential manager</a>). It only copies the data into the form; the module is not linked to the credential.</li>
 </ul>
