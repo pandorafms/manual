@@ -5594,7 +5594,7 @@ première frayeur au bout de trois mois.</p>
 l'environnement serveur complet en une seule étape.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-SsL<span class="w"> </span>https://pfms.me/deploy_pandora_one<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">PANDORA_LTS</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>bash
 </code></pre></div>
-<p>L'outil se demande depuis la page de Pandora FMS et fonctionne avec <strong>RHEL</strong>,
+<p>Le script détecte la distribution, télécharge l'installateur correspondant et fonctionne avec <strong>RHEL</strong>,
 <strong>Rocky Linux</strong>, <strong>AlmaLinux</strong> et <strong>Ubuntu Server</strong>. Red Hat est l'option
 recommandée ; le reste est pris en charge avec les versions indiquées par le
 <a href="#exigences-du-serveur">tableau des systèmes d'exploitation</a>.</p>
@@ -5625,7 +5625,7 @@ l'installation ou choisir le paquet. Elles sont toutes regroupées plus bas, dan
 <h3 id="ms-windows">MS Windows<a class="headerlink" href="#ms-windows" title="Permanent link">¶</a></h3>
 <p>L'EndPoint est fourni comme auto-installeur <code>.exe</code>. Pour l'installation en ligne,
 exécutez PowerShell en administrateur :</p>
-<div class="highlight"><pre><span></span><code><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="n">https</span><span class="p">://</span><span class="n">marketplace</span><span class="p">.</span><span class="n">pandorafms</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">pandorafms</span><span class="p">/</span><span class="n">LTS</span><span class="p">/</span><span class="n">PandoraFMS_One_Agent_Windows-lts</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">exe</span> <span class="n">-OutFile</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span><span class="p">;</span> <span class="p">&amp;</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">S</span> <span class="p">-</span><span class="n">-ip</span> <span class="no">[IP_DU_SERVEUR]</span> <span class="p">-</span><span class="n">-group</span> <span class="no">[GROUPE]</span> <span class="p">-</span><span class="n">-remote_config</span> <span class="n">1</span>
+<div class="highlight"><pre><span></span><code><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="n">https</span><span class="p">://</span><span class="n">marketplace</span><span class="p">.</span><span class="n">pandorafms</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">pandorafms</span><span class="p">/</span><span class="n">LTS</span><span class="p">/</span><span class="n">PandoraFMS_One_Agent_Windows-lts</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">exe</span> <span class="n">-OutFile</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span><span class="p">;</span> <span class="p">&amp;</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">S</span> <span class="p">-</span><span class="n">-ip</span> <span class="p">&lt;</span><span class="n">IP_DU_SERVEUR</span><span class="p">&gt;</span> <span class="p">-</span><span class="n">-group</span> <span class="p">&lt;</span><span class="n">GROUPE</span><span class="p">&gt;</span> <span class="p">-</span><span class="n">-remote_config</span> <span class="n">1</span>
 </code></pre></div>
 <p>Et démarrez le service :</p>
 <div class="highlight"><pre><span></span><code><span class="n">NET</span> <span class="nb">START </span><span class="n">PandoraFMSAgent</span>
@@ -5640,9 +5640,11 @@ réseau par SNMP/ICMP, serveurs Windows par WMI et Linux par SNMP. Il exécute
 jusqu'à 500 contrôles par seconde, n'a pas besoin de connexion à la base de
 données de Pandora FMS et envoie les données en XML.</p>
 <h3 id="installation-en-ligne">Installation en ligne<a class="headerlink" href="#installation-en-ligne" title="Permanent link">¶</a></h3>
-<p>Systèmes d'exploitation pris en charge : <strong>EL10</strong> (RHEL 10 / Rocky Linux 10,
-option recommandée), <strong>Ubuntu Server 22.04</strong> et <strong>Raspberry Pi OS</strong> (Debian 12+,
-avec le paquet spécifique pour Raspberry).</p>
+<p>Systèmes d'exploitation pris en charge : <strong>EL8, EL9 et EL10</strong> (RHEL / Rocky
+Linux, EL10 étant l'option recommandée ; des paquets existent pour x86_64 et
+ARM64), <strong>Ubuntu Server 22.04</strong> (Ubuntu 24.04 n'est pas encore pris en charge) et
+<strong>Raspberry Pi OS</strong> (Debian 12+, ARM64, avec le paquet spécifique pour
+Raspberry).</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PANDORA_SERVER_IP</span><span class="o">=</span><span class="s1">'&lt;IP ou FQDN du Pandora FMS Server&gt;'</span>
 curl<span class="w"> </span>-Ls<span class="w"> </span>https://pfms.me/satellite-ent-deploy<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 </code></pre></div>
@@ -5664,7 +5666,7 @@ indépendant de celui de Pandora FMS.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-SsL<span class="w"> </span>https://pfms.me/pandorafms-opensearch-el<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 </code></pre></div>
 <p>L'installateur crée un nœud prêt à l'emploi, avec HTTPS et authentification par
-mot de passe, et il est compatible avec <strong>EL8, EL9 et Ubuntu 22.04 Server</strong>. Il
+mot de passe, et il est compatible avec <strong>EL8 ou ultérieur et Ubuntu 22.04 Server</strong>. Il
 accepte des variables d'environnement pour le nom du cluster et le mot de passe,
 regroupées plus bas dans
 <a href="#personnalisation-de-linstallation-automatique">Personnalisation de l'installation automatique</a>.</p>
@@ -5711,7 +5713,7 @@ serveur, console et base de données sur la même machine :</p>
 <td>SSD ≥ 300 MB/s</td>
 </tr>
 <tr>
-<td>Disque</td>
+<td>Disque (minimum / recommandé)</td>
 <td>40 / 60 GB</td>
 <td>60 / 150 GB</td>
 <td>120 / 250 GB</td>
@@ -5728,7 +5730,7 @@ indépendant, avec de l'espace réservé et à haute vitesse. Mettre la base de
 données sur un volume partagé et fin, c'est la façon la plus fiable d'obtenir
 un goulot d'étranglement que personne ne localisera avant des semaines.</p>
 </div>
-<p>Au-delà de 80 000 métriques, un seul nœud n'a plus de sens : il faut de la
+<p>Au-delà de 80 000 modules, un seul nœud n'a plus de sens : il faut de la
 supervision distribuée avec plusieurs nœuds (<strong>Command Center</strong>).</p>
 <p><strong>Logiciel.</strong></p>
 <table>
@@ -5901,7 +5903,7 @@ Redistributable.</p>
 <tbody>
 <tr>
 <td>Système d'exploitation</td>
-<td>Rocky Linux 8 / RHEL 8 / Ubuntu 22.04 (recommandés).</td>
+<td>RHEL, Rocky Linux ou AlmaLinux 8 ou ultérieur ; Ubuntu Server 22.04.</td>
 </tr>
 <tr>
 <td>RAM</td>
@@ -6155,8 +6157,8 @@ d'environnement la personnalisent (valeurs pour RHEL et Rocky Linux) :</p>
 <tbody>
 <tr>
 <td><code>TZ</code></td>
-<td>Fuseau horaire de la machine</td>
-<td><code>Europe/Madrid</code></td>
+<td>Fuseau horaire de la machine ; s'il n'est pas défini, il n'est pas modifié</td>
+<td>Inchangé</td>
 </tr>
 <tr>
 <td><code>DBHOST</code></td>
@@ -6204,28 +6206,38 @@ d'environnement la personnalisent (valeurs pour RHEL et Rocky Linux) :</p>
 <td><code>0</code></td>
 </tr>
 <tr>
-<td><code>MYVER</code></td>
-<td>Version de MySQL (<code>80</code> ou <code>84</code>)</td>
-<td><code>80</code></td>
+<td><code>SKIP_DOCKER_INSTALL</code></td>
+<td>Ne pas installer Docker (il est installé, et laissé désactivé, pour le débogage)</td>
+<td><code>0</code></td>
 </tr>
 <tr>
-<td><code>PHPVER</code></td>
-<td>Version de PHP (<code>82</code> ou <code>84</code>)</td>
+<td><code>POOL_SIZE</code></td>
+<td>Mémoire de MySQL (buffer pool)</td>
+<td>Automatique</td>
+</tr>
+<tr>
+<td><code>MYVER</code></td>
+<td>Version de MySQL (<code>80</code> ou <code>84</code> ; sur EL10, seulement <code>84</code>)</td>
 <td><code>84</code></td>
 </tr>
 <tr>
+<td><code>PHPVER</code></td>
+<td>Version de PHP (<code>8.2</code> ou <code>8.4</code>)</td>
+<td><code>8.4</code></td>
+</tr>
+<tr>
 <td><code>PANDORA_SERVER_PACKAGE</code></td>
-<td>URL du RPM du serveur</td>
+<td>URL du tarball du serveur</td>
 <td>dernière disponible</td>
 </tr>
 <tr>
 <td><code>PANDORA_CONSOLE_PACKAGE</code></td>
-<td>URL du RPM de la console</td>
+<td>URL du paquet de la console (RPM sur EL, tarball de sources sur Ubuntu)</td>
 <td>dernière disponible</td>
 </tr>
 <tr>
 <td><code>PANDORA_AGENT_PACKAGE</code></td>
-<td>URL du RPM de l'agent</td>
+<td>URL du tarball de l'agent</td>
 <td>dernière disponible</td>
 </tr>
 <tr>
@@ -6240,9 +6252,12 @@ d'environnement la personnalisent (valeurs pour RHEL et Rocky Linux) :</p>
 </tr>
 </tbody>
 </table>
-<p>Sur <strong>Ubuntu Server</strong>, la liste est semblable : elle n'inclut pas les variables de
-paquet du serveur, de la console et de l'agent, et elle ajoute <code>POOL_SIZE</code> pour
-fixer la mémoire de MySQL (par défaut, elle se calcule automatiquement).</p>
+<p>La liste est la même sur RHEL, Rocky Linux, AlmaLinux et Ubuntu Server. Sur EL10,
+l'installateur ne prend en charge que MySQL 8.4 (<code>MYVER=84</code>). <code>POOL_SIZE</code> se calcule
+automatiquement d'après la mémoire de la machine (25 % en dessous de 7,5 Go et 40 %
+au-dessus) ; ne le fixez que pour une autre répartition. Docker est installé, et
+laissé désactivé, uniquement pour les tâches de débogage : avec
+<code>SKIP_DOCKER_INSTALL=1</code>, il n'est pas installé.</p>
 <p>Exemple sur EL10 avec des valeurs explicites :</p>
 <div class="highlight"><pre><span></span><code>env<span class="w"> </span><span class="nv">TZ</span><span class="o">=</span><span class="s1">'Europe/Madrid'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">DBHOST</span><span class="o">=</span><span class="s1">'127.0.0.1'</span><span class="w"> </span><span class="se">\</span>
@@ -6252,7 +6267,7 @@ fixer la mémoire de MySQL (par défaut, elle se calcule automatiquement).</p>
 <span class="w">    </span><span class="nv">DBPORT</span><span class="o">=</span><span class="s1">'3306'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">DBROOTPASS</span><span class="o">=</span><span class="s1">'ChangezCeMotDePasseRoot'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">MYVER</span><span class="o">=</span><span class="m">84</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="nv">PHPVER</span><span class="o">=</span><span class="m">84</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">PHPVER</span><span class="o">=</span><span class="m">8</span>.4<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">SKIP_PRECHECK</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">SKIP_DATABASE_INSTALL</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">SKIP_KERNEL_OPTIMIZATIONS</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
@@ -6369,8 +6384,8 @@ installateur en ligne propre. Il ne demande que <code>curl</code> et un système
 <tbody>
 <tr>
 <td><code>TZ</code></td>
-<td>Fuseau horaire de la machine</td>
-<td><code>Europe/Madrid</code></td>
+<td>Fuseau horaire de la machine ; s'il n'est pas défini, il n'est pas modifié</td>
+<td>Inchangé</td>
 </tr>
 <tr>
 <td><code>MYVER</code></td>
@@ -6511,12 +6526,12 @@ valide dans <code>/etc/passwd</code>.</p>
 <tr>
 <td><code>VERSION</code></td>
 <td><code>LATEST</code></td>
-<td>Canal d'installation : <code>LATEST</code> ou <code>LEGACY</code>.</td>
+<td>Canal d'installation : <code>LATEST</code> ou <code>LEGACY</code>. <code>LEGACY</code> n'est pas compatible avec Pandora FMS 785 ou supérieur (l'installateur avertit et demande confirmation) et n'existe que pour x86_64.</td>
 </tr>
 <tr>
 <td><code>TZ</code></td>
-<td><code>Europe/Madrid</code></td>
-<td>Fuseau horaire au format IANA.</td>
+<td>—</td>
+<td>Fuseau horaire au format IANA ; s'il n'est pas défini, il n'est pas modifié.</td>
 </tr>
 <tr>
 <td><code>REMOTE_CONFIG</code></td>
@@ -6675,6 +6690,39 @@ systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> 
 <p>Une fois l'installation terminée, ouvrez la console à l'adresse
 <code>http://&lt;serveur&gt;/pandora_console/</code> et confirmez qu'elle charge l'écran de
 connexion. L'utilisateur initial est <code>admin</code> avec le mot de passe <code>pandora</code>.</p>
+<p>Vérifiez ensuite que les services du composant installé sont actifs :</p>
+<table>
+<thead>
+<tr>
+<th>Composant</th>
+<th>Services</th>
+<th>Journal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Serveur</td>
+<td><code>pandora_server</code> et <code>tentacle_serverd</code></td>
+<td><code>/var/log/pandora/pandora_server.log</code></td>
+</tr>
+<tr>
+<td>Satellite</td>
+<td><code>satellite_serverd</code></td>
+<td><code>/var/log/satellite_server.log</code></td>
+</tr>
+<tr>
+<td>EndPoint (Linux)</td>
+<td><code>pandora_agent_daemon</code></td>
+<td><code>/var/log/pandora/pandora_agent.log</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>pandora_server<span class="w"> </span>tentacle_serverd
+</code></pre></div>
+<p>Un service à l'état <code>failed</code> en explique presque toujours la cause dans son
+journal : lisez-le avant de réinstaller quoi que ce soit. Si l'EndPoint a été
+installé contre un serveur, il devrait apparaître en quelques minutes comme
+nouvel agent dans <strong>Surveillance → Vues → Détail de l'agent</strong>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Changez le mot de passe à la première connexion. Et si vous avez installé avec

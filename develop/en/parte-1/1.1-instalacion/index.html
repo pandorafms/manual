@@ -5595,7 +5595,7 @@ gives its first scare after three months.</p>
 sets up the full server environment in a single step.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-SsL<span class="w"> </span>https://pfms.me/deploy_pandora_one<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">PANDORA_LTS</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>bash
 </code></pre></div>
-<p>The tool is requested through the Pandora FMS website and it works with <strong>RHEL</strong>,
+<p>The script detects the distribution, downloads the matching installer, and works with <strong>RHEL</strong>,
 <strong>Rocky Linux</strong>, <strong>AlmaLinux</strong> and <strong>Ubuntu Server</strong>. Red Hat is the recommended
 option, and the rest are supported with the versions given in the
 <a href="#server-requirements">operating system table</a>.</p>
@@ -5626,7 +5626,7 @@ the package. They are all listed further down, in
 <h3 id="ms-windows">MS Windows<a class="headerlink" href="#ms-windows" title="Permanent link">¶</a></h3>
 <p>The EndPoint is delivered as a <code>.exe</code> self-installer, so for the online
 installation, run PowerShell as administrator:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="n">https</span><span class="p">://</span><span class="n">marketplace</span><span class="p">.</span><span class="n">pandorafms</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">pandorafms</span><span class="p">/</span><span class="n">LTS</span><span class="p">/</span><span class="n">PandoraFMS_One_Agent_Windows-lts</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">exe</span> <span class="n">-OutFile</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span><span class="p">;</span> <span class="p">&amp;</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">S</span> <span class="p">-</span><span class="n">-ip</span> <span class="no">[SERVER_IP]</span> <span class="p">-</span><span class="n">-group</span> <span class="no">[GROUP]</span> <span class="p">-</span><span class="n">-remote_config</span> <span class="n">1</span>
+<div class="highlight"><pre><span></span><code><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="n">https</span><span class="p">://</span><span class="n">marketplace</span><span class="p">.</span><span class="n">pandorafms</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">pandorafms</span><span class="p">/</span><span class="n">LTS</span><span class="p">/</span><span class="n">PandoraFMS_One_Agent_Windows-lts</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">exe</span> <span class="n">-OutFile</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span><span class="p">;</span> <span class="p">&amp;</span> <span class="p">${</span><span class="n">env</span><span class="p">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">pandora-agent-windows</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">S</span> <span class="p">-</span><span class="n">-ip</span> <span class="p">&lt;</span><span class="n">SERVER_IP</span><span class="p">&gt;</span> <span class="p">-</span><span class="n">-group</span> <span class="p">&lt;</span><span class="n">GROUP</span><span class="p">&gt;</span> <span class="p">-</span><span class="n">-remote_config</span> <span class="n">1</span>
 </code></pre></div>
 <p>And start the service:</p>
 <div class="highlight"><pre><span></span><code><span class="n">NET</span> <span class="nb">START </span><span class="n">PandoraFMSAgent</span>
@@ -5641,9 +5641,10 @@ Windows servers through WMI and Linux through SNMP. It runs up to 500 checks per
 second, it does not need a connection to the Pandora FMS database, and it sends
 the data as XML.</p>
 <h3 id="online-installation">Online installation<a class="headerlink" href="#online-installation" title="Permanent link">¶</a></h3>
-<p>Supported operating systems: <strong>EL10</strong> (RHEL 10 / Rocky Linux 10, recommended
-option), <strong>Ubuntu Server 22.04</strong> and <strong>Raspberry Pi OS</strong> (Debian 12+, with the
-specific package for Raspberry).</p>
+<p>Supported operating systems: <strong>EL8, EL9 and EL10</strong> (RHEL / Rocky Linux, with
+EL10 as the recommended option; packages exist for x86_64 and ARM64), <strong>Ubuntu
+Server 22.04</strong> (Ubuntu 24.04 is not supported yet) and <strong>Raspberry Pi OS</strong>
+(Debian 12+, ARM64, with the specific package for Raspberry).</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PANDORA_SERVER_IP</span><span class="o">=</span><span class="s1">'&lt;IP or FQDN of the Pandora FMS Server&gt;'</span>
 curl<span class="w"> </span>-Ls<span class="w"> </span>https://pfms.me/satellite-ent-deploy<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 </code></pre></div>
@@ -5664,7 +5665,7 @@ FMS one.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-SsL<span class="w"> </span>https://pfms.me/pandorafms-opensearch-el<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 </code></pre></div>
 <p>The installer creates a node ready to use, with HTTPS and password authentication,
-and it is compatible with <strong>EL8, EL9 and Ubuntu 22.04 Server</strong>, and it accepts
+and it is compatible with <strong>EL8 or later and Ubuntu 22.04 Server</strong>, and it accepts
 environment variables for the cluster name and the password, listed further down
 in <a href="#personalisation-of-the-automatic-installation">Personalisation of the automatic installation</a>.</p>
 <p>Check that the node responds:</p>
@@ -5710,7 +5711,7 @@ console and database on the same machine:</p>
 <td>SSD ≥ 300 MB/s</td>
 </tr>
 <tr>
-<td>Disk</td>
+<td>Disk (minimum / recommended)</td>
 <td>40 / 60 GB</td>
 <td>60 / 150 GB</td>
 <td>120 / 250 GB</td>
@@ -5727,7 +5728,7 @@ be deployed.</p>
 space and high speed. Putting the database on a shared, thin volume is the most
 reliable way to get a bottleneck that nobody will locate for weeks.</p>
 </div>
-<p>Above 80,000 metrics, a single node stops making sense, and it is time for
+<p>Above 80,000 modules, a single node stops making sense, and it is time for
 distributed monitoring with multiple nodes (<strong>Command Center</strong>).</p>
 <p><strong>Software.</strong></p>
 <table>
@@ -5898,7 +5899,7 @@ to be installed.</p>
 <tbody>
 <tr>
 <td>Operating system</td>
-<td>Rocky Linux 8 / RHEL 8 / Ubuntu 22.04 (recommended).</td>
+<td>RHEL, Rocky Linux or AlmaLinux 8 or later; Ubuntu Server 22.04.</td>
 </tr>
 <tr>
 <td>RAM</td>
@@ -6151,8 +6152,8 @@ customise it (values for RHEL and Rocky Linux):</p>
 <tbody>
 <tr>
 <td><code>TZ</code></td>
-<td>Machine time zone</td>
-<td><code>Europe/Madrid</code></td>
+<td>Machine time zone; if unset, it is left unchanged</td>
+<td>Unchanged</td>
 </tr>
 <tr>
 <td><code>DBHOST</code></td>
@@ -6200,28 +6201,38 @@ customise it (values for RHEL and Rocky Linux):</p>
 <td><code>0</code></td>
 </tr>
 <tr>
-<td><code>MYVER</code></td>
-<td>MySQL version (<code>80</code> or <code>84</code>)</td>
-<td><code>80</code></td>
+<td><code>SKIP_DOCKER_INSTALL</code></td>
+<td>Do not install Docker (it is installed, and left disabled, for debugging)</td>
+<td><code>0</code></td>
 </tr>
 <tr>
-<td><code>PHPVER</code></td>
-<td>PHP version (<code>82</code> or <code>84</code>)</td>
+<td><code>POOL_SIZE</code></td>
+<td>MySQL memory (buffer pool)</td>
+<td>Automatic</td>
+</tr>
+<tr>
+<td><code>MYVER</code></td>
+<td>MySQL version (<code>80</code> or <code>84</code>; on EL10, only <code>84</code>)</td>
 <td><code>84</code></td>
 </tr>
 <tr>
+<td><code>PHPVER</code></td>
+<td>PHP version (<code>8.2</code> or <code>8.4</code>)</td>
+<td><code>8.4</code></td>
+</tr>
+<tr>
 <td><code>PANDORA_SERVER_PACKAGE</code></td>
-<td>URL of the server RPM</td>
+<td>URL of the server tarball</td>
 <td>latest available</td>
 </tr>
 <tr>
 <td><code>PANDORA_CONSOLE_PACKAGE</code></td>
-<td>URL of the console RPM</td>
+<td>URL of the console package (RPM on EL, source tarball on Ubuntu)</td>
 <td>latest available</td>
 </tr>
 <tr>
 <td><code>PANDORA_AGENT_PACKAGE</code></td>
-<td>URL of the agent RPM</td>
+<td>URL of the agent tarball</td>
 <td>latest available</td>
 </tr>
 <tr>
@@ -6236,9 +6247,11 @@ customise it (values for RHEL and Rocky Linux):</p>
 </tr>
 </tbody>
 </table>
-<p>On <strong>Ubuntu Server</strong> the list is similar but does not include the package variables
-for the server, the console and the agent, and it adds <code>POOL_SIZE</code> to set the MySQL
-memory (by default it is calculated automatically).</p>
+<p>The list is the same on RHEL, Rocky Linux, AlmaLinux and Ubuntu Server. On EL10
+the installer only supports MySQL 8.4 (<code>MYVER=84</code>). <code>POOL_SIZE</code> is calculated
+automatically from the machine memory (25 % below 7.5 GB and 40 % above); set it
+only if you want a different split. Docker is installed, and left disabled, only
+for debugging tasks: with <code>SKIP_DOCKER_INSTALL=1</code> it is not installed.</p>
 <p>Example on EL10 with explicit values:</p>
 <div class="highlight"><pre><span></span><code>env<span class="w"> </span><span class="nv">TZ</span><span class="o">=</span><span class="s1">'Europe/Madrid'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">DBHOST</span><span class="o">=</span><span class="s1">'127.0.0.1'</span><span class="w"> </span><span class="se">\</span>
@@ -6248,7 +6261,7 @@ memory (by default it is calculated automatically).</p>
 <span class="w">    </span><span class="nv">DBPORT</span><span class="o">=</span><span class="s1">'3306'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">DBROOTPASS</span><span class="o">=</span><span class="s1">'ChangeThisRootPassword'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">MYVER</span><span class="o">=</span><span class="m">84</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="nv">PHPVER</span><span class="o">=</span><span class="m">84</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">PHPVER</span><span class="o">=</span><span class="m">8</span>.4<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">SKIP_PRECHECK</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">SKIP_DATABASE_INSTALL</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">SKIP_KERNEL_OPTIMIZATIONS</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
@@ -6364,8 +6377,8 @@ installer of its own. It only requires <code>curl</code> and a compatible system
 <tbody>
 <tr>
 <td><code>TZ</code></td>
-<td>Machine time zone</td>
-<td><code>Europe/Madrid</code></td>
+<td>Machine time zone; if unset, it is left unchanged</td>
+<td>Unchanged</td>
 </tr>
 <tr>
 <td><code>MYVER</code></td>
@@ -6503,12 +6516,12 @@ it, it has to be given a valid <em>shell</em> in <code>/etc/passwd</code>.</p>
 <tr>
 <td><code>VERSION</code></td>
 <td><code>LATEST</code></td>
-<td>Installation channel: <code>LATEST</code> or <code>LEGACY</code>.</td>
+<td>Installation channel: <code>LATEST</code> or <code>LEGACY</code>. <code>LEGACY</code> is not compatible with Pandora FMS 785 or later (the installer warns and asks for confirmation) and only exists for x86_64.</td>
 </tr>
 <tr>
 <td><code>TZ</code></td>
-<td><code>Europe/Madrid</code></td>
-<td>Time zone in IANA format.</td>
+<td>—</td>
+<td>Time zone in IANA format; if unset, it is left unchanged.</td>
 </tr>
 <tr>
 <td><code>REMOTE_CONFIG</code></td>
@@ -6667,6 +6680,38 @@ Example:</p>
 <p>Once the installation is finished, open the console at
 <code>http://&lt;server&gt;/pandora_console/</code> and confirm that it loads the login screen,
 where the initial user is <code>admin</code> with the <code>pandora</code> password.</p>
+<p>Then check that the services of the installed component are active:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Services</th>
+<th>Log</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td><code>pandora_server</code> and <code>tentacle_serverd</code></td>
+<td><code>/var/log/pandora/pandora_server.log</code></td>
+</tr>
+<tr>
+<td>Satellite</td>
+<td><code>satellite_serverd</code></td>
+<td><code>/var/log/satellite_server.log</code></td>
+</tr>
+<tr>
+<td>EndPoint (Linux)</td>
+<td><code>pandora_agent_daemon</code></td>
+<td><code>/var/log/pandora/pandora_agent.log</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>pandora_server<span class="w"> </span>tentacle_serverd
+</code></pre></div>
+<p>A service in <code>failed</code> state almost always explains why in its log: read it before
+reinstalling anything. If the EndPoint was installed against a server, within a few
+minutes it should show up as a new agent in <strong>Monitoring → Views → Agent detail</strong>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Change the password on the first login, and if you installed with a custom user
