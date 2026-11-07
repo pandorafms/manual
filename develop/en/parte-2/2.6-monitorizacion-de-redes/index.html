@@ -5055,6 +5055,8 @@ any other agent.</p>
 <p>A network module is created from the agent view, on the <strong>Modules</strong> tab, with
 the <strong>Create</strong> button → <strong>Create network module</strong>. The form asks for the type
 first:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-tipos-de-modulo.png" data-desc-position="bottom"><img alt="Create module dialog with the list of module types: Endpoint, ICMP, TCP, SNMP, WMI, remote execution and Web" class="captura" src="../../../assets/img/parte-02/redes-tipos-de-modulo.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-formulario-icmp.png" data-desc-position="bottom"><img alt="Form of an ICMP module, with the network component selector, the thresholds and the target IP" class="captura" src="../../../assets/img/parte-02/redes-formulario-icmp.png"></a></p>
 <table>
 <thead>
 <tr>
@@ -5215,6 +5217,7 @@ option (<code>--Manual configuration--</code>) is still available to use none.</
 <p>The installation brings components grouped by manufacturer and technology:
 Cisco MIBs, UNIX systems, Microsoft Windows, WMI, databases, and so on with the
 rest of the groups included from the factory.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-componente-de-red.png" data-desc-position="bottom"><img alt="ICMP module form filled in with the Host Alive network component, from the Network Management group" class="captura" src="../../../assets/img/parte-02/redes-componente-de-red.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">Applying Host Alive and Host Latency from components</p>
 <p>When creating a new module, selecting the <strong>Host Alive</strong> component
@@ -5226,13 +5229,12 @@ itself brings a checkbox, checked by default, that creates these two
 modules (Host Alive and Host Latency) automatically as soon as the agent
 is registered, without going through the module editor.</p>
 </div>
-<p>Creating a component of your own is as simple as configuring any network module
-and saving it as a component instead of applying it directly to an agent, from
-<strong>Management → Modules → Network components</strong>. From there it can be applied to
-any agent, included in a <a href="../2.10-politicas-de-monitorizacion/">monitoring
-policy</a> or left for
-<a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/">Discovery</a> to apply it
-in bulk during a scan.</p>
+<p><strong>Creating a component of your own.</strong> Components are managed under <strong>Management → Configuration → Templates → Remote components</strong> ("Remote component management"). The list shows each component's name, the server that runs it, the module type, the description and the group, and can be filtered by group and by text.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-componentes-remotos.png" data-desc-position="bottom"><img alt="Remote component management list, with the name, server, type, description and group of each component" class="captura" src="../../../assets/img/parte-02/redes-componentes-remotos.png"></a></p>
+<p>There are two ways to get your own: <strong>duplicate</strong> an existing one and adapt it, which is usually quickest because it already comes configured, or pick the module type in the selector at the bottom of the list and click <strong>Create</strong>. For OID-based ones there is a third: the "Create network component" button in an OID's detail panel in the <a href="#snmp-browser">SNMP browser</a>.</p>
+<p>The form is a network module's (name, type, thresholds and the information, data, categorization and macros tabs) plus a <strong>Group</strong> field, which decides in which branch of the "Using network component" selector the component appears. It carries no target IP: that is set on each agent when the component is applied.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-componente-remoto-formulario.png" data-desc-position="bottom"><img alt="Creation form of an ICMP remote component, with the Group field and the Basic, Information, Thresholds, Data, Categorization and Macros tabs" class="captura" src="../../../assets/img/parte-02/redes-componente-remoto-formulario.png"></a></p>
+<p>Factory components flagged as internal, such as <strong>Host Alive</strong> and <strong>Host Latency</strong>, cannot be edited or deleted, only duplicated. Once created, a component can be applied to any agent, included in a <a href="../2.10-politicas-de-monitorizacion/">monitoring policy</a> or left for <a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/">Discovery</a> to apply in bulk during a scan.</p>
 <h3 id="macros-in-the-module-fields">Macros in the module fields<a class="headerlink" href="#macros-in-the-module-fields" title="Permanent link">¶</a></h3>
 <p>Some fields of remote modules accept macros that the server replaces with
 agent data every time it runs the module. That saves typing the same value by
@@ -5494,6 +5496,7 @@ authentication or privacy, with authentication and no privacy, or with both),
 user, authentication method and password (MD5, SHA, SHA256 or SHA512) and
 privacy method and password (DES, AES, AES192 or AES256) — the same as in
 <a href="#snmp-modules">SNMP modules</a>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-interfaces-conexion.png" data-desc-position="bottom"><img alt="First step of the SNMP interfaces wizard: target IP, port, server, version and community" class="captura" src="../../../assets/img/parte-02/redes-snmp-interfaces-conexion.png"></a></p>
 <p>Once the query is done, the wizard decides once, for the whole device, whether
 it works with 32- or 64-bit traffic counters: if the device answers on the
 high-capacity counter branch (meant for fast links), it uses that one for all
@@ -5511,6 +5514,8 @@ critical thresholds already edited before creating anything. A special block,
 at the beginning of the listing, applies the same set of modules to all the
 selected interfaces at once, without repeating the selection interface by
 interface.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-interfaces-modulos.png" data-desc-position="bottom"><img alt="Table of modules that the SNMP interfaces wizard proposes for all the selected interfaces" class="captura" src="../../../assets/img/parte-02/redes-snmp-interfaces-modulos.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-interfaces-seleccion.png" data-desc-position="bottom"><img alt="Filters and per-interface blocks of the wizard: three active interfaces selected and one down interface unselected" class="captura" src="../../../assets/img/parte-02/redes-snmp-interfaces-seleccion.png"></a></p>
 <p>For every interface that stays checked, the wizard proposes:</p>
 <table>
 <thead>
@@ -5570,6 +5575,8 @@ policy is being edited) with the same name; it does not prevent going on, but
 it warns so as not to duplicate without noticing. The modules created behave
 afterwards like any SNMP module: they are edited, their threshold is changed or
 an alert is added in the same way as to one made by hand.</p>
+<p><strong>Where they show up afterwards.</strong> The agent view gets an <strong>Interfaces (SNMP)</strong> tab, with one row per interface: its status, access to its graph, the IP, the MAC and the last contact. The console does not query the device again to build it: it deduces the interfaces from the <strong>name</strong> of the modules (<code>&lt;interface&gt;_if…</code> or <code>if…_&lt;interface&gt;</code>, which is how this wizard creates them) and takes the IP and the MAC from their description, hence the <code>--</code> in the IP column when the description carries none. A hand-made SNMP module with the same name pattern shows up in the list too.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-agente-interfaces.png" data-desc-position="bottom"><img alt="Interfaces (SNMP) tab of the agent view, with one row per interface: status, graph, IP, MAC and last contact" class="captura" src="../../../assets/img/parte-02/redes-agente-interfaces.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">A 24-port switch, only active interfaces and their traffic</p>
 <p>Target IP <code>192.168.10.2</code>, version <code>2c</code>, community <code>public</code>. After the SNMP
@@ -5633,7 +5640,8 @@ own</a>.</p>
 Net-SNMP/UCD PEN and proposes CPU, memory and disk space modules ready to
 check and create, without looking up a single OID by hand.</p>
 </div>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-asistente.png" data-desc-position="bottom"><img alt="SNMP wizard grouping the detected modules in blocks" src="../../../assets/img/parte-02/redes-snmp-asistente.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-asistente-bloques.png" data-desc-position="bottom"><img alt="SNMP wizard grouping the detected modules in blocks: CPU, memory, disks, storage, temperature and processes" class="captura" src="../../../assets/img/parte-02/redes-snmp-asistente-bloques.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-asistente-cpu.png" data-desc-position="bottom"><img alt="CPU block of the SNMP wizard expanded, with the current value of each module and its thresholds" class="captura" src="../../../assets/img/parte-02/redes-snmp-asistente-cpu.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">A Windows server with the SNMP service</p>
 <p>On a Windows server with the SNMP service enabled and a read community
@@ -5656,7 +5664,7 @@ component, an agent module or a policy module, without leaving the browser.</p>
 OID corresponding to the sensor is located and the agent module is created
 directly from the result, with <strong>Create agent module</strong>.</p>
 </div>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-navegador-crear-modulos.png" data-desc-position="bottom"><img alt="SNMP browser tree with the &quot;Create agent module&quot; action" src="../../../assets/img/parte-02/redes-snmp-navegador-crear-modulos.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-snmp-navegador-detalle.png" data-desc-position="bottom"><img alt="SNMP browser with the detail of an OID: value, type, description and the actions to create a network component or an agent module" class="captura" src="../../../assets/img/parte-02/redes-snmp-navegador-detalle.png"></a></p>
 <h3 id="snmp-modules">SNMP modules<a class="headerlink" href="#snmp-modules" title="Permanent link">¶</a></h3>
 <p>For what no wizard covers: a loose OID with no template, a MIB of the
 manufacturer's own or the fine tuning of a module already created. Four types:
@@ -5664,6 +5672,7 @@ manufacturer's own or the fine tuning of a module already created. Four types:
 (<code>remote_snmp_string</code>) and <strong>incremental</strong> (<code>remote_snmp_inc</code>, for counters:
 see <a href="#module-type-reference">Module type reference</a>). Fields of their own, with
 their default value:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-formulario-snmp.png" data-desc-position="bottom"><img alt="Form of an SNMP module, with target IP, port, OID, version and community" class="captura" src="../../../assets/img/parte-02/redes-formulario-snmp.png"></a></p>
 <table>
 <thead>
 <tr>
@@ -5740,6 +5749,7 @@ value of the counter.</p>
 MIB loaded, an OID is only seen in its numeric form. The <strong>MIB uploader</strong> allows
 uploading the ones of the manufacturer, in <code>.mib</code> or <code>.zip</code> format, and leaves
 them available to translate OID in the browser, in the modules and in the traps.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/redes-gestor-de-mib.png" data-desc-position="bottom"><img alt="MIB manager with the list of MIB files installed on the system" class="captura" src="../../../assets/img/parte-02/redes-gestor-de-mib.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">Loading the MIB of a UPS</p>
 <p>The <code>.mib</code> file the UPS manufacturer delivers is uploaded; from there on,

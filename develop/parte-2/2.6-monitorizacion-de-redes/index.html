@@ -5058,6 +5058,8 @@ que a cualquier otro agente.</p>
 <p>Un módulo de red se crea desde la ficha del agente, en la pestaña
 <strong>Módulos</strong> (Modules), con el botón <strong>Crear</strong> (Create) → <strong>Crear módulo de
 red</strong> (Create network module). El formulario pide primero el tipo:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-tipos-de-modulo.png" data-desc-position="bottom"><img alt="Diálogo de creación de módulo con la lista de tipos: Endpoint, ICMP, TCP, SNMP, WMI, ejecución remota y Web" class="captura" src="../../assets/img/parte-02/redes-tipos-de-modulo.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-formulario-icmp.png" data-desc-position="bottom"><img alt="Formulario de un módulo ICMP, con el selector de componentes de red, los umbrales y la IP objetivo" class="captura" src="../../assets/img/parte-02/redes-formulario-icmp.png"></a></p>
 <table>
 <thead>
 <tr>
@@ -5224,6 +5226,7 @@ manual--</code>) para no usar ninguno.</p>
 <p>La instalación trae componentes agrupados por fabricante y tecnología: MIB
 de Cisco, sistemas UNIX, Microsoft Windows, WMI, bases de datos, y así con
 el resto de grupos incluidos de fábrica.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-componente-de-red.png" data-desc-position="bottom"><img alt="Formulario de un módulo ICMP rellenado con el componente de red Host Alive, del grupo Network Management" class="captura" src="../../assets/img/parte-02/redes-componente-de-red.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">Aplicar Host Alive y Host Latency desde componentes</p>
 <p>Al crear un módulo nuevo, seleccionar el componente <strong>Host Alive</strong>
@@ -5235,13 +5238,12 @@ de agente trae una casilla, marcada por defecto, que crea estos dos
 módulos (Host Alive y Host Latency) automáticamente en cuanto se da de
 alta el agente, sin pasar por el editor de módulos.</p>
 </div>
-<p>Crear un componente propio es tan sencillo como configurar un módulo de red
-cualquiera y guardarlo como componente en vez de aplicarlo directamente a un
-agente, desde <strong>Gestión → Módulos → Componentes de red</strong>. A partir de ahí se
-puede aplicar a cualquier agente, incluirlo en una <a href="../2.10-politicas-de-monitorizacion/">política de
-monitorización</a> o dejar que
-<a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/">Discovery</a> lo
-aplique en masa durante un escaneo.</p>
+<p><strong>Crear un componente propio.</strong> Los componentes se gestionan en <strong>Gestión → Configuración → Plantillas → Componentes remotos</strong> («Gestión remota de componentes»). La lista muestra el nombre, el servidor que lo ejecuta, el tipo de módulo, la descripción y el grupo de cada componente, y se puede filtrar por grupo y por texto.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-componentes-remotos.png" data-desc-position="bottom"><img alt="Lista de gestión de componentes remotos, con el nombre, el servidor, el tipo, la descripción y el grupo de cada componente" class="captura" src="../../assets/img/parte-02/redes-componentes-remotos.png"></a></p>
+<p>Hay dos caminos para tener uno propio: <strong>duplicar</strong> uno existente y adaptarlo, que suele ser lo más rápido porque ya viene configurado, o elegir el tipo de módulo en el selector de la parte inferior de la lista y pulsar <strong>Crear</strong>. Para los de OID hay un tercero: el botón «Crear componentes de red» del detalle de un OID en el <a href="#navegador-snmp">navegador SNMP</a>.</p>
+<p>El formulario es el de un módulo de red —nombre, tipo, umbrales y las pestañas de información, datos, categorización y macros— más un campo <strong>Grupo</strong>, que decide en qué rama del selector «Usando el componente de red» aparece el componente. No lleva IP objetivo: esa se pone en cada agente al aplicarlo.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-componente-remoto-formulario.png" data-desc-position="bottom"><img alt="Formulario de creación de un componente remoto de tipo ICMP, con el campo Grupo y las pestañas Basic, Information, Thresholds, Data, Categorization y Macros" class="captura" src="../../assets/img/parte-02/redes-componente-remoto-formulario.png"></a></p>
+<p>Los componentes de fábrica marcados como internos, como <strong>Host Alive</strong> y <strong>Host Latency</strong>, no se pueden editar ni borrar; solo duplicar. Una vez creado, un componente se puede aplicar a cualquier agente, incluir en una <a href="../2.10-politicas-de-monitorizacion/">política de monitorización</a> o dejar que <a href="../2.4-descubrimiento-de-redes-con-host-y-dispositivos/">Discovery</a> lo aplique en masa durante un escaneo.</p>
 <h3 id="macros-en-los-campos-del-modulo">Macros en los campos del módulo<a class="headerlink" href="#macros-en-los-campos-del-modulo" title="Permanent link">¶</a></h3>
 <p>Algunos campos de los módulos remotos admiten macros que el servidor
 sustituye por datos del agente cada vez que ejecuta el módulo. Así se evita
@@ -5510,6 +5512,7 @@ de seguridad (sin autenticación ni privacidad, con autenticación sin
 privacidad, o con ambas), usuario, método y contraseña de autenticación
 (MD5, SHA, SHA256 o SHA512) y método y contraseña de privacidad (DES, AES,
 AES192 o AES256) — los mismos que en <a href="#modulos-snmp">Módulos SNMP</a>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-snmp-interfaces-conexion.png" data-desc-position="bottom"><img alt="Primer paso del asistente de interfaces SNMP: IP objetivo, puerto, servidor, versión y comunidad" class="captura" src="../../assets/img/parte-02/redes-snmp-interfaces-conexion.png"></a></p>
 <p>Terminada la consulta, el asistente decide una sola vez, para todo el
 equipo, si trabaja con contadores de tráfico de 32 o de 64 bits: si el
 equipo responde a la rama de contadores de alta capacidad (pensada para
@@ -5528,6 +5531,8 @@ puede activar o desactivar por separado y traer ya editados sus umbrales de
 advertencia y crítico antes de crear nada. Un bloque especial, al principio
 del listado, aplica el mismo conjunto de módulos a todas las interfaces
 seleccionadas de una vez, sin repetir la selección interfaz por interfaz.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-snmp-interfaces-modulos.png" data-desc-position="bottom"><img alt="Tabla de módulos que el asistente de interfaces SNMP propone para todas las interfaces seleccionadas" class="captura" src="../../assets/img/parte-02/redes-snmp-interfaces-modulos.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-snmp-interfaces-seleccion.png" data-desc-position="bottom"><img alt="Filtros y bloques por interfaz del asistente: tres interfaces activas marcadas y una caída sin marcar" class="captura" src="../../assets/img/parte-02/redes-snmp-interfaces-seleccion.png"></a></p>
 <p>Por cada interfaz que queda marcada, el asistente propone:</p>
 <table>
 <thead>
@@ -5588,6 +5593,8 @@ editando una) con el mismo nombre; no impide seguir, pero avisa para no
 duplicar sin darse cuenta. Los módulos creados se comportan después como
 cualquier módulo SNMP: se editan, se les cambia el umbral o se les añade
 una alerta igual que a uno hecho a mano.</p>
+<p><strong>Dónde se ven después.</strong> En la vista del agente aparece la pestaña <strong>Interfaces (SNMP)</strong>, con una fila por interfaz: su estado, el acceso a su gráfica, la IP, la MAC y el último contacto. La consola no vuelve a preguntar al equipo para armarla: deduce las interfaces del <strong>nombre</strong> de los módulos (<code>&lt;interfaz&gt;_if…</code> o <code>if…_&lt;interfaz&gt;</code>, que es como los crea este asistente) y saca la IP y la MAC de su descripción; de ahí el <code>--</code> en la columna de IP cuando la descripción no trae ninguna. Un módulo SNMP hecho a mano con ese mismo patrón de nombre entra igual en la lista.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-agente-interfaces.png" data-desc-position="bottom"><img alt="Pestaña Interfaces (SNMP) de la vista del agente, con una fila por interfaz: estado, gráfica, IP, MAC y último contacto" class="captura" src="../../assets/img/parte-02/redes-agente-interfaces.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">Un switch de 24 puertos, solo interfaces activas y su tráfico</p>
 <p>IP objetivo <code>192.168.10.2</code>, versión <code>2c</code>, comunidad <code>public</code>. Tras el
@@ -5653,7 +5660,8 @@ reconoce el PEN de Net-SNMP/UCD y propone módulos de CPU, memoria y
 espacio en disco listos para marcar y crear, sin buscar un solo OID a
 mano.</p>
 </div>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-snmp-asistente.png" data-desc-position="bottom"><img alt="Asistente SNMP agrupando los módulos detectados por bloques" src="../../assets/img/parte-02/redes-snmp-asistente.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-snmp-asistente-bloques.png" data-desc-position="bottom"><img alt="Asistente SNMP agrupando los módulos detectados por bloques: CPU, memoria, discos, almacenamiento, temperatura y procesos" class="captura" src="../../assets/img/parte-02/redes-snmp-asistente-bloques.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-snmp-asistente-cpu.png" data-desc-position="bottom"><img alt="Bloque de CPU del asistente SNMP desplegado, con el valor actual de cada módulo y sus umbrales" class="captura" src="../../assets/img/parte-02/redes-snmp-asistente-cpu.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">Un servidor Windows con el servicio SNMP</p>
 <p>Sobre un servidor Windows con el servicio SNMP activado y una comunidad
@@ -5677,7 +5685,7 @@ política, sin salir del navegador.</p>
 el OID correspondiente al sensor y se crea el módulo de agente
 directamente desde el resultado, con <strong>Crear módulo de agente</strong>.</p>
 </div>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-snmp-navegador-crear-modulos.png" data-desc-position="bottom"><img alt="Árbol del navegador SNMP con la acción «Crear módulo de agente»" src="../../assets/img/parte-02/redes-snmp-navegador-crear-modulos.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-snmp-navegador-detalle.png" data-desc-position="bottom"><img alt="Navegador SNMP con el detalle de un OID: valor, tipo, descripción y las acciones para crear un componente de red o un módulo de agente" class="captura" src="../../assets/img/parte-02/redes-snmp-navegador-detalle.png"></a></p>
 <h3 id="modulos-snmp">Módulos SNMP<a class="headerlink" href="#modulos-snmp" title="Permanent link">¶</a></h3>
 <p>Para lo que ningún asistente cubre: un OID suelto sin plantilla, una MIB
 propia del fabricante o el ajuste fino de un módulo ya creado. Cuatro
@@ -5686,6 +5694,7 @@ tipos: <strong>numérico</strong> (<code>remote_snmp</code>), <strong>estado</st
 para contadores: ver <a href="#referencia-de-tipos-de-modulo">Referencia de tipos de
 módulo</a>). Campos propios, con su valor por
 defecto:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-formulario-snmp.png" data-desc-position="bottom"><img alt="Formulario de un módulo SNMP, con IP objetivo, puerto, OID, versión y comunidad" class="captura" src="../../assets/img/parte-02/redes-formulario-snmp.png"></a></p>
 <table>
 <thead>
 <tr>
@@ -5766,6 +5775,7 @@ correspondiente cargada, un OID solo se ve en su forma numérica. El
 <strong>Gestor de MIB</strong> (MIB uploader) permite subir las del fabricante, en
 formato <code>.mib</code> o <code>.zip</code>, y las deja disponibles para traducir OID en el
 navegador, en los módulos y en los traps.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/redes-gestor-de-mib.png" data-desc-position="bottom"><img alt="Gestor de MIB con la lista de ficheros MIB instalados en el sistema" class="captura" src="../../assets/img/parte-02/redes-gestor-de-mib.png"></a></p>
 <div class="admonition example">
 <p class="admonition-title">Cargar la MIB de un SAI</p>
 <p>Se sube el fichero <code>.mib</code> que entrega el fabricante del SAI; a partir de

@@ -886,6 +886,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#local-components-modules-that-are-already-prepared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local components: modules that are already prepared
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4903,6 +4914,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#local-components-modules-that-are-already-prepared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local components: modules that are already prepared
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5266,6 +5288,7 @@ connections and plugins for disk, memory and network usage), enough to check at
 a glance that the delivery works. The default interval is 300 seconds (five
 minutes); changing it is a matter of editing <code>interval</code> in the configuration
 file.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-vista-principal.png" data-desc-position="bottom"><img alt="Agent main view showing the remote configuration status" class="captura" src="../../../assets/img/parte-02/endpoint-vista-principal.png"></a></p>
 <div class="admonition note">
 <p class="admonition-title">If the agent does not appear</p>
 <p>With <code>autocreate 0</code> on the server, the data of an agent that does not exist
@@ -5352,6 +5375,7 @@ what the standard installation brings: it is the situation of a file edited
 by hand and trimmed. Before taking for granted that an EndPoint is closed to
 remote changes, check the token.</p>
 </div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-configuracion-remota.png" data-desc-position="bottom"><img alt="Remote configuration editor of an agent in the console" class="captura" src="../../../assets/img/parte-02/endpoint-configuracion-remota.png"></a></p>
 <p>With remote configuration active, the console can replace the EndPoint
 <code>pandora_agent.conf</code> entirely and create or modify local modules without anyone
 connecting to the machine. The mechanism underneath is the same in all three
@@ -5400,6 +5424,7 @@ covering the obvious: how much CPU and free memory there is, how much disk is
 left, whether a process or a service is still alive. It is 80% of what is asked
 of an EndPoint, and a good part of it arrives done: without configuring
 anything, the template it is installed with already collects the basics.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-modulos.png" data-desc-position="bottom"><img alt="Module list of an agent, including CPU Load and CPU IOWait" class="captura" src="../../../assets/img/parte-02/endpoint-modulos.png"></a></p>
 <table>
 <thead>
 <tr>
@@ -5780,6 +5805,56 @@ and editing these same local modules without touching <code>pandora_agent.conf</
 hand: the form generates the same tokens seen in this section and the EndPoint
 picks them up on its next remote configuration check. Without remote
 configuration, the only way is to edit the file directly on the machine.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-crear-modulo.png" data-desc-position="bottom"><img alt="Module type selector with Endpoint module selected" class="captura" src="../../../assets/img/parte-02/endpoint-crear-modulo.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-formulario-modulo.png" data-desc-position="bottom"><img alt="Creation form of an EndPoint module, with the Basic, Information, Thresholds, Intervals, Data, Categorization and Macros tabs" class="captura" src="../../../assets/img/parte-02/endpoint-formulario-modulo.png"></a></p>
+<p>The first thing in that form is not an empty field but a selector: <strong>Using local component</strong>. Before typing anything from scratch it is worth knowing what it hides, and that is what the next section is about.</p>
+<h3 id="local-components-modules-that-are-already-prepared">Local components: modules that are already prepared<a class="headerlink" href="#local-components-modules-that-are-already-prepared" title="Permanent link">¶</a></h3>
+<p>Writing by hand the module that measures free memory on a Linux box or disk space on a Windows one has its charm the first time and none the tenth. That is why the console keeps <strong>local components</strong>: ready-made EndPoint modules, with their <code>module_begin … module_end</code> definition, data type, thresholds and description, ready to be loaded into the module creation form.</p>
+<p>A component is a template, not a live module. When you pick one, the console copies its fields into the form (name, type, thresholds, the <em>Module exec</em> command and the <em>Data configuration</em> block) and from then on it is an ordinary local module that you can adjust before saving. No link remains with the component: changing or deleting it later does not alter the modules already created from it.</p>
+<div class="admonition note">
+<p class="admonition-title">These are not the modules a fresh EndPoint ships with</p>
+<p>The modules that appear on their own on a freshly installed EndPoint (CPU Load, disk usage, memory…) come from the EndPoint's own configuration template, described in <a href="#monitoring-the-basics-of-the-system">Monitoring the basics of the system</a>. Local components are a separate catalogue that only comes into play when you create a module from the console.</p>
+</div>
+<p><strong>Using a component.</strong> With remote configuration enabled, in the agent's edit view:</p>
+<ol>
+<li>In the modules tab, click "Create module" and choose the "Endpoint module" type.</li>
+<li>In <strong>Using local component</strong>, pick the group first. Components hang from the same component group tree as the remote ones, for example "Operating Systems" → "UNIX Systems" → "Linux".</li>
+<li>A second drop-down appears with the group's components. Pick one and the form fills in.</li>
+<li>Check what was loaded, adjust what you need (the name, a threshold, a disk mount point) and save.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-componente-local.png" data-desc-position="bottom"><img alt="Local component selector with the Linux group and the Linux CPU Free component, and the form filled in with its definition" class="captura" src="../../../assets/img/parte-02/endpoint-componente-local.png"></a></p>
+<p>Read the <em>Data configuration</em> block before saving: it is the only way to know what the EndPoint will really run.</p>
+<p><strong>What the console ships with.</strong> More than fifty components, grouped by technology:</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Example components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux</td>
+<td><code>Linux CPU Free</code>, <code>Linux Load Average</code>, <code>Linux Memory Free</code>, <code>Linux Disk Free</code>, <code>SSH Status</code>, <code>Free i-nodes</code>, <code>Linux Zombie processes</code>, <code>Disk_IO_Wait</code>, <code>OpenedFiles</code></td>
+</tr>
+<tr>
+<td>Microsoft Windows</td>
+<td><code>Windows CPU Load</code>, <code>Windows Free Memory</code>, <code>Windows Free Disk C</code>, <code>Windows_Update_LastRun</code>, <code>Microsoft Firewall</code>, <code>Microsoft Antivirus</code>, <code>Kaspersky Antivirus</code></td>
+</tr>
+<tr>
+<td>Citrix</td>
+<td><code>Citrix_Sessions</code>, <code>Busy XML Threads</code>, <code>Windows Users Connected</code>, the <code>Serv_IMA</code> and <code>Serv_HCA</code> services, and eight Windows event modules (<code>Event 1000</code>, <code>Event 1004</code>…)</td>
+</tr>
+<tr>
+<td>Solaris, BSD, HP-UX, MacOS and AIX</td>
+<td>System and user CPU (<code>CPU_System</code>, <code>cpu_user</code>), free space on the root partition (<code>disk_root_free</code>), free memory and swap, load average and daemon checks (<code>InetdDaemon</code>, <code>sshDaemon</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Managing them and creating your own.</strong> Components are managed under "Management" → "Configuration" → "Templates" → "Local components" ("Local component management"). The list shows each component's name, description and group, with duplicate and delete actions on every row and a "Create" button for a new one.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-componentes-locales.png" data-desc-position="bottom"><img alt="List of local components with their name, description and group" class="captura" src="../../../assets/img/parte-02/endpoint-componentes-locales.png"></a></p>
+<p>A component's form is the same as a module's, with an extra <strong>Group</strong> field and without the intervals tab. There are two ways to get your own: create it from scratch with "Create", or duplicate a bundled one and adapt it, which is almost always faster because the definition is already written. A custom component is good for what any template is good for: the module that repeats across fifty agents gets written once.</p>
+<p><strong>Remote</strong> components (the network, SNMP and WMI ones that the server runs) work on the same idea and are explained in <a href="../2.6-monitorizacion-de-redes/#network-components-do-not-start-from-scratch">Network components: do not start from scratch</a>.</p>
 <h2 id="advanced-monitoring-of-ms-windows">Advanced monitoring of MS Windows<a class="headerlink" href="#advanced-monitoring-of-ms-windows" title="Permanent link">¶</a></h2>
 <p>The Windows EndPoint adds a handful of modules that have no equivalent in Go or
 in Perl, because they depend on technologies specific to Windows.</p>
@@ -5872,6 +5947,7 @@ the Web console and assigned to the EndPoints that need them, which download
 them and leave them ready for a <code>module_plugin</code> to use. All three EndPoints
 accept them; how they are created, assigned and used from policies is explained
 in its chapter, <a href="../2.9-colecciones/">Collections</a>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-colecciones.png" data-desc-position="bottom"><img alt="Collection tab of an agent listing the collections available to assign to it" class="captura" src="../../../assets/img/parte-02/endpoint-colecciones.png"></a></p>
 <div class="admonition note">
 <p class="admonition-title">Remote configuration, a prerequisite</p>
 <p>Collections are distributed over the same channel as remote configuration
@@ -6089,7 +6165,7 @@ own configuration, derived from that of the main EndPoint (same server, same
 interval, same transfer mode), but with its own name and its own modules. It is
 what allows, for example, a single EndPoint installed on a gateway to report
 data from several devices behind it, each one as its own agent in the console.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/endpoint-modo-broker.png" data-desc-position="bottom"><img alt="An EndPoint in broker mode runs remote checks on several devices and sends the server one XML for each one" class="diagrama diagrama-ancho" src="../../../assets/img/parte-01/endpoint-modo-broker.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-broker.svg" data-desc-position="bottom"><img alt="An EndPoint in broker mode runs remote checks on several devices and sends the server one XML for each one" class="diagrama-oscuro" src="../../../assets/img/parte-02/endpoint-broker.svg"></a></p>
 <p>All three EndPoints accept it. On the Windows EndPoint, broker agents do not
 accept asynchronous modules: a module with <code>module_async</code> in the configuration
 of a broker is discarded.</p>
@@ -6107,7 +6183,7 @@ and <code>server_port</code>. <code>proxy_max_connection</code> limits the simul
 accepts (by default, <code>10</code>) and <code>proxy_timeout</code> the waiting time of each one (by
 default, <code>1</code> second). The EndPoints that rely on the proxy only need to point
 their <code>server_ip</code> to the machine acting as proxy, instead of to the real server.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-01/endpoint-modo-proxy.png" data-desc-position="bottom"><img alt="Several EndPoints send their XML to the EndPoint in proxy mode, which forwards them all to the Pandora FMS server" class="diagrama diagrama-ancho" src="../../../assets/img/parte-01/endpoint-modo-proxy.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-proxy.svg" data-desc-position="bottom"><img alt="Several EndPoints send their XML to the EndPoint in proxy mode, which forwards them all to the Pandora FMS server" class="diagrama-oscuro" src="../../../assets/img/parte-02/endpoint-proxy.svg"></a></p>
 <div class="highlight"><pre><span></span><code># On the EndPoint acting as proxy
 proxy_mode 1
 proxy_address 0.0.0.0
@@ -6277,6 +6353,7 @@ day-to-day operation.</p>
 <p><strong>Learning, normal and self-disabled modes.</strong> Whether a new module from the XML
 ends up in the console also depends on the mode of the agent, which is chosen
 when editing it in the Web console:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/endpoint-modo-aprendizaje.png" data-desc-position="bottom"><img alt="Advanced tab of the agent edit page with the module definition modes: learning, normal and autodisable" class="captura" src="../../../assets/img/parte-02/endpoint-modo-aprendizaje.png"></a></p>
 <table>
 <thead>
 <tr>
