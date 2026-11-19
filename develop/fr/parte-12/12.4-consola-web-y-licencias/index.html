@@ -4875,7 +4875,7 @@ problèmes d'accès, d'affichage, de sécurité et de licences.</p>
 <h2 id="jai-perdu-le-mot-de-passe-administrateur">J'ai perdu le mot de passe administrateur<a class="headerlink" href="#jai-perdu-le-mot-de-passe-administrateur" title="Permanent link">¶</a></h2>
 <p>La console n'apporte pas de « mot de passe oublié » par courrier pour
 l'administrateur, donc cela se règle depuis le serveur, avec l'outil de gestion :</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_manage.pl<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_manage<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--create_user<span class="w"> </span>admin_temporaire<span class="w"> </span>CHANGEZ_CETTE_CLE<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <p>Cela crée un utilisateur administrateur temporaire. On y entre avec lui, on
@@ -4888,19 +4888,28 @@ faites pas : mettez un vrai mot de passe et supprimez le compte dès que vous
 avez terminé.</p>
 </div>
 <h2 id="changer-le-mot-de-passe-dun-utilisateur-depuis-la-ligne-de-commandes">Changer le mot de passe d'un utilisateur depuis la ligne de commandes<a class="headerlink" href="#changer-le-mot-de-passe-dun-utilisateur-depuis-la-ligne-de-commandes" title="Permanent link">¶</a></h2>
-<p>Avec le même <code>pandora_manage.pl</code>, sans créer de nouveaux comptes :</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_manage.pl<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
+<p>Avec le même <code>pandora_manage</code>, sans créer de nouveaux comptes :</p>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_manage<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--update_user<span class="w"> </span>ID_UTILISATEUR<span class="w"> </span>password<span class="w"> </span>NOUVEAU_MOT_DE_PASSE
 </code></pre></div>
 <p>La commande sert aussi pour d'autres champs de l'utilisateur : courriel,
 téléphone, langue, thème (<code>id_skin</code>), nom complet et le fait d'être
 administrateur.</p>
 <h2 id="la-console-apparait-vide-ou-avec-des-erreurs-mysql">La console apparaît vide ou avec des erreurs MySQL<a class="headerlink" href="#la-console-apparait-vide-ou-avec-des-erreurs-mysql" title="Permanent link">¶</a></h2>
-<p>Deux causes, par ordre de fréquence :</p>
+<p>Quatre causes, par ordre de fréquence :</p>
 <ul>
+<li><strong>Des paquets ou extensions PHP manquants.</strong> La console a besoin d'extensions
+  telles que <code>php-mysqlnd</code>, <code>php-gd</code>, <code>php-mbstring</code>, <code>php-xml</code>, <code>php-zip</code>,
+  <code>php-ldap</code> et <code>php-snmp</code>. S'il en manque une, la page peut rester vide ou
+  renvoyer une erreur 500. Installez-les et redémarrez Apache ou PHP-FPM.</li>
 <li><strong>Une mise à jour ou une installation à moitié faite.</strong> Un fichier de la
   console est resté corrompu. On réinstalle les paquets de la console dans <strong>la
   même version</strong> que celle déjà installée.</li>
+<li><strong>Des problèmes de connexion à MySQL.</strong> Le moteur n'est pas démarré, n'écoute
+  pas sur l'hôte ou le port configuré, les identifiants de <code>include/config.php</code>
+  ne sont pas valides ou l'utilisateur n'a pas les permissions sur la base.
+  Vérifiez la connexion à la main avec <code>mysql</code> et cherchez l'erreur dans le
+  journal de PHP ou d'Apache.</li>
 <li><strong>Il manque des MR du schéma.</strong> S'il y a en plus des erreurs MySQL, le plus
   probable est que la base de données est restée à un MR antérieur. On applique
   ceux qui manquent.</li>
@@ -4947,7 +4956,7 @@ consommation :</p>
 <h2 id="jai-perdu-le-generateur-de-codes-de-la-double-authentification">J'ai perdu le générateur de codes de la double authentification<a class="headerlink" href="#jai-perdu-le-generateur-de-codes-de-la-double-authentification" title="Permanent link">¶</a></h2>
 <p>La double authentification (2FA) se désactive pour un utilisateur depuis le
 serveur :</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_manage.pl<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_manage<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--disable_double_auth<span class="w"> </span><span class="s1">'&lt;utilisateur&gt;'</span>
 </code></pre></div>
 <p>Cela sert autant si c'est vous qui avez perdu le générateur que si vous êtes

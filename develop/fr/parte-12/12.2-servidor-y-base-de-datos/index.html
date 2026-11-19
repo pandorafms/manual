@@ -4836,10 +4836,10 @@ savez déjà où chercher.</p>
 <h2 id="lancer-la-purge-de-la-base-de-donnees-a-la-main">Lancer la purge de la base de données à la main<a class="headerlink" href="#lancer-la-purge-de-la-base-de-donnees-a-la-main" title="Permanent link">¶</a></h2>
 <p>La maintenance s'installe dans <code>/etc/cron.hourly/pandora_db</code> et appelle l'outil
 avec la configuration du serveur :</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_db.pl<span class="w"> </span>/etc/pandora/pandora_server.conf
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_db<span class="w"> </span>/etc/pandora/pandora_server.conf
 </code></pre></div>
-<p>Les anciennes installations d'Enterprise avaient en plus un exécutable dans
-<code>/usr/bin/pandora_db</code> ; aujourd'hui le bon chemin est celui de <code>util/</code>.</p>
+<p>Le binaire est <code>/usr/bin/pandora_db</code> ; le paquet le programme dans
+<code>/etc/cron.hourly/pandora_db</code>.</p>
 <p>Si elle ne s'est jamais exécutée, la première passe peut prendre des <strong>heures</strong> :
 lancez-la en arrière-plan et ne la coupez pas à moitié.</p>
 <h2 id="le-noyau-signale-possible-syn-flooding-on-port-41121">Le noyau signale « possible SYN flooding on port 41121 »<a class="headerlink" href="#le-noyau-signale-possible-syn-flooding-on-port-41121" title="Permanent link">¶</a></h2>
@@ -4902,7 +4902,7 @@ l'ordre :</p>
 <ol>
 <li><strong>La maintenance ne s'exécute pas.</strong> Le paquet laisse le script dans
    <code>/etc/cron.hourly/pandora_db</code>, qui appelle
-   <code>/usr/share/pandora_server/util/pandora_db.pl</code> avec la configuration du
+   <code>/usr/bin/pandora_db</code> avec la configuration du
    serveur. S'il s'est perdu ou si le cron ne tourne pas, la base croît sans
    limite. Lancez-le à la main et regardez s'il renvoie une erreur.</li>
 <li><strong>La rétention ne correspond pas à l'usage.</strong> Vérifiez les périodes de purge
@@ -4922,7 +4922,7 @@ l'ordre :</p>
 données a besoin de ce script <strong>toutes les heures</strong> : il purge les données
 anciennes, compacte et déplace vers l'historique ce qui correspond.</p>
 <p>Vérifiez qu'il existe et qu'il fonctionne :</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_db.pl<span class="w"> </span>/etc/pandora/pandora_server.conf
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_db<span class="w"> </span>/etc/pandora/pandora_server.conf
 </code></pre></div>
 <p>Si le script répond qu'<strong>« une autre instance semble être en cours
 d'exécution »</strong>, le verrou nommé de MySQL indique qu'une autre connexion exécute

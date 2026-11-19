@@ -4876,7 +4876,7 @@ security and licence problems are gathered.</p>
 <h2 id="i-have-lost-the-administrator-password">I have lost the administrator password<a class="headerlink" href="#i-have-lost-the-administrator-password" title="Permanent link">¶</a></h2>
 <p>The console does not bring a "forgot password" by email for the administrator,
 so it is solved from the server, with the management tool:</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_manage.pl<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_manage<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--create_user<span class="w"> </span>temporary_admin<span class="w"> </span>CHANGE_THIS_PASSWORD<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <p>That creates a temporary administrator user. Log in with it, change the password
@@ -4888,18 +4888,27 @@ open door.</p>
 it: set a real password and delete the account as soon as you finish.</p>
 </div>
 <h2 id="changing-a-users-password-from-the-command-line">Changing a user's password from the command line<a class="headerlink" href="#changing-a-users-password-from-the-command-line" title="Permanent link">¶</a></h2>
-<p>With the same <code>pandora_manage.pl</code>, without creating new accounts:</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_manage.pl<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
+<p>With the same <code>pandora_manage</code>, without creating new accounts:</p>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_manage<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--update_user<span class="w"> </span>USER_ID<span class="w"> </span>password<span class="w"> </span>NEW_PASSWORD
 </code></pre></div>
 <p>The command also works for other user fields: email, phone, language, theme
 (<code>id_skin</code>), full name and whether the user is an administrator.</p>
 <h2 id="the-console-shows-up-blank-or-with-mysql-errors">The console shows up blank or with MySQL errors<a class="headerlink" href="#the-console-shows-up-blank-or-with-mysql-errors" title="Permanent link">¶</a></h2>
-<p>Two causes, in order of frequency:</p>
+<p>Four causes, in order of frequency:</p>
 <ul>
+<li><strong>Missing PHP packages or extensions.</strong> The console needs extensions such as
+  <code>php-mysqlnd</code>, <code>php-gd</code>, <code>php-mbstring</code>, <code>php-xml</code>, <code>php-zip</code>, <code>php-ldap</code> and
+  <code>php-snmp</code>. If one is missing, the page may be blank or return a 500 error.
+  Install them and restart Apache or PHP-FPM.</li>
 <li><strong>A half-finished update or installation.</strong> Some console file was left
   corrupt. The console packages are reinstalled in <strong>the same version</strong> that was
   already installed.</li>
+<li><strong>MySQL connection problems.</strong> The engine is not running, it is not listening
+  on the configured host or port, the credentials in <code>include/config.php</code> are not
+  valid, or the user does not have permissions on the database. Check the
+  connection manually with <code>mysql</code> and look for the error in the PHP or Apache
+  log.</li>
 <li><strong>Schema MRs are missing.</strong> If there are also MySQL errors, the most likely
   thing is that the database was left at a previous MR. The missing ones are
   applied.</li>
@@ -4940,7 +4949,7 @@ the consumption:</p>
 </ol>
 <h2 id="i-lost-the-two-factor-authentication-code-generator">I lost the two-factor authentication code generator<a class="headerlink" href="#i-lost-the-two-factor-authentication-code-generator" title="Permanent link">¶</a></h2>
 <p>Two-factor authentication (2FA) is disabled for a user from the server:</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_manage.pl<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_manage<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--disable_double_auth<span class="w"> </span><span class="s1">'&lt;user&gt;'</span>
 </code></pre></div>
 <p>It works both if you are the one who has lost the generator and if you are the

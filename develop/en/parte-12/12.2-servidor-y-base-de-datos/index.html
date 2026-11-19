@@ -4835,10 +4835,10 @@ to look.</p>
 <h2 id="running-the-database-purge-by-hand">Running the database purge by hand<a class="headerlink" href="#running-the-database-purge-by-hand" title="Permanent link">¶</a></h2>
 <p>Maintenance is installed in <code>/etc/cron.hourly/pandora_db</code> and calls the tool
 with the server configuration:</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_db.pl<span class="w"> </span>/etc/pandora/pandora_server.conf
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_db<span class="w"> </span>/etc/pandora/pandora_server.conf
 </code></pre></div>
-<p>Old Enterprise installations also had an executable in <code>/usr/bin/pandora_db</code>;
-today the right path is the one in <code>util/</code>.</p>
+<p>The binary is <code>/usr/bin/pandora_db</code>; the package schedules it in
+<code>/etc/cron.hourly/pandora_db</code>.</p>
 <p>If it has never been run, the first pass can take <strong>hours</strong>: launch it in the
 background and do not cut it short.</p>
 <h2 id="the-kernel-warns-of-possible-syn-flooding-on-port-41121">The kernel warns of "possible SYN flooding on port 41121"<a class="headerlink" href="#the-kernel-warns-of-possible-syn-flooding-on-port-41121" title="Permanent link">¶</a></h2>
@@ -4897,7 +4897,7 @@ mysql<span class="w"> </span>-u<span class="w"> </span>pandora<span class="w"> <
 <ol>
 <li><strong>Maintenance is not running.</strong> The package leaves the script in
    <code>/etc/cron.hourly/pandora_db</code>, which calls
-   <code>/usr/share/pandora_server/util/pandora_db.pl</code> with the server
+   <code>/usr/bin/pandora_db</code> with the server
    configuration. If it has been lost or cron does not run, the database grows
    without limit. Run it by hand and see if it reports an error.</li>
 <li><strong>The retention does not match the use.</strong> Review the purge periods and, in
@@ -4916,7 +4916,7 @@ mysql<span class="w"> </span>-u<span class="w"> </span>pandora<span class="w"> <
 script <strong>every hour</strong>: it purges old data, compacts and moves to the historical
 database whatever corresponds.</p>
 <p>Check that it exists and works:</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_db.pl<span class="w"> </span>/etc/pandora/pandora_server.conf
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_db<span class="w"> </span>/etc/pandora/pandora_server.conf
 </code></pre></div>
 <p>If the script answers that <strong>"another instance seems to be running"</strong>, the
 MySQL named lock indicates that another connection is running maintenance. The

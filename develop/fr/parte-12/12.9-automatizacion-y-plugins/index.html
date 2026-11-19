@@ -4617,21 +4617,21 @@ serveur de Pandora FMS</strong>. Il sert à créer et supprimer des utilisateurs
 agents et des modules, à configurer des alertes et des politiques, à gérer des
 événements et bien plus encore : c'est donc la voie naturelle pour automatiser
 des tâches avec des scripts.</p>
-<p>On l'exécute sur le serveur avec <code>pandora_manage.pl</code> et la configuration du
+<p>On l'exécute sur le serveur avec <code>pandora_manage</code> et la configuration du
 serveur :</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_manage.pl<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_manage<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>/etc/pandora/pandora_server.conf<span class="w"> </span>OPCION<span class="w"> </span>PARAMETROS
 </code></pre></div>
 <p>Remplacez <code>OPCION</code> et <code>PARAMETROS</code> par les arguments de l'opération que vous allez
 exécuter.</p>
 <p>Un exemple réel : créer un groupe nommé « Virtuales » à l'intérieur d'un autre
 nommé « Servidores » :</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_manage.pl<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_manage<span class="w"> </span>/etc/pandora/pandora_server.conf<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--create_group<span class="w"> </span><span class="s1">'Virtuales'</span><span class="w"> </span><span class="s1">'Servidores'</span>
 </code></pre></div>
 <p>La liste des opérations est longue (agents, modules, alertes, modèles,
 politiques, événements, utilisateurs, profils, collections, consoles visuelles…).
-Pour la voir en entier, on exécute le script <strong>sans options</strong> : il affiche l'aide
+Pour la voir en entier, on exécute le binaire <strong>sans options</strong> : il affiche l'aide
 avec la syntaxe de chacune.</p>
 <h2 id="ce-quest-lapi-et-comment-on-la-protege">Ce qu'est l'API et comment on la protège<a class="headerlink" href="#ce-quest-lapi-et-comment-on-la-protege" title="Permanent link">¶</a></h2>
 <p>L'API est un fichier PHP de la console que l'on appelle par HTTP, avec <code>curl</code> ou
@@ -4657,9 +4657,8 @@ dans la console.</p>
 <h2 id="creer-et-valider-des-evenements-par-lapi-depuis-une-autre-machine">Créer et valider des événements par l'API depuis une autre machine<a class="headerlink" href="#creer-et-valider-des-evenements-par-lapi-depuis-une-autre-machine" title="Permanent link">¶</a></h2>
 <p>Le produit fournit un outil pour lancer des événements contre l'API <strong>depuis un
 système distant</strong>, sans avoir à toucher la base de données ni à disposer d'un
-EndPoint installé : <strong><code>pandora_revent.pl</code></strong>, dans le dossier d'utilitaires du
-serveur.</p>
-<div class="highlight"><pre><span></span><code>./pandora_revent.pl<span class="w"> </span><span class="se">\</span>
+EndPoint installé : <strong><code>/usr/bin/pandora_revent</code></strong>.</p>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_revent<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-p<span class="w"> </span>https://console.example.com/pandora_console/include/api.php<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-u<span class="w"> </span><span class="s1">'API_PASSWORD,USER_NAME,USER_PASSWORD'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-create_event<span class="w"> </span><span class="se">\</span>
@@ -4671,7 +4670,7 @@ serveur.</p>
 le mot de passe de l'API, l'utilisateur et son mot de passe.</p>
 <p>Le même outil <strong>valide</strong> des événements, ce qui est utile pour les clôturer depuis
 l'extérieur :</p>
-<div class="highlight"><pre><span></span><code>./pandora_revent.pl<span class="w"> </span>-p<span class="w"> </span>https://console.example.com/pandora_console/include/api.php<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_revent<span class="w"> </span>-p<span class="w"> </span>https://console.example.com/pandora_console/include/api.php<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-u<span class="w"> </span><span class="s1">'API_PASSWORD,USER_NAME,USER_PASSWORD'</span><span class="w"> </span>-validate_event<span class="w"> </span>-id<span class="w"> </span>EVENT_ID
 </code></pre></div>
 <p>Remplacez les valeurs d'exemple par l'hôte et les identifiants de votre

@@ -4834,10 +4834,10 @@ si algo «no se procesa» y el token está a 0, ya sabes por dónde va.</p>
 <h2 id="ejecutar-el-purgado-de-la-base-de-datos-a-mano">Ejecutar el purgado de la base de datos a mano<a class="headerlink" href="#ejecutar-el-purgado-de-la-base-de-datos-a-mano" title="Permanent link">¶</a></h2>
 <p>El mantenimiento se instala en <code>/etc/cron.hourly/pandora_db</code> y llama a la
 herramienta con la configuración del servidor:</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_db.pl<span class="w"> </span>/etc/pandora/pandora_server.conf
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_db<span class="w"> </span>/etc/pandora/pandora_server.conf
 </code></pre></div>
-<p>Las instalaciones antiguas de Enterprise tenían además un ejecutable en
-<code>/usr/bin/pandora_db</code>; hoy la ruta buena es la de <code>util/</code>.</p>
+<p>El binario es <code>/usr/bin/pandora_db</code>; el paquete lo deja programado en
+<code>/etc/cron.hourly/pandora_db</code>.</p>
 <p>Si nunca se ha ejecutado, la primera pasada puede tardar <strong>horas</strong>: lánzala en
 segundo plano y no la cortes a medias.</p>
 <h2 id="el-kernel-avisa-de-possible-syn-flooding-on-port-41121">El kernel avisa de «possible SYN flooding on port 41121»<a class="headerlink" href="#el-kernel-avisa-de-possible-syn-flooding-on-port-41121" title="Permanent link">¶</a></h2>
@@ -4895,7 +4895,7 @@ campos <code>dbuser</code>, <code>dbpass</code> y <code>dbname</code>. <strong>N
 <ol>
 <li><strong>El mantenimiento no se está ejecutando.</strong> El paquete deja el script en
    <code>/etc/cron.hourly/pandora_db</code>, que llama a
-   <code>/usr/share/pandora_server/util/pandora_db.pl</code> con la configuración del
+   <code>/usr/bin/pandora_db</code> con la configuración del
    servidor. Si se ha perdido o el cron no corre, la base crece sin límite.
    Lánzalo a mano y mira si da error.</li>
 <li><strong>La retención no encaja con el uso.</strong> Revisa los periodos de purga y, en
@@ -4914,7 +4914,7 @@ campos <code>dbuser</code>, <code>dbpass</code> y <code>dbname</code>. <strong>N
 necesita ese script <strong>cada hora</strong>: purga datos antiguos, compacta y mueve al
 histórico lo que corresponda.</p>
 <p>Comprueba que existe y funciona:</p>
-<div class="highlight"><pre><span></span><code>/usr/share/pandora_server/util/pandora_db.pl<span class="w"> </span>/etc/pandora/pandora_server.conf
+<div class="highlight"><pre><span></span><code>/usr/bin/pandora_db<span class="w"> </span>/etc/pandora/pandora_server.conf
 </code></pre></div>
 <p>Si el script responde que <strong>«otra instancia parece estar en ejecución»</strong>, el
 bloqueo con nombre de MySQL indica que otra conexión está ejecutando el
