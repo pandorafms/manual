@@ -6282,7 +6282,8 @@ proxy_port 41121
 </code></pre></div>
 <h3 id="serveur-secondaire">Serveur secondaire<a class="headerlink" href="#serveur-secondaire" title="Permanent link">¶</a></h3>
 <p><code>secondary_mode</code> décide si l'EndPoint envoie aussi ses données à un second
-serveur, en plus du principal (<code>server_ip</code>), et dans quelles circonstances :</p>
+serveur, en plus du principal (<code>server_ip</code>), dans quelles circonstances et,
+avec <code>ha_fallback</code>, s'il l'utilise également pour la configuration distante :</p>
 <table>
 <thead>
 <tr>
@@ -6303,6 +6304,10 @@ serveur, en plus du principal (<code>server_ip</code>), et dans quelles circonst
 <td><code>always</code></td>
 <td>L'envoi se fait vers les deux serveurs, toujours.</td>
 </tr>
+<tr>
+<td><code>ha_fallback</code></td>
+<td>Identique à <code>on_error</code> pour les données et, si le principal n'est pas disponible, la configuration distante est récupérée depuis le secondaire.</td>
+</tr>
 </tbody>
 </table>
 <p>Le serveur secondaire se configure avec son propre jeu de jetons en miroir —
@@ -6312,7 +6317,18 @@ serveur, en plus du principal (<code>server_ip</code>), et dans quelles circonst
 pour ne pas cesser de rendre compte quand le serveur principal n'est pas
 disponible, ou pour alimenter en même temps deux installations de Pandora FMS
 distinctes, sans dépendre du mode proxy ni d'une architecture distribuée complète.</p>
-<div class="highlight"><pre><span></span><code>secondary_mode on_error
+<p>Avec <code>ha_fallback</code>, si l'EndPoint ne peut pas lire la configuration distante du
+serveur principal, il la cherche sur le secondaire avec les mêmes jetons
+<code>secondary_*</code>. Si elle n'y est pas non plus, il y envoie son
+<code>pandora_agent.conf</code> local et son MD5 pour pouvoir être géré aussi depuis ce
+serveur. Le téléchargement utilise Tentacle (sous Windows, un
+<code>secondary_transfer_mode</code> vide équivaut à <code>tentacle</code> ; Go accepte aussi
+<code>local</code>). Tant que le principal répond, le secondaire n'est pas consulté, et la
+configuration déjà envoyée au secondaire n'est pas supprimée au retour du
+principal : l'agent ne compare pas les deux copies, leur gestion revient donc à
+l'administrateur de l'environnement.</p>
+<p><code>ha_fallback</code> est disponible dans les EndPoints Go et Windows.</p>
+<div class="highlight"><pre><span></span><code>secondary_mode ha_fallback
 secondary_server_ip 10.0.0.5
 secondary_transfer_mode tentacle
 </code></pre></div>

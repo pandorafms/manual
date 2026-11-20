@@ -5502,8 +5502,8 @@ quelle position du fichier, hors d'un bloc de module.</p>
 <tbody>
 <tr>
 <td><code>secondary_mode</code></td>
-<td>Quand les données sont aussi envoyées à un serveur secondaire : <code>never</code> (jamais), <code>on_error</code> (seulement si le primaire échoue) ou <code>always</code> (toujours, en plus du primaire).</td>
-<td><code>never</code> (par défaut), <code>on_error</code> ou <code>always</code>.</td>
+<td>Quand les données sont aussi envoyées à un serveur secondaire et, avec <code>ha_fallback</code>, si celui-ci est utilisé pour la configuration distante : <code>never</code> (jamais), <code>on_error</code> (seulement si le primaire échoue), <code>always</code> (toujours, en plus du primaire) ou <code>ha_fallback</code> (comme <code>on_error</code>, et récupère la configuration distante depuis le secondaire si le primaire ne répond pas ; EndPoints Go et Windows uniquement).</td>
+<td><code>never</code> (par défaut), <code>on_error</code>, <code>always</code> ou <code>ha_fallback</code>.</td>
 <td>Oui</td>
 <td>Oui</td>
 <td>Oui</td>
@@ -5566,7 +5566,7 @@ quelle position du fichier, hors d'un bloc de module.</p>
 </tr>
 <tr>
 <td><code>secondary_temporal</code></td>
-<td>Répertoire des XML en attente du serveur secondaire. Il n'est pas configuré en pratique : l'EndPoint le fixe à partir de <code>temporal</code> (<code>temporal/pandorafms.secondary</code> avec <code>secondary_mode always</code>, <code>temporal</code> lui-même avec <code>on_error</code>) et ignore la valeur du fichier.</td>
+<td>Répertoire des XML en attente du serveur secondaire. Il n'est pas configuré en pratique : l'EndPoint le fixe à partir de <code>temporal</code> (<code>temporal/pandorafms.secondary</code> avec <code>secondary_mode always</code>, <code>temporal</code> lui-même avec <code>on_error</code> ou <code>ha_fallback</code>) et ignore la valeur du fichier.</td>
 <td>Chemin. Dérivé de <code>temporal</code>.</td>
 <td>Oui</td>
 <td>Oui</td>

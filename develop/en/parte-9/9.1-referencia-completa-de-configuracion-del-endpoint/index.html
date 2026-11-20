@@ -5501,8 +5501,8 @@ block). General tokens are valid anywhere in the file, outside a module block.</
 <tbody>
 <tr>
 <td><code>secondary_mode</code></td>
-<td>When the data is also sent to a secondary server: <code>never</code> (never), <code>on_error</code> (only if the primary fails) or <code>always</code> (always, in addition to the primary).</td>
-<td><code>never</code> (default), <code>on_error</code> or <code>always</code>.</td>
+<td>When the data is also sent to a secondary server and, with <code>ha_fallback</code>, whether it is used for remote configuration: <code>never</code> (never), <code>on_error</code> (only if the primary fails), <code>always</code> (always, in addition to the primary) or <code>ha_fallback</code> (like <code>on_error</code>, and retrieves the remote configuration from the secondary if the primary does not respond; Go and Windows EndPoints only).</td>
+<td><code>never</code> (default), <code>on_error</code>, <code>always</code> or <code>ha_fallback</code>.</td>
 <td>Yes</td>
 <td>Yes</td>
 <td>Yes</td>
@@ -5565,7 +5565,7 @@ block). General tokens are valid anywhere in the file, outside a module block.</
 </tr>
 <tr>
 <td><code>secondary_temporal</code></td>
-<td>Directory of the XML waiting for the secondary server. It is not configured in practice: the EndPoint sets it from <code>temporal</code> (<code>temporal/pandorafms.secondary</code> with <code>secondary_mode always</code>, <code>temporal</code> itself with <code>on_error</code>) and discards the value in the file.</td>
+<td>Directory of the XML waiting for the secondary server. It is not configured in practice: the EndPoint sets it from <code>temporal</code> (<code>temporal/pandorafms.secondary</code> with <code>secondary_mode always</code>, <code>temporal</code> itself with <code>on_error</code> or <code>ha_fallback</code>) and discards the value in the file.</td>
 <td>Path. Derived from <code>temporal</code>.</td>
 <td>Yes</td>
 <td>Yes</td>
