@@ -5807,6 +5807,12 @@ and synchronized to the node.</p>
 <td></td>
 </tr>
 <tr>
+<td>SMTP authentication</td>
+<td>Mechanism the server uses to authenticate against the mail server</td>
+<td><code>Default</code> (<code>DIGEST-MD5 CRAM-MD5 LOGIN</code>)</td>
+<td>Values: <code>Default</code>, <code>LOGIN</code>, <code>PLAIN</code>, <code>CRAM-MD5</code> and <code>DIGEST-MD5</code>; hidden with OAuth2. It only affects mail sent by the server</td>
+</tr>
+<tr>
 <td>From address and name</td>
 <td>Sender of the emails</td>
 <td>Empty</td>
@@ -5820,9 +5826,20 @@ and synchronized to the node.</p>
 </tr>
 </tbody>
 </table>
+<p>The <strong>SMTP authentication</strong> option does not try the mechanisms one after
+another. The Pandora FMS server uses the first one advertised by the mail
+server and, if that one is rejected, delivery fails. A provider that
+advertises <code>DIGEST-MD5</code> and then rejects it —Postmark is the case behind this
+setting— requires choosing <code>LOGIN</code> by hand. <code>PLAIN</code> is left out of the default
+because some servers answer with the error <code>451 4.5.0 SMTP protocol
+violation</code>. The option only applies when mail is configured in the console;
+if <code>pandora_server.conf</code> defines <code>mta_address</code>, the <code>mta_*</code> values in the file
+take precedence and this setting does not apply.</p>
 <h3 id="18-update">1.8 Update<a class="headerlink" href="#18-update" title="Permanent link">¶</a></h3>
 <p>Email test form to validate the configuration of the previous tab without
-leaving the page; it is not a configuration option.</p>
+leaving the page; it is not a configuration option. The test is sent by the
+console, not by the server, and does not use the SMTP authentication mechanism
+of § 1.7: a successful test does not guarantee that alerts will go out.</p>
 <p><em>See also:</em> <a href="../9.3-referencia-completa-de-configuracion-del-servidor/">9.3 · Full server configuration
 reference</a> § 11, for
 the outgoing mail the server itself uses when running alerts.</p>

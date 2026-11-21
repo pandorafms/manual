@@ -5657,6 +5657,14 @@ doivent donc arriver en tant que <code>syslog</code> et non <code>firewall</code
 <p>Dans la console, lors de l'ajout d'un module de <em>logs</em> depuis la vue de l'agent,
 <strong>Source type</strong> est un champ de texte libre : aucun avertissement n'est affiché
 si le type saisi n'existe pas.</p>
+<div class="admonition note">
+<p class="admonition-title">Entrées de log multilignes</p>
+<p>Si la collecte envoie une entrée avec le marqueur <code>{{\n}}</code>, le serveur la
+décode avant de l'indexer : le SIEM reçoit <strong>un unique événement</strong> avec ses
+sauts de ligne et applique les <em>decoders</em> et les <em>rules</em> au bloc complet, pas
+à chaque ligne. Le mécanisme est expliqué dans <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/#entrees-de-log-multilignes">Entrées de log
+multilignes</a>.</p>
+</div>
 <h3 id="endpoint-linux-un-fichier-de-log">EndPoint Linux : un fichier de log<a class="headerlink" href="#endpoint-linux-un-fichier-de-log" title="Permanent link">¶</a></h3>
 <p>Le <em>log</em> d'accès complet d'un serveur Apache :</p>
 <div class="highlight"><pre><span></span><code>module_begin

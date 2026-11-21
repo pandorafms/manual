@@ -4800,9 +4800,14 @@ en <strong>uno de los dos sitios</strong>:</p>
 </tr>
 </tbody>
 </table>
-<p>La alternativa es configurarlo en la consola, en <strong>Administración →
-Configuración → General</strong>, en la sección de correo. Insistimos: <strong>una de las dos</strong>,
-no las dos.</p>
+<p>La alternativa es configurarlo en la consola, en <strong>Ajustes → Configuración del
+sistema → Configuración general → Configuración de alertas</strong>, bloque
+<strong>Configuración de correo</strong>. Insistimos: <strong>una de las dos</strong>, no las dos.</p>
+<p>Si el correo se configura en la consola, revisa también el mecanismo de
+autenticación (<strong>SMTP authentication</strong>). El valor por defecto usa el primero
+que anuncie el proveedor y no prueba los demás: con un proveedor que anuncia
+<code>DIGEST-MD5</code> y lo rechaza, el envío falla y hay que elegir <code>LOGIN</code>. En
+<code>pandora_server.log</code>, el fallo aparece como <code>[ERROR] Sending email to …</code>.</p>
 <h2 id="error-de-resolucion-de-nombres-al-enviar-correo">Error de resolución de nombres al enviar correo<a class="headerlink" href="#error-de-resolucion-de-nombres-al-enviar-correo" title="Permanent link">¶</a></h2>
 <p>En el registro de la consola aparece un error del tipo:</p>
 <div class="highlight"><pre><span></span><code>PHP Warning: fsockopen(): php_network_getaddresses: getaddrinfo failed:

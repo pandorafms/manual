@@ -5647,6 +5647,14 @@ as <code>firewall</code>.</p>
 <p>In the console, when you add a <em>log</em> module from the agent view, <strong>Source
 type</strong> is a free text field: nobody warns you if you type a type that does not
 exist.</p>
+<div class="admonition note">
+<p class="admonition-title">Multiline log entries</p>
+<p>If the collection sends an entry with the <code>{{\n}}</code> marker, the server
+decodes it before indexing: SIEM receives <strong>a single event</strong> with its line
+breaks and applies the <em>decoders</em> and <em>rules</em> to the whole block, not to
+each line. The mechanism is explained in <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/#multiline-log-entries">Multiline log
+entries</a>.</p>
+</div>
 <h3 id="linux-endpoint-a-log-file">Linux EndPoint: a log file<a class="headerlink" href="#linux-endpoint-a-log-file" title="Permanent link">¶</a></h3>
 <p>The whole access <em>log</em> of an Apache server:</p>
 <div class="highlight"><pre><span></span><code>module_begin

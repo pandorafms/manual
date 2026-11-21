@@ -5809,6 +5809,12 @@ se sincronizan al nodo.</p>
 <td></td>
 </tr>
 <tr>
+<td>Autenticación SMTP (SMTP authentication)</td>
+<td>Mecanismo con el que el servidor se autentica contra el servidor de correo</td>
+<td><code>Default</code> (<code>DIGEST-MD5 CRAM-MD5 LOGIN</code>)</td>
+<td>Valores: <code>Default</code>, <code>LOGIN</code>, <code>PLAIN</code>, <code>CRAM-MD5</code> y <code>DIGEST-MD5</code>; se oculta con OAuth2. Solo afecta al correo que envía el servidor</td>
+</tr>
+<tr>
 <td>Dirección y nombre de origen</td>
 <td>Remitente de los correos</td>
 <td>Vacío</td>
@@ -5822,10 +5828,21 @@ se sincronizan al nodo.</p>
 </tr>
 </tbody>
 </table>
+<p>La opción <strong>Autenticación SMTP</strong> no prueba los mecanismos uno detrás de otro.
+El servidor de Pandora FMS usa el primero de los que anuncia el servidor de
+correo y, si lo rechaza, el envío falla. Un proveedor que anuncie
+<code>DIGEST-MD5</code> y luego lo rechace —Postmark es el caso que originó este
+ajuste— obliga a elegir <code>LOGIN</code> a mano. <code>PLAIN</code> queda fuera del valor por
+defecto porque algunos servidores responden con el error <code>451 4.5.0 SMTP
+protocol violation</code>. La opción solo actúa cuando el correo se configura en la
+consola; si <code>pandora_server.conf</code> define <code>mta_address</code>, mandan los valores
+<code>mta_*</code> del fichero y este ajuste no interviene.</p>
 <h3 id="18-update">1.8 Update<a class="headerlink" href="#18-update" title="Permanent link">¶</a></h3>
 <p>Formulario de correo de prueba (Email test) para validar la configuración de
 la pestaña anterior sin salir de la página; no es una opción de
-configuración.</p>
+configuración. El envío lo hace la consola, no el servidor, y no usa el
+mecanismo de autenticación SMTP de § 1.7: que la prueba llegue no garantiza
+que salgan las alertas.</p>
 <p><em>Ver también:</em> <a href="../9.3-referencia-completa-de-configuracion-del-servidor/">9.3 · Referencia completa de configuración del
 servidor</a> § 11,
 para el correo saliente que usa el propio servidor al ejecutar alertas.</p>

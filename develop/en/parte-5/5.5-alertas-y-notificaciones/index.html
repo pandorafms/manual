@@ -9011,7 +9011,10 @@ There are <strong>three pieces</strong> that must be right, and they are checked
    user and password, authentication type, sender (name and address) and timeout.
    For Microsoft or Google, <strong>OAuth2</strong> can be used instead of user and password. The
    server reads those values from the console, so no file has to be touched. Without
-   this, no email alert will go out, however well configured it is.</li>
+   this, no email alert will go out, however well configured it is. The
+   authentication mechanism matters: the server uses the first one advertised by
+   the provider and does not try the rest, so if it advertises <code>DIGEST-MD5</code> and
+   rejects it, <code>LOGIN</code> must be chosen.</li>
 <li><strong>The action has a recipient.</strong> In <strong>Management → Alerts → Actions</strong>, open
    <strong>Mail to Admin</strong> and replace the sample address with the real ones, separated by
    commas. Save with <strong>Update</strong>.</li>

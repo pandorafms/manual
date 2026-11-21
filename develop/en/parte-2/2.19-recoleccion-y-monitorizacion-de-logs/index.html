@@ -1429,6 +1429,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#multiline-log-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiline log entries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#frequent-filters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4862,6 +4873,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#multiline-log-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiline log entries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#frequent-filters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4979,6 +5001,14 @@ can fail on its own.</p>
    <code>pandorafms-&lt;identifier&gt;-&lt;year.month.day&gt;</code>, plus an auxiliary index of
    origins that ends in <code>-sources</code>.</li>
 </ol>
+<p>The server splits the received content by line breaks, so each physical line
+becomes an OpenSearch document. The exception is <strong>Windows events</strong>, which
+already arrive as a block and are stored whole. Since version 806, right after
+that split, the server replaces every occurrence of the literal <code>{{\n}}</code> in each
+entry with a real line break. The replacement happens after the split, so it
+does not create new documents: one logical entry is still one document. That is
+what allows a multiline entry to be shown as a block in the viewer (see
+<a href="#multiline-log-entries">Multiline log entries</a>).</p>
 <p>Logs travel over the network encoded, to prevent a strange format from breaking
 the transport. If you also want them to travel encrypted,
 <a href="../../parte-9/9.4-referencia-completa-de-tentacle/">encrypted Tentacle</a> is
@@ -5099,6 +5129,15 @@ tokens are in <a href="../2.1-monitorizacion-con-endpoints/">Monitoring with End
 and in the <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/">full EndPoint configuration
 reference</a>.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png" data-desc-position="bottom"><img alt="Module log collection wizard for registering log modules" src="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png"></a></p>
+<p>The collection shipped with the product (Unix, Windows and Go EndPoints, and the
+bundled <em>plugins</em>) sends <strong>one physical line per entry</strong> and does not join the
+lines of a single logical entry; the exception is Windows events, which are
+already stored as a block. To show an entry as a block you need a collection of
+your own (for example, a custom <em>plugin</em>) that knows where the entry starts and
+ends, sends it as one line and encodes its internal line breaks with the
+<code>{{\n}}</code> marker. The mechanism and its limits are in <a href="#multiline-log-entries">Multiline log
+entries</a>; writing that <em>plugin</em> is another job. Without
+the marker, everything behaves exactly as before.</p>
 <h3 id="plain-text-logs">Plain text logs<a class="headerlink" href="#plain-text-logs" title="Permanent link">¶</a></h3>
 <p>To watch a text file, a module of type <code>log</code> is used with the <code>module_regexp</code>
 token, which points to the path of the file. An example module on Linux:</p>
@@ -5433,6 +5472,65 @@ of Apache in standard format and draws response times grouped by page and
 response code. A few more models come from the factory and you can create your
 own with the edit and create buttons.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/logs-advanced-options.png" data-desc-position="bottom"><img alt="Advanced options tab of the log viewer, with the display mode, the order and the capture model" src="../../../assets/img/parte-02/logs-advanced-options.png"></a></p>
+<h3 id="multiline-log-entries">Multiline log entries<a class="headerlink" href="#multiline-log-entries" title="Permanent link">¶</a></h3>
+<p>A <em>stack trace</em> does not fit on one line. Neither does a request and its XML
+response, or an exception with twenty stack frames. Until version 806, the
+viewer split those entries into one row per physical line; since 806 it can show
+them for what they are, a single block, if the collection asks for it.</p>
+<p>The server does not guess where an entry starts and ends: the collection decides
+that. For an entry to be shown whole, the collection has to send it as <strong>one
+physical line</strong> and, inside it, encode each internal line break with the literal
+<code>{{\n}}</code> marker (two braces, a backslash, <code>n</code> and two braces). The marker is
+exactly that: <code>{{/n}}</code> does nothing.</p>
+<p>From there, the server does three things, in this order:</p>
+<ol>
+<li>It splits the received content by line breaks, as usual, and gets one string
+   per entry.</li>
+<li>It replaces <strong>all</strong> occurrences of <code>{{\n}}</code> in each string with a real line
+   break.</li>
+<li>It indexes the entry as <strong>a single OpenSearch document</strong>, with the breaks
+   inside the content.</li>
+</ol>
+<p>Because the replacement happens after the split, no new documents appear: one
+logical entry is still one document. The viewer renders the content inside a
+<code>&lt;pre&gt;</code> with line wrapping (<code>pre-wrap</code>), so the breaks are shown as they are,
+just like in Windows events.</p>
+<p>For example, the collection sends this line:</p>
+<div class="highlight"><pre><span></span><code>2026-06-11 16:49:57 ERROR Processing request 471{{\n}}  at Service.Process (Service.cs:120){{\n}}  at Host.Run (Host.cs:45)
+</code></pre></div>
+<p>And the viewer shows a single three-line entry:</p>
+<div class="highlight"><pre><span></span><code>2026-06-11 16:49:57 ERROR Processing request 471
+  at Service.Process (Service.cs:120)
+  at Host.Run (Host.cs:45)
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">What does not change</p>
+<ul>
+<li>The bundled collection still sends one line per entry, and the server
+  still splits it the same way. Without the marker, the viewer looks exactly
+  as before.</li>
+<li>There is no data migration, mapping change or new index: existing indexes
+  keep being used.</li>
+<li><strong>Windows events</strong> were already stored as a single document and do not go
+  through the split; their behaviour does not change.</li>
+<li>There is no new configuration option, and no restart other than the usual
+  server update is needed.</li>
+<li>One entry is one event. If a line contains the literal <code>{{\n}}</code> by chance,
+  it will also become a line break; unlikely, but worth knowing.</li>
+<li>Every line in the block shares the timestamp of the collection cycle, not
+  its own.</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Grouping in the viewer is not the solution</p>
+<p>Grouping by agent, origin and date in the viewer was ruled out.
+<code>@timestamp</code> is the collection cycle's, so that grouping would join every
+entry of the run, not one logical entry. Grouping is therefore the
+collection's responsibility.</p>
+</div>
+<p>For SIEM, the entry arrives already decoded: a single event with its line
+breaks, and the <em>decoders</em> and <em>rules</em> apply to the whole block, not to each
+line. This is explained in <a href="../../parte-7/7.2-siem/#log-collection-for-siem">SIEM</a>.</p>
 <h3 id="frequent-filters">Frequent filters<a class="headerlink" href="#frequent-filters" title="Permanent link">¶</a></h3>
 <p>If you repeat the same combination of filters, save it: <strong>Save filter</strong>, you
 give it a name and <strong>Save</strong>. Later you bring it back with <strong>Load filter</strong>,

@@ -5798,7 +5798,7 @@ d'activation et de gestion du chiffrement.</p>
 </tr>
 <tr>
 <td><code>mta_auth</code></td>
-<td>Méthode d'authentification SMTP.</td>
+<td>Méthode d'authentification SMTP. Elle est utilisée lorsque le fichier définit <code>mta_address</code> (voir <code>mta_local</code>) ; si la configuration du courrier vient de la console, c'est l'option <strong>Authentification SMTP</strong> de <a href="../9.2-referencia-completa-de-configuracion-de-la-consola/">9.2 · Référence complète de configuration de la console</a> § 1.7 qui la fixe. Le serveur utilise le premier des mécanismes de la liste annoncé par le serveur de courrier, sans réessayer avec le suivant.</td>
 <td><code>none</code></td>
 </tr>
 <tr>
@@ -5812,13 +5812,8 @@ d'activation et de gestion du chiffrement.</p>
 <td><code>pandora@localhost</code></td>
 </tr>
 <tr>
-<td><code>mta_timeout</code></td>
-<td>Délai d'attente de la connexion SMTP.</td>
-<td><code>10</code> s</td>
-</tr>
-<tr>
 <td><code>mta_local</code></td>
-<td>Utilise le MTA local de la machine au lieu de se connecter à un serveur distant.</td>
+<td>Indicateur dérivé : l'analyseur le passe à <code>1</code> dès que <code>mta_address</code> apparaît, et il fait prévaloir tout le bloc <code>mta_*</code> de ce fichier sur la configuration du courrier de la console. Il ne s'écrit pas à la main.</td>
 <td><code>0</code></td>
 </tr>
 <tr>
@@ -5833,6 +5828,8 @@ d'activation et de gestion du chiffrement.</p>
 </tr>
 </tbody>
 </table>
+<p>Le délai d'attente de la connexion SMTP n'est pas un jeton de ce fichier : il se
+configure dans la console (§ 1.7 de 9.2) et sa valeur par défaut est de 10 s.</p>
 <h2 id="12-blocs-de-serveurs-supplementaires">12. Blocs de serveurs supplémentaires<a class="headerlink" href="#12-blocs-de-serveurs-supplementaires" title="Permanent link">¶</a></h2>
 <p>Ces serveurs ont leur interrupteur et leurs threads dans la table de la section
 « Activation des serveurs et nombre de threads » ; les jetons de cette table

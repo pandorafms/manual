@@ -5650,6 +5650,14 @@ ese tipo o uno sin tipo que lo recoja. Ojo con los de FortiGate: declaran
 <p>En la consola, al añadir un módulo de <em>logs</em> desde la vista del agente,
 <strong>Source type</strong> es un campo de texto libre: nadie te avisa si escribes un tipo
 que no existe.</p>
+<div class="admonition note">
+<p class="admonition-title">Entradas de log multilínea</p>
+<p>Si la recolección envía una entrada con el marcador <code>{{\n}}</code>, el servidor la
+decodifica antes de indexarla: el SIEM recibe <strong>un único evento</strong> con sus
+saltos de línea y aplica los <em>decoders</em> y las <em>rules</em> al bloque completo, no
+a cada línea. El mecanismo se explica en <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/#entradas-de-log-multilinea">Entradas de log
+multilínea</a>.</p>
+</div>
 <h3 id="endpoint-linux-un-fichero-de-log">EndPoint Linux: un fichero de log<a class="headerlink" href="#endpoint-linux-un-fichero-de-log" title="Permanent link">¶</a></h3>
 <p>El <em>log</em> de acceso de un Apache, entero:</p>
 <div class="highlight"><pre><span></span><code>module_begin

@@ -5808,6 +5808,12 @@ Command Center et se synchronisent vers le nœud.</p>
 <td></td>
 </tr>
 <tr>
+<td>Authentification SMTP (SMTP authentication)</td>
+<td>Mécanisme avec lequel le serveur s'authentifie auprès du serveur de courrier</td>
+<td><code>Default</code> (<code>DIGEST-MD5 CRAM-MD5 LOGIN</code>)</td>
+<td>Valeurs : <code>Default</code>, <code>LOGIN</code>, <code>PLAIN</code>, <code>CRAM-MD5</code> et <code>DIGEST-MD5</code> ; masqué avec OAuth2. N'affecte que le courrier envoyé par le serveur</td>
+</tr>
+<tr>
 <td>Adresse et nom d'origine</td>
 <td>Expéditeur des courriels</td>
 <td>Vide</td>
@@ -5821,10 +5827,21 @@ Command Center et se synchronisent vers le nœud.</p>
 </tr>
 </tbody>
 </table>
+<p>L'option <strong>Authentification SMTP</strong> n'essaie pas les mécanismes l'un après
+l'autre. Le serveur de Pandora FMS utilise le premier annoncé par le serveur
+de courrier et, s'il le refuse, l'envoi échoue. Un fournisseur qui annonce
+<code>DIGEST-MD5</code> puis le refuse — Postmark est le cas à l'origine de ce réglage —
+oblige à choisir <code>LOGIN</code> à la main. <code>PLAIN</code> est exclu de la valeur par défaut
+car certains serveurs répondent avec l'erreur <code>451 4.5.0 SMTP protocol
+violation</code>. L'option ne s'applique que lorsque le courrier est configuré dans
+la console ; si <code>pandora_server.conf</code> définit <code>mta_address</code>, les valeurs
+<code>mta_*</code> du fichier l'emportent et ce réglage n'intervient pas.</p>
 <h3 id="18-update">1.8 Update<a class="headerlink" href="#18-update" title="Permanent link">¶</a></h3>
 <p>Formulaire de courriel de test (Email test) pour valider la configuration de
 l'onglet précédent sans quitter la page ; ce n'est pas une option de
-configuration.</p>
+configuration. L'envoi est fait par la console, pas par le serveur, et
+n'utilise pas le mécanisme d'authentification SMTP du § 1.7 : un test réussi ne
+garantit pas que les alertes partiront.</p>
 <p><em>Voir aussi :</em> <a href="../9.3-referencia-completa-de-configuracion-del-servidor/">9.3 · Référence complète de configuration du
 serveur</a> § 11, pour le
 courriel sortant que le serveur lui-même utilise à l'exécution des alertes.</p>

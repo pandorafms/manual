@@ -4802,8 +4802,13 @@ of the two places</strong>:</p>
 </tbody>
 </table>
 <p>The alternative is to configure it in the console, in <strong>Management → Settings →
-System Settings → General setup</strong>, in the email section. We insist: <strong>one of the
-two</strong>, not both.</p>
+System Settings → General setup → Alerts configuration</strong>, <strong>Mail configuration</strong>
+block. We insist: <strong>one of the two</strong>, not both.</p>
+<p>If mail is configured in the console, also check the authentication mechanism
+(<strong>SMTP authentication</strong>). The default value uses the first one advertised by
+the provider and does not try the rest: with a provider that advertises
+<code>DIGEST-MD5</code> and rejects it, delivery fails and <code>LOGIN</code> must be chosen. In
+<code>pandora_server.log</code>, the failure appears as <code>[ERROR] Sending email to …</code>.</p>
 <h2 id="name-resolution-error-when-sending-email">Name resolution error when sending email<a class="headerlink" href="#name-resolution-error-when-sending-email" title="Permanent link">¶</a></h2>
 <p>In the console log an error of this type appears:</p>
 <div class="highlight"><pre><span></span><code>PHP Warning: fsockopen(): php_network_getaddresses: getaddrinfo failed:

@@ -1429,6 +1429,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#entrees-de-log-multilignes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrées de log multilignes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filtres-frequents" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4862,6 +4873,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#entrees-de-log-multilignes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrées de log multilignes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filtres-frequents" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4979,6 +5001,15 @@ chacun peut échouer de son côté.</p>
    instance, avec un nom du type <code>pandorafms-&lt;identifiant&gt;-&lt;annee.mois.jour&gt;</code>,
    plus un index auxiliaire d'origines qui se termine par <code>-sources</code>.</li>
 </ol>
+<p>Le serveur découpe le contenu reçu par sauts de ligne, de sorte que chaque ligne
+physique devient un document OpenSearch. L'exception, ce sont les <strong>événements
+Windows</strong>, qui arrivent déjà sous forme de bloc et sont enregistrés entiers.
+Depuis la version 806, juste après ce découpage, le serveur remplace dans chaque
+entrée toutes les occurrences du littéral <code>{{\n}}</code> par un vrai saut de ligne. Le
+remplacement est postérieur au découpage, il ne crée donc pas de nouveaux
+documents : une entrée logique reste un document. C'est ce qui permet à une
+entrée multiligne de s'afficher comme un bloc dans la visionneuse (voir
+<a href="#entrees-de-log-multilignes">Entrées de log multilignes</a>).</p>
 <p>Les <em>logs</em> voyagent sur le réseau encodés, pour éviter qu'un format bizarre ne
 casse le transport. Si vous voulez en plus qu'ils voyagent chiffrés, on utilise
 <a href="../../parte-9/9.4-referencia-completa-de-tentacle/">Tentacle chiffré</a> ; rien de
@@ -5103,6 +5134,16 @@ trouvent dans <a href="../2.1-monitorizacion-con-endpoints/">Supervision avec de
 et dans la <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/">référence complète de configuration de
 l'EndPoint</a>.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png" data-desc-position="bottom"><img alt="Assistant Module log collection pour créer les modules de logs" src="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png"></a></p>
+<p>La collecte fournie avec le produit (les EndPoints Unix, Windows et Go, ainsi
+que les <em>plugins</em> inclus) envoie <strong>une ligne physique par entrée</strong> et ne réunit
+pas les lignes d'une même entrée logique ; l'exception, ce sont les événements
+Windows, qui sont déjà enregistrés comme un bloc. Pour qu'une entrée s'affiche
+comme un bloc, il faut utiliser une collecte propre (par exemple un <em>plugin</em>
+sur mesure) qui sache où commence et où finit l'entrée, l'envoie sur une seule
+ligne et code ses sauts de ligne internes avec le marqueur <code>{{\n}}</code>. Le
+mécanisme et ses limites sont décrits dans <a href="#entrees-de-log-multilignes">Entrées de log
+multilignes</a> ; écrire ce <em>plugin</em> est une autre
+tâche. Sans le marqueur, tout se comporte exactement comme avant.</p>
 <h3 id="logs-en-texte-brut">Logs en texte brut<a class="headerlink" href="#logs-en-texte-brut" title="Permanent link">¶</a></h3>
 <p>Pour surveiller un fichier texte, on utilise un module de type <code>log</code> avec le
 jeton <code>module_regexp</code>, qui pointe vers le chemin du fichier. Un exemple de module
@@ -5448,6 +5489,68 @@ d'Apache au format standard et dessine les temps de réponse regroupés par page
 par code de réponse. Quelques autres modèles sont fournis d'usine et vous pouvez
 créer les vôtres avec les boutons de modification et de création.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../assets/img/parte-02/logs-advanced-options.png" data-desc-position="bottom"><img alt="Onglet Advanced options de la visionneuse de logs, avec le mode d'affichage, l'ordre et le modèle de capture" src="../../../assets/img/parte-02/logs-advanced-options.png"></a></p>
+<h3 id="entrees-de-log-multilignes">Entrées de log multilignes<a class="headerlink" href="#entrees-de-log-multilignes" title="Permanent link">¶</a></h3>
+<p>Une <em>stack trace</em> ne tient pas sur une ligne. Une requête et sa réponse XML non
+plus, ni une exception avec vingt cadres de pile. Jusqu'à la version 806, la
+visionneuse découpait ces entrées en une ligne par ligne physique ; depuis la
+806, elle peut les afficher pour ce qu'elles sont, un seul bloc, si la collecte
+le demande.</p>
+<p>Le serveur ne devine pas où commence et où finit une entrée : c'est la collecte
+qui le décide. Pour qu'une entrée s'affiche entière, la collecte doit l'envoyer
+comme <strong>une seule ligne physique</strong> et, à l'intérieur, coder chaque saut de ligne
+interne avec le marqueur littéral <code>{{\n}}</code> (deux accolades, une barre oblique
+inversée, <code>n</code> et deux accolades). Le marqueur est exactement celui-là : <code>{{/n}}</code>
+ne fonctionne pas.</p>
+<p>À partir de là, le serveur fait trois choses, dans cet ordre :</p>
+<ol>
+<li>Il découpe le contenu reçu par sauts de ligne, comme toujours, et obtient une
+   chaîne par entrée.</li>
+<li>Il remplace <strong>toutes</strong> les occurrences de <code>{{\n}}</code> dans chaque chaîne par un
+   vrai saut de ligne.</li>
+<li>Il indexe l'entrée comme <strong>un seul document</strong> OpenSearch, avec les sauts à
+   l'intérieur du contenu.</li>
+</ol>
+<p>Comme le remplacement est postérieur au découpage, aucun document
+supplémentaire n'apparaît : une entrée logique reste un document. La visionneuse
+affiche le contenu dans un <code>&lt;pre&gt;</code> avec ajustement de ligne (<code>pre-wrap</code>), donc
+les sauts apparaissent tels quels, comme dans les événements Windows.</p>
+<p>Par exemple, la collecte envoie cette ligne :</p>
+<div class="highlight"><pre><span></span><code>2026-06-11 16:49:57 ERROR Traitement de la requête 471{{\n}}  at Service.Process (Service.cs:120){{\n}}  at Host.Run (Host.cs:45)
+</code></pre></div>
+<p>Et la visionneuse affiche une seule entrée de trois lignes :</p>
+<div class="highlight"><pre><span></span><code>2026-06-11 16:49:57 ERROR Traitement de la requête 471
+  at Service.Process (Service.cs:120)
+  at Host.Run (Host.cs:45)
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Ce qui ne change pas</p>
+<ul>
+<li>La collecte incluse continue d'envoyer une ligne par entrée et le serveur
+  la découpe de la même manière. Sans le marqueur, la visionneuse s'affiche
+  exactement comme avant.</li>
+<li>Aucune migration de données, aucun changement de mapping ni nouvel index :
+  les index existants continuent d'être utilisés.</li>
+<li>Les <strong>événements Windows</strong> étaient déjà enregistrés comme un seul document
+  et ne passent pas par le découpage ; leur comportement ne change pas.</li>
+<li>Il n'y a aucune nouvelle option de configuration et aucun redémarrage
+  particulier au-delà de la mise à jour habituelle du serveur.</li>
+<li>Une entrée est un événement. Si une ligne contient le littéral <code>{{\n}}</code>
+  par hasard, il deviendra aussi un saut de ligne ; c'est peu probable, mais
+  bon à savoir.</li>
+<li>Toutes les lignes du bloc partagent la date du cycle de collecte, pas la
+  leur.</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Regrouper dans la visionneuse n'est pas la solution</p>
+<p>Le regroupement par agent, origine et date dans la visionneuse a été écarté.
+Le champ <code>@timestamp</code> est celui du cycle de collecte, donc ce regroupement
+réunirait toutes les entrées de l'exécution, et non une entrée logique. Le
+regroupement relève donc de la collecte.</p>
+</div>
+<p>Pour le SIEM, l'entrée arrive déjà décodée : un seul événement avec ses sauts de
+ligne, et les <em>decoders</em> et les <em>rules</em> s'appliquent au bloc complet, pas à
+chaque ligne. C'est expliqué dans <a href="../../parte-7/7.2-siem/#collecte-de-logs-pour-le-siem">SIEM</a>.</p>
 <h3 id="filtres-frequents">Filtres fréquents<a class="headerlink" href="#filtres-frequents" title="Permanent link">¶</a></h3>
 <p>Si vous répétez la même combinaison de filtres, enregistrez-la : <strong>Save filter</strong>,
 vous lui donnez un nom et <strong>Save</strong>. Ensuite vous la retrouvez avec <strong>Load

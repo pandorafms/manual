@@ -5796,7 +5796,7 @@ complete procedure of enabling and managing encryption.</p>
 </tr>
 <tr>
 <td><code>mta_auth</code></td>
-<td>SMTP authentication method.</td>
+<td>SMTP authentication method. It is used when the file defines <code>mta_address</code> (see <code>mta_local</code>); if the mail configuration comes from the console, the <strong>SMTP authentication</strong> option in <a href="../9.2-referencia-completa-de-configuracion-de-la-consola/">9.2 · Full console configuration reference</a> § 1.7 sets it. The server uses the first of the mechanisms in the list that the mail server advertises, with no retry with the next one.</td>
 <td><code>none</code></td>
 </tr>
 <tr>
@@ -5810,13 +5810,8 @@ complete procedure of enabling and managing encryption.</p>
 <td><code>pandora@localhost</code></td>
 </tr>
 <tr>
-<td><code>mta_timeout</code></td>
-<td>Timeout of the SMTP connection.</td>
-<td><code>10</code> s</td>
-</tr>
-<tr>
 <td><code>mta_local</code></td>
-<td>Uses the local MTA of the machine instead of connecting to a remote server.</td>
+<td>Derived flag: the parser sets it to <code>1</code> as soon as <code>mta_address</code> appears, and it makes the whole <code>mta_*</code> block in this file take precedence over the console mail configuration. It is not written by hand.</td>
 <td><code>0</code></td>
 </tr>
 <tr>
@@ -5831,6 +5826,8 @@ complete procedure of enabling and managing encryption.</p>
 </tr>
 </tbody>
 </table>
+<p>The SMTP connection timeout is not a token of this file: it is set in the
+console (§ 1.7 of 9.2) and its default value is 10 s.</p>
 <h2 id="12-additional-server-blocks">12. Additional server blocks<a class="headerlink" href="#12-additional-server-blocks" title="Permanent link">¶</a></h2>
 <p>These servers have their switch and their threads in the table of the section
 "Server activation and number of threads"; the tokens in this table are those of

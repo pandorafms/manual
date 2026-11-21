@@ -1430,6 +1430,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#entradas-de-log-multilinea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entradas de log multilínea
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filtros-frecuentes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4863,6 +4874,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#entradas-de-log-multilinea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entradas de log multilínea
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filtros-frecuentes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4977,6 +4999,15 @@ puede fallar por su cuenta.</p>
    instancia, con un nombre del tipo <code>pandorafms-&lt;identificador&gt;-&lt;año.mes.día&gt;</code>,
    más un índice auxiliar de orígenes que termina en <code>-sources</code>.</li>
 </ol>
+<p>El servidor parte el contenido recibido por saltos de línea, de modo que cada
+línea física se convierte en un documento de OpenSearch. La excepción son los
+<strong>eventos de Windows</strong>, que ya llegan como un bloque y se guardan enteros. Desde
+la versión 806, justo después de ese troceado, el servidor sustituye en cada
+entrada todas las apariciones del literal <code>{{\n}}</code> por un salto de línea real. La
+sustitución es posterior al troceado, así que no crea documentos nuevos: una
+entrada lógica sigue siendo un documento. Es lo que permite que una entrada
+multilínea se vea como un bloque en el visor (ver <a href="#entradas-de-log-multilinea">Entradas de log
+multilínea</a>).</p>
 <p>Los <em>logs</em> viajan por la red codificados, para evitar que un formato raro rompa
 el transporte. Si además quieres que viajen cifrados, se usa
 <a href="../../parte-9/9.4-referencia-completa-de-tentacle/">Tentacle cifrado</a>; no hay
@@ -5096,6 +5127,15 @@ que ser de Windows. El resto de módulos y sus tokens generales están en
 <a href="../2.1-monitorizacion-con-endpoints/">Monitorización con EndPoints</a> y en la
 <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/">referencia completa de configuración del EndPoint</a>.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png" data-desc-position="bottom"><img alt="Asistente Module log collection para dar de alta los módulos de logs" src="../../media-wiki/wiki/pfms-manage_agents-module_log_collection-785_version.png"></a></p>
+<p>La recolección que trae el producto (los EndPoints Unix, Windows y Go, y los
+<em>plugins</em> incluidos) envía <strong>una línea física por entrada</strong> y no une las líneas
+de una misma entrada lógica; la excepción son los eventos de Windows, que ya se
+guardan como un bloque. Para que una entrada se vea como un bloque hay que
+usar una recolección propia (por ejemplo, un <em>plugin</em> a medida) que sepa dónde
+empieza y acaba, la envíe en una sola línea y codifique sus saltos internos con
+el marcador <code>{{\n}}</code>. El mecanismo y sus límites están en <a href="#entradas-de-log-multilinea">Entradas de log
+multilínea</a>; escribir ese <em>plugin</em> es otra tarea.
+Sin el marcador, todo se comporta exactamente como antes.</p>
 <h3 id="logs-en-texto-plano">Logs en texto plano<a class="headerlink" href="#logs-en-texto-plano" title="Permanent link">¶</a></h3>
 <p>Para vigilar un fichero de texto se usa un módulo de tipo <code>log</code> con el token
 <code>module_regexp</code>, que apunta a la ruta del fichero. Un módulo de ejemplo en
@@ -5427,6 +5467,66 @@ Apache en formato estándar y dibuja tiempos de respuesta agrupados por página 
 código de respuesta. Vienen algunos modelos más de fábrica y puedes crear los
 tuyos con los botones de editar y crear.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-02/logs-advanced-options.png" data-desc-position="bottom"><img alt="Pestaña Advanced options del visor de logs, con el modo de visualización, el orden y el modelo de captura" src="../../assets/img/parte-02/logs-advanced-options.png"></a></p>
+<h3 id="entradas-de-log-multilinea">Entradas de log multilínea<a class="headerlink" href="#entradas-de-log-multilinea" title="Permanent link">¶</a></h3>
+<p>Un <em>stack trace</em> no cabe en una línea. Tampoco una petición y su respuesta XML,
+ni una excepción con veinte marcos de pila. Hasta la versión 806, el visor
+partía esas entradas en una fila por línea física; desde la 806 puede mostrarlas
+como lo que son, un solo bloque, si la recolección se lo pide.</p>
+<p>El servidor no adivina dónde empieza y acaba una entrada: eso lo decide la
+recolección. Para que una entrada se vea entera, la recolección tiene que
+enviarla como <strong>una sola línea física</strong> y, dentro de ella, codificar cada salto
+de línea interno con el marcador literal <code>{{\n}}</code> (dos llaves, barra invertida,
+<code>n</code> y dos llaves). El marcador es exactamente ese: <code>{{/n}}</code> no funciona.</p>
+<p>A partir de ahí, el servidor hace tres cosas, en este orden:</p>
+<ol>
+<li>Parte el contenido recibido por saltos de línea, como siempre, y obtiene una
+   cadena por entrada.</li>
+<li>Sustituye en cada cadena <strong>todas</strong> las apariciones de <code>{{\n}}</code> por un salto
+   de línea real.</li>
+<li>Indexa la entrada como <strong>un solo documento</strong> de OpenSearch, con los saltos
+   dentro del contenido.</li>
+</ol>
+<p>Como la sustitución es posterior al troceado, no aparecen documentos nuevos: una
+entrada lógica sigue siendo un documento. El visor pinta el contenido dentro de
+un <code>&lt;pre&gt;</code> con ajuste de línea (<code>pre-wrap</code>), así que los saltos se ven tal cual,
+igual que en los eventos de Windows.</p>
+<p>Por ejemplo, la recolección envía esta línea:</p>
+<div class="highlight"><pre><span></span><code>2026-06-11 16:49:57 ERROR Procesando peticion 471{{\n}}  at Servicio.Procesar (Servicio.cs:120){{\n}}  at Host.Ejecutar (Host.cs:45)
+</code></pre></div>
+<p>Y el visor muestra una única entrada de tres líneas:</p>
+<div class="highlight"><pre><span></span><code>2026-06-11 16:49:57 ERROR Procesando peticion 471
+  at Servicio.Procesar (Servicio.cs:120)
+  at Host.Ejecutar (Host.cs:45)
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Lo que no cambia</p>
+<ul>
+<li>La recolección incluida sigue enviando una línea por entrada y el servidor
+  la sigue troceando igual. Sin el marcador, el visor se ve exactamente como
+  antes.</li>
+<li>No hay migración de datos, cambio de mapeo ni índices nuevos: los
+  existentes se siguen usando.</li>
+<li>Los <strong>eventos de Windows</strong> ya se guardaban como un único documento y no
+  pasan por el troceado; su comportamiento no cambia.</li>
+<li>No hay ninguna opción nueva de configuración ni hace falta un reinicio
+  distinto de la actualización habitual del servidor.</li>
+<li>Una entrada es un evento. Si una línea contiene el literal <code>{{\n}}</code> de
+  forma casual, también se convertirá en salto de línea; es improbable, pero
+  conviene saberlo.</li>
+<li>Todas las líneas del bloque comparten la fecha del ciclo de recolección, no
+  la de cada línea.</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Agrupar en el visor no es la solución</p>
+<p>Se descartó agrupar por agente, origen y fecha en el propio visor. El
+<code>@timestamp</code> es el del ciclo de recolección, así que esa agrupación uniría
+todas las entradas de la ejecución y no una entrada lógica. Por eso la
+agrupación es responsabilidad de la recolección.</p>
+</div>
+<p>Para el SIEM, la entrada llega ya decodificada: un único evento con sus saltos
+de línea, y los <em>decoders</em> y las <em>rules</em> se aplican al bloque completo, no a
+cada línea. Se explica en <a href="../../parte-7/7.2-siem/#recoleccion-de-logs-para-el-siem">SIEM</a>.</p>
 <h3 id="filtros-frecuentes">Filtros frecuentes<a class="headerlink" href="#filtros-frecuentes" title="Permanent link">¶</a></h3>
 <p>Si repites la misma combinación de filtros, guárdala: <strong>Save filter</strong>, le pones
 nombre y <strong>Save</strong>. Luego la recuperas con <strong>Load filter</strong>, eligiéndola de la

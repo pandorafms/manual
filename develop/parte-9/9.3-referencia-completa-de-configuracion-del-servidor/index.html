@@ -5797,7 +5797,7 @@ de activación y gestión del cifrado.</p>
 </tr>
 <tr>
 <td><code>mta_auth</code></td>
-<td>Método de autenticación SMTP.</td>
+<td>Método de autenticación SMTP. Se usa cuando el fichero define <code>mta_address</code> (ver <code>mta_local</code>); si la configuración de correo viene de la consola, lo fija la opción <strong>Autenticación SMTP</strong> de <a href="../9.2-referencia-completa-de-configuracion-de-la-consola/">9.2 · Referencia completa de configuración de la consola</a> § 1.7. El servidor usa el primero de los mecanismos de la lista que anuncie el servidor de correo, sin reintentar con el siguiente.</td>
 <td><code>none</code></td>
 </tr>
 <tr>
@@ -5811,13 +5811,8 @@ de activación y gestión del cifrado.</p>
 <td><code>pandora@localhost</code></td>
 </tr>
 <tr>
-<td><code>mta_timeout</code></td>
-<td>Tiempo de espera de la conexión SMTP.</td>
-<td><code>10</code> s</td>
-</tr>
-<tr>
 <td><code>mta_local</code></td>
-<td>Usa el MTA local de la máquina en vez de conectar a un servidor remoto.</td>
+<td>Marca derivada: el analizador la pone a <code>1</code> en cuanto aparece <code>mta_address</code>, y hace que todo el bloque <code>mta_*</code> de este fichero prevalezca sobre la configuración de correo de la consola. No se escribe a mano.</td>
 <td><code>0</code></td>
 </tr>
 <tr>
@@ -5832,6 +5827,8 @@ de activación y gestión del cifrado.</p>
 </tr>
 </tbody>
 </table>
+<p>El tiempo de espera de la conexión SMTP no es un token de este fichero: se
+configura en la consola (§ 1.7 de 9.2) y su valor por defecto es de 10 s.</p>
 <h2 id="12-bloques-de-servidores-adicionales">12. Bloques de servidores adicionales<a class="headerlink" href="#12-bloques-de-servidores-adicionales" title="Permanent link">¶</a></h2>
 <p>Estos servidores tienen su interruptor y sus hilos en la tabla de la
 sección «Activación de servidores y número de hilos»; los tokens de esta

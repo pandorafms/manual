@@ -4805,8 +4805,15 @@ dans <strong>l'un des deux endroits</strong> :</p>
 </tbody>
 </table>
 <p>L'alternative est de le configurer dans la console, dans <strong>Gestion → Réglages →
-Configuration du système → Configuration générale</strong>, dans la section de courrier.
-Nous insistons : <strong>l'un des deux</strong>, pas les deux.</p>
+Configuration du système → Configuration générale → Configuration des alertes</strong>,
+bloc <strong>Configuration du courrier</strong>. Nous insistons : <strong>l'un des deux</strong>, pas les
+deux.</p>
+<p>Si le courrier est configuré dans la console, vérifiez aussi le mécanisme
+d'authentification (<strong>SMTP authentication</strong>). La valeur par défaut utilise le
+premier annoncé par le fournisseur et n'essaie pas les suivants : avec un
+fournisseur qui annonce <code>DIGEST-MD5</code> et le refuse, l'envoi échoue et il faut
+choisir <code>LOGIN</code>. Dans <code>pandora_server.log</code>, l'échec apparaît comme <code>[ERROR]
+Sending email to …</code>.</p>
 <h2 id="erreur-de-resolution-de-noms-lors-de-lenvoi-de-mail">Erreur de résolution de noms lors de l'envoi d'e-mail<a class="headerlink" href="#erreur-de-resolution-de-noms-lors-de-lenvoi-de-mail" title="Permanent link">¶</a></h2>
 <p>Dans le journal de la console apparaît une erreur du type :</p>
 <div class="highlight"><pre><span></span><code>PHP Warning: fsockopen(): php_network_getaddresses: getaddrinfo failed:
