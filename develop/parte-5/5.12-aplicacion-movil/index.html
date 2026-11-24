@@ -1,0 +1,5294 @@
+<!DOCTYPE html><html lang="es" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentación de producto de Pandora FMS">
+      
+      
+      
+        <link rel="canonical" href="https://pandorafms.com/docs/manual/develop/parte-5/5.12-aplicacion-movil/">
+      
+      
+        <link rel="prev" href="../5.11-mapas-gis/">
+      
+      
+        <link rel="next" href="../../parte-6/6.1-arquitecturas-distribuidas/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../en/parte-5/5.12-aplicacion-movil/" hreflang="en">
+        
+          <link rel="alternate" href="../../fr/parte-5/5.12-aplicacion-movil/" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>12. Aplicación móvil - Pandora FMS — Documentación de producto</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <script>
+  (function () {
+    // Material loads the index with XMLHttpRequest, not fetch, so the request
+    // is rewritten at open() time.
+    var shared = "search/search_index.json";
+    var lang = document.documentElement.lang || "es";
+    var scoped = "search/search_index." + lang + ".json";
+    var open = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url) {
+      if (url && String(url).indexOf(shared) !== -1) {
+        var args = Array.prototype.slice.call(arguments);
+        args[1] = String(url).replace(shared, scoped);
+        return open.apply(this, args);
+      }
+      return open.apply(this, arguments);
+    };
+  })();
+  </script>
+
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aplicacion-movil" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    
+      <strong>En construcción.</strong> Esta documentación aún se está
+      escribiendo: el contenido puede estar incompleto o cambiar sin previo
+      aviso.
+    
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  
+    Estás viendo una versión que no es la vigente (una versión anterior a la
+    última publicada).
+    <a href="../../..">
+      <strong>Ir a la última versión publicada.</strong>
+    </a>
+  
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-header__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pandora FMS — Documentación de producto
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              12. Aplicación móvil
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        
+<form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo oscuro" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    
+      
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Cambiar a modo claro" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"></path></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../en/parte-5/5.12-aplicacion-movil/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../fr/parte-5/5.12-aplicacion-movil/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pandora FMS — Documentación de producto" class="md-nav__button md-logo" aria-label="Pandora FMS — Documentación de producto" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.svg" alt="logo">
+
+    </a>
+    Pandora FMS — Documentación de producto
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 01. Arranque rápido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 01. Arranque rápido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.1-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.2-introduccion-y-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Introducción y arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.3-versiones-y-estabilidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Política de versiones y soporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.4-actualizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Actualizaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-1/1.5-licenciamiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Licenciamiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 02. Monitorización con Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.1-monitorizacion-con-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Monitorización con EndPoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.2-gestor-de-credenciales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Gestor de credenciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.3-monitorizacion-y-descubrimiento-automatico-con-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización y descubrimiento automático con Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.4-descubrimiento-de-redes-con-host-y-dispositivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Descubrimiento de redes con Host y dispositivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.5-tareas-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Tareas de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.6-monitorizacion-de-redes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de redes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.7-monitorizacion-de-traps-snmp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de traps SNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.8-monitorizacion-de-trafico-con-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Monitorización de tráfico con netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.9-colecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Colecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.10-politicas-de-monitorizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Políticas de monitorización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.11-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.12-monitorizacion-de-aplicaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Monitorización de aplicaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.13-monitorizacion-de-contenedores-y-orquestadores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Monitorización de contenedores y orquestadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.14-monitorizacion-de-experiencia-de-usuario-ux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Monitorización de experiencia de usuario (UX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.15-monitorizacion-entornos-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Monitorización entornos Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.16-monitorizacion-entornos-virtualizados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Monitorización entornos Virtualizados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.17-monitorizacion-iot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Monitorización IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.18-monitorizacion-de-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Monitorización de APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.19-recoleccion-y-monitorizacion-de-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Recolección y monitorización de logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.20-configuracion-comun-de-los-modulos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Configuración común de los módulos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-2/2.21-configuracion-comun-de-los-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Configuración común de los agentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 03. Gestión de activos y automatización IT
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.1-inventario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inventario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.2-control-remoto-con-rc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Control remoto con RC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.3-distribucion-automatica-de-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Distribución automática de software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.4-ejecucion-remota-de-scripts-y-comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ejecución remota de scripts y comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.5-parcheado-de-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Parcheado de sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.6-gestion-de-configuracion-de-equipos-de-red-ncm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gestión de configuración de equipos de red (NCM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.7-gestion-de-ip-ipam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Gestión de IP (IPAM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.8-paradas-planificadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Paradas planificadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-3/3.9-integracion-de-activos-con-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integración de activos con ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 04. Gestión de usuarios y permisos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.1-grupos-perfiles-y-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Grupos, usuarios, perfiles y tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.2-autenticacion-externa-y-centralizacion-de-accesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Autenticación externa y centralización de accesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.3-seguridad-y-visibilidad-avanzada-enterprise-acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Seguridad y visibilidad avanzada (Enterprise ACL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-4/4.4-buenas-practicas-de-etiquetado-naming-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Buenas prácticas de etiquetado / naming / tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 05. Dando valor a la monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.1-dashboards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Dashboards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.2-informes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Informes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.3-monitorizacion-de-negocio-y-servicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Monitorización de negocio y servicios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.4-consola-de-eventos-centralizada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola de eventos centralizada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.5-alertas-y-notificaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Alertas y notificaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.6-consolas-visuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Consolas Visuales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.7-mapas-topologicos-de-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Mapas topológicos de red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.8-gestion-de-incidencias-itsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Gestión de incidencias / ITSM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.9-analisis-predictivo-y-capacity-planning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Análisis predictivo y Capacity Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.11-mapas-gis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Mapas GIS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Aplicación móvil
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Aplicación móvil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#que-es-y-como-encaja" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es y cómo encaja
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceso-e-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceso e instalación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conectar-con-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conectar con la consola
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conectar con la consola">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-consola-debe-permitir-la-ip-del-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La consola debe permitir la IP del cliente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-navegador-conecta-y-la-app-no-la-cadena-del-certificado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El navegador conecta y la app no: la cadena del certificado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iniciar-sesion-y-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iniciar sesión y permisos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-se-trabaja-en-la-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo se trabaja en la app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#las-pantallas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las pantallas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Las pantallas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agentes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Módulos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eventos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alertas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alertas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grupos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servidores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servicios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notificaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notificaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pandora-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pandora AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#menu-e-informacion-de-la-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menú e información de la app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguridad-y-sesion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seguridad y sesión
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 06. Escalabilidad y entornos complejos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.1-arquitecturas-distribuidas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitecturas Distribuidas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.2-servidores-satelite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidores satélite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.3-command-center/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Command Center
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.4-distribucion-e-instalacion-automatica-de-agentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Distribución e instalación automática de agentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.5-base-de-datos-de-historico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Base de datos de histórico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.6-mecanismos-de-autoprovision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Mecanismos de autoprovisión
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.7-optimizacion-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Optimización de la Base de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.8-backup-y-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Backup y restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-6/6.9-alta-disponibilidad-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Alta Disponibilidad (HA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 07. Seguridad y monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 07. Seguridad y monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.1-arquitectura-de-seguridad-de-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Arquitectura de seguridad de Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.2-siem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. SIEM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.3-soar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. SOAR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.4-analisis-de-vulnerabilidades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Análisis de vulnerabilidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.5-hardening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Hardening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.6-fim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. FIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.7-monitorizacion-de-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Monitorización de seguridad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.8-auditoria-interna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Auditoría interna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.9-integraciones-dinamicas-de-ioc-misp-y-creacion-de-reglas-propias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Integraciones dinámicas de IoC (MISP) y creación de reglas propias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.10-compliance-nis2-iso-27001-y-ens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Compliance: NIS2, ISO 27001 y ENS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-7/7.11-configuracion-segura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Configuración segura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9">
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 08. Pandora AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 08. Pandora AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.1-introduccion-e-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introducción e instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.2-uso-del-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Uso del chat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.3-automatizacion-de-tareas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Automatización de tareas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.4-seguridad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Seguridad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-8/8.5-auditoria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Auditoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10">
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 09. Otros aspectos avanzados de Pandora FMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.1-referencia-completa-de-configuracion-del-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Referencia completa de configuración del EndPoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.2-referencia-completa-de-configuracion-de-la-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia completa de configuración de la consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.3-referencia-completa-de-configuracion-del-servidor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Referencia completa de configuración del servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.4-referencia-completa-de-tentacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Referencia completa de Tentacle (servidor y cliente)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.5-cifrado-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Cifrado de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.6-monitorizacion-de-clusters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Monitorización de clusters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.7-creacion-de-plugins-de-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Creación de plugins de discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.8-creacion-de-plugins-locales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Creación de plugins locales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.9-creacion-de-plugins-remotos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Creación de plugins remotos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.10-creacion-de-extensiones-de-consola/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Creación de extensiones de consola
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-etc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Descubrimiento automático avanzado (IPMI, etc.)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.13-troubleshooting-con-pandora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Troubleshooting con Pandora
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-9/9.14-analisis-de-volumetria-y-disenos-para-alta-capacidad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Análisis de volumetría y diseños para alta capacidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11">
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 10. Base de datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 10. Base de datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.1-esquema-de-la-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Esquema de la base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-10/10.2-referencia-de-tablas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Referencia de tablas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12">
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 11. Anexos técnicos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 11. Anexos técnicos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a1-actualizacion-de-versiones-de-php/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Actualización de versiones de PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a2-glosario-de-terminos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Glosario de términos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a3-compatibilidad-y-migracion-a-la-nueva-arquitectura-de-servidores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Compatibilidad y migración a la nueva arquitectura de servidores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a4-ampliar-los-asistentes-snmp-y-wmi-con-componentes-propios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Ampliar los asistentes SNMP y WMI con componentes propios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a5-configuracion-de-fprobe-para-netflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Configuración de fprobe para Netflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a6-actualizacion-de-la-lts-777-a-la-800/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Actualización de la LTS 777 a la 800
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/a7-guia-de-la-documentacion-para-agentes-de-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Guía de la documentación para agentes de IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13">
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 12. Preguntas frecuentes (FAQ)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.1-que-es-este-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Qué es este FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.2-servidor-y-base-de-datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Servidor y base de datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.3-agentes-y-sistemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Agentes y sistemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.4-consola-web-y-licencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Consola web y licencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.5-modulos-y-red/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Módulos y red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.6-alertas-y-eventos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Alertas y eventos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.7-informes-logs-y-correo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Informes, logs y correo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.8-entornos-grandes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Entornos grandes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.9-automatizacion-y-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Automatización y plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parte-12/12.10-operaciones-masivas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Operaciones masivas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#que-es-y-como-encaja" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es y cómo encaja
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceso-e-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceso e instalación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conectar-con-la-consola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conectar con la consola
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conectar con la consola">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-consola-debe-permitir-la-ip-del-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La consola debe permitir la IP del cliente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-navegador-conecta-y-la-app-no-la-cadena-del-certificado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El navegador conecta y la app no: la cadena del certificado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iniciar-sesion-y-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iniciar sesión y permisos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-se-trabaja-en-la-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo se trabaja en la app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#las-pantallas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las pantallas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Las pantallas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inicio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inicio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agentes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Módulos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eventos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alertas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alertas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grupos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servidores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servicios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notificaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notificaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pandora-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pandora AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#menu-e-informacion-de-la-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menú e información de la app
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguridad-y-sesion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seguridad y sesión
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="aplicacion-movil">Aplicación móvil<a class="headerlink" href="#aplicacion-movil" title="Permanent link">¶</a></h1>
+<p>La app móvil de Pandora FMS es la consola en el bolsillo: el estado de la
+monitorización, los eventos, las alertas y los servicios, sin abrir el
+navegador. Se llama <strong>Pandora FMS Console</strong> y existe para Android, para iOS y
+como build web que la propia consola publica. La app reúne las vistas de
+monitorización y el chat de Pandora AI, que puede ejecutar acciones en la
+consola.</p>
+<h2 id="que-es-y-como-encaja">Qué es y cómo encaja<a class="headerlink" href="#que-es-y-como-encaja" title="Permanent link">¶</a></h2>
+<p>La app es un cliente de la <strong>API v2</strong> de la consola: se conecta a
+<code>&lt;consola&gt;/api/v2</code> con la cuenta del usuario y muestra la información que ese
+usuario puede ver. No hay servidor intermedio ni base de datos propia; si la
+consola no responde, la app no tiene nada que enseñar.</p>
+<p>Tres plataformas, una sola aplicación:</p>
+<ul>
+<li><strong>Android</strong>: aplicación instalada.</li>
+<li><strong>iOS</strong>: aplicación instalada.</li>
+<li><strong>Web</strong>: el mismo cliente compilado para navegador, servido por la consola en
+  <code>&lt;consola&gt;/mobile/</code>.</li>
+</ul>
+<p>La app cubre las vistas de monitorización: agentes, módulos, eventos, alertas,
+grupos, servidores, servicios y notificaciones. El asistente puede ejecutar
+acciones en la consola, con los permisos de la cuenta que haya iniciado sesión.
+Las vistas sirven para llegar rápido al detalle; las operaciones manuales se
+siguen haciendo en la consola web.</p>
+<p>La versión 1.0.0 necesita una consola <strong>806 o posterior</strong>. La app lo recuerda en
+la pantalla de configuración inicial y, si la consola es anterior, algunas
+pantallas pueden quedarse sin datos porque los endpoints que usan no existen.</p>
+<p>Los rótulos de la interfaz se citan en inglés, que es el idioma de las capturas;
+la app está traducida a 15 idiomas, con soporte RTL.</p>
+<p>En la Parte 5, la app es una forma más de mirar lo que ya documentan los
+capítulos de monitorización: no sustituye al panel de la consola web ni añade
+funciones nuevas. Simplemente las acerca a la pantalla del móvil.</p>
+<h2 id="acceso-e-instalacion">Acceso e instalación<a class="headerlink" href="#acceso-e-instalacion" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consola</td>
+<td>Pandora FMS 806 o posterior, accesible desde el dispositivo</td>
+</tr>
+<tr>
+<td>Cuenta</td>
+<td>Usuario de la consola con permisos de lectura sobre los grupos que se quieran consultar</td>
+</tr>
+<tr>
+<td>Acceso a la API</td>
+<td>La IP del cliente debe estar permitida en la consola (ver más abajo)</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>Conexión al host de la consola; en producción, HTTPS con una cadena de certificados válida</td>
+</tr>
+<tr>
+<td>Navegador (build web)</td>
+<td>La consola sirve la app en <code>&lt;consola&gt;/mobile/</code>; debe abrirse desde el mismo dominio que la consola</td>
+</tr>
+</tbody>
+</table>
+<p>En <strong>Android</strong> e <strong>iOS</strong> la app se instala como cualquier otra aplicación. Una
+vez abierta por primera vez, muestra un <strong>onboarding de cuatro pantallas</strong> que
+presenta el panel, los listados, los detalles y el menú. Se puede saltar con
+<strong>Skip</strong>; no vuelve a aparecer.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-onboarding.png" data-desc-position="bottom"><img alt="Primera pantalla del onboarding, con el panel de ejemplo y el botón Next" src="../../assets/img/parte-05/5.12-onboarding.png" width="282"></a></p>
+<p>El <strong>build web</strong> no se instala: se abre en el navegador. La dirección es la de
+la consola seguida de <code>/mobile/</code>:</p>
+<div class="highlight"><pre><span></span><code>https://&lt;consola&gt;/mobile/
+</code></pre></div>
+<p>La app web habla con la API por el mismo origen que la consola; por eso no vale
+servirla desde otro dominio ni desde un <code>file://</code>. Si la consola usa HTTPS, la
+app también.</p>
+<p>Cuando la consola se abre en el navegador de un móvil, algunas páginas ofrecen
+un puente a la app instalada: <strong>Open in app</strong> abre la pantalla equivalente y
+<strong>Continue in browser</strong> sigue en la consola. El puente solo aparece en páginas
+que tienen una pantalla equivalente en la app y solo en navegaciones normales,
+no en formularios ni en descargas. Las pantallas que la app sabe abrir son el
+panel, agentes, módulos, grupos, eventos, alertas, servidores, servicios y
+notificaciones, incluidas sus fichas de detalle.</p>
+<h2 id="conectar-con-la-consola">Conectar con la consola<a class="headerlink" href="#conectar-con-la-consola" title="Permanent link">¶</a></h2>
+<p>La primera vez que se abre la app hay que decirle a qué consola apunta. La
+pantalla pide una única cosa: la <strong>Console URL</strong>, con el esquema incluido.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-setup.png" data-desc-position="bottom"><img alt="Pantalla Set up console con la URL de ejemplo escrita en el campo" src="../../assets/img/parte-05/5.12-setup.png" width="365"></a></p>
+<p>El campo admite una URL completa, con o sin barra final:</p>
+<div class="highlight"><pre><span></span><code>https://pandora.example.com/pandora_console
+</code></pre></div>
+<p>Al pulsar <strong>Test connection</strong> la app comprueba que la URL responde como una
+consola de Pandora FMS. Si la comprobación pasa, <strong>Save</strong> guarda la consola y
+lleva al acceso. Las consolas usadas quedan en una lista de sugerencias que
+aparece al tocar el campo; cada una se puede borrar con la cruz de la derecha.
+En el build web, la app recuerda que la consola debe servirse desde el mismo
+dominio; la lista de sugerencias no cambia esa regla.</p>
+<p>Estos son los errores que puede devolver la comprobación:</p>
+<table>
+<thead>
+<tr>
+<th>Mensaje</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>That URL is not valid. Use http:// or https://.</td>
+<td>Falta el esquema o la URL está mal formada</td>
+</tr>
+<tr>
+<td>Cannot reach that console.</td>
+<td>El host no responde, el puerto está cerrado o la red no llega</td>
+</tr>
+<tr>
+<td>The console security certificate is not valid or is incomplete. Contact the administrator.</td>
+<td>El servidor no presenta una cadena de certificados que el dispositivo acepte</td>
+</tr>
+<tr>
+<td>The URL responds, but it does not look like a Pandora FMS console.</td>
+<td>La URL responde, pero no es la API de una consola</td>
+</tr>
+</tbody>
+</table>
+<p>Si la URL es <code>http://</code>, la app avisa de que la conexión no va cifrada y pide
+confirmación antes de continuar. El aviso es informativo; no impide seguir.</p>
+<h3 id="la-consola-debe-permitir-la-ip-del-cliente">La consola debe permitir la IP del cliente<a class="headerlink" href="#la-consola-debe-permitir-la-ip-del-cliente" title="Permanent link">¶</a></h3>
+<p>La API de la consola solo atiende a las direcciones incluidas en la <strong>lista de
+IPs con acceso a la API</strong>. Se configura en <strong>Configuración general →
+Seguridad</strong> y admite direcciones sueltas, rangos con comodín (<code>192.168.20.*</code>) o
+<code>*</code> para permitirlas todas. Si la lista está vacía o no incluye la IP desde la
+que sale el cliente, la app no puede autenticarse aunque las credenciales sean
+correctas.</p>
+<h3 id="el-navegador-conecta-y-la-app-no-la-cadena-del-certificado">El navegador conecta y la app no: la cadena del certificado<a class="headerlink" href="#el-navegador-conecta-y-la-app-no-la-cadena-del-certificado" title="Permanent link">¶</a></h3>
+<p>Es el fallo más habitual al poner la app en producción. La consola se abre sin
+problemas en el navegador del móvil, pero la app rechaza la conexión con el
+mensaje del certificado. No es un problema de credenciales ni de red: es la
+cadena de certificados.</p>
+<p>Los navegadores completan la cadena por su cuenta: si el servidor no envía un
+eslabón, lo descargan usando la información del certificado o lo sacan de su
+caché. Las librerías HTTP que usan las apps no hacen esa descarga y validan
+exactamente lo que reciben. Si falta un certificado intermedio o la raíz
+cruzada, el dispositivo no puede trazar el camino hasta una autoridad de
+confianza y corta la conexión.</p>
+<p>El servidor debe enviar <strong>tres certificados</strong>, en este orden:</p>
+<ol>
+<li>El certificado de la consola (hoja).</li>
+<li>El certificado intermedio de la autoridad de certificación.</li>
+<li>La raíz <strong>cruzada</strong>, no la autofirmada. En el caso de Sectigo, la R46 emitida
+   por USERTrust RSA o por AAA Certificate Services.</li>
+</ol>
+<p>En Apache hay dos formas de dejarlo configurado. La primera es un único fichero
+con los tres certificados concatenados:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">SSLCertificateFile</span><span class="w">    </span><span class="sx">/ruta/console-fullchain.pem</span>
+<span class="nb">SSLCertificateKeyFile</span><span class="w"> </span><span class="sx">/ruta/console.key</span>
+</code></pre></div>
+<p>La segunda reparte la cadena en directivas:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">SSLCertificateFile</span><span class="w">      </span><span class="sx">/ruta/console.crt</span>
+<span class="nb">SSLCertificateChainFile</span><span class="w"> </span><span class="sx">/ruta/intermediate.pem</span>
+<span class="nb">SSLCACertificateFile</span><span class="w">    </span><span class="sx">/ruta/cross-signed-root.pem</span>
+<span class="nb">SSLCertificateKeyFile</span><span class="w">   </span><span class="sx">/ruta/console.key</span>
+</code></pre></div>
+<p>Si el proveedor entrega un <code>fullchain</code>, úsalo tal cual. Si no, hay que reunir la
+raíz cruzada a mano. Con Sectigo, el paquete <code>.p7c</code> contiene varias versiones de
+la misma raíz; la buena es la que tiene como emisor a USERTrust RSA o a AAA
+Certificate Services:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-O<span class="w"> </span>http://crt.sectigo.com/SectigoPublicServerAuthenticationRootR46.p7c
+openssl<span class="w"> </span>pkcs7<span class="w"> </span>-inform<span class="w"> </span>DER<span class="w"> </span>-in<span class="w"> </span>SectigoPublicServerAuthenticationRootR46.p7c<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-print_certs<span class="w"> </span>-out<span class="w"> </span>r46-chain.pem
+</code></pre></div>
+<p>De ese fichero se elige la variante cruzada y se descarta la autofirmada. Tampoco
+conviene arrastrar raíces duplicadas ni varias alternativas: el dispositivo
+puede rechazar la cadena entera.</p>
+<p>Después se valida la configuración, se recarga el servidor web y se comprueba
+desde una red sin inspección TLS:</p>
+<div class="highlight"><pre><span></span><code>apachectl<span class="w"> </span>configtest
+systemctl<span class="w"> </span>reload<span class="w"> </span>apache2<span class="w">   </span><span class="c1"># o el servicio de tu servidor web</span>
+openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>&lt;host&gt;:443<span class="w"> </span>-servername<span class="w"> </span>&lt;host&gt;<span class="w"> </span>-showcerts
+</code></pre></div>
+<p>La salida debe mostrar <strong>tres certificados</strong> y terminar con:</p>
+<div class="highlight"><pre><span></span><code>Verify return code: 0 (ok)
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">No desactivar la validación en la app</p>
+<p>Permitir certificados no válidos abriría la puerta a interceptar
+credenciales y datos. Si la cadena no se puede completar, se corrige en el
+servidor; no se relaja la app.</p>
+</div>
+<h2 id="iniciar-sesion-y-permisos">Iniciar sesión y permisos<a class="headerlink" href="#iniciar-sesion-y-permisos" title="Permanent link">¶</a></h2>
+<p>Con la consola configurada, la app muestra el acceso: usuario, contraseña y el
+botón <strong>Log in</strong>. El icono del ojo muestra u oculta la contraseña, y el engranaje
+de la esquina superior derecha permite cambiar la URL de la consola.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-acceso.png" data-desc-position="bottom"><img alt="Pantalla de acceso con los campos de usuario y contraseña" src="../../assets/img/parte-05/5.12-acceso.png" width="371"></a></p>
+<p>Si la cuenta tiene <strong>verificación en dos pasos</strong>, después de la contraseña la app
+pide el código de seis dígitos de la aplicación de autenticación. El código
+caduca y se puede volver al acceso con <strong>Back to login</strong>. Los errores se
+distinguen: credenciales incorrectas, consola inalcanzable, exceso de intentos y
+usuario sin perfil asignado.</p>
+<p>La app no decide qué puede ver el usuario: lo decide la consola. Al arrancar,
+consulta la API para averiguar qué secciones están permitidas y <strong>oculta</strong> las
+que responden con un error de permisos. Si esa consulta falla por un problema
+temporal, la app no esconde nada y deja que cada pantalla muestre su propio
+error. En la práctica: si un usuario no tiene acceso a alertas, la sección de
+alertas no aparece.</p>
+<div class="admonition tip">
+<p class="admonition-title">Una cuenta con los permisos justos</p>
+<p>No conviene repartir una cuenta de administración entre los móviles. Crea
+un usuario con el perfil que corresponda y dale acceso solo a los grupos que
+deba consultar. Si se va a usar Pandora AI, revisa también qué acciones puede
+ejecutar: el asistente actúa con los permisos de esa cuenta.</p>
+</div>
+<p>El cierre de sesión está en el menú, al final de la lista. Pide confirmación y
+revoca la sesión en la consola; en el siguiente arranque hay que volver a
+autenticarse.</p>
+<h2 id="como-se-trabaja-en-la-app">Cómo se trabaja en la app<a class="headerlink" href="#como-se-trabaja-en-la-app" title="Permanent link">¶</a></h2>
+<p>Todas las pantallas de datos comparten los mismos patrones. Aprenderlos una vez
+ahorra la mitad de este capítulo.</p>
+<p><strong>Navegación.</strong> La barra inferior tiene cinco destinos: <strong>Home</strong>, <strong>Events</strong>,
+<strong>Alerts</strong>, <strong>AI</strong> y <strong>Menu</strong>. El menú abre el resto de secciones: agentes,
+módulos, grupos, servidores, servicios, notificaciones y Acerca de. Las flechas
+de la cabecera vuelven atrás; al regresar a una lista se recuperan sus filtros y
+su ordenación.</p>
+<p><strong>Listados.</strong> Cada listado carga <strong>20 elementos por petición</strong> y pide la
+siguiente página al llegar al final, sin botón de «cargar más». La búsqueda, los
+filtros y la ordenación se aplican <strong>en la consola</strong>, no en el móvil: si un
+filtro no existe en la API, no se simula en la app.</p>
+<p><strong>Filtros.</strong> El embudo de la cabecera abre una hoja con los filtros de esa
+pantalla. Los campos se rellenan y se aplican con <strong>Apply</strong>, que cierra la hoja;
+<strong>Reset</strong> vuelve a los valores iniciales y también cierra. Los filtros aplicados
+quedan como <strong>chips</strong> encima de la lista, y cada chip se quita con su aspa. La app recuerda la última combinación
+por consola y por pantalla.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-filtros.png" data-desc-position="bottom"><img alt="Hoja de filtros de agentes con búsqueda, estado, grupo y subgrupos" src="../../assets/img/parte-05/5.12-filtros.png" width="418"></a></p>
+<p><strong>Ordenación.</strong> El icono de las flechas abre la hoja de orden: se elige el campo
+y la dirección (ascendente o descendente). Igual que los filtros, la ordenación
+viaja a la API.</p>
+<p><strong>Detalles.</strong> Las fichas organizan la información en pestañas que se pueden
+tocar o deslizar: resumen, módulos, eventos, alertas, acciones, histórico. Los
+datos largos se truncan con puntos suspensivos y se abren completos al tocarlos.</p>
+<p><strong>Carga y errores.</strong> Mientras llega la respuesta se ve un esqueleto con la forma
+del contenido, no un spinner. Si la petición falla, la pantalla muestra el error
+y un botón <strong>Retry</strong>; si no hay resultados, un estado vacío con el motivo.</p>
+<p><strong>Fechas y horas.</strong> Se muestran en la zona horaria del usuario de la consola. Si
+el perfil no la tiene, se usa la de la consola y, como último recurso, UTC. Los
+datos se guardan y se piden en UTC; la zona solo cambia la forma de enseñarlos.</p>
+<p><strong>Actualizar.</strong> Los listados se refrescan tirando hacia abajo. El panel de
+inicio se actualiza igual, y mantiene la última respuesta hasta que se vuelve a
+refrescar.</p>
+<h2 id="las-pantallas">Las pantallas<a class="headerlink" href="#las-pantallas" title="Permanent link">¶</a></h2>
+<p>Cada sección de la app es una vista de la monitorización. A continuación se
+describe qué enseña cada una, qué se puede filtrar y qué se abre desde ella. Los
+detalles de configuración de agentes, módulos, alertas y servicios están en sus
+capítulos de la Parte 2 y la Parte 5; aquí solo se explica la vista.</p>
+<h3 id="inicio">Inicio<a class="headerlink" href="#inicio" title="Permanent link">¶</a></h3>
+<p>El panel resume el estado de la consola en dos bloques. El primero, de
+monitorización, muestra el número de agentes con un anillo por estado, los
+módulos con una barra por estado, los eventos por hora de las últimas ocho
+horas, el total de eventos con su reparto por severidad, las alertas disparadas
+y sin disparar, y el estado de los eventos pendientes y en proceso.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-inicio.png" data-desc-position="bottom"><img alt="Panel de inicio con las tarjetas de agentes, módulos, eventos y alertas" src="../../assets/img/parte-05/5.12-inicio.png" width="293"></a></p>
+<p>El segundo bloque, <strong>System</strong>, añade CPU, memoria y lectura/escritura de la base
+de datos en las últimas ocho horas, el estado de los servidores y un resumen de
+la base de datos: activa o inactiva, tamaño, eventos de las últimas 24 horas y
+número de registros.</p>
+<p>Las tarjetas no son decorativas: al tocarlas se abre la sección correspondiente
+(agentes, módulos, eventos, alertas o servidores). En el anillo de agentes, cada
+porción de la leyenda se puede tocar para aislar ese estado.</p>
+<h3 id="agentes">Agentes<a class="headerlink" href="#agentes" title="Permanent link">¶</a></h3>
+<p>El listado de agentes enseña, por cada uno, su estado, el sistema operativo, el
+grupo, los contadores de módulos (críticos, en advertencia y normales), las
+alertas y el último contacto. La barra de color de la izquierda resume el estado
+del agente.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-agentes-listado.png" data-desc-position="bottom"><img alt="Listado de agentes con estado, sistema operativo, grupo y contadores" src="../../assets/img/parte-05/5.12-agentes-listado.png" width="540"></a></p>
+<p>Se puede buscar por nombre, filtrar por estado, por grupo (con la opción de
+incluir subgrupos) y por sistema operativo, y ordenar por alias, nombre,
+dirección, grupo, módulos críticos, módulos en advertencia, módulos totales o
+último contacto. Por defecto, el más reciente primero.</p>
+<p>La ficha del agente tiene cuatro pestañas: <strong>Summary</strong>, <strong>Modules</strong>, <strong>Events</strong> y
+<strong>Alerts</strong>. El resumen enseña la barra de módulos, la actividad de eventos de las
+últimas 24 horas, las alertas disparadas y activas, y la información del agente:
+nombre, alias, identificador, grupo, IP, sistema operativo y versión, versión del
+agente, descripción, configuración remota, intervalo, último y próximo contacto,
+último contacto remoto, último cambio de estado y servidor asignado.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-agente-detalle.png" data-desc-position="bottom"><img alt="Ficha del agente con las pestañas y el resumen de módulos, eventos y alertas" src="../../assets/img/parte-05/5.12-agente-detalle.png" width="418"></a></p>
+<p>La app avisa cuando el agente está deshabilitado, no tiene servidor asignado, no
+ha contactado nunca, lleva demasiado tiempo sin contacto o supera los 200
+módulos, un umbral a partir del cual la propia consola advierte de que el
+rendimiento puede resentirse.</p>
+<p>La pestaña <strong>Modules</strong> lista los módulos del agente con su valor actual, la hora
+del último dato y una minigráfica. Al tocar uno se abre su ficha.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-agente-modulos.png" data-desc-position="bottom"><img alt="Pestaña de módulos de un agente, con valor actual y minigráfica" src="../../assets/img/parte-05/5.12-agente-modulos.png"></a></p>
+<h3 id="modulos">Módulos<a class="headerlink" href="#modulos" title="Permanent link">¶</a></h3>
+<p>La entrada <strong>Modules</strong> del menú es el listado global: todos los módulos de todos
+los agentes, con su nombre, agente, valor actual, hora y minigráfica. Se busca
+por nombre, se filtra por agente, por estado y por grupo de módulos, y se ordena
+por nombre o por grupo.
+Los módulos que no generan gráfica lo indican en la fila.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-modulos-listado.png" data-desc-position="bottom"><img alt="Listado global de módulos con valor, agente y minigráfica" src="../../assets/img/parte-05/5.12-modulos-listado.png" width="540"></a></p>
+<p>La ficha del módulo tiene cuatro pestañas: <strong>Summary</strong>, <strong>History</strong>, <strong>Events</strong> y
+<strong>Alerts</strong>. El resumen pinta la gráfica del periodo con el máximo y la media, el
+histograma de estados del módulo y su información: estado, agente, tipo, grupo,
+unidad, umbrales de advertencia y crítico, módulo padre e identificador. Si el
+módulo guarda una imagen en lugar de un número, lo dice y no inventa una
+gráfica.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-modulo-detalle.png" data-desc-position="bottom"><img alt="Ficha de un módulo con la gráfica, el histograma y la información" src="../../assets/img/parte-05/5.12-modulo-detalle.png" width="360"></a></p>
+<p>La gráfica se puede abrir a pantalla completa. La pestaña <strong>History</strong> muestra el
+histórico de valores agrupado por día; <strong>Events</strong> y <strong>Alerts</strong>, lo ocurrido en las
+últimas 24 horas.</p>
+<h3 id="eventos">Eventos<a class="headerlink" href="#eventos" title="Permanent link">¶</a></h3>
+<p>El listado de eventos enseña los más recientes primero, con su severidad, tipo,
+agente y módulo, y el tiempo transcurrido. Se filtra por rango de fechas (desde
+15 minutos hasta todo el histórico, o un rango personalizado), por estado, por
+criticidad, por tipo de evento, por grupo (con subgrupos), por agente, por solo
+alertas y por texto. Se ordena por fecha, evento, tipo, estado, criticidad o
+origen.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-eventos-listado.png" data-desc-position="bottom"><img alt="Listado de eventos con filtros aplicados y los chips correspondientes" src="../../assets/img/parte-05/5.12-eventos-listado.png" width="563"></a></p>
+<p>La ficha del evento tiene hasta cinco pestañas: <strong>General</strong>, <strong>Details</strong>,
+<strong>Comments</strong>, <strong>Agent fields</strong> y <strong>Custom data</strong>, según lo que traiga el evento.
+General reúne el nombre, identificador, estado, severidad, tipo, agente, módulo,
+grupo, propietario, quién lo reconoció, fecha y origen. Details añade los campos
+propios del evento, con las instrucciones de crítica, advertencia o desconocido
+cuando existen. Comments enseña los comentarios; Agent fields, los campos
+personalizados del agente; y Custom data, los datos personalizados del evento.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-evento-detalle.png" data-desc-position="bottom"><img alt="Ficha de un evento con la pestaña General y sus datos" src="../../assets/img/parte-05/5.12-evento-detalle.png" width="360"></a></p>
+<p>El cambio de estado del evento se hace en la consola web.</p>
+<h3 id="alertas">Alertas<a class="headerlink" href="#alertas" title="Permanent link">¶</a></h3>
+<p>El listado de alertas enseña el agente, el módulo, la plantilla, el número de
+disparos y la última vez que se disparó. Se busca por agente o módulo, se filtra
+por estado, por standby y por criticidad, y se ordena por fecha del último
+disparo o por número de disparos.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-alertas-listado.png" data-desc-position="bottom"><img alt="Listado de alertas con agente, módulo, plantilla y disparos" src="../../assets/img/parte-05/5.12-alertas-listado.png" width="519"></a></p>
+<p>La ficha tiene tres pestañas: <strong>General</strong>, <strong>Actions</strong> y <strong>Triggered</strong>. General
+muestra agente, módulo, plantilla, estado y número de disparos, la última vez que
+se disparó, el standby, si está deshabilitada y la política asociada. Actions
+lista las acciones configuradas con su umbral y su última ejecución. Triggered
+recoge los disparos con la fecha, la recuperación, la validación manual y las
+acciones ejecutadas.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-alerta-detalle.png" data-desc-position="bottom"><img alt="Ficha de una alerta con la pestaña General" src="../../assets/img/parte-05/5.12-alerta-detalle.png" width="463"></a></p>
+<p>El reconocimiento y la ejecución forzada de una alerta se hacen en la consola web.</p>
+<h3 id="grupos">Grupos<a class="headerlink" href="#grupos" title="Permanent link">¶</a></h3>
+<p>El listado de grupos enseña, por cada grupo, sus agentes y sus módulos agrupados
+por estado, además de las alertas cuando las tiene. Se busca por nombre y se
+ordena por nombre o por identificador.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-grupos-listado.png" data-desc-position="bottom"><img alt="Listado de grupos con agentes y módulos por estado" src="../../assets/img/parte-05/5.12-grupos-listado.png" width="360"></a></p>
+<p>La ficha del grupo tiene tres pestañas: <strong>Summary</strong>, <strong>Agents</strong> y <strong>Modules</strong>. El
+resumen enseña los contadores y la información del grupo: identificador, grupo
+padre, descripción, contacto, límite de agentes y si las alertas están
+habilitadas.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-grupo-detalle.png" data-desc-position="bottom"><img alt="Ficha de un grupo con el resumen y los datos del grupo" src="../../assets/img/parte-05/5.12-grupo-detalle.png" width="463"></a></p>
+<h3 id="servidores">Servidores<a class="headerlink" href="#servidores" title="Permanent link">¶</a></h3>
+<p>El listado de servidores enseña cada servidor con su estado, su tipo, si es
+maestro, los módulos en ejecución sobre el total, el retraso, la cola de hilos y
+la última actualización. Se busca por nombre o versión, se filtra por estado, por
+tipo y por maestro, y se ordena por nombre, estado, tipo, maestro o actualización.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-servidores-listado.png" data-desc-position="bottom"><img alt="Listado de servidores con estado, tipo, módulos y cola" src="../../assets/img/parte-05/5.12-servidores-listado.png" width="480"></a></p>
+<p>Cada fila es un servidor de la consola (de datos, de red, de alertas, de
+eventos) y permite ver de un vistazo si va al día. No hay ficha de detalle: la
+información cabe en la fila.</p>
+<h3 id="servicios">Servicios<a class="headerlink" href="#servicios" title="Permanent link">¶</a></h3>
+<p>El listado de servicios enseña el estado, la descripción, el grupo, el modo
+(manual o inteligente), el valor, el SLA y la última actualización. Se busca por
+nombre o descripción, se filtra por estado, por grupo, por modo y por favoritos,
+y se ordena por nombre, descripción o estado.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-servicios-listado.png" data-desc-position="bottom"><img alt="Listado de servicios con estado, valor y SLA" src="../../assets/img/parte-05/5.12-servicios-listado.png" width="415"></a></p>
+<p>La ficha del servicio tiene dos pestañas: <strong>Summary</strong> y <strong>Elements</strong>. El resumen
+reúne descripción, grupo, modo, porcentajes de crítico, advertencia y valor,
+estado, SLA y última actualización. Elements lista los elementos que componen el
+servicio: agentes, módulos y otros servicios, con su peso y su estado.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-servicio-detalle.png" data-desc-position="bottom"><img alt="Ficha de un servicio con el resumen y sus datos" src="../../assets/img/parte-05/5.12-servicio-detalle.png" width="480"></a></p>
+<h3 id="notificaciones">Notificaciones<a class="headerlink" href="#notificaciones" title="Permanent link">¶</a></h3>
+<p>La bandeja de notificaciones recoge los avisos que la consola envía al usuario.
+Cada fila enseña el asunto, el principio del texto, la fecha y si está leída o
+no. El número de no leídas aparece como contador sobre el icono del menú y, dentro
+del menú, junto a <strong>Notifications</strong>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-notificaciones.png" data-desc-position="bottom"><img alt="Listado de notificaciones con el asunto y la fecha" src="../../assets/img/parte-05/5.12-notificaciones.png" width="617"></a></p>
+<p>Al abrir una notificación se ve el texto completo y la fecha de recepción. La
+notificación se muestra tal como llegó; abrirla no cambia su estado.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-notificacion-detalle.png" data-desc-position="bottom"><img alt="Detalle de una notificación con el texto completo" src="../../assets/img/parte-05/5.12-notificacion-detalle.png"></a></p>
+<h3 id="pandora-ai">Pandora AI<a class="headerlink" href="#pandora-ai" title="Permanent link">¶</a></h3>
+<p>El chat de Pandora AI se abre desde la pestaña <strong>AI</strong> de la barra inferior. La
+pantalla tiene el hilo de la conversación, el campo de escritura y un botón de
+envío; arriba, el acceso a las <strong>Sessions</strong> y a los modelos disponibles. Las
+sesiones se pueden crear, recuperar y destruir, y el asistente puede pedir datos
+con un formulario antes de responder. También puede ejecutar acciones en la
+consola, por ejemplo crear un agente, con los permisos de la cuenta.</p>
+<p>Mientras piensa, el icono de <strong>AI</strong> en la barra inferior se anima; si se minimiza
+el chat, el indicador sigue ahí y la conversación no se pierde. Cerrar el chat
+pide confirmación y conserva la sesión para retomarla después.</p>
+<p>La pestaña solo está disponible cuando la consola tiene Pandora AI activado y el
+usuario tiene permiso para usarlo. Si además no hay ningún modelo configurado, el
+chat lo indica y no deja empezar una conversación.</p>
+<h2 id="menu-e-informacion-de-la-app">Menú e información de la app<a class="headerlink" href="#menu-e-informacion-de-la-app" title="Permanent link">¶</a></h2>
+<p>El menú lateral reúne todas las secciones y la cuenta con la que se ha iniciado
+sesión, y termina con <strong>Log out</strong>. En el pie se ve la versión de la app.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-menu.png" data-desc-position="bottom"><img alt="Menú lateral con las secciones, la cuenta y el cierre de sesión" src="../../assets/img/parte-05/5.12-menu.png" width="421"></a></p>
+<p><strong>Acerca de</strong> enseña la versión de la app, los datos de la consola (versión,
+paquete, MR y build) y los enlaces a la documentación, el soporte, la política de
+privacidad, el historial de cambios, la guía rápida y las licencias de código
+abierto.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-acerca-de.png" data-desc-position="bottom"><img alt="Pantalla Acerca de con los enlaces de documentación, soporte e historial" src="../../assets/img/parte-05/5.12-acerca-de.png"></a></p>
+<p>El <strong>historial de cambios</strong> lista las novedades de cada versión publicada. La
+primera instalación muestra el onboarding; en una actualización, la app puede
+enseñar una vez las novedades de las versiones saltadas. Si la versión no trae
+destacados, no interrumpe.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/img/parte-05/5.12-historial-de-cambios.png" data-desc-position="bottom"><img alt="Pantalla de historial de cambios con las novedades de la versión" src="../../assets/img/parte-05/5.12-historial-de-cambios.png" width="589"></a></p>
+<p>El <strong>idioma</strong> de la app se toma del perfil de la consola. El <strong>tema</strong> también:
+claro, oscuro o el del sistema, según lo tenga configurado el usuario en la
+consola. No hay un conmutador de idioma ni de tema dentro de la app.</p>
+<h2 id="seguridad-y-sesion">Seguridad y sesión<a class="headerlink" href="#seguridad-y-sesion" title="Permanent link">¶</a></h2>
+<p>La app no guarda la contraseña. Al iniciar sesión, la consola devuelve un token
+de acceso que la app mantiene <strong>en memoria</strong> y un token de refresco que se
+guarda en el almacén seguro del dispositivo. Cuando el token de acceso caduca,
+la app lo renueva con el de refresco sin pedir la contraseña otra vez; si la
+sesión ya no es válida, vuelve a la pantalla de acceso.</p>
+<p>Al cerrar sesión se revoca la sesión completa en la consola, no solo el token
+del móvil. En el build web, el refresco se apoya en la cookie del navegador, que
+viaja al mismo dominio de la consola.</p>
+<p>La app exige <strong>HTTPS</strong> con una cadena válida. No permite aceptar un certificado
+inválido ni siquiera para probar: si el servidor no presenta la cadena completa,
+la conexión se corta y el mensaje remite al administrador. Es incómodo la primera
+vez, pero evita que las credenciales viajen sin garantías.</p>
+<p>Las secciones se ocultan según los permisos del usuario y la cuenta debe tener
+solo los permisos necesarios. El asistente ejecuta acciones con los permisos de
+esa cuenta, así que el token se trata como una credencial: se renueva y se revoca
+como tal.</p>
+<p>Lo que se puede ejecutar desde el móvil pasa por el asistente; el resto se hace en
+la consola web.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": {"alias": true, "default": "develop", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
