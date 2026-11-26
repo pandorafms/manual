@@ -5420,7 +5420,7 @@ l'essentiel.</p>
 </tr>
 <tr>
 <td>Utilisation de chaque disque (%)</td>
-<td>Plugin <code>pandora_df_used</code></td>
+<td>Plugin <code>pandora_df_used</code> ; sur l'EndPoint Go, le modèle <code>df_used</code> de l'exécuteur <code>pandora-plugin_exec</code></td>
 <td>Plugin <code>df_percent_used.vbs</code></td>
 </tr>
 <tr>
@@ -5430,7 +5430,7 @@ l'essentiel.</p>
 </tr>
 <tr>
 <td>Trafic réseau</td>
-<td>Plugins <code>pandora_netusage</code> et <code>net_usage</code></td>
+<td>Plugins <code>pandora_netusage</code> et <code>net_usage</code> ; sur l'EndPoint Go, le modèle <code>pandora_netusage</code></td>
 <td>Plugin <code>network.vbs</code></td>
 </tr>
 <tr>
@@ -5450,6 +5450,21 @@ l'essentiel.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Ce que l'EndPoint Go laisse hors du modèle d'usine</p>
+<p>Le modèle de l'EndPoint Go, celui installé par défaut sous Linux, ne crée pas
+de modules pour les partitions d'amorçage (<code>/boot</code> et <code>/boot/efi</code>) ni pour le
+trafic de l'interface de bouclage et des interfaces virtuelles (<code>lo</code>,
+<code>docker</code>, <code>br-*</code>, <code>veth</code>, <code>tailscale</code>, <code>incus</code>) : sur une machine fraîchement
+installée, ils n'indiquent rien sur l'état du système. Chaque modèle accepte
+ses propres filtres, <code>exclude</code> pour les disques et <code>deny_regexp</code> pour les
+interfaces. L'EndPoint Perl conserve ses plugins précédents.</p>
+<p>Les services connus suivent la même idée : <code>autodiscover --default</code> ignore
+les unités que systemd liste sans fichier d'unité derrière (état de
+chargement <code>not-found</code>), qui apparaîtraient sinon toujours à <code>0</code> comme un
+service arrêté. Un service installé et arrêté reste signalé, car c'est alors
+l'alerte attendue.</p>
+</div>
 <p>Malgré cela, il convient de savoir comment faire chaque chose à la main : pour
 surveiller un disque, un processus ou un service précis, pour ajuster des seuils
 ou pour remplacer le modèle par le vôtre. Ce qui suit décrit les modules natifs de

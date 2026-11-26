@@ -858,6 +858,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#snmp-timeout-in-the-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP timeout in the scan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#topology-and-network-map" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4559,6 +4570,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#snmp-timeout-in-the-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP timeout in the scan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#topology-and-network-map" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4881,6 +4903,65 @@ they do not replace it.</p>
 </table>
 <p>SNMP credentials (v1, v2c or v3) and WMI credentials are typed in the form
 itself or chosen from the <a href="../2.2-gestor-de-credenciales/">credential manager</a>.</p>
+<h2 id="snmp-timeout-in-the-scan">SNMP timeout in the scan<a class="headerlink" href="#snmp-timeout-in-the-scan" title="Permanent link">¶</a></h2>
+<p>On a slow network, a machine may take longer than expected to answer over SNMP
+and the scan may end up without its SNMP data. The timeout for those queries
+can be set at two levels: per task and globally on the server. The global value
+is a cap. The task value can only lower it.</p>
+<p>The <strong>SNMP timeout (seconds)</strong> field is on the second step of the <strong>Network
+scan</strong> wizard (<em>NetScan features</em>), next to the detection options, and also
+when editing an existing task. It is only shown in <strong>Advanced</strong> scan mode. It
+accepts an integer greater than or equal to 0: <code>0</code> means "use the server
+value". A new task is saved with 4 seconds. Tasks that already existed when
+you upgrade stay at 0 and inherit the server value. In <strong>Simple</strong> mode the
+field is not shown, but the task still keeps the value it already had: a new
+task stays at 4 seconds, not 0, so it does not inherit a global value above 4
+until it is edited in <strong>Advanced</strong> mode and set to 0.</p>
+<p>The <code>discovery_snmp_timeout</code> token is set in <code>pandora_server.conf</code>, in
+seconds, and has no field in the console. It defaults to 4; if it is missing,
+empty or 0, the server uses 4. If the task has a value greater than 0, the
+lower of the two is applied; if it is 0, the server value is applied:</p>
+<table>
+<thead>
+<tr>
+<th>Value in the task</th>
+<th>Value on the server</th>
+<th>Timeout applied</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10</td>
+<td>2</td>
+</tr>
+<tr>
+<td>15</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Existing task (0)</td>
+<td>6</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>The setting only affects the scan's SNMP queries, in v1, v2c and v3. It does
+not touch ping or the ICMP, nmap, WMI or discovery script timeouts. It is read
+at the start of each run: changing it does not affect a task that is already
+running. It is a <strong>per-attempt</strong> timeout, and the SNMP library retries once by
+default, so the real wait per machine can be twice the configured value. With
+1 second, up to about 2 seconds.</p>
+<p>Raising the timeout makes the scan longer, and with many machines it can
+multiply its duration. The field itself warns about this in its help text. The
+token is read when the server starts, so the server must be restarted (or the
+remote configuration applied, if it is used) for the change to take effect.</p>
 <h2 id="topology-and-network-map">Topology and network map<a class="headerlink" href="#topology-and-network-map" title="Permanent link">¶</a></h2>
 <p>With <strong>Create network map</strong> —on by default—, Discovery works out which machine
 hangs from which, assigns them a parent agent and generates a network map with
@@ -5140,6 +5221,11 @@ current network are added as new networks to explore.</p>
 <td>Apply autoconfiguration rules</td>
 <td>Applies the self-provisioning rules to the created agents (see <a href="../../parte-6/6.6-mecanismos-de-autoprovision/">Self-provisioning mechanisms</a>)</td>
 <td>Disabled</td>
+</tr>
+<tr>
+<td>SNMP timeout (seconds)</td>
+<td>Timeout for each SNMP query in the scan. <code>0</code> uses the server value and the server value acts as a cap (see <a href="#snmp-timeout-in-the-scan">SNMP timeout in the scan</a>)</td>
+<td>4 s</td>
 </tr>
 <tr>
 <td>Event and alert action on failure</td>

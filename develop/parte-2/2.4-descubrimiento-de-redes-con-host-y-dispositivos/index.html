@@ -859,6 +859,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#el-tiempo-de-espera-de-snmp-del-escaneo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El tiempo de espera de SNMP del escaneo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#topologia-y-mapa-de-red" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4560,6 +4571,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#el-tiempo-de-espera-de-snmp-del-escaneo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El tiempo de espera de SNMP del escaneo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#topologia-y-mapa-de-red" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4885,6 +4907,66 @@ mínimo; no lo sustituyen.</p>
 </table>
 <p>Las credenciales SNMP (v1, v2c o v3) y WMI se escriben en el propio
 formulario o se eligen del <a href="../2.2-gestor-de-credenciales/">gestor de credenciales</a>.</p>
+<h2 id="el-tiempo-de-espera-de-snmp-del-escaneo">El tiempo de espera de SNMP del escaneo<a class="headerlink" href="#el-tiempo-de-espera-de-snmp-del-escaneo" title="Permanent link">¶</a></h2>
+<p>En una red lenta, un equipo puede tardar más de lo razonable en contestar por
+SNMP y el escaneo puede quedarse sin sus datos SNMP. El tiempo de espera de
+esas consultas se puede ajustar en dos niveles: por tarea y de forma global
+en el servidor. El valor global es un tope. El de la tarea permite bajarlo.</p>
+<p>El campo <strong>SNMP timeout (seconds)</strong> aparece en el segundo paso del asistente
+de <strong>Escaneado de red</strong> (<em>NetScan features</em>), junto a las opciones de
+detección, y también al editar una tarea ya creada. Solo se muestra con el
+modo de escaneo <strong>Advanced</strong>. Admite un entero mayor o igual que 0: <code>0</code>
+significa «usar el valor del servidor». Una tarea nueva se guarda con 4
+segundos. Las que ya existían al actualizar se quedan con 0 y heredan el
+valor del servidor. En <strong>Simple</strong> el campo no se muestra, pero la tarea sigue
+guardando el valor que ya tuviera: una tarea nueva se queda con 4 segundos,
+no con 0, así que no hereda un valor global superior a 4 hasta que se edite
+en modo <strong>Advanced</strong> y se ponga a 0.</p>
+<p>El token <code>discovery_snmp_timeout</code> se configura en <code>pandora_server.conf</code>, en
+segundos, y no tiene campo en la consola. Vale 4 por defecto; si falta, está
+vacío o vale 0, el servidor aplica 4. Si la tarea tiene un valor mayor que 0,
+se aplica el menor de los dos. Si vale 0, se aplica el del servidor:</p>
+<table>
+<thead>
+<tr>
+<th>Valor en la tarea</th>
+<th>Valor en el servidor</th>
+<th>Tiempo de espera aplicado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10</td>
+<td>2</td>
+</tr>
+<tr>
+<td>15</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Tarea antigua (0)</td>
+<td>6</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>El ajuste solo afecta a las consultas SNMP del escaneo, en v1, v2c y v3. No
+toca el ping ni los tiempos de espera de ICMP, nmap, WMI o los scripts de
+descubrimiento. Se lee al empezar cada ejecución: cambiarlo no altera una
+tarea que ya está en marcha. Es un tiempo <strong>por intento</strong>, y la librería SNMP
+hace un reintento por defecto, así que la espera real por equipo puede llegar
+a ser el doble del valor configurado. Con 1 segundo, hasta unos 2 segundos.</p>
+<p>Subir el tiempo de espera alarga el escaneo, y con muchos equipos puede
+multiplicar su duración. El propio campo lo advierte en su ayuda contextual.
+El token se lee al arrancar el servidor, así que hay que reiniciarlo (o
+aplicar la configuración remota, si se usa) para que el cambio surta efecto.</p>
 <h2 id="topologia-y-mapa-de-red">Topología y mapa de red<a class="headerlink" href="#topologia-y-mapa-de-red" title="Permanent link">¶</a></h2>
 <p>Con <strong>Create network map</strong> —activada por defecto—, Discovery averigua qué
 equipo cuelga de cuál, les asigna un agente padre y genera un mapa de red con
@@ -5157,6 +5239,11 @@ explorar.</p>
 <td>Apply autoconfiguration rules</td>
 <td>Aplica las reglas de autoprovisión a los agentes creados (ver <a href="../../parte-6/6.6-mecanismos-de-autoprovision/">Mecanismos de autoprovisión</a>)</td>
 <td>Desactivado</td>
+</tr>
+<tr>
+<td>SNMP timeout (seconds)</td>
+<td>Tiempo de espera de cada consulta SNMP del escaneo. <code>0</code> usa el valor del servidor y el valor del servidor actúa como tope (ver <a href="#el-tiempo-de-espera-de-snmp-del-escaneo">El tiempo de espera de SNMP del escaneo</a>)</td>
+<td>4 s</td>
 </tr>
 <tr>
 <td>Evento y acción de alerta al fallar</td>

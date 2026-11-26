@@ -5411,7 +5411,7 @@ recoge lo básico.</p>
 </tr>
 <tr>
 <td>Uso de cada disco (%)</td>
-<td>Plugin <code>pandora_df_used</code></td>
+<td>Plugin <code>pandora_df_used</code>; en el EndPoint Go, la plantilla <code>df_used</code> del ejecutor <code>pandora-plugin_exec</code></td>
 <td>Plugin <code>df_percent_used.vbs</code></td>
 </tr>
 <tr>
@@ -5421,7 +5421,7 @@ recoge lo básico.</p>
 </tr>
 <tr>
 <td>Tráfico de red</td>
-<td>Plugins <code>pandora_netusage</code> y <code>net_usage</code></td>
+<td>Plugins <code>pandora_netusage</code> y <code>net_usage</code>; en el EndPoint Go, la plantilla <code>pandora_netusage</code></td>
 <td>Plugin <code>network.vbs</code></td>
 </tr>
 <tr>
@@ -5441,6 +5441,21 @@ recoge lo básico.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Lo que el EndPoint Go deja fuera de fábrica</p>
+<p>La plantilla del EndPoint Go, que es la que se instala por defecto en Linux,
+no crea módulos para las particiones de arranque (<code>/boot</code> y <code>/boot/efi</code>) ni
+para el tráfico de la interfaz de bucle local y de las interfaces virtuales
+(<code>lo</code>, <code>docker</code>, <code>br-*</code>, <code>veth</code>, <code>tailscale</code>, <code>incus</code>): en una máquina recién
+instalada no dicen nada del estado del sistema. Cada plantilla admite sus
+propios filtros, <code>exclude</code> para los discos y <code>deny_regexp</code> para las
+interfaces. El EndPoint Perl mantiene sus plugins de siempre.</p>
+<p>Los servicios conocidos siguen la misma idea: <code>autodiscover --default</code> ignora
+las unidades que systemd lista sin fichero de unidad detrás (estado de carga
+<code>not-found</code>), que de otro modo aparecerían siempre a <code>0</code> como un servicio
+caído. Un servicio instalado y detenido sí se informa, porque ahí el rojo es
+la alerta que se busca.</p>
+</div>
 <p>Aun así, conviene saber cómo se hace cada cosa a mano: para vigilar un disco,
 un proceso o un servicio concretos, para ajustar umbrales o para sustituir la
 plantilla por una propia. Lo que sigue describe los módulos nativos de cada

@@ -858,6 +858,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#le-delai-dattente-snmp-de-lanalyse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le délai d'attente SNMP de l'analyse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#topologie-et-carte-reseau" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4559,6 +4570,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#le-delai-dattente-snmp-de-lanalyse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le délai d'attente SNMP de l'analyse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#topologie-et-carte-reseau" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4888,6 +4910,71 @@ minimum ; ils ne le remplacent pas.</p>
 <p>Les identifiants SNMP (v1, v2c ou v3) et WMI s'écrivent dans le formulaire
 lui-même ou se choisissent dans le <a href="../2.2-gestor-de-credenciales/">gestionnaire
 d'identifiants</a>.</p>
+<h2 id="le-delai-dattente-snmp-de-lanalyse">Le délai d'attente SNMP de l'analyse<a class="headerlink" href="#le-delai-dattente-snmp-de-lanalyse" title="Permanent link">¶</a></h2>
+<p>Sur un réseau lent, une machine peut mettre plus de temps que prévu à répondre
+en SNMP et l'analyse peut rester sans ses données SNMP. Le délai d'attente de
+ces requêtes peut être réglé à deux niveaux : par tâche et de manière globale
+sur le serveur. La valeur globale est un plafond ; celle de la tâche permet
+seulement de l'abaisser.</p>
+<p>Le champ <strong>SNMP timeout (seconds)</strong> se trouve à la deuxième étape de
+l'assistant <strong>Analyse réseau</strong> (<em>NetScan features</em>), à côté des options de
+détection, et également lors de la modification d'une tâche existante. Il
+n'apparaît qu'en mode d'analyse <strong>avancé</strong>. Il accepte un entier supérieur ou
+égal à 0 : <code>0</code> signifie « utiliser la valeur du serveur ». Une nouvelle tâche
+est enregistrée avec 4 secondes ; les tâches qui existaient déjà lors de la
+mise à jour restent à 0 et héritent de la valeur du serveur. En mode
+<strong>simple</strong>, le champ n'est pas affiché, mais la tâche conserve la valeur
+qu'elle avait déjà : une nouvelle tâche reste à 4 secondes, et non à 0, de
+sorte qu'elle n'hérite pas d'une valeur globale supérieure à 4 tant qu'elle
+n'est pas modifiée en mode <strong>avancé</strong> et réglée sur 0.</p>
+<p>Le jeton <code>discovery_snmp_timeout</code> se configure dans <code>pandora_server.conf</code>, en
+secondes, et n'a pas de champ dans la console. Sa valeur par défaut est 4 ; s'il
+est absent, vide ou vaut 0, le serveur applique 4. Si la tâche a une valeur
+supérieure à 0, la plus petite des deux est appliquée ; si elle vaut 0, c'est
+la valeur du serveur qui s'applique :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur dans la tâche</th>
+<th>Valeur sur le serveur</th>
+<th>Délai appliqué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10</td>
+<td>2</td>
+</tr>
+<tr>
+<td>15</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Tâche existante (0)</td>
+<td>6</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>Le réglage ne concerne que les requêtes SNMP de l'analyse, en v1, v2c et v3.
+Il ne touche ni au ping ni aux délais d'attente ICMP, nmap, WMI ou des scripts
+de découverte. Il est lu au début de chaque exécution : le modifier n'affecte
+pas une tâche déjà en cours. Il s'agit d'un délai <strong>par tentative</strong>, et la
+bibliothèque SNMP réessaie une fois par défaut ; l'attente réelle par machine
+peut donc atteindre le double de la valeur configurée, soit environ 2 secondes
+avec 1 seconde.</p>
+<p>Augmenter le délai allonge l'analyse et, avec de nombreuses machines, peut
+multiplier sa durée ; le champ lui-même le signale dans son aide contextuelle.
+Le jeton est lu au démarrage du serveur : il faut donc le redémarrer (ou
+appliquer la configuration distante, si elle est utilisée) pour que le
+changement prenne effet.</p>
 <h2 id="topologie-et-carte-reseau">Topologie et carte réseau<a class="headerlink" href="#topologie-et-carte-reseau" title="Permanent link">¶</a></h2>
 <p>Avec <strong>Créer une carte réseau</strong> — activée par défaut —, Discovery détermine quelle
 machine dépend de quelle autre, leur attribue un agent parent et génère une carte
@@ -5160,6 +5247,11 @@ nouveaux réseaux à explorer.</p>
 <td>Apply autoconfiguration rules</td>
 <td>Applique les règles d'auto-approvisionnement aux agents créés (voir <a href="../../parte-6/6.6-mecanismos-de-autoprovision/">Mécanismes d'auto-approvisionnement</a>)</td>
 <td>Désactivé</td>
+</tr>
+<tr>
+<td>SNMP timeout (seconds)</td>
+<td>Délai d'attente de chaque requête SNMP de l'analyse. <code>0</code> utilise la valeur du serveur et la valeur du serveur agit comme plafond (voir <a href="#le-delai-dattente-snmp-de-lanalyse">Le délai d'attente SNMP de l'analyse</a>)</td>
+<td>4 s</td>
 </tr>
 <tr>
 <td>Événement et action d'alerte en cas d'échec</td>

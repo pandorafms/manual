@@ -5411,7 +5411,7 @@ anything, the template it is installed with already collects the basics.</p>
 </tr>
 <tr>
 <td>Usage of each disk (%)</td>
-<td><code>pandora_df_used</code> plugin</td>
+<td><code>pandora_df_used</code> plugin; on the Go EndPoint, the <code>df_used</code> template of the <code>pandora-plugin_exec</code> executor</td>
 <td><code>df_percent_used.vbs</code> plugin</td>
 </tr>
 <tr>
@@ -5421,7 +5421,7 @@ anything, the template it is installed with already collects the basics.</p>
 </tr>
 <tr>
 <td>Network traffic</td>
-<td><code>pandora_netusage</code> and <code>net_usage</code> plugins</td>
+<td><code>pandora_netusage</code> and <code>net_usage</code> plugins; on the Go EndPoint, the <code>pandora_netusage</code> template</td>
 <td><code>network.vbs</code> plugin</td>
 </tr>
 <tr>
@@ -5441,6 +5441,21 @@ anything, the template it is installed with already collects the basics.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">What the Go EndPoint leaves out of the factory template</p>
+<p>The Go EndPoint template, the one installed by default on Linux, creates no
+modules for the boot partitions (<code>/boot</code> and <code>/boot/efi</code>) or for the traffic
+of the loopback interface and the virtual ones (<code>lo</code>, <code>docker</code>, <code>br-*</code>,
+<code>veth</code>, <code>tailscale</code>, <code>incus</code>): on a freshly installed machine they say
+nothing about the state of the system. Each template takes its own filters,
+<code>exclude</code> for disks and <code>deny_regexp</code> for interfaces. The Perl EndPoint
+keeps its previous plugins.</p>
+<p>Known services follow the same idea: <code>autodiscover --default</code> ignores the
+units systemd lists with no unit file behind them (load state <code>not-found</code>),
+which would otherwise show a permanent <code>0</code> as if the service were down. An
+installed service that is stopped is still reported, because that red is the
+intended alert.</p>
+</div>
 <p>Even so, it is worth knowing how each thing is done by hand: to watch a
 specific disk, process or service, to adjust thresholds or to replace the
 template with one of your own. What follows describes the native modules of each
