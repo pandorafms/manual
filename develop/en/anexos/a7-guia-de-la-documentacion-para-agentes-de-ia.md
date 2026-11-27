@@ -39,6 +39,7 @@
 | Part 10. Database | `parte-10/` |
 | Part 11. Technical appendices | `anexos/` |
 | Part 12. Frequently asked questions (FAQ) | `parte-12/` |
+| Part 13. API v2 | `parte-13/` |
 
 ## Chapter map
 
@@ -150,6 +151,7 @@
 | 9.4 | Full Tentacle reference (server and client) | `parte-9/9.4-referencia-completa-de-tentacle.md` |
 | 9.5 | Database encryption | `parte-9/9.5-cifrado-de-la-base-de-datos.md` |
 | 9.6 | Cluster monitoring | `parte-9/9.6-monitorizacion-de-clusters.md` |
+| 9.7 | Creating discovery plugins | `parte-9/9.7-creacion-de-plugins-de-discovery.md` |
 
 ### Part 10. Database
 
@@ -185,6 +187,30 @@
 | 12.9 | Automation and plugins | `parte-12/12.9-automatizacion-y-plugins.md` |
 | 12.10 | Bulk operations | `parte-12/12.10-operaciones-masivas.md` |
 
+### Part 13. API v2
+
+| No. | Chapter | Path |
+| --- | --- | --- |
+| 13.1 | Getting started and authentication | `parte-13/13.1-primeros-pasos-y-autenticacion.md` |
+| 13.2 | API conventions: pagination, filters and errors | `parte-13/13.2-convenciones-de-la-api.md` |
+| 13.3 | Usage examples | `parte-13/13.3-ejemplos-de-uso.md` |
+| 13.4 | API v2 endpoint reference | `parte-13/13.4-referencia-de-endpoints/index.md` |
+| 13.4.1 | API v2 endpoints: Agents | `parte-13/13.4-referencia-de-endpoints/agents.md` |
+| 13.4.2 | API v2 endpoints: Modules | `parte-13/13.4-referencia-de-endpoints/modules.md` |
+| 13.4.3 | API v2 endpoints: Alerts | `parte-13/13.4-referencia-de-endpoints/alerts.md` |
+| 13.4.4 | API v2 endpoints: Events | `parte-13/13.4-referencia-de-endpoints/events.md` |
+| 13.4.5 | API v2 endpoints: Policies | `parte-13/13.4-referencia-de-endpoints/policies.md` |
+| 13.4.6 | API v2 endpoints: Collections | `parte-13/13.4-referencia-de-endpoints/collections.md` |
+| 13.4.7 | API v2 endpoints: Users and access | `parte-13/13.4-referencia-de-endpoints/users-and-access.md` |
+| 13.4.8 | API v2 endpoints: Dashboards and notifications | `parte-13/13.4-referencia-de-endpoints/dashboards-and-notifications.md` |
+| 13.4.9 | API v2 endpoints: Reports | `parte-13/13.4-referencia-de-endpoints/reports.md` |
+| 13.4.10 | API v2 endpoints: Services and scheduled downtimes | `parte-13/13.4-referencia-de-endpoints/services-and-downtimes.md` |
+| 13.4.11 | API v2 endpoints: Bulk operations and data | `parte-13/13.4-referencia-de-endpoints/bulk-operations-and-data.md` |
+| 13.4.12 | API v2 endpoints: Security | `parte-13/13.4-referencia-de-endpoints/security.md` |
+| 13.4.13 | API v2 endpoints: Pandora AI and ITSM | `parte-13/13.4-referencia-de-endpoints/ai-and-itsm.md` |
+| 13.4.14 | API v2 endpoints: Network Configuration Manager | `parte-13/13.4-referencia-de-endpoints/ncm.md` |
+| 13.4.15 | API v2 endpoints: RMM | `parte-13/13.4-referencia-de-endpoints/rmm.md` |
+
 ## If you look for X, go to Y
 
 | If you look for | Go to |
@@ -217,6 +243,10 @@
 | Frequently asked questions and common problems | [12.1 What is this FAQ](../parte-12/12.1-que-es-este-faq.md) |
 | Meaning of a term (including former names) | [A2 Glossary of terms](../anexos/a2-glosario-de-terminos.md) |
 | Move from LTS 777 to 800 | [A6 Upgrading from LTS 777 to 800](../anexos/a6-actualizacion-de-la-lts-777-a-la-800.md) |
+| Call the API v2 from a script or an agent | [13.1 Getting started and authentication](../parte-13/13.1-primeros-pasos-y-autenticacion.md) |
+| Paginate, filter and understand API v2 errors | [13.2 API conventions: pagination, filters and errors](../parte-13/13.2-convenciones-de-la-api.md) |
+| API v2 call examples | [13.3 Usage examples](../parte-13/13.3-ejemplos-de-uso.md) |
+| Look up an API v2 endpoint (parameters, fields and errors) | [13.4 API v2 endpoint reference](../parte-13/13.4-referencia-de-endpoints/index.md) |
 
 ## Conventions the agent must follow
 
@@ -226,6 +256,7 @@
 | Code identifiers | Never translated or renamed: tables, tokens, files and keys are quoted as they are |
 | Integrations (plugins) | Link to `https://pandorafms.com/docs/integrations/latest/<language>/`; do not cite the repository |
 | Screenshots | Console in English in all three editions |
+| API v2 of a console | The exact spec of its version is at `<console>/api/v2/swagger.json` and its Swagger UI at `<console>/api/documentation/`; the manual's reference is the one of the published version |
 | Answer language | The user's; open the edition in that language |
 
 | Canonical term |
@@ -282,7 +313,6 @@
 | 7.1 | Pandora security architecture |
 | 7.8 | Internal audit |
 | 7.9 | Dynamic IoC integrations (MISP) and custom rule creation |
-| 9.7 | Creating discovery plugins |
 | 9.8 | Creating local plugins |
 | 9.9 | Creating remote plugins |
 | 9.10 | Creating console extensions |
