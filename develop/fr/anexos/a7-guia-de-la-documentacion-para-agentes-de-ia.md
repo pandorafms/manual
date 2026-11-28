@@ -152,6 +152,8 @@
 | 9.5 | Chiffrement de la base de données | `parte-9/9.5-cifrado-de-la-base-de-datos.md` |
 | 9.6 | Supervision des clusters | `parte-9/9.6-monitorizacion-de-clusters.md` |
 | 9.7 | Création de plugins de discovery | `parte-9/9.7-creacion-de-plugins-de-discovery.md` |
+| 9.11 | Référence complète du CLI d'administration (pandora_manage) | `parte-9/9.11-referencia-completa-del-cli-de-administracion.md` |
+| 9.12 | Découverte automatique avancée : IPMI et tâches de reconnaissance personnalisées | `parte-9/9.12-descubrimiento-automatico-avanzado-ipmi-y-reconocimiento.md` |
 
 ### Partie 10. Base de données
 
@@ -210,6 +212,7 @@
 | 13.4.13 | API v2 endpoints: Pandora AI and ITSM | `parte-13/13.4-referencia-de-endpoints/ai-and-itsm.md` |
 | 13.4.14 | API v2 endpoints: Network Configuration Manager | `parte-13/13.4-referencia-de-endpoints/ncm.md` |
 | 13.4.15 | API v2 endpoints: RMM | `parte-13/13.4-referencia-de-endpoints/rmm.md` |
+| 13.5 | CLI de l'API v2 (pandora-cli) | `parte-13/13.5-cli-de-la-api-v2-pandora-cli.md` |
 
 ## Si vous cherchez X, allez à Y
 
@@ -316,6 +319,5 @@
 | 9.8 | Création de plugins locaux |
 | 9.9 | Création de plugins distants |
 | 9.10 | Création d'extensions de console |
-| 9.12 | Découverte automatique avancée (IPMI, etc.) |
 | 9.13 | Dépannage avec Pandora |
 | 9.14 | Analyse volumétrique et conceptions pour la haute capacité |
